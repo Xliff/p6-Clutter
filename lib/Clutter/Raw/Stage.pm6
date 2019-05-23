@@ -229,15 +229,3 @@ sub clutter_stage_skip_sync_delay (ClutterStage $stage)
   is native(clutter)
   is export
 { * }
-
-sub clutter_fog_get_type ()
-  returns GType
-  is native(clutter)
-  is export
-{ * }
-
-sub clutter_perspective_get_type ()
-  returns GType
-  is native(clutter)
-  is export
-{ * }
