@@ -12,6 +12,13 @@ class Clutter::Color {
     $!cc = $color;
   }
 
+  method Clutter::Raw::Types::ClutterColor
+    is also<ClutterColor>
+  { $!cc }
+
+  multi method new (ClutterColor $color) {
+    self.bless(:$color)
+  }
   method new {
     self.bless( color => clutter_color_alloc() );
   }
@@ -185,7 +192,9 @@ class Clutter::Color {
     Num() $hue        is rw,
     Num() $luminance  is rw,
     Num() $saturation is rw
-  ) is also<to-hls> {
+  )
+    is also<to-hls>
+  {
     my gdouble ($h, $l, $s) = ($hue, $luminance, $saturation);
     clutter_color_to_hls($c, $hue, $luminance, $saturation);
     ($hue, $luminance, $saturation) = ($h, $l, $s);

@@ -210,14 +210,14 @@ class Clutter::Actor {
 
   # Type: ClutterAction
   method actions is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Action.get_type );
     Proxy.new(
       FETCH => -> $ {
         warn "actions does not allow reading" if $DEBUG;
         0;
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterAction() $val is copy {
+        $gv.object = $val;
         self.prop_set('actions', $gv);
       }
     );
@@ -225,39 +225,39 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method allocation is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.actor_box_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('allocation', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterActorBox, $gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        warn "allocation does not allow writing"
+      STORE => -> $, $val is copy {
+        warn 'allocation does not allow writing'
       }
     );
   }
 
   # Type: ClutterGravity
-  method anchor-gravity is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  method anchor-gravity is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('anchor-gravity', $gv)
         );
-        #$gv.TYPE
+        ClutterGravity( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.guint = $val;
         self.prop_set('anchor-gravity', $gv);
       }
     );
   }
 
   # Type: gfloat
-  method anchor-x is rw  is DEPRECATED( “pivot-point” ) {
+  method anchor-x is rw  is DEPRECATED( 'pivot-point' ) {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
@@ -274,7 +274,7 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method anchor-y is rw  is DEPRECATED( “pivot-point” ) {
+  method anchor-y is rw  is DEPRECATED( 'pivot-point' ) {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
@@ -292,16 +292,16 @@ class Clutter::Actor {
 
   # Type: ClutterColor
   method background-color is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('background-color', $gv)
         );
-        #$gv.TYPE
+        Clutter::Color.new($gv.boxed)
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterColor() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('background-color', $gv);
       }
     );
@@ -325,16 +325,16 @@ class Clutter::Actor {
 
   # Type: ClutterMatrix
   method child-transform is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('child-transform', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterMatrix, $gv.pointer)
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterMatrix() $val is copy {
+        $gv.pointer = $val;
         self.prop_set('child-transform', $gv);
       }
     );
@@ -357,34 +357,34 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGeometry
-  method clip is rw  is DEPRECATED( “clip-rect” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('clip', $gv)
-        );
-        #$gv.TYPE
-      },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
-        self.prop_set('clip', $gv);
-      }
-    );
-  }
+  # method clip is rw  is DEPRECATED( “clip-rect” ) {
+  #   my GTK::Compat::Value $gv .= new( -type- );
+  #   Proxy.new(
+  #     FETCH => -> $ {
+  #       $gv = GTK::Compat::Value.new(
+  #         self.prop_get('clip', $gv)
+  #       );
+  #       #$gv.TYPE
+  #     },
+  #     STORE => -> $,  $val is copy {
+  #       #$gv.TYPE = $val;
+  #       self.prop_set('clip', $gv);
+  #     }
+  #   );
+  # }
 
   # Type: ClutterRect
   method clip-rect is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.rect_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('clip-rect', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterRect, $gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterRect $val is copy {
+        $gv.boxed = $val;
         self.prop_set('clip-rect', $gv);
       }
     );
@@ -409,15 +409,14 @@ class Clutter::Actor {
 
   # Type: ClutterConstraint
   method constraints is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Constraint.get_type );
     Proxy.new(
       FETCH => -> $ {
         warn "constraints does not allow reading" if $DEBUG;
-  0;
-
+        0;
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterConstraint() $val is copy {
+        $gv.object = $val;
         self.prop_set('constraints', $gv);
       }
     );
@@ -425,16 +424,16 @@ class Clutter::Actor {
 
   # Type: ClutterContent
   method content is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Content.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('content', $gv)
         );
-        #$gv.TYPE
+        Clutter::Content.new( cast(ClutterContent, $gv.pointer) );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterContent() $val is copy {
+        $gv.pointer = $val;
         self.prop_set('content', $gv);
       }
     );
@@ -442,32 +441,32 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method content-box is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.actor_box_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('content-box', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterActorBox, $gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        warn "content-box does not allow writing"
+      STORE => -> $, $val is copy {
+        warn 'content-box does not allow writing'
       }
     );
   }
 
   # Type: ClutterContentGravity
   method content-gravity is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.content_gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('content-gravity', $gv)
         );
-        #$gv.TYPE
+        ClutterContentGravity( $gv.enum )
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('content-gravity', $gv);
       }
     );
@@ -475,16 +474,16 @@ class Clutter::Actor {
 
   # Type: ClutterContentRepeat
   method content-repeat is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.content_repeat_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('content-repeat', $gv)
         );
-        #$gv.TYPE
+        ClutterContentRepeatType( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('content-repeat', $gv);
       }
     );
@@ -509,15 +508,14 @@ class Clutter::Actor {
 
   # Type: ClutterEffect
   method effect is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Effect.get_type );
     Proxy.new(
       FETCH => -> $ {
-        warn "effect does not allow reading" if $DEBUG;
-  0;
-
+        warn 'effect does not allow reading' if $DEBUG;
+        0;
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterEffect() $val is copy {
+        $gv.object = $val;
         self.prop_set('effect', $gv);
       }
     );
@@ -525,16 +523,16 @@ class Clutter::Actor {
 
   # Type: ClutterActor
   method first-child is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Actor.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('first-child', $gv)
         );
-        #$gv.TYPE
+        Clutter::Actor.new( $gv.object )
       },
-      STORE => -> $,  $val is copy {
-        warn "first-child does not allow writing"
+      STORE => -> $, $val is copy {
+        warn 'first-child does not allow writing'
       }
     );
   }
@@ -641,32 +639,32 @@ class Clutter::Actor {
 
   # Type: ClutterActor
   method last-child is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Actor.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('last-child', $gv)
         );
-        #$gv.TYPE
+        Clutter::Actor.new( $gv.object );
       },
       STORE => -> $,  $val is copy {
-        warn "last-child does not allow writing"
+        warn 'last-child does not allow writing'
       }
     );
   }
 
   # Type: ClutterLayoutManager
   method layout-manager is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::LayoutManager.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('layout-manager', $gv)
         );
-        #$gv.TYPE
+        Clutter::LayoutManager( $gv.object );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterLayoutManager() $val is copy {
+        $gv.object = $val;
         self.prop_set('layout-manager', $gv);
       }
     );
@@ -674,16 +672,16 @@ class Clutter::Actor {
 
   # Type: ClutterScalingFilter
   method magnification-filter is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('magnification-filter', $gv)
         );
-        #$gv.TYPE
+        CluttrerScalingFilter( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('magnification-filter', $gv);
       }
     );
@@ -843,16 +841,16 @@ class Clutter::Actor {
 
   # Type: ClutterScalingFilter
   method minification-filter is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('minification-filter', $gv)
         );
-        #$gv.TYPE
+        ClutterScalingFilter( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('minification-filter', $gv);
       }
     );
@@ -945,16 +943,16 @@ class Clutter::Actor {
 
   # Type: ClutterOffscreenRedirect
   method offscreen-redirect is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.offscreen_redirect_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('offscreen-redirect', $gv)
         );
-        #$gv.TYPE
+        ClutterOffscreenRedirect( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, guint $val is copy {
+        $gv.uint = $val;
         self.prop_set('offscreen-redirect', $gv);
       }
     );
@@ -979,16 +977,16 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method pivot-point is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.point_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('pivot-point', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterPoint, $gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterPoint $val is copy {
+        $gv.boxed = $val;
         self.prop_set('pivot-point', $gv);
       }
     );
@@ -1013,16 +1011,16 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method position is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.point_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('position', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterPoint, $gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterPoint $val is copy {
+        $gv.boxed = $val;
         self.prop_set('position', $gv);
       }
     );
@@ -1057,21 +1055,6 @@ class Clutter::Actor {
       },
       STORE => -> $, Int() $val is copy {
         warn "realized does not allow writing"
-      }
-    );
-  }
-
-  # Type:
-  method request-mode is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        warn "request-mode does not allow reading" if $DEBUG;
-  0;
-
-      },
-      STORE => -> $,  $val is copy {
-        warn "request-mode does not allow writing"
       }
     );
   }
@@ -1127,76 +1110,76 @@ class Clutter::Actor {
     );
   }
 
-  # Type: ClutterVertex
-  method rotation-center-x is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  Type: ClutterVertex
+  method rotation-center-x is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('rotation-center-x', $gv)
         );
-        #$gv.TYPE
+        Clutter::Vertex.new($gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterVerted() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('rotation-center-x', $gv);
       }
     );
   }
 
   # Type: ClutterVertex
-  method rotation-center-y is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  method rotation-center-y is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('rotation-center-y', $gv)
         );
-        #$gv.TYPE
+        Clutter::Vertex.new($gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterVertex() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('rotation-center-y', $gv);
       }
     );
   }
 
   # Type: ClutterVertex
-  method rotation-center-z is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  method rotation-center-z is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('rotation-center-z', $gv)
         );
-        #$gv.TYPE
+        Clutter::Vertex.new($gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterVertex() $val is copy {
+        $gv.boxed = $val
         self.prop_set('rotation-center-z', $gv);
       }
     );
   }
 
   # Type: ClutterGravity
-  method rotation-center-z-gravity is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  method rotation-center-z-gravity is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('rotation-center-z-gravity', $gv)
         );
-        #$gv.TYPE
+        ClutterGravity( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('rotation-center-z-gravity', $gv);
       }
     );
   }
 
   # Type: gfloat
-  method scale-center-x is rw  is DEPRECATED( “pivot-point” ) {
+  method scale-center-x is rw  is DEPRECATED( 'pivot-point' ) {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
@@ -1213,7 +1196,7 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method scale-center-y is rw  is DEPRECATED( “pivot-point” ) {
+  method scale-center-y is rw  is DEPRECATED( 'pivot-point' ) {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
@@ -1230,17 +1213,17 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGravity
-  method scale-gravity is rw  is DEPRECATED( “pivot-point” ) {
-    my GTK::Compat::Value $gv .= new( -type- );
+  method scale-gravity is rw  is DEPRECATED( 'pivot-point' ) {
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('scale-gravity', $gv)
         );
-        #$gv.TYPE
+        ClutterGravity( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('scale-gravity', $gv);
       }
     );
@@ -1316,16 +1299,16 @@ class Clutter::Actor {
 
   # Type: ClutterSize
   method size is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Size.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('size', $gv)
         );
-        #$gv.TYPE
+        Clutter::Size.new($gv.boxed);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterSize() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('size', $gv);
       }
     );
@@ -1333,16 +1316,16 @@ class Clutter::Actor {
 
   # Type: ClutterTextDirection
   method text-direction is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.text_direction_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('text-direction', $gv)
         );
-        #$gv.TYPE
+        ClutterTextDirection( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('text-direction', $gv);
       }
     );
@@ -1350,16 +1333,16 @@ class Clutter::Actor {
 
   # Type: ClutterMatrix
   method transform is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('transform', $gv)
         );
-        #$gv.TYPE
+        cast(ClutterMatrix, $gv.pointer);
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterMatrix() $val is copy {
+        $gv.pointer = $val;
         self.prop_set('transform', $gv);
       }
     );
@@ -1485,16 +1468,16 @@ class Clutter::Actor {
 
   # Type: ClutterActorAlign
   method x-align is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.actor_align_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('x-align', $gv)
         );
-        #$gv.TYPE
+        ClutterActorAlign( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('x-align', $gv);
       }
     );
@@ -1536,16 +1519,16 @@ class Clutter::Actor {
 
   # Type: ClutterActorAlign
   method y-align is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.actor_align_get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('y-align', $gv)
         );
-        #$gv.TYPE
+        ClutterActorAlign( $gv.enum );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('y-align', $gv);
       }
     );
