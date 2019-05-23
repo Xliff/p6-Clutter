@@ -183,10 +183,10 @@ sub clutter_actor_get_children (ClutterActor $self)
 
 sub clutter_actor_get_clip (
   ClutterActor $self,
-  gfloat $xoff,
-  gfloat $yoff,
-  gfloat $width,
-  gfloat $height
+  gfloat $xoff   is rw,
+  gfloat $yoff   is rw,
+  gfloat $width  is rw,
+  gfloat $height is rw
 )
   is native(clutter)
   is export
@@ -393,8 +393,8 @@ sub clutter_actor_get_parent (ClutterActor $self)
 
 sub clutter_actor_get_pivot_point (
   ClutterActor $self,
-  gfloat $pivot_x,
-  gfloat $pivot_y
+  gfloat $pivot_x is rw,
+  gfloat $pivot_y is rw
 )
   is native(clutter)
   is export
@@ -408,8 +408,8 @@ sub clutter_actor_get_pivot_point_z (ClutterActor $self)
 
 sub clutter_actor_get_position (
   ClutterActor $self,
-  gfloat $x,
-  gfloat $y
+  gfloat $x is rw,
+  gfloat $y is rw
 )
   is native(clutter)
   is export
@@ -418,8 +418,8 @@ sub clutter_actor_get_position (
 sub clutter_actor_get_preferred_height (
   ClutterActor $self,
   gfloat $for_width,
-  gfloat $min_height_p,
-  gfloat $natural_height_p
+  gfloat $min_height_p     is rw,
+  gfloat $natural_height_p is rw
 )
   is native(clutter)
   is export
@@ -427,10 +427,10 @@ sub clutter_actor_get_preferred_height (
 
 sub clutter_actor_get_preferred_size (
   ClutterActor $self,
-  gfloat $min_width_p,
-  gfloat $min_height_p,
-  gfloat $natural_width_p,
-  gfloat $natural_height_p
+  gfloat $min_width_p      is rw,
+  gfloat $min_height_p     is rw,
+  gfloat $natural_width_p  is rw,
+  gfloat $natural_height_p is rw
 )
   is native(clutter)
   is export
@@ -439,8 +439,8 @@ sub clutter_actor_get_preferred_size (
 sub clutter_actor_get_preferred_width (
   ClutterActor $self,
   gfloat $for_height,
-  gfloat $min_width_p,
-  gfloat $natural_width_p
+  gfloat $min_width_p     is rw,
+  gfloat $natural_width_p is rw
 )
   is native(clutter)
   is export
@@ -475,8 +475,8 @@ sub clutter_actor_get_rotation_angle (
 
 sub clutter_actor_get_scale (
   ClutterActor $self,
-  gdouble $scale_x,
-  gdouble $scale_y
+  gdouble $scale_x is rw,
+  gdouble $scale_y is rw
 )
   is native(clutter)
   is export
@@ -488,7 +488,11 @@ sub clutter_actor_get_scale_z (ClutterActor $self)
   is export
   { * }
 
-sub clutter_actor_get_size (ClutterActor $self, gfloat $width, gfloat $height)
+sub clutter_actor_get_size (
+  ClutterActor $self, 
+  gfloat $width  is rw, 
+  gfloat $height is rw
+)
   is native(clutter)
   is export
   { * }
@@ -524,8 +528,8 @@ sub clutter_actor_get_transformed_paint_volume (
 
 sub clutter_actor_get_transformed_position (
   ClutterActor $self,
-  gfloat $x,
-  gfloat $y
+  gfloat $x is rw,
+  gfloat $y is rw
 )
   is native(clutter)
   is export
@@ -533,8 +537,8 @@ sub clutter_actor_get_transformed_position (
 
 sub clutter_actor_get_transformed_size (
   ClutterActor $self,
-  gfloat $width,
-  gfloat $height
+  gfloat $width  is rw,
+  gfloat $height is rw
 )
   is native(clutter)
   is export
@@ -548,9 +552,9 @@ sub clutter_actor_get_transition (ClutterActor $self, Str $name)
 
 sub clutter_actor_get_translation (
   ClutterActor $self,
-  gfloat $translate_x,
-  gfloat $translate_y,
-  gfloat $translate_z
+  gfloat $translate_x is rw,
+  gfloat $translate_y is rw,
+  gfloat $translate_z is rw
 )
   is native(clutter)
   is export

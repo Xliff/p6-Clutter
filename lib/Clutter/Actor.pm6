@@ -1120,7 +1120,7 @@ class Clutter::Actor {
         );
         Clutter::Vertex.new($gv.boxed);
       },
-      STORE => -> $, ClutterVerted() $val is copy {
+      STORE => -> $, ClutterVertex() $val is copy {
         $gv.boxed = $val;
         self.prop_set('rotation-center-x', $gv);
       }
@@ -1572,66 +1572,65 @@ class Clutter::Actor {
     clutter_actor_add_child($!a, $child);
   }
 
-  method add_transition (Str() $name, ClutterTransition $transition)
+  method add_transition (Str() $name, ClutterTransition() $transition)
     is also<add-transition>
   {
     clutter_actor_add_transition($!a, $name, $transition);
   }
 
-  method allocate (ClutterActorBox() $box, ClutterAllocationFlags $flags) {
-    clutter_actor_allocate($!a, $box, $flags);
+  method allocate (
+    ClutterActorBox() $box,
+    Int() $flags # ClutterAllocationFlags $flags
+  ) {
+    my guint $f = resolve-uint($flags);
+    clutter_actor_allocate($!a, $box, $f);
   }
 
   method allocate_align_fill (
     ClutterActorBox() $box,
-    gdouble $x_align,
-    gdouble $y_align,
-    gboolean $x_fill,
-    gboolean $y_fill,
-    ClutterAllocationFlags $flags
+    Num() $x_align,
+    Num() $y_align,
+    Int() $x_fill,
+    Int() $y_fill,
+    Int() $flags # ClutterAllocationFlags $flags
   )
     is also<allocate-align-fill>
   {
-    clutter_actor_allocate_align_fill(
-      $!a,
-      $box,
-      $x_align,
-      $y_align,
-      $x_fill,
-      $y_fill,
-      $flags)
+    my gdouble ($xa, $ya) = ($x_align, $y_align);
+    my gboolean ($xf, $yf) = resolve-bool($x_fill, $y_fill);
+    my guint $f = resolve-uint($flags);
+    clutter_actor_allocate_align_fill($!a, $box, $xa, $ya, $xf, $yf, $f);
     ;
   }
 
   method allocate_available_size (
-    gfloat $x,
-    gfloat $y,
-    gfloat $available_width,
-    gfloat $available_height,
-    ClutterAllocationFlags $flags
+    Num() $x,
+    Num() $y,
+    Num() $available_width,
+    Num() $available_height,
+    Int() $flags # ClutterAllocationFlags $flags
   )
     is also<allocate-available-size>
   {
-    clutter_actor_allocate_available_size(
-      $!a,
-      $x,
-      $y,
-      $available_width,
-      $available_height,
-      $flags
-    );
+    my gfloat ($xx, $yy, $aw, $ah)
+      = ($x, $y, $available_width, $available_height);
+    my guint $f = resolve-uint($flags);
+    clutter_actor_allocate_available_size($!a, $xx, $yy, $aw, $ah, $f);
   }
 
-  method allocate_preferred_size (ClutterAllocationFlags $flags)
+  method allocate_preferred_size (
+    Int() $flags # ClutterAllocationFlags $flags
+  )
     is also<allocate-preferred-size>
   {
-    clutter_actor_allocate_preferred_size($!a, $flags);
+    my guint $f = resolve-uint($flags);
+    clutter_actor_allocate_preferred_size($!a, $f);
   }
 
   method apply_relative_transform_to_point (
     ClutterActor() $ancestor,
-    ClutterVertex $point,
-    ClutterVertex $vertex
+    ClutterVertex() $point,
+    ClutterVertex() $vertex
   )
     is also<apply-relative-transform-to-point>
   {
@@ -1644,8 +1643,8 @@ class Clutter::Actor {
   }
 
   method apply_transform_to_point (
-    ClutterVertex $point,
-    ClutterVertex $vertex
+    ClutterVertex() $point,
+    ClutterVertex() $vertex
   )
     is also<apply-transform-to-point>
   {
@@ -1693,7 +1692,8 @@ class Clutter::Actor {
     clutter_actor_destroy_all_children($!a);
   }
 
-  method event (ClutterEvent $event, gboolean $capture) {
+  method event (ClutterEvent() $event, Int() $capture) {
+    my gboolean $c = resolve-bool($capture);
     clutter_actor_event($!a, $event, $capture);
   }
 
@@ -1713,7 +1713,8 @@ class Clutter::Actor {
     clutter_actor_get_background_color($!a, $color);
   }
 
-  method get_child_at_index (gint $index_) is also<get-child-at-index> {
+  method get_child_at_index (Int() $index) is also<get-child-at-index> {
+    my gint $i = resolve-int($index);
     clutter_actor_get_child_at_index($!a, $index_);
   }
 
@@ -1732,16 +1733,21 @@ class Clutter::Actor {
     clutter_actor_get_children($!a);
   }
 
+  multi method get_clip {
+    my ($xo, $yo, $w, $h) = 0 xx 4;
+    samewith($xo, $yo, $w, $h);
+  }
   method get_clip (
-    Num() $xoff,
-    Num() $yoff,
-    Num() $width,
-    Num() $height
+    Num() $xoff   is rw,
+    Num() $yoff   is rw,
+    Num() $width  is rw,
+    Num() $height is rw
   )
     is also<get-clip>
   {
     my num32 ($xo, $yo, $w, $h) = ($xoff, $yoff, $width, $height);
     clutter_actor_get_clip($!a, $xo, $yo, $w, $h);
+    ($xoff, $yoff, $width, $height) = ($xo, $yo, $w, $h);
   }
 
   method get_clip_to_allocation
@@ -1900,7 +1906,7 @@ class Clutter::Actor {
     clutter_actor_get_layout_manager($!a);
   }
 
-  method get_margin (ClutterMargin $margin) is also<get-margin> {
+  method get_margin (ClutterMargin() $margin) is also<get-margin> {
     clutter_actor_get_margin($!a, $margin);
   }
 
@@ -2056,13 +2062,19 @@ class Clutter::Actor {
     clutter_actor_get_parent($!a);
   }
 
-  method get_pivot_point (
-    gfloat $pivot_x,
-    gfloat $pivot_y
+  multi method get_pivot_point {
+    my ($px, $py) = 0 xx 2;
+    samewith($px, $py);
+  }
+  multi method get_pivot_point (
+    Num() $pivot_x is rw,
+    Num() $pivot_y is rw
   )
     is also<get-pivot-point>
   {
-    clutter_actor_get_pivot_point($!a, $pivot_x, $pivot_y);
+    my gfloat ($px, $py) = ($pivot_x, $pivot_y);
+    clutter_actor_get_pivot_point($!a, $px, $py);
+    ($pivot_x, $pivot_y) = ($px, $py);
   }
 
   method get_pivot_point_z
@@ -2075,55 +2087,54 @@ class Clutter::Actor {
     clutter_actor_get_pivot_point_z($!a);
   }
 
-  method get_position (gfloat $x, gfloat $y) is also<get-position> {
-    clutter_actor_get_position($!a, $x, $y);
+  multi method get_position {
+    my ($x, $y) = 0 xx 2;
+    samewith($x, $y);
+  }
+  method get_position (
+    Num() $x is rw,
+    Num() $y is rw
+  )
+    is also<get-position>
+  {
+    my gfloat ($xx, $yy) = ($x, $y);
+    clutter_actor_get_position($!a, $yx, $yy);
+    ($x, $y) = ($xx, $yy);
   }
 
   method get_preferred_height (
-    gfloat $for_width,
-    gfloat $min_height_p,
-    gfloat $natural_height_p
+    Num() $for_width,
+    Num() $min_height_p,
+    Num() $natural_height_p
   )
     is also<get-preferred-height>
   {
-    clutter_actor_get_preferred_height(
-      $!a,
-      $for_width,
-      $min_height_p,
-      $natural_height_p
-    );
+    my gfloat ($fw, $mh, $nh) = ($for_width, $min_height_p, $natural_height_p);
+    clutter_actor_get_preferred_height($!a, $fw, $mh, $nh);
   }
 
   method get_preferred_size (
-    gfloat $min_width_p,
-    gfloat $min_height_p,
-    gfloat $natural_width_p,
-    gfloat $natural_height_p
+    Num() $min_width_p,
+    Num() $min_height_p,
+    Num() $natural_width_p,
+    Num() $natural_height_p
   )
     is also<get-preferred-size>
   {
-    clutter_actor_get_preferred_size(
-      $!a,
-      $min_width_p,
-      $min_height_p,
-      $natural_width_p,
-      $natural_height_p
-    );
+    my gfloat ($mw, $mh, $nw, $nh) =
+      ($min_width_p, $min_height_p, $natural_width_p, $natural_height_p)
+    clutter_actor_get_preferred_size($!a, $mw, $mh, $nw, $nh);
   }
 
   method get_preferred_width (
-    gfloat $for_height,
-    gfloat $min_width_p,
-    gfloat $natural_width_p
+    Num() $for_height,
+    Num() $min_width_p,
+    Num() $natural_width_p
   )
     is also<get-preferred-width>
   {
-    clutter_actor_get_preferred_width(
-      $!a,
-      $for_height,
-      $min_width_p,
-      $natural_width_p
-    );
+    my ($fh, $mw, $nw) = ($for_height, $min_width_p, $natural_width_p);
+    clutter_actor_get_preferred_width($!a, $fh, $mw, $nw);
   }
 
   method get_previous_sibling
@@ -2155,19 +2166,28 @@ class Clutter::Actor {
     clutter_actor_get_request_mode($!a);
   }
 
-  method get_rotation_angle (ClutterRotateAxis $axis)
+  method get_rotation_angle (
+    Int() $axis # ClutterRotateAxis $axis
+  )
     is also<get-rotation-angle>
   {
+    my guint $a = resolve-uint($axis);
     clutter_actor_get_rotation_angle($!a, $axis);
   }
 
-  method get_scale (
-    gdouble $scale_x,
-    gdouble $scale_y
+  multi method get_scale {
+    my ($sx, $sy) = 0 xx 2;
+    samewith($sx, $sy);
+  }
+  multi method get_scale (
+    Num() $scale_x is rw,
+    Num() $scale_y is rw
   )
     is also<get-scale>
   {
-    clutter_actor_get_scale($!a, $scale_x, $scale_y);
+    my gdouble ($sx, $sy) = ($scale_x, $scale_y);
+    clutter_actor_get_scale($!a, $sx, $sy);
+    ($scale_x, $scale_y) = ($sx, $sy);
   }
 
   method get_scale_z
@@ -2180,8 +2200,19 @@ class Clutter::Actor {
     clutter_actor_get_scale_z($!a);
   }
 
-  method get_size (gfloat $width, gfloat $height) is also<get-size> {
-    clutter_actor_get_size($!a, $width, $height);
+  multi method get_size {
+    my ($w, $h) = 0 xx 2;
+    samewith($w, $h);
+  }
+  multi method get_size (
+    Num() $width  is rw,
+    Num() $height is rw
+  )
+    is also<get-size>
+  {
+    my gfloat ($w, $h) = ($width, $height);
+    clutter_actor_get_size($!a, $w, $h);
+    ($width, $height) = ($w, $h);
   }
 
   method get_stage
@@ -2215,39 +2246,59 @@ class Clutter::Actor {
     clutter_actor_get_transformed_paint_volume($!a, $relative_to_ancestor);
   }
 
-  method get_transformed_position (gfloat $x, gfloat $y)
+  multi method get_transformed_position {
+    my ($x, $y) = 0 xx 2;
+    samewith($x, $y);
+  }
+  multi method get_transformed_position (
+    Num() $x is rw,
+    Num() $y is rw
+  )
     is also<get-transformed-position>
   {
-    clutter_actor_get_transformed_position($!a, $x, $y);
+    my gfloat ($xx, $yy) = ($x, $y);
+    clutter_actor_get_transformed_position($!a, $xx, $yy);
+    ($x, $y) = ($xx, $tyy);
   }
 
-  method get_transformed_size (gfloat $width, gfloat $height)
+  multi method get_transformed_size {
+    my ($w, $h) = 0 xx 2;
+    samewith($w, $h);
+  }
+  multi method get_transformed_size (
+    Num() $width,
+    Num() $height
+  )
     is also<get-transformed-size>
   {
-    clutter_actor_get_transformed_size($!a, $width, $height);
+    my gfloat ($w, $h) = ($width, $height);
+    clutter_actor_get_transformed_size($!a, $w, $h);
+    ($width, $height) = ($w, $h);
   }
 
   method get_transition (Str() $name) is also<get-transition> {
-    clutter_actor_get_transition($!a, $name);
+    Clutter::Transition.new( clutter_actor_get_transition($!a, $name) );
   }
 
-  method get_translation (
-    gfloat $translate_x,
-    gfloat $translate_y,
-    gfloat $translate_z
+  multi method get_translation {
+    my ($x, $y, $z) = 0 xx 3;
+    samewith($x, $y, $z);
+  }
+  multi method get_translation (
+    Num() $translate_x is rw,
+    Num() $translate_y is rw,
+    Num() $translate_z is rw
   )
     is also<get-translation>
   {
-    clutter_actor_get_translation(
-      $!a,
-      $translate_x,
-      $translate_y,
-      $translate_z
-    );
+    my gfloat ($tx, $ty, $tz) = ($translate_x, $translate_y, $translate_z);
+    clutter_actor_get_translation($!a, $tx, $ty, $tz);
+    ($translate_x, $translate_y, $translate_z) = ($tx, $ty, $tz);
   }
 
   method get_type is also<get-type> {
-    clutter_actor_get_type();
+    state ($n, $t)
+    unstable_get_type( self.^name, &clutter_actor_get_type, $n, $t );
   }
 
   method get_width
@@ -2365,10 +2416,11 @@ class Clutter::Actor {
     clutter_actor_insert_child_above($!a, $child, $sibling);
   }
 
-  method insert_child_at_index (ClutterActor() $child, gint $index)
+  method insert_child_at_index (ClutterActor() $child, Int() $index)
     is also<insert-child-at-index>
   {
-    clutter_actor_insert_child_at_index($!a, $child, $index);
+    my gint $i = resolve-int($index);
+    clutter_actor_insert_child_at_index($!a, $child, $i);
   }
 
   method insert_child_below (ClutterActor() $child, ClutterActor() $sibling)
@@ -2429,12 +2481,14 @@ class Clutter::Actor {
     clutter_actor_map($!a);
   }
 
-  method move_by (gfloat $dx, gfloat $dy) is also<move-by> {
-    clutter_actor_move_by($!a, $dx, $dy);
+  method move_by (Num() $dx, Num() $dy) is also<move-by> {
+    my gfloat ($ddx, $ddy) = ($dx, $dy);
+    clutter_actor_move_by($!a, $ddx, $ddy);
   }
 
-  method needs_expand (ClutterOrientation $orientation) is also<needs-expand> {
-    clutter_actor_needs_expand($!a, $orientation);
+  method needs_expand (Int() $orientation) is also<needs-expand> {
+    my guint $o = resolve-uint($orientation);
+    clutter_actor_needs_expand($!a, $o);
   }
 
   method paint {
@@ -2496,8 +2550,14 @@ class Clutter::Actor {
     clutter_actor_save_easing_state($!a);
   }
 
-  method set_allocation (ClutterActorBox() $box, ClutterAllocationFlags $flags) is also<set-allocation> {
-    clutter_actor_set_allocation($!a, $box, $flags);
+  method set_allocation (
+    ClutterActorBox() $box,
+    Int() $flags # ClutterAllocationFlags $flags
+  )
+    is also<set-allocation>
+  {
+    my guint $f = resolve-uint($flags);
+    clutter_actor_set_allocation($!a, $box, $f);
   }
 
   method set_background_color (ClutterColor() $color)
@@ -2515,10 +2575,11 @@ class Clutter::Actor {
     clutter_actor_set_child_above_sibling($!a, $child, $sibling);
   }
 
-  method set_child_at_index (ClutterActor() $child, gint $index)
+  method set_child_at_index (ClutterActor() $child, Int() $index)
     is also<set-child-at-index>
   {
-    clutter_actor_set_child_at_index($!a, $child, $index);
+    my gint $i = resolve-int($index);
+    clutter_actor_set_child_at_index($!a, $child, $i);
   }
 
   method set_child_below_sibling (
@@ -2537,36 +2598,44 @@ class Clutter::Actor {
   }
 
   method set_clip (
-    gfloat $xoff,
-    gfloat $yoff,
-    gfloat $width,
-    gfloat $height
+    Num() $xoff,
+    Num() $yoff,
+    Num() $width,
+    Num() $height
   )
     is also<set-clip>
   {
-    clutter_actor_set_clip($!a, $xoff, $yoff, $width, $height);
+    my gfloat ($xo, $yo, $w, $h) = ($xoff, $yoff, $width, $height);
+    clutter_actor_set_clip($!a, $xo, $yo, $w, $h);
   }
 
-  method set_clip_to_allocation (gboolean $clip_set)
+  method set_clip_to_allocation (Int() $clip_set)
     is also<set-clip-to-allocation>
   {
+    my gboolean $c = resolve-bool($clip_set);
     clutter_actor_set_clip_to_allocation($!a, $clip_set);
   }
 
-  method set_content (ClutterContent $content) is also<set-content> {
+  method set_content (ClutterContent() $content) is also<set-content> {
     clutter_actor_set_content($!a, $content);
   }
 
-  method set_content_gravity (ClutterContentGravity $gravity)
+  method set_content_gravity (
+    Int() $gravity # ClutterContentGravity $gravity
+  )
     is also<set-content-gravity>
   {
-    clutter_actor_set_content_gravity($!a, $gravity);
+    my guint $g = resolve-uint($gravity);
+    clutter_actor_set_content_gravity($!a, $g);
   }
 
-  method set_content_repeat (ClutterContentRepeat $repeat)
+  method set_content_repeat (
+    Int() $repeat # ClutterContentRepeat $repeat
+  )
     is also<set-content-repeat>
   {
-    clutter_actor_set_content_repeat($!a, $repeat);
+    my guint $r = resolve-uint($repeat);
+    clutter_actor_set_content_repeat($!a, $r);
   }
 
   method set_content_scaling_filters (
@@ -2578,35 +2647,47 @@ class Clutter::Actor {
     clutter_actor_set_content_scaling_filters($!a, $min_filter, $mag_filter);
   }
 
-  method set_easing_delay (guint $msecs) is also<set-easing-delay> {
-    clutter_actor_set_easing_delay($!a, $msecs);
+  method set_easing_delay (Int() $msecs) is also<set-easing-delay> {
+    my guint $ms = resolve-uint($msecs);
+    clutter_actor_set_easing_delay($!a, $ms);
   }
 
   method set_easing_duration (guint $msecs) is also<set-easing-duration> {
-    clutter_actor_set_easing_duration($!a, $msecs);
+    my guint $ms = resolve-uint($msecs);
+    clutter_actor_set_easing_duration($!a, $ms);
   }
 
-  method set_easing_mode (ClutterAnimationMode $mode)
+  method set_easing_mode (
+    Int() $mode # ClutterAnimationMode $mode
+  )
     is also<set-easing-mode>
   {
-    clutter_actor_set_easing_mode($!a, $mode);
+    my guint $m = resolve-uint($mode);
+    clutter_actor_set_easing_mode($!a, $m);
   }
 
-  method set_fixed_position_set (gboolean $is_set)
+  method set_fixed_position_set (Int() $is_set)
     is also<set-fixed-position-set>
   {
-    clutter_actor_set_fixed_position_set($!a, $is_set);
+    my gboolean $is = resolve-bool($is_set);
+    clutter_actor_set_fixed_position_set($!a, $is);
   }
 
-  method set_flags (ClutterActorFlags $flags) is also<set-flags> {
-    clutter_actor_set_flags($!a, $flags);
+  method set_flags (
+    Int() $flags # ClutterActorFlags $flags
+  )
+    is also<set-flags>
+  {
+    my guint $f = resolve-uint($flags);
+    clutter_actor_set_flags($!a, $f);
   }
 
-  method set_height (gfloat $height) is also<set-height> {
-    clutter_actor_set_height($!a, $height);
+  method set_height (Num() $height) is also<set-height> {
+    my gfloat $h = $height
+    clutter_actor_set_height($!a, $h);
   }
 
-  method set_layout_manager (ClutterLayoutManager $manager)
+  method set_layout_manager (ClutterLayoutManager() $manager)
     is also<set-layout-manager>
   {
     clutter_actor_set_layout_manager($!a, $manager);
@@ -2616,86 +2697,113 @@ class Clutter::Actor {
     clutter_actor_set_margin($!a, $margin);
   }
 
-  method set_margin_bottom (gfloat $margin) is also<set-margin-bottom> {
+  method set_margin_bottom (Num() $margin) is also<set-margin-bottom> {
     clutter_actor_set_margin_bottom($!a, $margin);
+    my gfloat $m = $margin;
   }
 
-  method set_margin_left (gfloat $margin) is also<set-margin-left> {
+  method set_margin_left (Num() $margin) is also<set-margin-left> {
+    my gfloat $m = $margin;
     clutter_actor_set_margin_left($!a, $margin);
   }
 
-  method set_margin_right (gfloat $margin) is also<set-margin-right> {
-    clutter_actor_set_margin_right($!a, $margin);
+  method set_margin_right (Num() $margin) is also<set-margin-right> {
+    my gfloat $m = $margin;
+    clutter_actor_set_margin_right($!a, $m);
   }
 
-  method set_margin_top (gfloat $margin) is also<set-margin-top> {
-    clutter_actor_set_margin_top($!a, $margin);
+  method set_margin_top (Num() $margin) is also<set-margin-top> {
+    my gfloat $m = $margin;
+    clutter_actor_set_margin_top($!a, $m);
   }
 
   method set_name (Str() $name) is also<set-name> {
     clutter_actor_set_name($!a, $name);
   }
 
-  method set_offscreen_redirect (ClutterOffscreenRedirect $redirect)
+  method set_offscreen_redirect (
+    Int() $redirect # ClutterOffscreenRedirect $redirect
+  )
     is also<set-offscreen-redirect>
   {
-    clutter_actor_set_offscreen_redirect($!a, $redirect);
+    my guint $r = resolve-int($redirect);
+    clutter_actor_set_offscreen_redirect($!a, $r);
   }
 
-  method set_opacity (guint8 $opacity) is also<set-opacity> {
+  method set_opacity (Int() $opacity) is also<set-opacity> {
+    my guint8 $o = resolve-uint8($opacity);
     clutter_actor_set_opacity($!a, $opacity);
   }
 
-  method set_opacity_override (gint $opacity) is also<set-opacity-override> {
-    clutter_actor_set_opacity_override($!a, $opacity);
+  method set_opacity_override (Int() $opacity) is also<set-opacity-override> {
+    my gint $o = resolve-ing($opacity);
+    clutter_actor_set_opacity_override($!a, $o);
   }
 
-  method set_pivot_point (gfloat $pivot_x, gfloat $pivot_y)
+  method set_pivot_point (Num() $pivot_x, Num() $pivot_y)
     is also<set-pivot-point>
   {
+    my gfloat ($px, $py) = ($pivot_x, $pivot_y);
     clutter_actor_set_pivot_point($!a, $pivot_x, $pivot_y);
   }
 
-  method set_pivot_point_z (gfloat $pivot_z) is also<set-pivot-point-z> {
-    clutter_actor_set_pivot_point_z($!a, $pivot_z);
+  method set_pivot_point_z (Num() $pivot_z) is also<set-pivot-point-z> {
+    my gfloat $pz = $pivot_z;
+    clutter_actor_set_pivot_point_z($!a, $pz);
   }
 
   method set_position (gfloat $x, gfloat $y) is also<set-position> {
-    clutter_actor_set_position($!a, $x, $y);
+    my gfloat ($xx, $yy) = ($x, $y);
+    clutter_actor_set_position($!a, $xx, $yy);
   }
 
-  method set_reactive (gboolean $reactive) is also<set-reactive> {
-    clutter_actor_set_reactive($!a, $reactive);
+  method set_reactive (Int() $reactive) is also<set-reactive> {
+    my gboolean $r = resolve-bool($reactive);
+    clutter_actor_set_reactive($!a, $r);
   }
 
-  method set_request_mode (ClutterRequestMode $mode)
+  method set_request_mode (
+    Int() $mode # ClutterRequestMode $mode
+  )
     is also<set-request-mode>
   {
-    clutter_actor_set_request_mode($!a, $mode);
+    my guint $m = resolve-uint($mode);
+    clutter_actor_set_request_mode($!a, $m);
   }
 
-  method set_rotation_angle (ClutterRotateAxis $axis, gdouble $angle)
+  method set_rotation_angle (
+    Int() $axis, # ClutterRotateAxis $axis,
+    Num() $angle
+  )
     is also<set-rotation-angle>
   {
-    clutter_actor_set_rotation_angle($!a, $axis, $angle);
+    my guint $a = resolve-uint($axis);
+    my gdouble $ang = $angle
+    clutter_actor_set_rotation_angle($!a, $a, $ang);
   }
 
-  method set_scale (gdouble $scale_x, gdouble $scale_y) is also<set-scale> {
-    clutter_actor_set_scale($!a, $scale_x, $scale_y);
+  method set_scale (Num() $scale_x, Num() $scale_y) is also<set-scale> {
+    my gdouble ($sx, $sy);
+    clutter_actor_set_scale($!a, $sx, $sy);
   }
 
-  method set_scale_z (gdouble $scale_z) is also<set-scale-z> {
-    clutter_actor_set_scale_z($!a, $scale_z);
+  method set_scale_z (Num() $scale_z) is also<set-scale-z> {
+    my gdouble $sz = $scale_z;
+    clutter_actor_set_scale_z($!a, $sz);
   }
 
-  method set_size (gfloat $width, gfloat $height) is also<set-size> {
-    clutter_actor_set_size($!a, $width, $height);
+  method set_size (Num() $width, Num() $height) is also<set-size> {
+    my gfloat ($w, $h) = ($width, $height);
+    clutter_actor_set_size($!a, $w, $h);
   }
 
-  method set_text_direction (ClutterTextDirection $text_dir)
+  method set_text_direction (
+    Int() $text_dir # $ClutterTextDirection $text_dir
+  )
     is also<set-text-direction>
   {
-    clutter_actor_set_text_direction($!a, $text_dir);
+    my guint $td = resolve-uint($text_dir);
+    clutter_actor_set_text_direction($!a, $td);
   }
 
   method set_transform (ClutterMatrix() $transform) is also<set-transform> {
@@ -2703,50 +2811,60 @@ class Clutter::Actor {
   }
 
   method set_translation (
-    gfloat $translate_x,
-    gfloat $translate_y,
-    gfloat $translate_z
+    Num() $translate_x,
+    Num() $translate_y,
+    Num() $translate_z
   )
     is also<set-translation>
   {
-    clutter_actor_set_translation(
-      $!a,
-      $translate_x,
-      $translate_y,
-      $translate_z
-    );
+    my gfloat ($tx, $ty, $tz) = ($translate_x, $translate_y, $translate_z);
+    clutter_actor_set_translation($!a, $tx, $ty, $tz);
   }
 
-  method set_width (gfloat $width) is also<set-width> {
-    clutter_actor_set_width($!a, $width);
+  method set_width (Num() $width) is also<set-width> {
+    my gfloat $w = $width;
+    clutter_actor_set_width($!a, $w);
   }
 
-  method set_x (gfloat $x) is also<set-x> {
-    clutter_actor_set_x($!a, $x);
+  method set_x (Num() $x) is also<set-x> {
+    my gfloat $xx = $x;
+    clutter_actor_set_x($!a, $xx);
   }
 
-  method set_x_align (ClutterActorAlign $x_align) is also<set-x-align> {
-    clutter_actor_set_x_align($!a, $x_align);
+  method set_x_align (
+    Int() $x_align # ClutterActorAlign $x_align
+  ) is also<set-x-align> {
+    my guint $xa = resolve-uint($x_align);
+    clutter_actor_set_x_align($!a, $xa);
   }
 
-  method set_x_expand (gboolean $expand) is also<set-x-expand> {
-    clutter_actor_set_x_expand($!a, $expand);
+  method set_x_expand (Num() $expand) is also<set-x-expand> {
+    my gboolean $e = resolve-bool($expand);
+    clutter_actor_set_x_expand($!a, $e);
   }
 
-  method set_y (gfloat $y) is also<set-y> {
-    clutter_actor_set_y($!a, $y);
+  method set_y (Num() $y) is also<set-y> {
+    my gfloat $yy = $y;
+    clutter_actor_set_y($!a, $yy);
   }
 
-  method set_y_align (ClutterActorAlign $y_align) is also<set-y-align> {
-    clutter_actor_set_y_align($!a, $y_align);
+  method set_y_align (
+    Int() $y_align # ClutterActorAlign $y_align
+  )
+    is also<set-y-align>
+  {
+    my guint $ya = resolve-uint($y_align);
+    clutter_actor_set_y_align($!a, $ya);
   }
 
-  method set_y_expand (gboolean $expand) is also<set-y-expand> {
-    clutter_actor_set_y_expand($!a, $expand);
+  method set_y_expand (Int() $expand) is also<set-y-expand> {
+    my gboolean $e = resolve-bool($expand);
+    clutter_actor_set_y_expand($!a, $e);
   }
 
-  method set_z_position (gfloat $z_position) is also<set-z-position> {
-    clutter_actor_set_z_position($!a, $z_position);
+  method set_z_position (Num() $z_position) is also<set-z-position> {
+    my gfloat $zp = $z_position;
+    clutter_actor_set_z_position($!a, $zp);
   }
 
   method should_pick_paint is also<should-pick-paint> {
@@ -2758,14 +2876,15 @@ class Clutter::Actor {
   }
 
   method transform_stage_point (
-    gfloat $x,
-    gfloat $y,
-    gfloat $x_out,
-    gfloat $y_out
+    Num() $x,
+    Num() $y,
+    Num() $x_out,
+    Num() $y_out
   )
     is also<transform-stage-point>
   {
-    clutter_actor_transform_stage_point($!a, $x, $y, $x_out, $y_out);
+    my gfloat ($xx, $yy, $xo, $yo) = ($x, $y, $x_out, $y_out);
+    clutter_actor_transform_stage_point($!a, $xx, $yy, $xo, $yo);
   }
 
   method unmap {
