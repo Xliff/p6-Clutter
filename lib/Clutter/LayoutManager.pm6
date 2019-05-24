@@ -7,7 +7,6 @@ use GTK::Raw::Types;
 
 use Clutter::Raw::LayoutManager;
 
-use Clutter::Alpha;
 use Clutter::LayoutMeta;
 
 # Object
@@ -34,14 +33,6 @@ class Clutter::LayoutManager {
   ) {
     my guint $f = resolve-uint($flags);
     clutter_layout_manager_allocate($!clm, $container, $allocation, $f);
-  }
-
-  method begin_animation (Int() $duration, Int() $mode) 
-    is also<begin-animation> 
-  {
-    my guint $d = resolve-unit($duration);
-    my gulong $m = resolve-ulong($mode);
-   Clutter::Alpha.new( clutter_layout_manager_begin_animation($!clm, $d, $m) );
   }
 
   method child_get_property (
@@ -78,16 +69,8 @@ class Clutter::LayoutManager {
     );  
   }
 
-  method end_animation is also<end-animation> {
-    clutter_layout_manager_end_animation($!clm);
-  }
-
   method find_child_property (Str() $name) is also<find-child-property> {
     clutter_layout_manager_find_child_property($!clm, $name);
-  }
-
-  method get_animation_progress is also<get-animation-progress> {
-    clutter_layout_manager_get_animation_progress($!clm);
   }
 
   method get_child_meta (
