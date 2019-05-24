@@ -1224,3 +1224,156 @@ sub clutter_actor_unset_flags (
   is native(clutter)
   is export
   { * }
+  
+ # Action
+  
+ sub clutter_actor_add_action (ClutterActor $self, ClutterAction $action)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_add_action_with_name (
+  ClutterActor $self, 
+  Str $name, 
+  ClutterAction $action
+)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_clear_actions (ClutterActor $self)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_action (ClutterActor $self, Str $name)
+  returns ClutterAction
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_actions (ClutterActor $self)
+  returns GList
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_has_actions (ClutterActor $self)
+  returns uint32
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_action (ClutterActor $self, ClutterAction $action)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_action_by_name (ClutterActor $self, Str $name)
+  is native(clutter)
+  is export
+  { * }
+  
+# Constraint 
+
+sub clutter_actor_add_constraint (
+  ClutterActor $self, 
+  ClutterConstraint $constraint
+)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_add_constraint_with_name (
+  ClutterActor $self, 
+  Str $name, 
+  ClutterConstraint $constraint
+)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_clear_constraints (ClutterActor $self)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_constraint (ClutterActor $self, Str $name)
+  returns ClutterConstraint
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_constraints (ClutterActor $self)
+  returns GList
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_has_constraints (ClutterActor $self)
+  returns uint32
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_constraint (
+  ClutterActor $self, 
+  ClutterConstraint $constraint
+)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_constraint_by_name (ClutterActor $self, Str $name)
+  is native(clutter)
+  is export
+  { * }
+  
+# Effect
+
+sub clutter_actor_add_effect (ClutterActor $self, ClutterEffect $effect)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_add_effect_with_name (
+  ClutterActor $self, 
+  Str $name, 
+  ClutterEffect $effect
+)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_clear_effects (ClutterActor $self)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_effect (ClutterActor $self, Str $name)
+  returns ClutterEffect
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_get_effects (ClutterActor $self)
+  returns GList
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_has_effects (ClutterActor $self)
+  returns uint32
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_effect (ClutterActor $self, ClutterEffect $effect)
+  is native(clutter)
+  is export
+  { * }
+
+sub clutter_actor_remove_effect_by_name (ClutterActor $self, Str $name)
+  is native(clutter)
+  is export
+  { * }
