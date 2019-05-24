@@ -1,5 +1,6 @@
 use v6.c;
 
+use Method::Also;
 use NativeCall;
 
 use GTK::Compat::Types;
@@ -16,13 +17,13 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
     );
   }
   
-  method get_manager {
+  method get_manager is also<get-manager> {
     ::('Clutter::LayoutManager').new( 
       clutter_layout_meta_get_manager($!clmeta)
     );
   }
 
-  method get_type {
+  method get_type is also<get-type> {
     state ($n, $m);
     unstable_get_type( self.^name, &clutter_layout_meta_get_type, $n, $t );
   }
