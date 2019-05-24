@@ -9,23 +9,18 @@ use Clutter::Raw::Types;
 use GTK::Compat::Object;
 use GTK::Compat::Protection;
 
-# Abstract. 
-# GObject.
+use Clutter::ActorMeta;
 
-class Clutter::Effect {
+class Clutter::Effect is Clutter::ActorMeta {
   has ClutterEffect $!c-eff;
-  
-  submethod BUILD {
-    self.ADD-PREFIX('Clutter::');
-  }
   
   method Clutter::Raw::Types::ClutterEffect
     is also<ClutterEffect>
   { $!c-eff }
   
-  method setAction(ClutterEffect $effect) {
+  method setClutterEffect(ClutterEffect $effect) {
     self.IS-PROTECTED;
-    self!setObject($!c-eff = $effect);
+    self.setActorMeta( cast(ClutterActorMeta, $!c-eff = $effect) );
   }
   
   method queue_repaint is also<queue-repaint> {
@@ -36,15 +31,16 @@ class Clutter::Effect {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_effect_get_type, $n, $t );
   }
+  
 }
 
 sub clutter_effect_queue_repaint (ClutterEffect $effect)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_effect_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
