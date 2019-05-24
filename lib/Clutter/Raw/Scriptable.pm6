@@ -11,7 +11,7 @@ sub clutter_scriptable_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_scriptable_parse_custom_node (
   ClutterScriptable $scriptable,
@@ -23,7 +23,7 @@ sub clutter_scriptable_parse_custom_node (
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_scriptable_set_custom_property (
   ClutterScriptable $scriptable,
@@ -33,15 +33,15 @@ sub clutter_scriptable_set_custom_property (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_scriptable_get_id (ClutterScriptable $scriptable)
   returns Str
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_scriptable_set_id (ClutterScriptable $scriptable, Str $id)
   is native(clutter)
   is export
-  { * }
+{ * }

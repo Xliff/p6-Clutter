@@ -10,7 +10,7 @@ unit package Clutter::Raw::Actor;
 sub clutter_actor_add_child (ClutterActor $self, ClutterActor $child)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_add_transition (
   ClutterActor $self,
@@ -19,7 +19,7 @@ sub clutter_actor_add_transition (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_allocate (
   ClutterActor $self,
@@ -28,7 +28,7 @@ sub clutter_actor_allocate (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_allocate_align_fill (
   ClutterActor $self,
@@ -41,7 +41,7 @@ sub clutter_actor_allocate_align_fill (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_allocate_available_size (
   ClutterActor $self,
@@ -53,7 +53,7 @@ sub clutter_actor_allocate_available_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_allocate_preferred_size (
   ClutterActor $self,
@@ -61,7 +61,7 @@ sub clutter_actor_allocate_preferred_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_apply_relative_transform_to_point (
   ClutterActor $self,
@@ -71,7 +71,7 @@ sub clutter_actor_apply_relative_transform_to_point (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_apply_transform_to_point (
   ClutterActor $self,
@@ -80,7 +80,7 @@ sub clutter_actor_apply_transform_to_point (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_bind_model (
   ClutterActor $self,
@@ -91,40 +91,40 @@ sub clutter_actor_bind_model (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_contains (ClutterActor $self, ClutterActor $descendant)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_continue_paint (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_create_pango_context (ClutterActor $self)
   returns PangoContext
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_create_pango_layout (ClutterActor $self, Str $text)
   returns PangoLayout
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_destroy (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_destroy_all_children (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_event (
   ClutterActor $actor,
@@ -134,13 +134,13 @@ sub clutter_actor_event (
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_accessible (ClutterActor $self)
   returns AtkObject
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_allocation_box (
   ClutterActor $self,
@@ -148,7 +148,7 @@ sub clutter_actor_get_allocation_box (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_background_color (
   ClutterActor $self,
@@ -156,7 +156,7 @@ sub clutter_actor_get_background_color (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_child_at_index (
   ClutterActor $self,
@@ -165,7 +165,7 @@ sub clutter_actor_get_child_at_index (
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_child_transform (
   ClutterActor $self,
@@ -173,13 +173,13 @@ sub clutter_actor_get_child_transform (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_children (ClutterActor $self)
   returns GList
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_clip (
   ClutterActor $self,
@@ -190,36 +190,36 @@ sub clutter_actor_get_clip (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_clip_to_allocation (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_content (ClutterActor $self)
   returns ClutterContent
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_content_box (ClutterActor $self, ClutterActorBox $box)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_content_gravity (ClutterActor $self)
   returns uint32 # ClutterContentGravity
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_content_repeat (ClutterActor $self)
   returns ClutterContentRepeat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_content_scaling_filters (
   ClutterActor $self,
@@ -228,168 +228,168 @@ sub clutter_actor_get_content_scaling_filters (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_default_paint_volume (ClutterActor $self)
   returns ClutterPaintVolume
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_easing_delay (ClutterActor $self)
   returns guint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_easing_duration (ClutterActor $self)
   returns guint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_easing_mode (ClutterActor $self)
   returns uint32 # ClutterAnimationMode
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_first_child (ClutterActor $self)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_fixed_position_set (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_flags (ClutterActor $self)
   returns uint32 # ClutterActorFlags
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_height (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_last_child (ClutterActor $self)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_layout_manager (ClutterActor $self)
   returns ClutterLayoutManager
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_margin (ClutterActor $self, ClutterMargin $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_margin_bottom (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_margin_left (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_margin_right (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_margin_top (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_n_children (ClutterActor $self)
   returns gint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_name (ClutterActor $self)
   returns Str
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_next_sibling (ClutterActor $self)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_offscreen_redirect (ClutterActor $self)
   returns ClutterOffscreenRedirect
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_opacity (ClutterActor $self)
   returns guint8
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_opacity_override (ClutterActor $self)
   returns gint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_paint_box (ClutterActor $self, ClutterActorBox $box)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_paint_opacity (ClutterActor $self)
   returns guint8
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_paint_visibility (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_paint_volume (ClutterActor $self)
   returns ClutterPaintVolume
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_pango_context (ClutterActor $self)
   returns PangoContext
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_parent (ClutterActor $self)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_pivot_point (
   ClutterActor $self,
@@ -398,13 +398,13 @@ sub clutter_actor_get_pivot_point (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_pivot_point_z (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_position (
   ClutterActor $self,
@@ -413,7 +413,7 @@ sub clutter_actor_get_position (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_preferred_height (
   ClutterActor $self,
@@ -423,7 +423,7 @@ sub clutter_actor_get_preferred_height (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_preferred_size (
   ClutterActor $self,
@@ -434,7 +434,7 @@ sub clutter_actor_get_preferred_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_preferred_width (
   ClutterActor $self,
@@ -444,25 +444,25 @@ sub clutter_actor_get_preferred_width (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_previous_sibling (ClutterActor $self)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_reactive (ClutterActor $actor)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_request_mode (ClutterActor $self)
   returns ClutterRequestMode
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_rotation_angle (
   ClutterActor $self,
@@ -471,7 +471,7 @@ sub clutter_actor_get_rotation_angle (
   returns gdouble
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_scale (
   ClutterActor $self,
@@ -480,13 +480,13 @@ sub clutter_actor_get_scale (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_scale_z (ClutterActor $self)
   returns gdouble
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_size (
   ClutterActor $self, 
@@ -495,19 +495,19 @@ sub clutter_actor_get_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_stage (ClutterActor $actor)
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_text_direction (ClutterActor $self)
   returns ClutterTextDirection
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_transform (
   ClutterActor $self,
@@ -515,7 +515,7 @@ sub clutter_actor_get_transform (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_transformed_paint_volume (
   ClutterActor $self,
@@ -524,7 +524,7 @@ sub clutter_actor_get_transformed_paint_volume (
   returns ClutterPaintVolume
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_transformed_position (
   ClutterActor $self,
@@ -533,7 +533,7 @@ sub clutter_actor_get_transformed_position (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_transformed_size (
   ClutterActor $self,
@@ -542,13 +542,13 @@ sub clutter_actor_get_transformed_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_transition (ClutterActor $self, Str $name)
   returns ClutterTransition
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_translation (
   ClutterActor $self,
@@ -558,107 +558,107 @@ sub clutter_actor_get_translation (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_width (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_x (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_x_align (ClutterActor $self)
   returns ClutterActorAlign
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_x_expand (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_y (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_y_align (ClutterActor $self)
   returns uint32 # ClutterActorAlign
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_y_expand (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_z_position (ClutterActor $self)
   returns gfloat
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_grab_key_focus (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_allocation (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_clip (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_key_focus (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_mapped_clones (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_overlaps (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_pointer (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_hide (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_insert_child_above (
   ClutterActor $self,
@@ -667,7 +667,7 @@ sub clutter_actor_insert_child_above (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_insert_child_at_index (
   ClutterActor $self,
@@ -676,7 +676,7 @@ sub clutter_actor_insert_child_at_index (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_insert_child_below (
   ClutterActor $self,
@@ -685,86 +685,86 @@ sub clutter_actor_insert_child_below (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_in_clone_paint (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_mapped (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_realized (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_rotated (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_scaled (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_is_visible (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_destroy (ClutterActorIter $iter)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_init (ClutterActorIter $iter, ClutterActor $root)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_is_valid (ClutterActorIter $iter)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_next (ClutterActorIter $iter, ClutterActor $child)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_prev (ClutterActorIter $iter, ClutterActor $child)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_iter_remove (ClutterActorIter $iter)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_map (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_move_by (ClutterActor $self, gfloat $dx, gfloat $dy)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_needs_expand (
   ClutterActor $self,
@@ -773,65 +773,65 @@ sub clutter_actor_needs_expand (
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_new ()
   returns ClutterActor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_paint (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_queue_redraw (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_queue_redraw_with_clip (
   ClutterActor $self,
   cairo_rectangle_int_t $clip)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_queue_relayout (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_realize (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_all_children (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_all_transitions (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_child (ClutterActor $self, ClutterActor $child)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_clip (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_transition (ClutterActor $self, Str $name)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_replace_child (
   ClutterActor $self,
@@ -840,17 +840,17 @@ sub clutter_actor_replace_child (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_restore_easing_state (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_save_easing_state (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_allocation (
   ClutterActor $self,
@@ -859,7 +859,7 @@ sub clutter_actor_set_allocation (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_background_color (
   ClutterActor $self,
@@ -867,7 +867,7 @@ sub clutter_actor_set_background_color (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_child_above_sibling (
   ClutterActor $self,
@@ -876,7 +876,7 @@ sub clutter_actor_set_child_above_sibling (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_child_at_index (
   ClutterActor $self,
@@ -885,7 +885,7 @@ sub clutter_actor_set_child_at_index (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_child_below_sibling (
   ClutterActor $self,
@@ -894,7 +894,7 @@ sub clutter_actor_set_child_below_sibling (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_child_transform (
   ClutterActor $self,
@@ -902,7 +902,7 @@ sub clutter_actor_set_child_transform (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_clip (
   ClutterActor $self,
@@ -913,7 +913,7 @@ sub clutter_actor_set_clip (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_clip_to_allocation (
   ClutterActor $self,
@@ -921,12 +921,12 @@ sub clutter_actor_set_clip_to_allocation (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_content (ClutterActor $self, ClutterContent $content)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_content_gravity (
   ClutterActor $self,
@@ -934,7 +934,7 @@ sub clutter_actor_set_content_gravity (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_content_repeat (
   ClutterActor $self,
@@ -942,7 +942,7 @@ sub clutter_actor_set_content_repeat (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_content_scaling_filters (
   ClutterActor $self,
@@ -951,17 +951,17 @@ sub clutter_actor_set_content_scaling_filters (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_easing_delay (ClutterActor $self, guint $msecs)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_easing_duration (ClutterActor $self, guint $msecs)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_easing_mode (
   ClutterActor $self,
@@ -969,12 +969,12 @@ sub clutter_actor_set_easing_mode (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_fixed_position_set (ClutterActor $self, gboolean $is_set)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_flags (
   ClutterActor $self,
@@ -982,12 +982,12 @@ sub clutter_actor_set_flags (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_height (ClutterActor $self, gfloat $height)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_layout_manager (
   ClutterActor $self,
@@ -995,37 +995,37 @@ sub clutter_actor_set_layout_manager (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_margin (ClutterActor $self, ClutterMargin $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_margin_bottom (ClutterActor $self, gfloat $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_margin_left (ClutterActor $self, gfloat $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_margin_right (ClutterActor $self, gfloat $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_margin_top (ClutterActor $self, gfloat $margin)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_name (ClutterActor $self, gStr $name)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_offscreen_redirect (
   ClutterActor $self,
@@ -1033,7 +1033,7 @@ sub clutter_actor_set_offscreen_redirect (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_opacity (
   ClutterActor $self,
@@ -1041,7 +1041,7 @@ sub clutter_actor_set_opacity (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_opacity_override (
   ClutterActor $self,
@@ -1049,7 +1049,7 @@ sub clutter_actor_set_opacity_override (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_pivot_point (
   ClutterActor $self,
@@ -1058,22 +1058,22 @@ sub clutter_actor_set_pivot_point (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_pivot_point_z (ClutterActor $self, gfloat $pivot_z)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_position (ClutterActor $self, gfloat $x, gfloat $y)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_reactive (ClutterActor $actor, gboolean $reactive)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_request_mode (
   ClutterActor $self,
@@ -1081,7 +1081,7 @@ sub clutter_actor_set_request_mode (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_rotation_angle (
   ClutterActor $self,
@@ -1090,7 +1090,7 @@ sub clutter_actor_set_rotation_angle (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_scale (
   ClutterActor $self,
@@ -1099,12 +1099,12 @@ sub clutter_actor_set_scale (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_scale_z (ClutterActor $self, gdouble $scale_z)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_size (
   ClutterActor $self,
@@ -1113,7 +1113,7 @@ sub clutter_actor_set_size (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_text_direction (
   ClutterActor $self,
@@ -1121,12 +1121,12 @@ sub clutter_actor_set_text_direction (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_transform (ClutterActor $self, ClutterMatrix $transform)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_translation (
   ClutterActor $self,
@@ -1136,17 +1136,17 @@ sub clutter_actor_set_translation (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_width (ClutterActor $self, gfloat $width)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_x (ClutterActor $self, gfloat $x)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_x_align (
   ClutterActor $self,
@@ -1154,17 +1154,17 @@ sub clutter_actor_set_x_align (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_x_expand (ClutterActor $self, gboolean $expand)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_y (ClutterActor $self, gfloat $y)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_y_align (
   ClutterActor $self,
@@ -1172,28 +1172,28 @@ sub clutter_actor_set_y_align (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_y_expand (ClutterActor $self, gboolean $expand)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_set_z_position (ClutterActor $self, gfloat $z_position)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_should_pick_paint (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_show (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_transform_stage_point (
   ClutterActor $self,
@@ -1205,17 +1205,17 @@ sub clutter_actor_transform_stage_point (
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_unmap (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_unrealize (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_unset_flags (
   ClutterActor $self,
@@ -1223,14 +1223,14 @@ sub clutter_actor_unset_flags (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
   
  # Action
   
  sub clutter_actor_add_action (ClutterActor $self, ClutterAction $action)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_add_action_with_name (
   ClutterActor $self, 
@@ -1239,40 +1239,40 @@ sub clutter_actor_add_action_with_name (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_clear_actions (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_action (ClutterActor $self, Str $name)
   returns ClutterAction
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_actions (ClutterActor $self)
   returns GList
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_actions (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_action (ClutterActor $self, ClutterAction $action)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_action_by_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
-  { * }
+{ * }
   
 # Constraint 
 
@@ -1282,7 +1282,7 @@ sub clutter_actor_add_constraint (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_add_constraint_with_name (
   ClutterActor $self, 
@@ -1291,30 +1291,30 @@ sub clutter_actor_add_constraint_with_name (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_clear_constraints (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_constraint (ClutterActor $self, Str $name)
   returns ClutterConstraint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_constraints (ClutterActor $self)
   returns GList
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_constraints (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_constraint (
   ClutterActor $self, 
@@ -1322,19 +1322,19 @@ sub clutter_actor_remove_constraint (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_constraint_by_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
-  { * }
+{ * }
   
 # Effect
 
 sub clutter_actor_add_effect (ClutterActor $self, ClutterEffect $effect)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_add_effect_with_name (
   ClutterActor $self, 
@@ -1343,37 +1343,37 @@ sub clutter_actor_add_effect_with_name (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_clear_effects (ClutterActor $self)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_effect (ClutterActor $self, Str $name)
   returns ClutterEffect
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_get_effects (ClutterActor $self)
   returns GList
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_has_effects (ClutterActor $self)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_effect (ClutterActor $self, ClutterEffect $effect)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_actor_remove_effect_by_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
-  { * }
+{ * }

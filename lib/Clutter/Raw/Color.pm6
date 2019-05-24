@@ -12,35 +12,35 @@ sub clutter_color_add (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_alloc ()
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_copy (ClutterColor $color)
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_darken (ClutterColor $color, ClutterColor $result)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_equal (gconstpointer $v1, gconstpointer $v2)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_free (ClutterColor $color)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_from_hls (
   ClutterColor $color,
@@ -50,36 +50,36 @@ sub clutter_color_from_hls (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_from_pixel (ClutterColor $color, guint32 $pixel)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_from_string (ClutterColor $color, Str $str)
   returns uint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_get_static (ClutterStaticColor $color)
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_hash (gconstpointer $v)
   returns guint
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_init (
   ClutterColor $color,
@@ -91,7 +91,7 @@ sub clutter_color_init (
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_interpolate (
   ClutterColor $initial,
@@ -101,12 +101,12 @@ sub clutter_color_interpolate (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_lighten (ClutterColor $color, ClutterColor $result)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_new (
   guint8 $red,
@@ -117,7 +117,7 @@ sub clutter_color_new (
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_shade (
   ClutterColor $color,
@@ -126,7 +126,7 @@ sub clutter_color_shade (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_subtract (
   ClutterColor $a,
@@ -135,7 +135,7 @@ sub clutter_color_subtract (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_to_hls (
   ClutterColor $color,
@@ -145,25 +145,25 @@ sub clutter_color_to_hls (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_to_pixel (ClutterColor $color)
   returns guint32
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_color_to_string (ClutterColor $color)
   returns Str
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_param_color_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_param_spec_color (
   Str $name,
@@ -175,15 +175,15 @@ sub clutter_param_spec_color (
   returns GParamSpec
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_value_get_color (GValue $value)
   returns ClutterColor
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_value_set_color (GValue $value, ClutterColor $color)
   is native(clutter)
   is export
-  { * }
+{ * }

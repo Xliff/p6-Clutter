@@ -15,7 +15,7 @@ sub clutter_layout_manager_allocate (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_begin_animation (
   ClutterLayoutManager $manager, 
@@ -25,7 +25,7 @@ sub clutter_layout_manager_begin_animation (
   returns ClutterAlpha
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_child_get_property (
   ClutterLayoutManager $manager, 
@@ -36,7 +36,7 @@ sub clutter_layout_manager_child_get_property (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_child_set_property (
   ClutterLayoutManager $manager, 
@@ -47,12 +47,12 @@ sub clutter_layout_manager_child_set_property (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_end_animation (ClutterLayoutManager $manager)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_find_child_property (
   ClutterLayoutManager $manager, 
@@ -61,13 +61,13 @@ sub clutter_layout_manager_find_child_property (
   returns GParamSpec
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_get_animation_progress (ClutterLayoutManager $manager)
   returns gdouble
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_get_child_meta (
   ClutterLayoutManager $manager, 
@@ -77,7 +77,7 @@ sub clutter_layout_manager_get_child_meta (
   returns ClutterLayoutMeta
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_get_preferred_height (
   ClutterLayoutManager $manager, 
@@ -88,7 +88,7 @@ sub clutter_layout_manager_get_preferred_height (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_get_preferred_width (
   ClutterLayoutManager $manager, 
@@ -99,18 +99,18 @@ sub clutter_layout_manager_get_preferred_width (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_get_type ()
   returns GType
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_layout_changed (ClutterLayoutManager $manager)
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_list_child_properties (
   ClutterLayoutManager $manager, 
@@ -119,7 +119,7 @@ sub clutter_layout_manager_list_child_properties (
   returns Pointer # Block of GParamSpec
   is native(clutter)
   is export
-  { * }
+{ * }
 
 sub clutter_layout_manager_set_container (
   ClutterLayoutManager $manager, 
@@ -127,4 +127,4 @@ sub clutter_layout_manager_set_container (
 )
   is native(clutter)
   is export
-  { * }
+{ * }
