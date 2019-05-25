@@ -10,7 +10,10 @@ use Clutter::Raw::Text;
 
 use Pango::AttrList;
 use Pango::FontDescription;
+use Pango::Layout;
+
 use Clutter::Actor;
+use Clutter::TextBuffer;
 
 use Clutter::Roles::Signals::Text;
 
@@ -30,18 +33,26 @@ class Clutter::Text is Clutter::Actor {
     self.bless( textactor => clutter_text_new() );
   }
 
-  method new_full (Str() $text, ClutterColor() $color) {
+  method new_full (
+    Str() $font_name, 
+    Str() $text, 
+    ClutterColor() $color
+  ) 
+    is also<new-full> 
+  {
     self.bless( 
-      textactor => clutter_text_new_full($text, $color)
+      textactor => clutter_text_new_full($font_name, $text, $color)
     );
   }
 
-  method new_with_buffer (ClutterTextBuffer() $buffer) {
+  method new_with_buffer (ClutterTextBuffer() $buffer) 
+    is also<new-with-buffer> 
+  {
     self.bless( textactor => clutter_text_new_with_buffer($buffer) );
   }
 
-  method new_with_text (Str() $text) {
-    self.bless( textactor => clutter_text_new_with_text($$text) );
+  method new_with_text (Str() $font, Str() $text) is also<new-with-text> {
+    self.bless( textactor => clutter_text_new_with_text($font, $text) );
   }
 
   method activatable is rw {
@@ -78,7 +89,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method cursor_position is rw {
+  method cursor_position is rw is also<cursor-position> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_cursor_position($!ct);
@@ -89,7 +100,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method cursor_size is rw {
+  method cursor_size is rw is also<cursor-size> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_cursor_size($!ct);
@@ -100,7 +111,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method cursor_visible is rw {
+  method cursor_visible is rw is also<cursor-visible> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_text_get_cursor_visible($!ct);
@@ -136,7 +147,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method font_description is rw {
+  method font_description is rw is also<font-description> {
     Proxy.new(
       FETCH => sub ($) {
         Pango::FontDescription.new( clutter_text_get_font_description($!ct) );
@@ -147,7 +158,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method font_name is rw {
+  method font_name is rw is also<font-name> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_font_name($!ct);
@@ -170,7 +181,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method line_alignment is rw {
+  method line_alignment is rw is also<line-alignment> {
     Proxy.new(
       FETCH => sub ($) {
         PangoAlignment( clutter_text_get_line_alignment($!ct) );
@@ -182,7 +193,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method line_wrap is rw {
+  method line_wrap is rw is also<line-wrap> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_text_get_line_wrap($!ct);
@@ -194,7 +205,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method line_wrap_mode is rw {
+  method line_wrap_mode is rw is also<line-wrap-mode> {
     Proxy.new(
       FETCH => sub ($) {
         PangoLineWrapMode( clutter_text_get_line_wrap_mode($!ct) );
@@ -206,7 +217,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method max_length is rw {
+  method max_length is rw is also<max-length> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_max_length($!ct);
@@ -218,7 +229,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method password_char is rw {
+  method password_char is rw is also<password-char> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_password_char($!ct);
@@ -242,7 +253,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method selection_bound is rw {
+  method selection_bound is rw is also<selection-bound> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_text_get_selection_bound($!ct);
@@ -254,7 +265,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method single_line_mode is rw {
+  method single_line_mode is rw is also<single-line-mode> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_text_get_single_line_mode($!ct);
@@ -277,7 +288,7 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  method use_markup is rw {
+  method use_markup is rw is also<use-markup> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_text_get_use_markup($!ct);
@@ -307,7 +318,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: ClutterColor
-  method cursor-color is rw  {
+  method cursor-color is rw  is also<cursor_color> {
     my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
@@ -324,7 +335,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method cursor-color-set is rw  {
+  method cursor-color-set is rw  is also<cursor_color_set> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -340,7 +351,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method cursor-position is rw  {
+  method cursor-position is rw  is also<cursor_position> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
@@ -357,7 +368,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method cursor-size is rw  {
+  method cursor-size is rw  is also<cursor_size> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
@@ -374,7 +385,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method cursor-visible is rw  {
+  method cursor-visible is rw  is also<cursor_visible> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -391,7 +402,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: PangoFontDescription
-  method font-description is rw  {
+  method font-description is rw  is also<font_description> {
     my GTK::Compat::Value $gv .= new( Pango::FontDescription.get_type );
     Proxy.new(
       FETCH => -> $ {
@@ -408,7 +419,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gchar
-  method font-name is rw  {
+  method font-name is rw  is also<font_name> {
     my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
@@ -425,7 +436,7 @@ class Clutter::Text is Clutter::Actor {
   }
   
   # Type: PangoAlignment
-  method line-alignment is rw  {
+  method line-alignment is rw  is also<line_alignment> {
     my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
@@ -442,7 +453,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method line-wrap is rw  {
+  method line-wrap is rw  is also<line_wrap> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -459,7 +470,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: PangoWrapMode
-  method line-wrap-mode is rw  {
+  method line-wrap-mode is rw  is also<line_wrap_mode> {
     my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
@@ -476,7 +487,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method max-length is rw  {
+  method max-length is rw  is also<max_length> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
@@ -493,7 +504,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: guint
-  method password-char is rw  {
+  method password-char is rw  is also<password_char> {
     my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
@@ -544,7 +555,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method selected-text-color-set is rw  {
+  method selected-text-color-set is rw  is also<selected_text_color_set> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -560,7 +571,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method selection-bound is rw  {
+  method selection-bound is rw  is also<selection_bound> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
@@ -577,7 +588,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: ClutterColor
-  method selection-color is rw  {
+  method selection-color is rw  is also<selection_color> {
     my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
@@ -594,7 +605,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method selection-color-set is rw  {
+  method selection-color-set is rw  is also<selection_color_set> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -610,7 +621,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method single-line-mode is rw  {
+  method single-line-mode is rw  is also<single_line_mode> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -627,7 +638,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method use-markup is rw  {
+  method use-markup is rw  is also<use_markup> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -651,31 +662,31 @@ class Clutter::Text is Clutter::Actor {
 
   # Is originally:
   # ClutterText, gpointer --> void
-  method cursor-changed {
+  method cursor-changed is also<cursor_changed> {
     self.connect($!ct, 'cursor-changed');
   }
 
   # Is originally:
   # ClutterText, ClutterGeometry, gpointer --> void
-  method cursor-event {
+  method cursor-event is also<cursor_event> {
     self.connect-cursor-event($!ct);
   }
 
   # Is originally:
   # ClutterText, gint, gint, gpointer --> void
-  method delete-text {
+  method delete-text is also<delete_text> {
     self.connect-intint($!ct, 'delete-text');
   }
 
   # Is originally:
   # ClutterText, gchar, gint, gpointer, gpointer --> void
-  method insert-text {
+  method insert-text is also<insert_text> {
     self.connect-insert-text($!ct);
   }
 
   # Is originally:
   # ClutterText, gpointer --> void
-  method text-changed {
+  method text-changed is also<text_changed> {
     self.connect($!ct, 'text-changed');
   }
 
@@ -683,108 +694,136 @@ class Clutter::Text is Clutter::Actor {
     clutter_text_activate($!ct);
   }
 
-  method coords_to_position (gfloat $x, gfloat $y) {
-    clutter_text_coords_to_position($!ct, $x, $y);
+  method coords_to_position (Num() $x, Num() $y) is also<coords-to-position> {
+    my gfloat ($xx, $yy) = ($x, $y);
+    clutter_text_coords_to_position($!ct, $xx, $yy);
   }
 
-  method delete_chars (guint $n_chars) {
-    clutter_text_delete_chars($!ct, $n_chars);
+  method delete_chars (Int() $n_chars) is also<delete-chars> {
+    my guint $nc = resolve-uint($n_chars);
+    clutter_text_delete_chars($!ct, $ncS);
   }
 
-  method delete_selection {
+  method delete_selection is also<delete-selection> {
     clutter_text_delete_selection($!ct);
   }
 
-  method delete_text (gssize $start_pos, gssize $end_pos) {
+  method delete_text (Int() $start_pos, Int() $end_pos) is also<delete-text> {
+    my gssize ($sp, $ep) = resolve-long($start_pos, $end_pos);
     clutter_text_delete_text($!ct, $start_pos, $end_pos);
   }
 
-  method get_chars (gssize $start_pos, gssize $end_pos) {
+  method get_chars (Int() $start_pos, Int() $end_pos) is also<get-chars> {
+    my gssize ($sp, $ep) = resolve-long($start_pos, $end_pos);
     clutter_text_get_chars($!ct, $start_pos, $end_pos);
   }
 
-  method get_color (ClutterColor $color) {
+  method get_color (ClutterColor() $color) is also<get-color> {
     clutter_text_get_color($!ct, $color);
   }
 
-  method get_cursor_color (ClutterColor $color) {
+  method get_cursor_color (ClutterColor() $color) is also<get-cursor-color> {
     clutter_text_get_cursor_color($!ct, $color);
   }
 
-  method get_cursor_rect (ClutterRect $rect) {
+  method get_cursor_rect (ClutterRect() $rect) is also<get-cursor-rect> {
     clutter_text_get_cursor_rect($!ct, $rect);
   }
 
-  method get_layout {
-    clutter_text_get_layout($!ct);
+  method get_layout 
+    is also<
+      get-layout
+      layout
+    > 
+  {
+    Pango::Layout.new( clutter_text_get_layout($!ct) );
   }
 
-  method get_layout_offsets (gint $x, gint $y) {
+  method get_layout_offsets (Int() $x, Int() $y) is also<get-layout-offsets> {
+    my gint ($xx, $yy) = resolve-int($x, $y);
     clutter_text_get_layout_offsets($!ct, $x, $y);
   }
 
-  method get_selected_text_color (ClutterColor $color) {
+  method get_selected_text_color (ClutterColor $color) is also<get-selected-text-color> {
     clutter_text_get_selected_text_color($!ct, $color);
   }
 
-  method get_selection {
+  method get_selection is also<get-selection> {
     clutter_text_get_selection($!ct);
   }
 
-  method get_selection_color (ClutterColor $color) {
+  method get_selection_color (ClutterColor() $color) is also<get-selection-color> {
     clutter_text_get_selection_color($!ct, $color);
   }
 
-  method get_type {
-    clutter_text_get_type();
+  method get_type is also<get-type> {
+    state ($n, $t);
+    unstable_get_type( self.^name, &clutter_text_get_type, $n, $t );
   }
 
-  method insert_text (Str() $text, gssize $position) {
-    clutter_text_insert_text($!ct, $text, $position);
+  method insert_text (Str() $text, Int() $position) is also<insert-text> {
+    my gssize $p = resolve-long($position);
+    clutter_text_insert_text($!ct, $text, $p;
   }
 
-  method insert_unichar (gunichar $wc) {
-    clutter_text_insert_unichar($!ct, $wc);
+  method insert_unichar ($wc) is also<insert-unichar> {
+    # This should become resolve-unichar in GTK::Raw::Utils.
+    my $wwc = resolve-uint(do given $wc {
+      when Str {
+        die 'Cannot convert multi-char string to unichar' unless .chars == 1;
+        $wc.ord;
+      }
+      default {
+        die 'Invalud type passed to Clutter::Text.insert_unichar'
+          unless .^can('Int').elems;
+        .Int
+      }
+    });
+    clutter_text_insert_unichar($!ct, $wwc);
   }
 
   method position_to_coords (
-    gint $position,
-    gfloat $x,
-    gfloat $y,
-    gfloat $line_height
-  ) {
-    clutter_text_position_to_coords($!ct, $position, $x, $y, $line_height);
+    Int() $position,
+    Num() $x,
+    Num() $y,
+    Num() $line_height
+  ) is also<position-to-coords> {
+    my gint $p = resolve-int($position);
+    my gfloat ($xx, $yy, $l) = ($x, $y, $line_height);
+    clutter_text_position_to_coords($!ct, $p, $xx, $yy, $l);
   }
 
-  method set_color (ClutterColor $color) {
+  method set_color (ClutterColor() $color) is also<set-color> {
     clutter_text_set_color($!ct, $color);
   }
 
-  method set_cursor_color (ClutterColor $color) {
+  method set_cursor_color (ClutterColor() $color) is also<set-cursor-color> {
     clutter_text_set_cursor_color($!ct, $color);
   }
 
-  method set_markup (Str() $markup) {
+  method set_markup (Str() $markup) is also<set-markup> {
     clutter_text_set_markup($!ct, $markup);
   }
 
   method set_preedit_string (
     Str() $preedit_str,
-    PangoAttrList $preedit_attrs,
-    guint $cursor_pos
-  ) {
-    clutter_text_set_preedit_string($!ct, $preedit_str, $preedit_attrs, $cursor_pos);
+    PangoAttrList() $preedit_attrs,
+    Int() $cursor_pos
+  ) is also<set-preedit-string> {
+    my guint $c = resolve-uint($cursor_pos);
+    clutter_text_set_preedit_string($!ct, $preedit_str, $preedit_attrs, $c);
   }
 
-  method set_selected_text_color (ClutterColor $color) {
+  method set_selected_text_color (ClutterColor() $color) is also<set-selected-text-color> {
     clutter_text_set_selected_text_color($!ct, $color);
   }
 
-  method set_selection (gssize $start_pos, gssize $end_pos) {
+  method set_selection (Int() $start_pos, Int() $end_pos) is also<set-selection> {
+    my gssize ($sp, $ep) = resolve-long($start_pos, $end_pos);
     clutter_text_set_selection($!ct, $start_pos, $end_pos);
   }
 
-  method set_selection_color (ClutterColor $color) {
+  method set_selection_color (ClutterColor() $color) is also<set-selection-color> {
     clutter_text_set_selection_color($!ct, $color);
   }
 
