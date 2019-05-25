@@ -18,6 +18,31 @@ class Clutter::Rect {
     self.bless(:$rect);
   }
   
+  multi method init (
+    Num() $x, 
+    Num() $y, 
+    Num() $width, 
+    Num() $height
+  ) 
+    is also<new>
+  {
+    self.bless( 
+      rect => Clutter::Rect.init( Clutter::Rect.alloc, $x, $y, $width, $height) )
+    );
+  }
+  multi method init (
+    Clutter::Rect:U:
+    ClutterRect $r,
+    Num() $x, 
+    Num() $y, 
+    Num() $width, 
+    Num() $height
+  ) {
+    my gfloat ($xx, $yy, $w, $h) = ($x, $y, $width, $height);
+    clutter_rect_init($r, $xx, $yy, $w, $h);
+    $r;
+  }
+  
   method alloc (Clutter::Rect:U:) {
     clutter_rect_alloc($!cr);
   }
@@ -97,19 +122,6 @@ class Clutter::Rect {
     > 
   {
     clutter_rect_get_y($!cr);
-  }
-
-  method init (
-    Clutter::Rect:U:
-    ClutterRect $r,
-    Num() $x, 
-    Num() $y, 
-    Num() $width, 
-    Num() $height
-  ) {
-    my gfloat ($xx, $yy, $w, $h) = ($x, $y, $width, $height);
-    clutter_rect_init($r, $xx, $yy, $w, $h);
-    $r;
   }
 
   method inset (Num() $d_x, Num() $d_y) {

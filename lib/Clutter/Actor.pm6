@@ -27,7 +27,7 @@ use Clutter::Roles::Signals::Actor;
 
 class Clutter::Actor {
   also does GTK::Roles::Protection;
-  also does Clutter::Roles::Animatable;https://account.amazon.jobs/en-US/jobs/838113/apply?ss=paid&utm_campaign=cxro&utm_content=job_posting&utm_medium=social_media&utm_source=linkedin.com
+  also does Clutter::Roles::Animatable;
   also does Clutter::Roles::Container;
   also does Clutter::Roles::Scriptable;
   also does Clutter::Roles::Signals::Actor;

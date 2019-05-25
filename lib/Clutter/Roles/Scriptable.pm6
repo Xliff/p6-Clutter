@@ -24,8 +24,11 @@ role Clutter::Roles::Scriptable {
     );
   }
 
-  method get_type is also<get-type> {
-    clutter_scriptable_get_type();
+  method scriptable_get_type is also<scriptable-get-type> {
+    state ($n, $t)
+    unstable_get_type( 
+      'Clutter::Roles, Scriptable', &clutter_scriptable_get_type, $n, $t
+    );
   }
 
   method parse_custom_node (

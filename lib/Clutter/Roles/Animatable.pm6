@@ -25,7 +25,7 @@ role Clutter::Roles::Animatable {
     clutter_animatable_get_initial_state($!ca, $property_name, $value);
   }
 
-  method get_type is also<get-type> {
+  method animatable_get_type is also<animatable-get-type> {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_animatable_get_type, $n, $t );
   }
