@@ -5,6 +5,8 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::Color;
 
+# Boxed
+
 class Clutter::Color {
   has ClutterColor $!cc;
 
@@ -82,6 +84,7 @@ class Clutter::Color {
     ClutterColor() $result
   ) {
     clutter_color_add($!cc, $b, $result);
+    $result
   }
 
   method copy (Clutter::Color:D:) {

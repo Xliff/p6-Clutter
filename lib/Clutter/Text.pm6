@@ -4,8 +4,12 @@ use GTK::Compat::Types;
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
 
+use GTK::Raw::Utils;
+
 use Clutter::Raw::Text;
 
+use Pango::AttrList;
+use Pango::FontDescription;
 use Clutter::Actor;
 
 use Clutter::Roles::Signals::Text;
@@ -18,14 +22,36 @@ class Clutter::Text is Clutter::Actor {
   submethod BUILD (:$textactor) {
     self.setActor( $!ct = $textactor );
   }
+  
+  method Clutter::Raw::Types::ClutterText 
+  { $!ct }
+  
+  method new {
+    self.bless( textactor => clutter_text_new() );
+  }
+
+  method new_full (Str() $text, ClutterColor() $color) {
+    self.bless( 
+      textactor => clutter_text_new_full($text, $color)
+    );
+  }
+
+  method new_with_buffer (ClutterTextBuffer() $buffer) {
+    self.bless( textactor => clutter_text_new_with_buffer($buffer) );
+  }
+
+  method new_with_text (Str() $text) {
+    self.bless( textactor => clutter_text_new_with_text($$text) );
+  }
 
   method activatable is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_activatable($!ct);
+        so clutter_text_get_activatable($!ct);
       },
-      STORE => sub ($, $activatable is copy) {
-        clutter_text_set_activatable($!ct, $activatable);
+      STORE => sub ($, Int() $activatable is copy) {
+        my gboolean $a = resolve-bool($activatable);
+        clutter_text_set_activatable($!ct, $a);
       }
     );
   }
@@ -33,9 +59,9 @@ class Clutter::Text is Clutter::Actor {
   method attributes is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_attributes($!ct);
+        Pango::AttrList.new( clutter_text_get_attributes($!ct) );
       },
-      STORE => sub ($, $attrs is copy) {
+      STORE => sub ($, PangoAttrList() $attrs is copy) {
         clutter_text_set_attributes($!ct, $attrs);
       }
     );
@@ -44,9 +70,9 @@ class Clutter::Text is Clutter::Actor {
   method buffer is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_buffer($!ct);
+        Clutter::TextBuffer.new( clutter_text_get_buffer($!ct) );
       },
-      STORE => sub ($, $buffer is copy) {
+      STORE => sub ($, ClutterTextBuffer() $buffer is copy) {
         clutter_text_set_buffer($!ct, $buffer);
       }
     );
@@ -77,10 +103,11 @@ class Clutter::Text is Clutter::Actor {
   method cursor_visible is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_cursor_visible($!ct);
+        so clutter_text_get_cursor_visible($!ct);
       },
-      STORE => sub ($, $cursor_visible is copy) {
-        clutter_text_set_cursor_visible($!ct, $cursor_visible);
+      STORE => sub ($, Int() $cursor_visible is copy) {
+        my gboolean $c = resolve-bool($cursor_visible);
+        clutter_text_set_cursor_visible($!ct, $c);
       }
     );
   }
@@ -88,9 +115,10 @@ class Clutter::Text is Clutter::Actor {
   method editable is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_editable($!ct);
+        so clutter_text_get_editable($!ct);
       },
-      STORE => sub ($, $editable is copy) {
+      STORE => sub ($, Int() $editable is copy) {
+        my gboolean $e = resolve-bool($editable);
         clutter_text_set_editable($!ct, $editable);
       }
     );
@@ -99,10 +127,11 @@ class Clutter::Text is Clutter::Actor {
   method ellipsize is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_ellipsize($!ct);
+        PangoEllipsizeMode( clutter_text_get_ellipsize($!ct) );
       },
-      STORE => sub ($, $mode is copy) {
-        clutter_text_set_ellipsize($!ct, $mode);
+      STORE => sub ($, Int() $mode is copy) {
+        my guint $m = resolve-uint($mode);
+        clutter_text_set_ellipsize($!ct, $m);
       }
     );
   }
@@ -110,9 +139,9 @@ class Clutter::Text is Clutter::Actor {
   method font_description is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_font_description($!ct);
+        Pango::FontDescription.new( clutter_text_get_font_description($!ct) );
       },
-      STORE => sub ($, $font_desc is copy) {
+      STORE => sub ($, PangoFontDescription() $font_desc is copy) {
         clutter_text_set_font_description($!ct, $font_desc);
       }
     );
@@ -123,7 +152,7 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_font_name($!ct);
       },
-      STORE => sub ($, $font_name is copy) {
+      STORE => sub ($, Str() $font_name is copy) {
         clutter_text_set_font_name($!ct, $font_name);
       }
     );
@@ -132,10 +161,11 @@ class Clutter::Text is Clutter::Actor {
   method justify is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_justify($!ct);
+        so clutter_text_get_justify($!ct);
       },
-      STORE => sub ($, $justify is copy) {
-        clutter_text_set_justify($!ct, $justify);
+      STORE => sub ($, Int() $justify is copy) {
+        my gboolean $j = resolve-bool($justify);
+        clutter_text_set_justify($!ct, $j);
       }
     );
   }
@@ -143,10 +173,11 @@ class Clutter::Text is Clutter::Actor {
   method line_alignment is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_line_alignment($!ct);
+        PangoAlignment( clutter_text_get_line_alignment($!ct) );
       },
-      STORE => sub ($, $alignment is copy) {
-        clutter_text_set_line_alignment($!ct, $alignment);
+      STORE => sub ($, Int() $alignment is copy) {
+        my guint $a = resolve-uint($alignment);
+        clutter_text_set_line_alignment($!ct, $a);
       }
     );
   }
@@ -154,10 +185,11 @@ class Clutter::Text is Clutter::Actor {
   method line_wrap is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_line_wrap($!ct);
+        so clutter_text_get_line_wrap($!ct);
       },
-      STORE => sub ($, $line_wrap is copy) {
-        clutter_text_set_line_wrap($!ct, $line_wrap);
+      STORE => sub ($, Int() $line_wrap is copy) {
+        my guint $l = resolve-int($line_wrap);
+        clutter_text_set_line_wrap($!ct, $l);
       }
     );
   }
@@ -165,10 +197,11 @@ class Clutter::Text is Clutter::Actor {
   method line_wrap_mode is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_line_wrap_mode($!ct);
+        PangoLineWrapMode( clutter_text_get_line_wrap_mode($!ct) );
       },
-      STORE => sub ($, $wrap_mode is copy) {
-        clutter_text_set_line_wrap_mode($!ct, $wrap_mode);
+      STORE => sub ($, Int() $wrap_mode is copy) {
+        my guint $w = resolve-uint($wrap_mode);
+        clutter_text_set_line_wrap_mode($!ct, $w);
       }
     );
   }
@@ -178,8 +211,9 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_max_length($!ct);
       },
-      STORE => sub ($, $max is copy) {
-        clutter_text_set_max_length($!ct, $max);
+      STORE => sub ($, Int() $max is copy) {
+        my gint $m = resolve-int($max);
+        clutter_text_set_max_length($!ct, $m);
       }
     );
   }
@@ -189,8 +223,9 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_password_char($!ct);
       },
-      STORE => sub ($, $wc is copy) {
-        clutter_text_set_password_char($!ct, $wc);
+      STORE => sub ($, Int() $wc is copy) {
+        my guint $w = resolve-uint($wc);
+        clutter_text_set_password_char($!ct, $w);
       }
     );
   }
@@ -198,10 +233,11 @@ class Clutter::Text is Clutter::Actor {
   method selectable is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_selectable($!ct);
+        so clutter_text_get_selectable($!ct);
       },
-      STORE => sub ($, $selectable is copy) {
-        clutter_text_set_selectable($!ct, $selectable);
+      STORE => sub ($, Int() $selectable is copy) {
+        my gboolean $s = resolve-bool($selectable);
+        clutter_text_set_selectable($!ct, $s;
       }
     );
   }
@@ -211,8 +247,9 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_selection_bound($!ct);
       },
-      STORE => sub ($, $selection_bound is copy) {
-        clutter_text_set_selection_bound($!ct, $selection_bound);
+      STORE => sub ($, Int() $selection_bound is copy) {
+        my gint $s = resolve-int($selection_bound);
+        clutter_text_set_selection_bound($!ct, $s);
       }
     );
   }
@@ -220,10 +257,11 @@ class Clutter::Text is Clutter::Actor {
   method single_line_mode is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_single_line_mode($!ct);
+        so clutter_text_get_single_line_mode($!ct);
       },
       STORE => sub ($, $single_line is copy) {
-        clutter_text_set_single_line_mode($!ct, $single_line);
+        my gboolean $s = resolve-bool($single_line);
+        clutter_text_set_single_line_mode($!ct, $s);
       }
     );
   }
@@ -233,7 +271,7 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_text($!ct);
       },
-      STORE => sub ($, $text is copy) {
+      STORE => sub ($, Str() $text is copy) {
         clutter_text_set_text($!ct, $text);
       }
     );
@@ -242,77 +280,27 @@ class Clutter::Text is Clutter::Actor {
   method use_markup is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_text_get_use_markup($!ct);
+        so clutter_text_get_use_markup($!ct);
       },
-      STORE => sub ($, $setting is copy) {
-        clutter_text_set_use_markup($!ct, $setting);
-      }
-    );
-  }
-
-  # Type: gboolean
-  method activatable is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('activatable', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('activatable', $gv);
-      }
-    );
-  }
-
-  # Type: PangoAttrList
-  method attributes is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('attributes', $gv)
-        );
-        #$gv.TYPE
-      },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
-        self.prop_set('attributes', $gv);
-      }
-    );
-  }
-
-  # Type: ClutterTextBuffer
-  method buffer is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('buffer', $gv)
-        );
-        #$gv.TYPE
-      },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
-        self.prop_set('buffer', $gv);
+      STORE => sub ($, Int() $setting is copy) {
+        my gboolean $s = resolve-bool($setting);
+        clutter_text_set_use_markup($!ct, $s);
       }
     );
   }
 
   # Type: ClutterColor
   method color is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('color', $gv)
         );
-        #$gv.TYPE
+        Clutter::Color.new( cast(ClutterColor, $gv.boxed) );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterColor $val is copy {
+        $gv.boxed = $val;
         self.prop_set('color', $gv);
       }
     );
@@ -320,16 +308,16 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: ClutterColor
   method cursor-color is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('cursor-color', $gv)
         );
-        #$gv.TYPE
+        Clutter::Color.new( cast(ClutterColor, $gv.boxed) );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterColor() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('cursor-color', $gv);
       }
     );
@@ -346,7 +334,7 @@ class Clutter::Text is Clutter::Actor {
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
-        warn "cursor-color-set does not allow writing"
+        warn 'cursor-color-set does not allow writing'
       }
     );
   }
@@ -402,52 +390,18 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  # Type: gboolean
-  method editable is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('editable', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('editable', $gv);
-      }
-    );
-  }
-
-  # Type: PangoEllipsizeMode
-  method ellipsize is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('ellipsize', $gv)
-        );
-        #$gv.TYPE
-      },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
-        self.prop_set('ellipsize', $gv);
-      }
-    );
-  }
-
   # Type: PangoFontDescription
   method font-description is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Pango::FontDescription.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('font-description', $gv)
         );
-        #$gv.TYPE
+        Pango::FontDescription.new( cast(PangoFontDescription, $gv.boxed) );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, PangoFontDescription() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('font-description', $gv);
       }
     );
@@ -469,36 +423,19 @@ class Clutter::Text is Clutter::Actor {
       }
     );
   }
-
-  # Type: gboolean
-  method justify is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('justify', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('justify', $gv);
-      }
-    );
-  }
-
+  
   # Type: PangoAlignment
   method line-alignment is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('line-alignment', $gv)
         );
-        #$gv.TYPE
+        PangoAlignment( $gv.uint );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('line-alignment', $gv);
       }
     );
@@ -523,16 +460,16 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: PangoWrapMode
   method line-wrap-mode is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('line-wrap-mode', $gv)
         );
-        #$gv.TYPE
+        PangoWrapMode( $gv.uint );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
         self.prop_set('line-wrap-mode', $gv);
       }
     );
@@ -573,7 +510,7 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method position is rw  is DEPRECATED( ClutterText:cursor-position ) {
+  method position is rw  is DEPRECATED<Clutter::Text.cursor-position> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
@@ -602,23 +539,6 @@ class Clutter::Text is Clutter::Actor {
       STORE => -> $, Int() $val is copy {
         $gv.boolean = $val;
         self.prop_set('selectable', $gv);
-      }
-    );
-  }
-
-  # Type: ClutterColor
-  method selected-text-color is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('selected-text-color', $gv)
-        );
-        #$gv.TYPE
-      },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
-        self.prop_set('selected-text-color', $gv);
       }
     );
   }
@@ -658,16 +578,16 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: ClutterColor
   method selection-color is rw  {
-    my GTK::Compat::Value $gv .= new( -type- );
+    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
           self.prop_get('selection-color', $gv)
         );
-        #$gv.TYPE
+        Clutter::Color.new( $gv.boxed );
       },
-      STORE => -> $,  $val is copy {
-        #$gv.TYPE = $val;
+      STORE => -> $, ClutterColor() $val is copy {
+        $gv.boxed = $val;
         self.prop_set('selection-color', $gv);
       }
     );
@@ -702,23 +622,6 @@ class Clutter::Text is Clutter::Actor {
       STORE => -> $, Int() $val is copy {
         $gv.boolean = $val;
         self.prop_set('single-line-mode', $gv);
-      }
-    );
-  }
-
-  # Type: gchar
-  method text is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('text', $gv)
-        );
-        $gv.string;
-      },
-      STORE => -> $, Str() $val is copy {
-        $gv.string = $val;
-        self.prop_set('text', $gv);
       }
     );
   }
@@ -842,22 +745,6 @@ class Clutter::Text is Clutter::Actor {
 
   method insert_unichar (gunichar $wc) {
     clutter_text_insert_unichar($!ct, $wc);
-  }
-
-  method new {
-    clutter_text_new();
-  }
-
-  method new_full (Str() $text, ClutterColor $color) {
-    clutter_text_new_full($!ct, $text, $color);
-  }
-
-  method new_with_buffer {
-    clutter_text_new_with_buffer($!ct);
-  }
-
-  method new_with_text (Str() $text) {
-    clutter_text_new_with_text($!ct, $text);
   }
 
   method position_to_coords (
