@@ -8,6 +8,56 @@ use GTK::Roles::Pointers;
 
 unit package Clutter::Raw::Types;
 
+constant ClutterActorCreateChildFunc is export := Pointer;
+constant ClutterProgressFunc         is export := Pointer;
+constant ClutterTimelineProgressFunc is export := Pointer;
+
+class ClutterAction               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterActor                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterActorBox             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterActorIter            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterActorMeta            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterAlignConstraint      is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterAlpha                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterAnimatable           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterBoxLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterChildMeta            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterColor                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
+#class ClutterContentRepeat is repr('CPointer') does GTK::Roles::Pointers is export { }
+#class ClutterContentRepeatType is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterEffect               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterEvent                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterFog                  is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterGeometry             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterGroup                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterGroupAncestry        is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterImage                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterInterval             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterKnot                 is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterLayoutManager        is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterLayoutMeta           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterMargin               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterMatrix               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPathNode             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPerspective          is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPoint                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterRect                 is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterScript               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterScriptable           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterSize                 is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterStage                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterStageAncestry        is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterStaticColor          is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterText                 is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterTextBuffer           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterTimeline             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterTransition           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterVertex               is repr('CPointer') does GTK::Roles::Pointers is export { }
+
 our enum ClutterActorAlign is export <
   CLUTTER_ACTOR_ALIGN_FILL
   CLUTTER_ACTOR_ALIGN_START

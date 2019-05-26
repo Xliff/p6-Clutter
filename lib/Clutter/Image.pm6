@@ -72,7 +72,7 @@ class Clutter::Image {
   }
 
   method set_data (
-    guint8 $data, 
+    Pointer $data, 
     CoglPixelFormat $pixel_format, 
     guint $width, 
     guint $height, 

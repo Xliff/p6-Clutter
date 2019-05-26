@@ -34,7 +34,7 @@ sub clutter_image_new ()
 sub clutter_image_set_area (
   ClutterImage $image, 
   guint8 $data, 
-  CoglPixelFormat $pixel_format, 
+  guint $pixel_format, # CoglPixelFormat $pixel_format, 
   cairo_rectangle_int_t $rect, 
   guint $row_stride, 
   CArray[Pointer[GError]] $error
@@ -47,7 +47,7 @@ sub clutter_image_set_area (
 sub clutter_image_set_bytes (
   ClutterImage $image, 
   GBytes $data, 
-  CoglPixelFormat $pixel_format, 
+  guint $pixel_format, # CoglPixelFormat $pixel_format, 
   guint $width, 
   guint $height, 
   guint $row_stride, 
@@ -60,8 +60,8 @@ sub clutter_image_set_bytes (
 
 sub clutter_image_set_data (
   ClutterImage $image, 
-  guint8 $data, 
-  CoglPixelFormat $pixel_format, 
+  Pointer $data, 
+  guint $pixel_format, # CoglPixelFormat $pixel_format, 
   guint $width, 
   guint $height, 
   guint $row_stride, 
