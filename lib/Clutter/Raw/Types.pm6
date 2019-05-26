@@ -4,6 +4,8 @@ use NativeCall;
 
 use GTK::Compat::Types;
 
+use GTK::Roles::Pointers;
+
 unit package Clutter::Raw::Types;
 
 our enum ClutterActorAlign is export <
