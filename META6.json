@@ -1,0 +1,113 @@
+{
+    "depends": [
+	    "p6-GtkPlus"
+    ],
+    "description": "Perl6 library bindings for GNOME's Clutter library",
+    "version": "r0.0.1",
+    "meta-version": "0",
+    "source-url": "https://github.com/Xliff/p6-Clutter",
+    "provides": {
+      "Clutter::Compat::Types"             :  "lib/Clutter/Compat/Types.pm6"            ,
+      "Clutter::Raw::Types"                :  "lib/Clutter/Raw/Types.pm6"               ,
+      "Clutter::Action"                    :  "lib/Clutter/Action.pm6"                  ,
+      "Clutter::ChildMeta"                 :  "lib/Clutter/ChildMeta.pm6"               ,
+      "Clutter::Constraint"                :  "lib/Clutter/Constraint.pm6"              ,
+      "Clutter::LayoutMeta"                :  "lib/Clutter/LayoutMeta.pm6"              ,
+      "Clutter::Raw::Actor"                :  "lib/Clutter/Raw/Actor.pm6"               ,
+      "Clutter::Raw::ActorMeta"            :  "lib/Clutter/Raw/ActorMeta.pm6"           ,
+      "Clutter::Raw::AlignConstraint"      :  "lib/Clutter/Raw/AlignConstraint.pm6"     ,
+      "Clutter::Raw::Animatable"           :  "lib/Clutter/Raw/Animatable.pm6"          ,
+      "Clutter::Raw::BoxLayout"            :  "lib/Clutter/Raw/BoxLayout.pm6"           ,
+      "Clutter::Raw::Boxed"                :  "lib/Clutter/Raw/Boxed.pm6"               ,
+      "Clutter::Raw::Color"                :  "lib/Clutter/Raw/Color.pm6"               ,
+      "Clutter::Raw::Container"            :  "lib/Clutter/Raw/Container.pm6"           ,
+      "Clutter::Raw::Image"                :  "lib/Clutter/Raw/Image.pm6"               ,
+      "Clutter::Raw::LayoutManager"        :  "lib/Clutter/Raw/LayoutManager.pm6"       ,
+      "Clutter::Raw::Scriptable"           :  "lib/Clutter/Raw/Scriptable.pm6"          ,
+      "Clutter::Raw::Stage"                :  "lib/Clutter/Raw/Stage.pm6"               ,
+      "Clutter::Raw::TextBuffer"           :  "lib/Clutter/Raw/TextBuffer.pm6"          ,
+      "Clutter::Raw::Timeline"             :  "lib/Clutter/Raw/Timeline.pm6"            ,
+      "Clutter::Raw::VariousTypes"         :  "lib/Clutter/Raw/VariousTypes.pm6"        ,
+      "Clutter::Rect"                      :  "lib/Clutter/Rect.pm6"                    ,
+      "Clutter::Roles::Animatable"         :  "lib/Clutter/Roles/Animatable.pm6"        ,
+      "Clutter::Roles::Scriptable"         :  "lib/Clutter/Roles/Scriptable.pm6"        ,
+      "Clutter::Roles::Signals::Actor"     :  "lib/Clutter/Roles/Signals/Actor.pm6"     ,
+      "Clutter::Roles::Signals::Container" :  "lib/Clutter/Roles/Signals/Container.pm6" ,
+      "Clutter::Roles::Signals::Stage"     :  "lib/Clutter/Roles/Signals/Stage.pm6"     ,
+      "Clutter::Roles::Signals::Text"      :  "lib/Clutter/Roles/Signals/Text.pm6"      ,
+      "Clutter::Size"                      :  "lib/Clutter/Size.pm6"                    ,
+      "Clutter::Raw::Text"                 :  "lib/Clutter/Raw/Text.pm6"                ,
+      "Clutter::TextBuffer"                :  "lib/Clutter/TextBuffer.pm6"              ,
+      "Clutter::Timeline"                  :  "lib/Clutter/Timeline.pm6"                ,
+      "Clutter::Vertex"                    :  "lib/Clutter/Vertex.pm6"                  ,
+      "Clutter::ActorBox"                  :  "lib/Clutter/ActorBox.pm6"                ,
+      "Clutter::ActorMeta"                 :  "lib/Clutter/ActorMeta.pm6"               ,
+      "Clutter::AlignConstraint"           :  "lib/Clutter/AlignConstraint.pm6"         ,
+      "Clutter::Color"                     :  "lib/Clutter/Color.pm6"                   ,
+      "Clutter::Effect"                    :  "lib/Clutter/Effect.pm6"                  ,
+      "Clutter::Image"                     :  "lib/Clutter/Image.pm6"                   ,
+      "Clutter::LayoutManager"             :  "lib/Clutter/LayoutManager.pm6"           ,
+      "Clutter::PaintVolume"               :  "lib/Clutter/PaintVolume.pm6"             ,
+      "Clutter::Point"                     :  "lib/Clutter/Point.pm6"                   ,
+      "Clutter::Roles::Container"          :  "lib/Clutter/Roles/Container.pm6"         ,
+      "Clutter::Actor"                     :  "lib/Clutter/Actor.pm6"                   ,
+      "Clutter::BoxLayout"                 :  "lib/Clutter/BoxLayout.pm6"               ,
+      "Clutter::Stage"                     :  "lib/Clutter/Stage.pm6"                   ,
+      "Clutter::Text"                      :  "lib/Clutter/Text.pm6"                    
+    },
+    "name": "Perl6-Clutter",
+    "perl": "6.c",
+    "test-depends": [ "Test::META" ],
+    "build-depends": [
+      "Text::Table::Simple",
+      "Dependency::Sort",
+      "Color",
+      "RandomColor",
+      "File::Find"
+    ],
+    "support": { "source": null },
+    "authors": [ "clifton.wood@gmail.com" ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
