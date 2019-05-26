@@ -31,7 +31,7 @@ sub on_tap ($act, $a, $l) {
   my $gpair = @gravities[$cur_gravity];
   
   $actor.save_easing_state;
-  $actor.content_gravity = ClutterGravities.enums.Hash{$gpair.key};
+  $actor.content_gravity = ClutterContentGravity.enums.Hash{$gpair.key};
   $actor.restore_easing_state;
   
   $l.text = "Constant gravity: { $gpair.value }";
@@ -61,15 +61,16 @@ sub MAIN {
     $pixbuf.rowstride
   );
   
+  my $grav = @gravities[*-1];
   $stage.set_conent_scaling_filters(
     CLUTTER_SCALING_FILTER_TRILINEAR,
     CLUTTER_SCALING_FILTER_LINEAR
   );
-  $stage.content_gravity = ClutterGravities.enums.Hash{ @gravities[*-1].key };
+  $stage.content_gravity = ClutterContentGravity.enums.Hash{$grav.key};
   $stage.content = $image;
   
   my $text = Clutter::Texty.new(;
-  $text.text = "Content gravity: { @gravities[*-1].value }";
+  $text.text = "Content gravity: { $grav.value }";
   $text.add_constraint( 
     Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.5)
   );
