@@ -6,12 +6,17 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Compat::Object;
-use GTK::Compat::Protection;
+use GTK::Raw::Utils;
+
+use GTK::Compat::Roles::Object;
+use GTK::Roles::Protection;
 
 use Clutter::ActorMeta;
 
 class Clutter::Effect is Clutter::ActorMeta {
+  also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Protection;
+  
   has ClutterEffect $!c-eff;
   
   method Clutter::Raw::Types::ClutterEffect

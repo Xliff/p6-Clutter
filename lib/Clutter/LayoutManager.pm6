@@ -1,18 +1,25 @@
 use v6.c;
 
+use Method::Also;
+
 use GTK::Compat::Types;
+use GTK::Raw::Types;
 use Clutter::Raw::Types;
 
-use GTK::Raw::Types;
+use GTK::Raw::Utils;
 
 use Clutter::Raw::LayoutManager;
 
 use Clutter::LayoutMeta;
 
+use GTK::Compat::Roles::Object;
+
 # Object
 
 class Clutter::LayoutManager {
-  my ClutterLayoutManager $!clm;
+  also does GTK::Compat::Roles::Object;
+  
+  has ClutterLayoutManager $!clm;
   
   submethod BUILD (:$manager) {
     self!setObject( cast(GObject, $!clm = $manager) );
@@ -22,7 +29,7 @@ class Clutter::LayoutManager {
     is also<ClutterLayoutManager>
   { $!clm }
   
-  method new (ClutterLayoutManger $manager) {
+  method new (ClutterLayoutManager $manager) {
     self.bless(:$manager);
   }
   

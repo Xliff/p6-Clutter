@@ -2,8 +2,11 @@ use v6.c;
 
 use NativeCall;
 
+use Cairo;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
+use Clutter::Compat::Types;
 
 unit package Clutter::Raw::Image;
 

@@ -2,8 +2,9 @@ use v6.c;
 
 use NativeCall;
 
-use GTK::Compat::Type;
+use GTK::Compat::Types;
 use Clutter::Raw::Types;
+use Clutter::Compat::Types;
 
 unit package Clutter::Raw::Scriptable;
 

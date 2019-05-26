@@ -43,7 +43,7 @@ class Clutter::ChildMeta {
 
   method get_type is also<get-type> {
     state ($n, $t);
-    unstable_get_type( self.^name. &clutter_child_meta_get_type, $n, $t );
+    unstable_get_type( self.^name, &clutter_child_meta_get_type, $n, $t );
   }
 
 }

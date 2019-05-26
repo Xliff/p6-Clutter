@@ -1,5 +1,7 @@
 use v6.c;
 
+use NativeCall;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -166,8 +168,8 @@ sub clutter_geometry_intersects (
   is export
 { * }
 
-sub clutter_geometry_union (C
-  lutterGeometry $geometry_a, 
+sub clutter_geometry_union (
+  ClutterGeometry $geometry_a, 
   ClutterGeometry $geometry_b, 
   ClutterGeometry $result
 )
@@ -393,7 +395,7 @@ sub clutter_point_distance (
   gfloat $x_distance, 
   gfloat $y_distance
 )
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }
@@ -473,7 +475,7 @@ sub clutter_rect_get_center (ClutterRect $rect, ClutterPoint $center)
 { * }
 
 sub clutter_rect_get_height (ClutterRect $rect)
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }
@@ -485,19 +487,19 @@ sub clutter_rect_get_type ()
 { * }
 
 sub clutter_rect_get_width (ClutterRect $rect)
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }
 
 sub clutter_rect_get_x (ClutterRect $rect)
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }
 
 sub clutter_rect_get_y (ClutterRect $rect)
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }

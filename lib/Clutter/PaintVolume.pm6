@@ -50,8 +50,8 @@ class Clutter::PaintVolume {
   }
 
   method set_depth (Num() $depth) is also<set-depth> {
-    my gfloat $d = $depth
-    clutter_paint_volume_set_depth($!cpv, $depth);
+    my gfloat $d = $depth;
+    clutter_paint_volume_set_depth($!cpv, $d);
   }
 
   method set_from_allocation (ClutterActor() $actor) 

@@ -2,6 +2,8 @@ use v6.c;
 
 use NativeCall;
 
+use Cairo;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -36,7 +38,7 @@ sub clutter_stage_get_accept_focus (ClutterStage $stage)
 
 sub clutter_stage_get_actor_at_pos (
   ClutterStage $stage,
-  guint $pick_mode # ClutterPickMode $pick_mode,
+  guint $pick_mode, # ClutterPickMode $pick_mode,
   gint $x,
   gint $y
 )

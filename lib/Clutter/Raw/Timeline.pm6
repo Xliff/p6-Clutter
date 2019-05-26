@@ -1,6 +1,6 @@
 use v6.c;
 
-use NaticeCall;
+use NativeCall;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;

@@ -170,7 +170,7 @@ sub clutter_param_spec_color (
   Str $nick,
   Str $blurb,
   ClutterColor $default_value,
-  GParamFlags $flags
+  guint $flags # GParamFlags $flags
 )
   returns GParamSpec
   is native(clutter)

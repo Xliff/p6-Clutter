@@ -1,5 +1,8 @@
 use v6.c;
 
+use NativeCall;
+use Method::Also;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -14,8 +17,17 @@ class Clutter::Rect {
     $!cr = $rect;
   }
   
-  method new (ClutterRect $rect) {
+  multi method new (ClutterRect $rect) {
     self.bless(:$rect);
+  }
+  multi method new (
+    Num() $x, 
+    Num() $y, 
+    Num() $width, 
+    Num() $height
+  ) {
+    my gfloat ($xx, $yy, $w, $h) = ($x, $y, $width, $height);
+    self.init($xx, $yy, $w, $h);
   }
   
   multi method init (
@@ -23,11 +35,9 @@ class Clutter::Rect {
     Num() $y, 
     Num() $width, 
     Num() $height
-  ) 
-    is also<new>
-  {
+  ) {
     self.bless( 
-      rect => Clutter::Rect.init( Clutter::Rect.alloc, $x, $y, $width, $height) )
+      rect => Clutter::Rect.init( Clutter::Rect.alloc, $x, $y, $width, $height )
     );
   }
   multi method init (
@@ -44,7 +54,7 @@ class Clutter::Rect {
   }
   
   method alloc (Clutter::Rect:U:) {
-    clutter_rect_alloc($!cr);
+    clutter_rect_alloc();
   }
 
   method clamp_to_pixel is also<clamp-to-pixel> {
@@ -77,7 +87,7 @@ class Clutter::Rect {
   
   multi method get_center is also<center> {
     my $c = ClutterPoint.new; 
-    Clutter::Point.new( Clutter::Rect.get_center($!cab, $c) );
+    Clutter::Point.new( Clutter::Rect.get_center($!cr, $c) );
   }
   multi method get_center (ClutterPoint $center) {
     clutter_rect_get_center($!cr, $center);
@@ -156,7 +166,7 @@ class Clutter::Rect {
     my $r = ClutterRect.new;
     Clutter::Rect.new( Clutter::Rect.union($!cr, $b, $r) );
   }
-  method union (
+  multi method union (
     Clutter::Rect:U:
     ClutterRect $a,
     ClutterRect $b, 
@@ -166,8 +176,8 @@ class Clutter::Rect {
     $res;
   }
 
-  method zero {
-    clutter_rect_zero($!cr);
+  method zero (Clutter::Rect:U:) {
+    clutter_rect_zero();
   }
   
 }

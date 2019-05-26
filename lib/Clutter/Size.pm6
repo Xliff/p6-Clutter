@@ -1,6 +1,7 @@
 use v6.c;
 
 use Method::Also;
+use NativeCall;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
@@ -20,18 +21,21 @@ class Clutter::Size {
     is also<ClutterSize>
   { $!cs }
   
-  method new (ClutterSize $size) {
+  multi method new (ClutterSize $size) {
     self.bless( :$size );
   }
+  multi method new (Num() $width, Num() $height) {
+    self.init($width, $height);
+  }
   
-  multi method init (Num() $width, Num() $height) is also<new> {
+  multi method init (Num() $width, Num() $height) {
     self.bless( 
       size => Clutter::Size.init( Clutter::Size.alloc, $width, $height) 
     );
   }
   multi method init (
     Clutter::Size:U:
-    ClutterSize $s
+    ClutterSize $s,
     Num() $width, 
     Num() $height
   ) {
@@ -49,7 +53,7 @@ class Clutter::Size {
   }
 
   method equals (ClutterSize() $b) {
-    so clutter_size_equals($a, $b);
+    so clutter_size_equals($!cs, $b);
   }
 
   method free (Clutter::Size:U:) {
@@ -61,12 +65,12 @@ class Clutter::Size {
   }
 
   method get_type is also<get-type> {
-    state ($n, $t)
+    state ($n, $t);
     unstable_get_type( self.^name, &clutter_size_get_type, $n, $t );
   }
   
 }
 
-multi method infix:<eqv> (ClutterSize $a, ClutterSize $b) is export {
+our multi method infix:<eqv> (ClutterSize $a, ClutterSize $b) is export {
   so clutter_size_equals($a, $b);
 }

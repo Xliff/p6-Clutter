@@ -1,6 +1,7 @@
 use v6.c;
 
 use Method::Also;
+use NativeCall;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
@@ -22,7 +23,7 @@ class Clutter::ActorBox {
   }
   
   method alloc (Clutter::ActorBox:U:) {
-    clutter_actor_box_alloc($!cab);
+    clutter_actor_box_alloc();
   }
 
   method clamp_to_pixel is also<clamp-to-pixel> {
@@ -30,7 +31,7 @@ class Clutter::ActorBox {
   }
 
   method contains (Num() $x, Num() $y) {
-    my gfloat ($xx, $yy) ($x, $y);
+    my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_box_contains($!cab, $xx, $yy);
   }
 
@@ -118,7 +119,7 @@ class Clutter::ActorBox {
     Num() $y_2
   ) {
     my gfloat ($xx1, $yy1, $xx2, $yy2) = ($x_1, $y_1, $x_2, $y_2);
-    clutter_actor_box_init($v, $xx1, $yy1, $xx2, $yy2);
+    clutter_actor_box_init($ab, $xx1, $yy1, $xx2, $yy2);
   }
 
   method init_rect (
@@ -138,16 +139,16 @@ class Clutter::ActorBox {
   multi method interpolate (
     Clutter::ActorBox:U:
     ClutterActorBox $a,
-    ClutterActorBox $b
+    ClutterActorBox $b,
     Num() $progress,
     ClutterActorBox $r
   ) {
     my gdouble $p = $progress;
-    clutter_actor_box_interpolate($a, $final, $p, $r);
+    clutter_actor_box_interpolate($a, $b, $p, $r);
     $r;
   }
   multi method interpolate (ClutterActorBox() $final, Num() $progress) {
-    my $result = ClutterActorBox.new;
+    my $result = ClutterActorBox.alloc;
     # Could use the return result, but illustrates one method of use...
     Clutter::ActorBox.interpolate($!cab, $final, $progress, $result);
     Clutter::ActorBox.new($result);
@@ -173,7 +174,7 @@ class Clutter::ActorBox {
     $result;
   }
   multi method union (ClutterActorBox() $b) {
-    my $r = ClutterActorBox.new;
+    my $r = ClutterActorBox.alloc;
     # Uses the returned result.
     Clutter::ActorBox.new( Clutter::ActorBox.union($!cab, $b, $r) );
   }

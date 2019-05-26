@@ -4,6 +4,7 @@ use NativeCall;
 
 use Pango::Raw::Types;
 use GTK::Compat::Types;
+use Clutter::Raw::Types;
 
 unit package Clutter::Raw::Text;
 
@@ -418,7 +419,7 @@ sub clutter_text_set_max_length (ClutterText $self, gint $max)
   is export
 { * }
 
-sub clutter_text_set_password_char (ClutterText $self, Str $wc)
+sub clutter_text_set_password_char (ClutterText $self, guint $wc)
   is native(clutter)
   is export
 { * }

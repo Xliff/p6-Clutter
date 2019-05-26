@@ -1,5 +1,7 @@
 use v6.c;
 
+use Cairo;
+
 use NativeCall;
 
 use GTK::Compat::Types;
@@ -7,6 +9,10 @@ use GTK::Compat::Types;
 use GTK::Roles::Pointers;
 
 unit package Clutter::Raw::Types;
+
+constant clutter is export = 'clutter-1.0',v0;
+
+constant cairo_rectangle_int_t is export = Cairo::cairo_rectangle_int_t;
 
 constant ClutterActorCreateChildFunc is export := Pointer;
 constant ClutterProgressFunc         is export := Pointer;
@@ -26,14 +32,12 @@ class ClutterColor                is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
-#class ClutterContentRepeat is repr('CPointer') does GTK::Roles::Pointers is export { }
 #class ClutterContentRepeatType is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEffect               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEvent                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterFog                  is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGeometry             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGroup                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGroupAncestry        is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterImage                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterInterval             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterKnot                 is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -50,7 +54,6 @@ class ClutterScript               is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterScriptable           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSize                 is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterStage                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterStageAncestry        is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterStaticColor          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterText                 is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterTextBuffer           is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -436,4 +439,11 @@ our enum ClutterRotateDirection is export <
 our enum ClutterOffscreenRedirect is export (
   CLUTTER_OFFSCREEN_REDIRECT_AUTOMATIC_FOR_OPACITY => 1,
   CLUTTER_OFFSCREEN_REDIRECT_ALWAYS                => 1 +< 1,
+);
+
+our enum ClutterContentRepeat is export (
+  CLUTTER_REPEAT_NONE   => 0,
+  CLUTTER_REPEAT_X_AXIS => 1,
+  CLUTTER_REPEAT_Y_AXIS => 1 +< 1,
+  CLUTTER_REPEAT_BOTH   => 3
 );

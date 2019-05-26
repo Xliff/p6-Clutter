@@ -1,9 +1,7 @@
 Cairo
-GTK::Compat::Object
-GTK::Compat::Protection
 GTK::Compat::Roles::Object
-GTK::Compat::Type
 GTK::Compat::Types
+GTK::Compat::Value
 GTK::Raw::ReturnedValue
 GTK::Raw::Types
 GTK::Raw::Utils
@@ -11,7 +9,6 @@ GTK::Roles::Pointers
 GTK::Roles::Protection
 GTK::Roles::Signals::Generic
 Method::Also
-NaticeCall
 Pango::AttrList
 Pango::Context
 Pango::FontDescription
@@ -21,6 +18,7 @@ Clutter::Raw::Types
 Clutter::Action
 Clutter::ChildMeta
 Clutter::Constraint
+Clutter::Compat::Types
 Clutter::LayoutMeta
 Clutter::Raw::Actor
 Clutter::Raw::ActorMeta
@@ -34,6 +32,7 @@ Clutter::Raw::Image
 Clutter::Raw::LayoutManager
 Clutter::Raw::Scriptable
 Clutter::Raw::Stage
+Clutter::Raw::Text
 Clutter::Raw::TextBuffer
 Clutter::Raw::Timeline
 Clutter::Raw::VariousTypes
@@ -45,11 +44,11 @@ Clutter::Roles::Signals::Container
 Clutter::Roles::Signals::Stage
 Clutter::Roles::Signals::Text
 Clutter::Size
-Clutter::Raw::Text
 Clutter::TextBuffer
 Clutter::Timeline
 Clutter::Vertex
 Clutter::ActorBox
+Clutter::ActorIter
 Clutter::ActorMeta
 Clutter::AlignConstraint
 Clutter::Color

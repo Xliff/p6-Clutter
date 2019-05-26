@@ -22,11 +22,13 @@ class Clutter::Timeline {
     self!setObject( cast(GObject, $!ctime = $timeline) );
   }
   
-  method Clutter::Raw;:Types::ClutterTimeline
+  method Clutter::Raw::Types::ClutterTimeline
+    is also<ClutterTimeline>
   { $!ctime }
   
-  method new {
-    self.bless( timeline => clutter_timeline_new() );
+  method new (Int() $msecs) {
+    my guint $ms = resolve-uint($msecs);
+    self.bless( timeline => clutter_timeline_new($ms) );
   }
   
   method auto_reverse is rw is also<auto-reverse> {
@@ -95,7 +97,7 @@ class Clutter::Timeline {
         clutter_timeline_get_repeat_count($!ctime);
       },
       STORE => sub ($, Int() $count is copy) {
-        my gint $c = resolve-int($c);
+        my gint $c = resolve-int($count);
         clutter_timeline_set_repeat_count($!ctime, $c);
       }
     );
@@ -157,16 +159,18 @@ class Clutter::Timeline {
     clutter_timeline_advance_to_marker($!ctime, $marker_name);
   }
 
-  multi method get_cubic_bezier_progress is also<get-cubic-bezier-progress> {
+  proto method get_cubic_bezier_progress 
+    is also<get-cubic-bezier-progress>
+  { * }
+  
+  multi method get_cubic_bezier_progress {
     my ($c1, $c2) = ClutterPoint.new xx 2;
     samewith($c1, $c2);
   }
   multi method get_cubic_bezier_progress (
     ClutterPoint() $c_1, 
     ClutterPoint() $c_2
-  ) 
-    is also<get-cubic-bezier-progress> 
-  {
+  ) {
     clutter_timeline_get_cubic_bezier_progress($!ctime, $c_1, $c_2);
     ( Clutter::Point.new($c_1), Clutter::Point.new($c_2) );
   }

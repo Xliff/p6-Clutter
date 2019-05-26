@@ -5,6 +5,8 @@ use Method::Also;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
+use GTK::Raw::Utils;
+
 use Clutter::Raw::ActorMeta;
 
 use GTK::Compat::Roles::Object;
@@ -22,7 +24,7 @@ class Clutter::ActorMeta {
   
   method setActorMeta (ClutterActorMeta $metaactor) {
     self.IS-PROTECTED;
-    self!setObject( cast(GObject, $!cam = $metaactor);
+    self!setObject( cast(GObject, $!cam = $metaactor) );
   }
   
   method Clutter::Raw::Types::ClutterActorMeta

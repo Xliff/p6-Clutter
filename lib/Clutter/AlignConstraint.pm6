@@ -26,7 +26,7 @@ class Clutter::AlignConstraint is Clutter::Constraint {
   
   method new (
     ClutterActor() $actor,
-    Int() $axis # ClutterAlignAxis $axis, 
+    Int() $axis, # ClutterAlignAxis $axis, 
     Num() $factor
   ) {
     my gfloat $f = $factor;
@@ -63,7 +63,7 @@ class Clutter::AlignConstraint is Clutter::Constraint {
   method source is rw {
     Proxy.new(
       FETCH => sub ($) {
-        ::('Clutter::Actor'),new( clutter_align_constraint_get_source($!cac) );
+        ::('Clutter::Actor').new( clutter_align_constraint_get_source($!cac) );
       },
       STORE => sub ($, ClutterActor() $source is copy) {
         clutter_align_constraint_set_source($!cac, $source);

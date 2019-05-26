@@ -1,5 +1,7 @@
 use v6.c;
 
+use Method::Also;
+
 use Cairo;
 
 use GTK::Compat::Types;
@@ -9,8 +11,8 @@ use GTK::Raw::Utils;
 
 use Clutter::Roles::Signals::Stage;
 
-our subset ClutterStageAncestry is export of Mu
-  where ClutterStage | ClutterGroupAncestry;
+# our subset ClutterStageAncestry is export of Mu
+#   where ClutterStage | ClutterGroupAncestry;
 
 use Clutter::Raw::Boxed;
 use Clutter::Raw::Stage;
@@ -26,7 +28,8 @@ class Clutter::Stage is Clutter::Actor {
     self.setActor( cast(ClutterGroup, $!cs = $stage) );
   }
 
-  multi method new (ClutterStageAncestry $stage) {
+  # Replace ancestry logic
+  multi method new (ClutterStage $stage) {
     self.bless( :$stage );
   }
   multi method new {
@@ -258,37 +261,37 @@ class Clutter::Stage is Clutter::Actor {
   # Is originally:
   # ClutterStage, gpointer --> void
   method activate {
-    self.connect($!w, 'activate');
+    self.connect($!cs, 'activate');
   }
 
   # Is originally:
   # ClutterStage, gpointer --> void
   method after-paint is also<after_paint> {
-    self.connect($!w, 'after-paint');
+    self.connect($!cs, 'after-paint');
   }
 
   # Is originally:
   # ClutterStage, gpointer --> void
   method deactivate {
-    self.connect($!w, 'deactivate');
+    self.connect($!cs, 'deactivate');
   }
 
   # Is originally:
   # ClutterStage, ClutterEvent, gpointer --> gboolean
   method delete-event is also<delete_event> {
-    self.connec-event($!w, 'delete-event');
+    self.connec-event($!cs, 'delete-event');
   }
 
   # Is originally:
   # ClutterStage, gpointer --> void
   method fullscreen {
-    self.connect($!w, 'fullscreen');
+    self.connect($!cs, 'fullscreen');
   }
 
   # Is originally:
   # ClutterStage, gpointer --> void
   method unfullscreen {
-    self.connect($!w, 'unfullscreen');
+    self.connect($!cs, 'unfullscreen');
   }
 
   method ensure_current is also<ensure-current> {
@@ -341,8 +344,9 @@ class Clutter::Stage is Clutter::Actor {
   }
   multi method get_redraw_clip_bounds (%clip) {
     die 'Invalid hash value passed to Clutter::Stage.get_redraw_clip_bounds'
-      %clip<x y width height>.all.defined &&
-      %clip<x y width height>.all ~~ Int;
+      unless
+        %clip<x y width height>.all.defined &&
+        %clip<x y width height>.all ~~ Int;
 
     my $clip = cairo_rectangle_int_t.new;
     $clip.x      = %clip<x>;

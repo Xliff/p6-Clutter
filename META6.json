@@ -7,11 +7,11 @@
     "meta-version": "0",
     "source-url": "https://github.com/Xliff/p6-Clutter",
     "provides": {
-      "Clutter::Compat::Types"             :  "lib/Clutter/Compat/Types.pm6"            ,
       "Clutter::Raw::Types"                :  "lib/Clutter/Raw/Types.pm6"               ,
       "Clutter::Action"                    :  "lib/Clutter/Action.pm6"                  ,
       "Clutter::ChildMeta"                 :  "lib/Clutter/ChildMeta.pm6"               ,
       "Clutter::Constraint"                :  "lib/Clutter/Constraint.pm6"              ,
+      "Clutter::Compat::Types"             :  "lib/Clutter/Compat/Types.pm6"            ,
       "Clutter::LayoutMeta"                :  "lib/Clutter/LayoutMeta.pm6"              ,
       "Clutter::Raw::Actor"                :  "lib/Clutter/Raw/Actor.pm6"               ,
       "Clutter::Raw::ActorMeta"            :  "lib/Clutter/Raw/ActorMeta.pm6"           ,
@@ -25,6 +25,7 @@
       "Clutter::Raw::LayoutManager"        :  "lib/Clutter/Raw/LayoutManager.pm6"       ,
       "Clutter::Raw::Scriptable"           :  "lib/Clutter/Raw/Scriptable.pm6"          ,
       "Clutter::Raw::Stage"                :  "lib/Clutter/Raw/Stage.pm6"               ,
+      "Clutter::Raw::Text"                 :  "lib/Clutter/Raw/Text.pm6"                ,
       "Clutter::Raw::TextBuffer"           :  "lib/Clutter/Raw/TextBuffer.pm6"          ,
       "Clutter::Raw::Timeline"             :  "lib/Clutter/Raw/Timeline.pm6"            ,
       "Clutter::Raw::VariousTypes"         :  "lib/Clutter/Raw/VariousTypes.pm6"        ,
@@ -36,11 +37,11 @@
       "Clutter::Roles::Signals::Stage"     :  "lib/Clutter/Roles/Signals/Stage.pm6"     ,
       "Clutter::Roles::Signals::Text"      :  "lib/Clutter/Roles/Signals/Text.pm6"      ,
       "Clutter::Size"                      :  "lib/Clutter/Size.pm6"                    ,
-      "Clutter::Raw::Text"                 :  "lib/Clutter/Raw/Text.pm6"                ,
       "Clutter::TextBuffer"                :  "lib/Clutter/TextBuffer.pm6"              ,
       "Clutter::Timeline"                  :  "lib/Clutter/Timeline.pm6"                ,
       "Clutter::Vertex"                    :  "lib/Clutter/Vertex.pm6"                  ,
       "Clutter::ActorBox"                  :  "lib/Clutter/ActorBox.pm6"                ,
+      "Clutter::ActorIter"                 :  "lib/Clutter/ActorIter.pm6"               ,
       "Clutter::ActorMeta"                 :  "lib/Clutter/ActorMeta.pm6"               ,
       "Clutter::AlignConstraint"           :  "lib/Clutter/AlignConstraint.pm6"         ,
       "Clutter::Color"                     :  "lib/Clutter/Color.pm6"                   ,
@@ -68,6 +69,21 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

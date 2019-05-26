@@ -24,7 +24,7 @@ sub clutter_align_constraint_new (
 { * }
 
 sub clutter_align_constraint_get_align_axis (ClutterAlignConstraint $align)
-  returns ClutterAlignAxis
+  returns guint # ClutterAlignAxis
   is native(clutter)
   is export
 { * }

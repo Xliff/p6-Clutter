@@ -1,5 +1,8 @@
 use v6.c;
 
+use Method::Also;
+use NativeCall;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -20,7 +23,7 @@ class Clutter::Vertex {
   }
   
   method alloc (Clutter::Vertex:U:) {
-    clutter_vertex_alloc($!cv);
+    clutter_vertex_alloc();
   }
 
   method copy {
@@ -58,4 +61,3 @@ sub infix:<eqv> (ClutterVertex $a, ClutterVertex $b) is export {
 multi sub free (ClutterVertex $v) is export {
   clutter_vertex_free($v);
 }
-

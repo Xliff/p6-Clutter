@@ -11,6 +11,8 @@ use GTK::Roles::Signals::Generic;
 
 role Clutter::Roles::Signals::Actor {
   also does GTK::Roles::Signals::Generic;
+  
+  has %!signals-a;
 
   # ClutterActor, ClutterActorBox, ClutterAllocationFlags, gpointer
   method connect-allocation-changed (
@@ -46,7 +48,7 @@ role Clutter::Roles::Signals::Actor {
     my $hid;
     %!signals-a{$signal} //= do {
       my $s = Supplier.new;
-      $hid = g-connect-button-press-event($obj, $signal,
+      $hid = g-connect-clutter-event($obj, $signal,
         -> $, $cet, $ud --> gboolean {
           CATCH {
             default { $s.quit($_) }

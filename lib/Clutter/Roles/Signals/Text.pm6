@@ -47,12 +47,12 @@ role Clutter::Roles::Signals::Text {
     %!signals-ct{$signal} //= do {
       my $s = Supplier.new;
       $hid = g-connect-insert-text($obj, $signal,
-        -> $, $gr, $gt, $gr, $ud {
+        -> $, $gc, $gt, $gp, $ud {
           CATCH {
             default { $s.quit($_) }
           }
 
-          $s.emit( [self, $gr, $gt, $gr, $ud ] );
+          $s.emit( [self, $gc, $gt, $gp, $ud ] );
         },
         Pointer, 0
       );

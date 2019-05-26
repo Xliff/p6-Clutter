@@ -3,6 +3,7 @@ use v6.c;
 use NativeCall;
 
 use GTK::Compat::Types;
+use Pango::Raw::Types;
 use Clutter::Raw::Types;
 
 unit package Clutter::Raw::Actor;
@@ -216,15 +217,15 @@ sub clutter_actor_get_content_gravity (ClutterActor $self)
 { * }
 
 sub clutter_actor_get_content_repeat (ClutterActor $self)
-  returns ClutterContentRepeat
+  returns guint # ClutterContentRepeat
   is native(clutter)
   is export
 { * }
 
 sub clutter_actor_get_content_scaling_filters (
   ClutterActor $self,
-  ClutterScalingFilter $min_filter,
-  ClutterScalingFilter $mag_filter
+  guint $min_filter, # ClutterScalingFilter $min_filter,
+  guint $mag_filter  # ClutterScalingFilter $mag_filter
 )
   is native(clutter)
   is export
@@ -338,7 +339,7 @@ sub clutter_actor_get_next_sibling (ClutterActor $self)
 { * }
 
 sub clutter_actor_get_offscreen_redirect (ClutterActor $self)
-  returns ClutterOffscreenRedirect
+  returns guint # sClutterOffscreenRedirect
   is native(clutter)
   is export
 { * }
@@ -459,14 +460,14 @@ sub clutter_actor_get_reactive (ClutterActor $actor)
 { * }
 
 sub clutter_actor_get_request_mode (ClutterActor $self)
-  returns ClutterRequestMode
+  returns guint # ClutterRequestMode
   is native(clutter)
   is export
 { * }
 
 sub clutter_actor_get_rotation_angle (
   ClutterActor $self,
-  ClutterRotateAxis $axis
+  guint $axis # ClutterRotateAxis $axis
 )
   returns gdouble
   is native(clutter)
@@ -504,7 +505,7 @@ sub clutter_actor_get_stage (ClutterActor $actor)
 { * }
 
 sub clutter_actor_get_text_direction (ClutterActor $self)
-  returns ClutterTextDirection
+  returns guint # ClutterTextDirection
   is native(clutter)
   is export
 { * }
@@ -579,7 +580,7 @@ sub clutter_actor_get_x (ClutterActor $self)
 { * }
 
 sub clutter_actor_get_x_align (ClutterActor $self)
-  returns ClutterActorAlign
+  returns guint # ClutterActorAlign
   is native(clutter)
   is export
 { * }
@@ -768,7 +769,7 @@ sub clutter_actor_move_by (ClutterActor $self, gfloat $dx, gfloat $dy)
 
 sub clutter_actor_needs_expand (
   ClutterActor $self,
-  ClutterOrientation $orientation
+  guint $orientation # ClutterOrientation $orientation
 )
   returns uint32
   is native(clutter)
@@ -946,8 +947,8 @@ sub clutter_actor_set_content_repeat (
 
 sub clutter_actor_set_content_scaling_filters (
   ClutterActor $self,
-  ClutterScalingFilter $min_filter,
-  ClutterScalingFilter $mag_filter
+  guint $min_filter, # ClutterScalingFilter $min_filter,
+  guint $mag_filter  # ClutterScalingFilter $mag_filter
 )
   is native(clutter)
   is export
@@ -1022,14 +1023,14 @@ sub clutter_actor_set_margin_top (ClutterActor $self, gfloat $margin)
   is export
 { * }
 
-sub clutter_actor_set_name (ClutterActor $self, gStr $name)
+sub clutter_actor_set_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
 { * }
 
 sub clutter_actor_set_offscreen_redirect (
   ClutterActor $self,
-  ClutterOffscreenRedirect $redirect
+  guint $redirect # ClutterOffscreenRedirect $redirect
 )
   is native(clutter)
   is export

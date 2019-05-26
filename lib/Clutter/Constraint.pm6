@@ -6,13 +6,16 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Compat::Object;
-use GTK::Compat::Protection;
+use GTK::Compat::Roles::Object;
+use GTK::Roles::Protection;
 
 # Abstract. 
 # GObject.
 
 class Clutter::Constraint {
+  also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Protection;
+  
   has ClutterConstraint $!c-con;
   
   submethod BUILD {
@@ -21,7 +24,7 @@ class Clutter::Constraint {
   
   method Clutter::Raw::Types::ClutterConstraint
     is also<ClutterConstraint>
-  { $!c-act }
+  { $!c-con }
   
   method setConstraint(ClutterConstraint $constraint) {
     self.IS-PROTECTED;

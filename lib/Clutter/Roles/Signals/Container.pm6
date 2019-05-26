@@ -6,6 +6,7 @@ use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
 role Clutter::Roles::Signals::Container {
+  has %!signals-c;
 
   # ClutterContainer, ClutterActor, gpointer
   method connect-actor-added (

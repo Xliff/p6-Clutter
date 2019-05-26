@@ -1,5 +1,9 @@
 use v6.c;
 
+use Method::Also;
+
+use Cairo;
+
 use GTK::Compat::Types;
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
@@ -16,6 +20,21 @@ use Clutter::Actor;
 use Clutter::TextBuffer;
 
 use Clutter::Roles::Signals::Text;
+
+# This should become resolve-unichar in GTK::Raw::Utils.
+sub resolve-unichar($wc) {
+  resolve-uint(do given $wc {
+    when Str {
+      die 'Cannot convert multi-char string to unichar' unless .chars == 1;
+      $wc.ord;
+    }
+    default {
+      die 'Invalud type passed to Clutter::Text.insert_unichar'
+        unless .^can('Int').elems;
+      .Int
+    }
+  });
+}
 
 class Clutter::Text is Clutter::Actor {
   also does Clutter::Roles::Signals::Text;
@@ -208,7 +227,7 @@ class Clutter::Text is Clutter::Actor {
   method line_wrap_mode is rw is also<line-wrap-mode> {
     Proxy.new(
       FETCH => sub ($) {
-        PangoLineWrapMode( clutter_text_get_line_wrap_mode($!ct) );
+        PangoWrapMode( clutter_text_get_line_wrap_mode($!ct) );
       },
       STORE => sub ($, Int() $wrap_mode is copy) {
         my guint $w = resolve-uint($wrap_mode);
@@ -234,8 +253,8 @@ class Clutter::Text is Clutter::Actor {
       FETCH => sub ($) {
         clutter_text_get_password_char($!ct);
       },
-      STORE => sub ($, Int() $wc is copy) {
-        my guint $w = resolve-uint($wc);
+      STORE => sub ($, $wc is copy) {
+        my guint $w = resolve-unichar($wc);
         clutter_text_set_password_char($!ct, $w);
       }
     );
@@ -248,7 +267,7 @@ class Clutter::Text is Clutter::Actor {
       },
       STORE => sub ($, Int() $selectable is copy) {
         my gboolean $s = resolve-bool($selectable);
-        clutter_text_set_selectable($!ct, $s;
+        clutter_text_set_selectable($!ct, $s);
       }
     );
   }
@@ -351,176 +370,6 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gint
-  method cursor-position is rw  is also<cursor_position> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('cursor-position', $gv)
-        );
-        $gv.int;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.int = $val;
-        self.prop_set('cursor-position', $gv);
-      }
-    );
-  }
-
-  # Type: gint
-  method cursor-size is rw  is also<cursor_size> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('cursor-size', $gv)
-        );
-        $gv.int;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.int = $val;
-        self.prop_set('cursor-size', $gv);
-      }
-    );
-  }
-
-  # Type: gboolean
-  method cursor-visible is rw  is also<cursor_visible> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('cursor-visible', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('cursor-visible', $gv);
-      }
-    );
-  }
-
-  # Type: PangoFontDescription
-  method font-description is rw  is also<font_description> {
-    my GTK::Compat::Value $gv .= new( Pango::FontDescription.get_type );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('font-description', $gv)
-        );
-        Pango::FontDescription.new( cast(PangoFontDescription, $gv.boxed) );
-      },
-      STORE => -> $, PangoFontDescription() $val is copy {
-        $gv.boxed = $val;
-        self.prop_set('font-description', $gv);
-      }
-    );
-  }
-
-  # Type: gchar
-  method font-name is rw  is also<font_name> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('font-name', $gv)
-        );
-        $gv.string;
-      },
-      STORE => -> $, Str() $val is copy {
-        $gv.string = $val;
-        self.prop_set('font-name', $gv);
-      }
-    );
-  }
-  
-  # Type: PangoAlignment
-  method line-alignment is rw  is also<line_alignment> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('line-alignment', $gv)
-        );
-        PangoAlignment( $gv.uint );
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.uint = $val;
-        self.prop_set('line-alignment', $gv);
-      }
-    );
-  }
-
-  # Type: gboolean
-  method line-wrap is rw  is also<line_wrap> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('line-wrap', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('line-wrap', $gv);
-      }
-    );
-  }
-
-  # Type: PangoWrapMode
-  method line-wrap-mode is rw  is also<line_wrap_mode> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('line-wrap-mode', $gv)
-        );
-        PangoWrapMode( $gv.uint );
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.uint = $val;
-        self.prop_set('line-wrap-mode', $gv);
-      }
-    );
-  }
-
-  # Type: gint
-  method max-length is rw  is also<max_length> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('max-length', $gv)
-        );
-        $gv.int;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.int = $val;
-        self.prop_set('max-length', $gv);
-      }
-    );
-  }
-
-  # Type: guint
-  method password-char is rw  is also<password_char> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('password-char', $gv)
-        );
-        $gv.uint;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.uint = $val;
-        self.prop_set('password-char', $gv);
-      }
-    );
-  }
-
-  # Type: gint
   method position is rw  is DEPRECATED<Clutter::Text.cursor-position> {
     my GTK::Compat::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
@@ -538,23 +387,6 @@ class Clutter::Text is Clutter::Actor {
   }
 
   # Type: gboolean
-  method selectable is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('selectable', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('selectable', $gv);
-      }
-    );
-  }
-
-  # Type: gboolean
   method selected-text-color-set is rw  is also<selected_text_color_set> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
@@ -566,23 +398,6 @@ class Clutter::Text is Clutter::Actor {
       },
       STORE => -> $, Int() $val is copy {
         warn "selected-text-color-set does not allow writing"
-      }
-    );
-  }
-
-  # Type: gint
-  method selection-bound is rw  is also<selection_bound> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('selection-bound', $gv)
-        );
-        $gv.int;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.int = $val;
-        self.prop_set('selection-bound', $gv);
       }
     );
   }
@@ -620,40 +435,6 @@ class Clutter::Text is Clutter::Actor {
     );
   }
 
-  # Type: gboolean
-  method single-line-mode is rw  is also<single_line_mode> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('single-line-mode', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('single-line-mode', $gv);
-      }
-    );
-  }
-
-  # Type: gboolean
-  method use-markup is rw  is also<use_markup> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('use-markup', $gv)
-        );
-        $gv.boolean;
-      },
-      STORE => -> $, Int() $val is copy {
-        $gv.boolean = $val;
-        self.prop_set('use-markup', $gv);
-      }
-    );
-  }
-
   # Is originally:
   # ClutterText, gpointer --> void
   method activate {
@@ -674,13 +455,15 @@ class Clutter::Text is Clutter::Actor {
 
   # Is originally:
   # ClutterText, gint, gint, gpointer --> void
-  method delete-text is also<delete_text> {
+  # Renamed due to conflict with method.
+  method delete-text-signal is also<delete_text_signal> {
     self.connect-intint($!ct, 'delete-text');
   }
 
   # Is originally:
   # ClutterText, gchar, gint, gpointer, gpointer --> void
-  method insert-text is also<insert_text> {
+  # Renamed due to conflict with method.
+  method insert-text-signal is also<insert_text_signal> {
     self.connect-insert-text($!ct);
   }
 
@@ -690,8 +473,8 @@ class Clutter::Text is Clutter::Actor {
     self.connect($!ct, 'text-changed');
   }
 
-  method activate {
-    clutter_text_activate($!ct);
+  method emit-activate {
+    so clutter_text_activate($!ct);
   }
 
   method coords_to_position (Num() $x, Num() $y) is also<coords-to-position> {
@@ -701,13 +484,14 @@ class Clutter::Text is Clutter::Actor {
 
   method delete_chars (Int() $n_chars) is also<delete-chars> {
     my guint $nc = resolve-uint($n_chars);
-    clutter_text_delete_chars($!ct, $ncS);
+    clutter_text_delete_chars($!ct, $nc);
   }
 
   method delete_selection is also<delete-selection> {
     clutter_text_delete_selection($!ct);
   }
 
+  # Cannot offer alias due to conflict with signal.
   method delete_text (Int() $start_pos, Int() $end_pos) is also<delete-text> {
     my gssize ($sp, $ep) = resolve-long($start_pos, $end_pos);
     clutter_text_delete_text($!ct, $start_pos, $end_pos);
@@ -763,22 +547,11 @@ class Clutter::Text is Clutter::Actor {
 
   method insert_text (Str() $text, Int() $position) is also<insert-text> {
     my gssize $p = resolve-long($position);
-    clutter_text_insert_text($!ct, $text, $p;
+    clutter_text_insert_text($!ct, $text, $p);
   }
 
   method insert_unichar ($wc) is also<insert-unichar> {
-    # This should become resolve-unichar in GTK::Raw::Utils.
-    my $wwc = resolve-uint(do given $wc {
-      when Str {
-        die 'Cannot convert multi-char string to unichar' unless .chars == 1;
-        $wc.ord;
-      }
-      default {
-        die 'Invalud type passed to Clutter::Text.insert_unichar'
-          unless .^can('Int').elems;
-        .Int
-      }
-    });
+    my $wwc = resolve-unichar($wc);
     clutter_text_insert_unichar($!ct, $wwc);
   }
 

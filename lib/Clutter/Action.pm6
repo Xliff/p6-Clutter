@@ -6,13 +6,16 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Compat::Object;
-use GTK::Compat::Protection;
+use GTK::Compat::Roles::Object;
+use GTK::Roles::Protection;
 
 # Abstract. 
 # GObject.
 
 class Clutter::Action {
+  also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Protection;
+  
   has ClutterAction $!c-act;
   
   submethod BUILD {

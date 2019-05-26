@@ -1,7 +1,13 @@
 use v6.c;
 
+use Method::Also;
+use NativeCall;
+
+use Cairo;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
+use Clutter::Compat::Types;
 
 use GTK::Raw::Utils;
 
@@ -45,7 +51,7 @@ class Clutter::Image {
     CoglPixelFormat $pixel_format, 
     cairo_rectangle_int_t $rect, 
     guint $row_stride, 
-    CArray[Pointer[GError]] = gerror() $error
+    CArray[Pointer[GError]] $error = gerror()()
   ) 
     is also<set-area> 
   {
@@ -61,7 +67,7 @@ class Clutter::Image {
     guint $width, 
     guint $height, 
     guint $row_stride, 
-    CArray[Pointer[GError]] = gerror() $error
+    CArray[Pointer[GError]] $error = gerror()()
   ) 
     is also<set-bytes> 
   {
@@ -77,7 +83,7 @@ class Clutter::Image {
     guint $width, 
     guint $height, 
     guint $row_stride, 
-    CArray[Pointer[GError]] = gerror() $error
+    CArray[Pointer[GError]] $error = gerror()()
   ) 
     is also<set-data> 
   {

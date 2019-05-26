@@ -1,7 +1,10 @@
 use v6.c;
 
+use Method::Also;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
+use Clutter::Compat::Types;
 
 use Clutter::Raw::Scriptable;
 
@@ -25,7 +28,7 @@ role Clutter::Roles::Scriptable {
   }
 
   method scriptable_get_type is also<scriptable-get-type> {
-    state ($n, $t)
+    state ($n, $t);
     unstable_get_type( 
       'Clutter::Roles, Scriptable', &clutter_scriptable_get_type, $n, $t
     );

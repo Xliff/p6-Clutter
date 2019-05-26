@@ -1,5 +1,7 @@
 use v6.c;
 
+use Method::Also;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -36,7 +38,7 @@ role Clutter::Roles::Container {
   # Is originally:
   # ClutterContainer, ClutterActor, GParamSpec, gpointer --> void
   method child-notify is also<child_notify> {
-    self.connect-child-notify($!w);
+    self.connect-child-notify($!c);
   }
 
   method child_get_property (
@@ -49,8 +51,8 @@ role Clutter::Roles::Container {
     clutter_container_child_get_property($!c, $child, $property, $value);
   }
 
-  method child_notify (ClutterActor() $child, GParamSpec() $pspec)
-    is also<child-notify>
+  method emit_child_notify (ClutterActor() $child, GParamSpec() $pspec)
+    is also<emit-child-notify>
   {
     clutter_container_child_notify($!c, $child, $pspec);
   }
@@ -104,7 +106,7 @@ role Clutter::Roles::Container {
   }
 
   method container_get_type is also<container-get-type> {
-    state ($n, $t)
+    state ($n, $t);
     unstable_get_type( self.^name, &clutter_container_get_type, $n, $t);
   }
 
