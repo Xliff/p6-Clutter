@@ -48,7 +48,6 @@ class ClutterMargin               is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterMatrix               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPathNode             is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPerspective          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPoint                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterRect                 is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterScript               is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -682,3 +681,10 @@ our subset ClutterEvents is export where
   ClutterMotionEvent        | ClutterScrollEvent | ClutterStageStateEvent    | 
   ClutterCrossingEvent      | ClutterTouchEvent  | ClutterTouchpadPinchEvent |
   ClutterTouchpadSwipeEvent ;
+
+class ClutterPerspective is repr('CStruct') is export does GTK::Roles::Pointers {
+  has gfloat $.fovy;
+  has gfloat $.aspect;
+  has gfloat $.z_near;
+  has gfloat $.z_far;
+}

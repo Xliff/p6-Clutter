@@ -21,7 +21,10 @@
       "Clutter::Raw::Boxed"                :  "lib/Clutter/Raw/Boxed.pm6"               ,
       "Clutter::Raw::Color"                :  "lib/Clutter/Raw/Color.pm6"               ,
       "Clutter::Raw::Container"            :  "lib/Clutter/Raw/Container.pm6"           ,
+      "Clutter::Raw::Event"                :  "lib/Clutter/Raw/Event.pm6"               ,
+      "Clutter::Raw::GestureAction"        :  "lib/Clutter/Raw/GestureAction.pm6"       ,
       "Clutter::Raw::Image"                :  "lib/Clutter/Raw/Image.pm6"               ,
+      "Clutter::Raw::InputDevice"          :  "lib/Clutter/Raw/InputDevice.pm6"         ,
       "Clutter::Raw::LayoutManager"        :  "lib/Clutter/Raw/LayoutManager.pm6"       ,
       "Clutter::Raw::Main"                 :  "lib/Clutter/Raw/Main.pm6"                ,
       "Clutter::Raw::Scriptable"           :  "lib/Clutter/Raw/Scriptable.pm6"          ,
@@ -48,16 +51,20 @@
       "Clutter::AlignConstraint"           :  "lib/Clutter/AlignConstraint.pm6"         ,
       "Clutter::Color"                     :  "lib/Clutter/Color.pm6"                   ,
       "Clutter::Effect"                    :  "lib/Clutter/Effect.pm6"                  ,
+      "Clutter::GestureAction"             :  "lib/Clutter/GestureAction.pm6"           ,
       "Clutter::Image"                     :  "lib/Clutter/Image.pm6"                   ,
       "Clutter::LayoutManager"             :  "lib/Clutter/LayoutManager.pm6"           ,
       "Clutter::Main"                      :  "lib/Clutter/Main.pm6"                    ,
+      "Clutter::Misc"                      :  "lib/Clutter/Misc.pm6"                    ,
       "Clutter::PaintVolume"               :  "lib/Clutter/PaintVolume.pm6"             ,
       "Clutter::Point"                     :  "lib/Clutter/Point.pm6"                   ,
       "Clutter::Roles::Container"          :  "lib/Clutter/Roles/Container.pm6"         ,
       "Clutter::Actor"                     :  "lib/Clutter/Actor.pm6"                   ,
       "Clutter::BoxLayout"                 :  "lib/Clutter/BoxLayout.pm6"               ,
       "Clutter::Stage"                     :  "lib/Clutter/Stage.pm6"                   ,
-      "Clutter::Text"                      :  "lib/Clutter/Text.pm6"                    
+      "Clutter::Text"                      :  "lib/Clutter/Text.pm6"                    ,
+      "Clutter::InputDevice"               :  "lib/Clutter/InputDevice.pm6"             ,
+      "Clutter::Event"                     :  "lib/Clutter/Event.pm6"                   
     },
     "name": "Perl6-Clutter",
     "perl": "6.c",
@@ -72,6 +79,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 

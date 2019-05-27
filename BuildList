@@ -29,7 +29,10 @@ Clutter::Raw::BoxLayout
 Clutter::Raw::Boxed
 Clutter::Raw::Color
 Clutter::Raw::Container
+Clutter::Raw::Event
+Clutter::Raw::GestureAction
 Clutter::Raw::Image
+Clutter::Raw::InputDevice
 Clutter::Raw::LayoutManager
 Clutter::Raw::Main
 Clutter::Raw::Scriptable
@@ -56,9 +59,11 @@ Clutter::ActorMeta
 Clutter::AlignConstraint
 Clutter::Color
 Clutter::Effect
+Clutter::GestureAction
 Clutter::Image
 Clutter::LayoutManager
 Clutter::Main
+Clutter::Misc
 Clutter::PaintVolume
 Clutter::Point
 Clutter::Roles::Container
@@ -66,3 +71,5 @@ Clutter::Actor
 Clutter::BoxLayout
 Clutter::Stage
 Clutter::Text
+Clutter::InputDevice
+Clutter::Event
