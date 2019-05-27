@@ -1,5 +1,7 @@
 use v6.c;
 
+use NativeCall;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -129,7 +131,7 @@ sub clutter_gesture_action_get_n_touch_points (ClutterGestureAction $action)
 sub clutter_gesture_action_get_threshold_trigger_edge (
   ClutterGestureAction $action
 )
-  returns guint ClutterGestureTriggerEdge
+  returns guint # ClutterGestureTriggerEdge
   is native(clutter)
   is export
 { * }
@@ -146,6 +148,11 @@ sub clutter_gesture_action_set_threshold_trigger_edge (
   ClutterGestureAction $action, 
   guint $edge # ClutterGestureTriggerEdge $edge
 )
+  is native(clutter)
+  is export
+{ * }
+
+sub clutter_gesture_action_cancel(ClutterGestureAction $action)
   is native(clutter)
   is export
 { * }
