@@ -43,7 +43,7 @@ sub clutter_box_layout_get_type ()
 { * }
 
 sub clutter_box_layout_new ()
-  returns ClutterLayoutManager
+  returns ClutterBoxLayout
   is native(clutter)
   is export
 { * }

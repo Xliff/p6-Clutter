@@ -11,7 +11,7 @@ use Clutter::Raw::Scriptable;
 role Clutter::Roles::Scriptable {
   has ClutterScriptable $!cs;
 
-  method setClutterScriptable ($scriptable) {
+  method setScriptable ($scriptable) {
     self.IS-PROTECTED;
     $!cs = $scriptable;
   }

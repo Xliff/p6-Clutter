@@ -63,7 +63,7 @@ sub clutter_color_from_string (ClutterColor $color, Str $str)
   is export
 { * }
 
-sub clutter_color_get_static (ClutterStaticColor $color)
+sub clutter_color_get_static (guint $color)
   returns ClutterColor
   is native(clutter)
   is export

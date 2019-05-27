@@ -71,10 +71,11 @@ class Clutter::Color {
     self.bless( color => $c );
   }
 
-  method get_static (Clutter::Color:U: ClutterStaticColor $static) 
+  method get_static (Clutter::Color:U: Int() $static) 
     is also<get-static> 
   {
-    self.bless( color => clutter_color_get_static($static) );
+    my guint $s = resolve-uint($static);
+    self.bless( color => clutter_color_get_static($s) );
   }
 
   multi method add (Clutter::Color:D: ClutterColor() $b) {

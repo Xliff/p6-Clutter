@@ -6,6 +6,7 @@ GTK::Raw::ReturnedValue
 GTK::Raw::Types
 GTK::Raw::Utils
 GTK::Roles::Pointers
+GTK::Roles::Properties
 GTK::Roles::Protection
 GTK::Roles::Signals::Generic
 Method::Also
@@ -30,6 +31,7 @@ Clutter::Raw::Color
 Clutter::Raw::Container
 Clutter::Raw::Image
 Clutter::Raw::LayoutManager
+Clutter::Raw::Main
 Clutter::Raw::Scriptable
 Clutter::Raw::Stage
 Clutter::Raw::Text
@@ -45,6 +47,7 @@ Clutter::Roles::Signals::Stage
 Clutter::Roles::Signals::Text
 Clutter::Size
 Clutter::TextBuffer
+Clutter::Threads
 Clutter::Timeline
 Clutter::Vertex
 Clutter::ActorBox
@@ -55,6 +58,7 @@ Clutter::Color
 Clutter::Effect
 Clutter::Image
 Clutter::LayoutManager
+Clutter::Main
 Clutter::PaintVolume
 Clutter::Point
 Clutter::Roles::Container

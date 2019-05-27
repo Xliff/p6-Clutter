@@ -18,7 +18,7 @@ sub clutter_align_constraint_new (
   guint $axis, # ClutterAlignAxis $axis, 
   gfloat $factor
 )
-  returns ClutterConstraint
+  returns ClutterAlignConstraint
   is native(clutter)
   is export
 { * }

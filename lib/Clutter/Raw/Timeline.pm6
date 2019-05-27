@@ -196,7 +196,7 @@ sub clutter_timeline_get_delay (ClutterTimeline $timeline)
 { * }
 
 sub clutter_timeline_get_direction (ClutterTimeline $timeline)
-  returns ClutterTimelineDirection
+  returns guint # ClutterTimelineDirection
   is native(clutter)
   is export
 { * }
@@ -208,7 +208,7 @@ sub clutter_timeline_get_duration (ClutterTimeline $timeline)
 { * }
 
 sub clutter_timeline_get_progress_mode (ClutterTimeline $timeline)
-  returns ClutterAnimationMode
+  returns guint # ClutterAnimationMode
   is native(clutter)
   is export
 { * }

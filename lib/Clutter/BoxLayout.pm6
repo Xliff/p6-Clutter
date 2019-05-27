@@ -19,7 +19,7 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     self.setLayoutManager( cast(ClutterLayoutManager, $!cb = $boxlayout) )
   }
   
-  method new  {
+  method new {
     self.bless( boxlayout => clutter_box_layout_new() );
   }
   

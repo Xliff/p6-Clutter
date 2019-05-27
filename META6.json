@@ -23,6 +23,7 @@
       "Clutter::Raw::Container"            :  "lib/Clutter/Raw/Container.pm6"           ,
       "Clutter::Raw::Image"                :  "lib/Clutter/Raw/Image.pm6"               ,
       "Clutter::Raw::LayoutManager"        :  "lib/Clutter/Raw/LayoutManager.pm6"       ,
+      "Clutter::Raw::Main"                 :  "lib/Clutter/Raw/Main.pm6"                ,
       "Clutter::Raw::Scriptable"           :  "lib/Clutter/Raw/Scriptable.pm6"          ,
       "Clutter::Raw::Stage"                :  "lib/Clutter/Raw/Stage.pm6"               ,
       "Clutter::Raw::Text"                 :  "lib/Clutter/Raw/Text.pm6"                ,
@@ -38,6 +39,7 @@
       "Clutter::Roles::Signals::Text"      :  "lib/Clutter/Roles/Signals/Text.pm6"      ,
       "Clutter::Size"                      :  "lib/Clutter/Size.pm6"                    ,
       "Clutter::TextBuffer"                :  "lib/Clutter/TextBuffer.pm6"              ,
+      "Clutter::Threads"                   :  "lib/Clutter/Threads.pm6"                 ,
       "Clutter::Timeline"                  :  "lib/Clutter/Timeline.pm6"                ,
       "Clutter::Vertex"                    :  "lib/Clutter/Vertex.pm6"                  ,
       "Clutter::ActorBox"                  :  "lib/Clutter/ActorBox.pm6"                ,
@@ -48,6 +50,7 @@
       "Clutter::Effect"                    :  "lib/Clutter/Effect.pm6"                  ,
       "Clutter::Image"                     :  "lib/Clutter/Image.pm6"                   ,
       "Clutter::LayoutManager"             :  "lib/Clutter/LayoutManager.pm6"           ,
+      "Clutter::Main"                      :  "lib/Clutter/Main.pm6"                    ,
       "Clutter::PaintVolume"               :  "lib/Clutter/PaintVolume.pm6"             ,
       "Clutter::Point"                     :  "lib/Clutter/Point.pm6"                   ,
       "Clutter::Roles::Container"          :  "lib/Clutter/Roles/Container.pm6"         ,
@@ -69,6 +72,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 

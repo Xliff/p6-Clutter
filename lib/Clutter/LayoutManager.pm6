@@ -12,17 +12,26 @@ use Clutter::Raw::LayoutManager;
 
 use Clutter::LayoutMeta;
 
+use GTK::Roles::Protection;
+
 use GTK::Compat::Roles::Object;
 
 # Object
 
 class Clutter::LayoutManager {
   also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Protection;
   
   has ClutterLayoutManager $!clm;
   
   submethod BUILD (:$manager) {
-    self!setObject( cast(GObject, $!clm = $manager) );
+    self.ADD-PREFIX('Clutter::');
+    self.setLayoutManager($manager) if $manager.defined;
+  }
+  
+  method setLayoutManager($manager) {
+    self.IS-PROTECTED;
+    self!setObject( cast(GObject, $!clm = $manager) ) if $manager;
   }
   
   method Clutter::Raw::Types::ClutterLayoutManager 

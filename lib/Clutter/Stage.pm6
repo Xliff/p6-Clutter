@@ -25,7 +25,7 @@ class Clutter::Stage is Clutter::Actor {
   has ClutterStage $!cs;
 
   submethod BUILD (:$stage) {
-    self.setActor( cast(ClutterGroup, $!cs = $stage) );
+    self.setActor( cast(ClutterActor, $!cs = $stage) );
   }
 
   # Replace ancestry logic

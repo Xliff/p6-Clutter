@@ -132,7 +132,7 @@ sub clutter_stage_hide_cursor (ClutterStage $stage)
 { * }
 
 sub clutter_stage_new ()
-  returns ClutterActor
+  returns ClutterStage
   is native(clutter)
   is export
 { * }
