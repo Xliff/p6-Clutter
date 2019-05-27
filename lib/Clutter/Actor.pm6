@@ -383,7 +383,8 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_z_position($!ca);
       },
-      STORE => sub ($, $z_position is copy) {
+      STORE => sub ($, Num() $z_position is copy) {
+        my gfloat $z = $z_position;
         clutter_actor_set_z_position($!ca, $z_position);
       }
     );

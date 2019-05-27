@@ -28,7 +28,8 @@ sub animate_color($a, $e) {
 }
 
 sub on_crossing ($a, $e) {
-  my $zpos = $e.event_type == CLUTTER_ENTER ?? -250 !! 0;
+  CATCH { default { .message.say } }
+  my $zpos = $e.type == CLUTTER_ENTER ?? -250 !! 0;
   $a.save_easing_state;
   $a.easing_duration = 500;
   $a.easing_mode = CLUTTER_EASE_OUT_BOUNCE;
@@ -108,10 +109,12 @@ sub MAIN {
   (@flowers[1].margin-top,  @flowers[1].margin-bottom) = 12 xx 2;
   (@flowers[1].margin-left, @flowers[1].margin-right) = 6 xx 2;
   @flowers[1].background_color = CLUTTER_COLOR_Yellow;
+  @flowers[1].reactive = True;
   @flowers[1].enter-event.tap(-> *@a { 
     CATCH { default { .message.say } }
     say 'enter-event';
     @a[* - 1].r = on_crossing(@flowers[1], @a[1]); 
+    say "exit-event { @a[* - 1].r }";
   });
   @flowers[1].leave-event.tap(-> *@a {
     CATCH { default { .message.say } } 

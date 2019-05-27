@@ -34,7 +34,6 @@ class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
 #class ClutterContentRepeatType is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEffect               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterEvent                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterFog                  is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGeometry             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGroup                is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -547,6 +546,14 @@ our enum ClutterEventAction is export (
   CLUTTER_EVENT_PROPAGATE => 0,
   CLUTTER_EVENT_STOP      => 1,
 );
+
+class ClutterEvent is repr('CStruct') is export {
+  has guint        $.type;
+  has guint32      $.time;
+  has guint        $.flags;  # ClutterEventFlags flags;
+  has ClutterStage $.stage;
+  has ClutterActor $.source;
+}
 
 our subset ColorOrStatic is export of Mu where 
   ClutterColor | ClutterStaticColor | ClutterStaticColorExtra;
