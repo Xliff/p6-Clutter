@@ -12,15 +12,16 @@ use Clutter::Raw::LayoutManager;
 
 use Clutter::LayoutMeta;
 
+use GTK::Roles::Properties;
 use GTK::Roles::Protection;
-
-use GTK::Compat::Roles::Object;
+use GTK::Roles::Signals::Generic;
 
 # Object
 
 class Clutter::LayoutManager {
-  also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Properties;
   also does GTK::Roles::Protection;
+  also does GTK::Roles::Signals::Generic;
   
   has ClutterLayoutManager $!clm;
   
@@ -40,6 +41,12 @@ class Clutter::LayoutManager {
   
   method new (ClutterLayoutManager $manager) {
     self.bless(:$manager);
+  }
+  
+  # Is originally:
+  # ClutterLayoutManager, gpointer --> void
+  method layout-changed {
+    self.connect($!clm, 'layout-changed');
   }
   
   method allocate (
@@ -133,7 +140,7 @@ class Clutter::LayoutManager {
     unstable_get_type( self.^name, &clutter_layout_manager_get_type, $n, $t );
   }
 
-  method layout_changed is also<layout-changed> {
+  method emit_layout_changed is also<emit-layout-changed> {
     clutter_layout_manager_layout_changed($!clm);
   }
 

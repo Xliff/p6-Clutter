@@ -15,7 +15,7 @@ class Clutter::Misc {
   }
   
   method keysym_to_unicode (Int $kc) {
-    my gint $kkc = resolve-int($kkc);
+    my gint $kkc = resolve-int($kc);
     clutter_keysym_to_unicode($kkc);
   }
 

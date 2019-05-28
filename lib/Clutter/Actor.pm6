@@ -260,10 +260,11 @@ class Clutter::Actor {
   method reactive is rw {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_reactive($!ca);
+        so clutter_actor_get_reactive($!ca);
       },
-      STORE => sub ($, $reactive is copy) {
-        clutter_actor_set_reactive($!ca, $reactive);
+      STORE => sub ($, Int() $reactive is copy) {
+        my gboolean $r = resolve-bool($reactive);
+        clutter_actor_set_reactive($!ca, $r);
       }
     );
   }
@@ -271,10 +272,11 @@ class Clutter::Actor {
   method request_mode is rw is also<request-mode> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_request_mode($!ca);
+        ClutterRequestMode( clutter_actor_get_request_mode($!ca) );
       },
-      STORE => sub ($, $mode is copy) {
-        clutter_actor_set_request_mode($!ca, $mode);
+      STORE => sub ($, Int() $mode is copy) {
+        my guint $m = resolve-uint($mode);
+        clutter_actor_set_request_mode($!ca, $m);
       }
     );
   }
@@ -293,10 +295,11 @@ class Clutter::Actor {
   method text_direction is rw is also<text-direction> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_text_direction($!ca);
+        ClutterTextDirection( clutter_actor_get_text_direction($!ca) );
       },
-      STORE => sub ($, $text_dir is copy) {
-        clutter_actor_set_text_direction($!ca, $text_dir);
+      STORE => sub ($, Int() $text_dir is copy) {
+        my guint $d = resolve-uint($text_dir);
+        clutter_actor_set_text_direction($!ca, $d);
       }
     );
   }
@@ -326,7 +329,7 @@ class Clutter::Actor {
   method x_align is rw is also<x-align> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_x_align($!ca);
+        ClutterActorAlign( clutter_actor_get_x_align($!ca) );
       },
       STORE => sub ($, $x_align is copy) {
         clutter_actor_set_x_align($!ca, $x_align);
@@ -337,9 +340,10 @@ class Clutter::Actor {
   method x_expand is rw is also<x-expand> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_x_expand($!ca);
+        so clutter_actor_get_x_expand($!ca);
       },
-      STORE => sub ($, $expand is copy) {
+      STORE => sub ($, Int() $expand is copy) {
+        my gboolean $e = resolve-bool($expand);
         clutter_actor_set_x_expand($!ca, $expand);
       }
     );
@@ -359,7 +363,7 @@ class Clutter::Actor {
   method y_align is rw is also<y-align> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_y_align($!ca);
+        ClutterActorAlign( clutter_actor_get_y_align($!ca) );
       },
       STORE => sub ($, $y_align is copy) {
         clutter_actor_set_y_align($!ca, $y_align);
@@ -370,9 +374,10 @@ class Clutter::Actor {
   method y_expand is rw is also<y-expand> {
     Proxy.new(
       FETCH => sub ($) {
-        clutter_actor_get_y_expand($!ca);
+        so clutter_actor_get_y_expand($!ca);
       },
-      STORE => sub ($, $expand is copy) {
+      STORE => sub ($, Int() $expand is copy) {
+        my gboolean $e = resolve-bool($expand);
         clutter_actor_set_y_expand($!ca, $expand);
       }
     );

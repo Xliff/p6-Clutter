@@ -84,11 +84,11 @@ DIE
     is also<add-timeout-full> 
   {
     my gint $p = resolve-int($priority);
-    my guint $interval = resolve=uint($interval);
+    my guint $i = resolve-uint($interval);
     clutter_threads_add_timeout_full($p, $i, &func, $data, $notify);
   }
 
-  method remove_repaint_func (Init() $handle_id) 
+  method remove_repaint_func (Int() $handle_id) 
     is also<remove-repaint-func> 
   {
     my guint $h = resolve-uint($handle_id);

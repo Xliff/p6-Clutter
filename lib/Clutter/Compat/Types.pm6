@@ -7,6 +7,7 @@ use GTK::Roles::Pointers;
 unit package Clutter::Compat::Types;
 
 class CoglTexture is repr('CPointer') is export does GTK::Roles::Pointers { }
+class CoglContext is repr('CPointer') is export does GTK::Roles::Pointers { }
 class JsonNode    is repr('CPointer') is export does GTK::Roles::Pointers { }
 
 our enum CoglAttributeType is export (

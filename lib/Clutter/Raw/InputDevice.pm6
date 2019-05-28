@@ -14,7 +14,7 @@ sub clutter_input_device_get_associated_device (ClutterInputDevice $device)
 { * }
 
 sub clutter_input_device_get_axis (ClutterInputDevice $device, guint $index)
-  returns ClutterInputAxis
+  returns guint # ClutterInputAxis
   is native(clutter)
   is export
 { * }
@@ -22,7 +22,7 @@ sub clutter_input_device_get_axis (ClutterInputDevice $device, guint $index)
 sub clutter_input_device_get_axis_value (
   ClutterInputDevice $device, 
   CArray[gdouble] $axes, 
-  ClutterInputAxis $axis, 
+  guint $axis, # ClutterInputAxis $axis, 
   gdouble $value
 )
   returns uint32
@@ -47,7 +47,7 @@ sub clutter_input_device_get_device_id (ClutterInputDevice $device)
 { * }
 
 sub clutter_input_device_get_device_mode (ClutterInputDevice $device)
-  returns ClutterInputMode
+  returns guint # ClutterInputMode
   is native(clutter)
   is export
 { * }
@@ -59,7 +59,7 @@ sub clutter_input_device_get_device_name (ClutterInputDevice $device)
 { * }
 
 sub clutter_input_device_get_device_type (ClutterInputDevice $device)
-  returns ClutterInputDeviceType
+  returns guint # ClutterInputDeviceType
   is native(clutter)
   is export
 { * }
@@ -88,7 +88,7 @@ sub clutter_input_device_get_key (
 { * }
 
 sub clutter_input_device_get_modifier_state (ClutterInputDevice $device)
-  returns ClutterModifierType
+  returns guint # ClutterModifierType
   is native(clutter)
   is export
 { * }

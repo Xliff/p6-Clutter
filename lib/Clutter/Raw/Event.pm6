@@ -66,7 +66,7 @@ sub clutter_event_get ()
 { * }
 
 sub clutter_event_get_angle (ClutterEvent $source, ClutterEvent $target)
-  returns double
+  returns gdouble
   is native(clutter)
   is export
 { * }
@@ -101,7 +101,7 @@ sub clutter_event_get_device_type (ClutterEvent $event)
 { * }
 
 sub clutter_event_get_distance (ClutterEvent $source, ClutterEvent $target)
-  returns float
+  returns gfloat
   is native(clutter)
   is export
 { * }
@@ -195,7 +195,9 @@ sub clutter_event_is_pointer_emulated (ClutterEvent $event)
   is export
 { * }
 
-sub clutter_event_new (ClutterEventType $type)
+sub clutter_event_new (
+  guint $type # ClutterEventType $type
+)
   returns ClutterEvent
   is native(clutter)
   is export
@@ -238,7 +240,7 @@ sub clutter_event_set_scroll_delta (
 { * }
 
 sub clutter_event_type (ClutterEvent $event)
-  returns ClutterEventType
+  returns guint # ClutterEventType
   is native(clutter)
   is export
 { * }

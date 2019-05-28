@@ -1,14 +1,18 @@
 use v6.c;
 
+use NativeCall;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Compat::Types;
+use GTK::Raw::Utils;
 
-use GTK::Roles::Properties;
+use Clutter::Raw::InputDevice;
 
 use Clutter::Actor;
 use Clutter::Stage;
+
+use GTK::Roles::Properties;
 
 class Clutter::InputDevice {
   also does GTK::Roles::Properties;
@@ -38,8 +42,179 @@ class Clutter::InputDevice {
     );
   }
   
+  # Type: ClutterBackend
+  method backend is rw  {
+    my GTK::Compat::Value $gv .= new( Clutter::Backend.get_type );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('backend', $gv)
+        );
+        Clutter::Backend.new($gv.object);
+      },
+      STORE => -> $, ClutterBackend() $val is copy {
+        $gv.object = $val;
+        self.prop_set('backend', $gv);
+      }
+    );
+  }
+
+  # Type: ClutterDeviceManager
+  method device-manager is rw  {
+    my GTK::Compat::Value $gv .= new( Clutter::DeviceManager.get_type );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('device-manager', $gv)
+        );
+        ::('Clutter::DeviceManager').new( 
+          cast(ClutterDeviceManager, $gv.object) 
+        );
+      },
+      STORE => -> $, ClutterDeviceManager() $val is copy {
+        $gv.object = $val;
+        self.prop_set('device-manager', $gv);
+      }
+    );
+  }
+
+  # Type: ClutterInputMode
+  method device-mode is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('device-mode', $gv)
+        );
+        ClutterInputMode( $gv.uint )
+      },
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
+        self.prop_set('device-mode', $gv);
+      }
+    );
+  }
+
+  # Type: ClutterInputDeviceType
+  method device-type is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('device-type', $gv)
+        );
+        ClutterInputDeviceType( $gv.uint )
+      },
+      STORE => -> $, Int() $val is copy {
+        $gv.uint = $val;
+        self.prop_set('device-type', $gv);
+      }
+    );
+  }
+
+  # Type: gboolean
+  method has-cursor is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('has-cursor', $gv)
+        );
+        $gv.boolean;
+      },
+      STORE => -> $, Int() $val is copy {
+        $gv.boolean = $val;
+        self.prop_set('has-cursor', $gv);
+      }
+    );
+  }
+
+  # Type: gint
+  method id is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('id', $gv)
+        );
+        $gv.int;
+      },
+      STORE => -> $, Int() $val is copy {
+        $gv.int = $val;
+        self.prop_set('id', $gv);
+      }
+    );
+  }
+
+  # Type: guint
+  method n-axes is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('n-axes', $gv)
+        );
+        $gv.uint;
+      },
+      STORE => -> $, Int() $val is copy {
+        warn "n-axes does not allow writing"
+      }
+    );
+  }
+
+  # Type: gchar
+  method name is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('name', $gv)
+        );
+        $gv.string;
+      },
+      STORE => -> $, Str() $val is copy {
+        $gv.string = $val;
+        self.prop_set('name', $gv);
+      }
+    );
+  }
+
+  # Type: gchar
+  method product-id is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('product-id', $gv)
+        );
+        $gv.string;
+      },
+      STORE => -> $, Str() $val is copy {
+        $gv.string = $val;
+        self.prop_set('product-id', $gv);
+      }
+    );
+  }
+
+  # Type: gchar
+  method vendor-id is rw  {
+    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    Proxy.new(
+      FETCH => -> $ {
+        $gv = GTK::Compat::Value.new(
+          self.prop_get('vendor-id', $gv)
+        );
+        $gv.string;
+      },
+      STORE => -> $, Str() $val is copy {
+        $gv.string = $val;
+        self.prop_set('vendor-id', $gv);
+      }
+    );
+  }
+  
   method get_associated_device {
-    ClutterInputDevice.new(
+    Clutter::InputDevice.new(
       clutter_input_device_get_associated_device($!cid)
     );
   }
@@ -51,7 +226,8 @@ class Clutter::InputDevice {
 
   multi method get_axis_value {
     my $v = 0;
-    samewith($v);
+    my $rc = samewith($v);
+    $rc ?? $v !! Nil
   }
   multi method get_axis_value (
     CArray[gdouble] $axes, 
@@ -60,8 +236,9 @@ class Clutter::InputDevice {
   ) {
     my guint $a = resolve-uint($axis);
     my gdouble $v = $value;
-    so clutter_input_device_get_axis_value($!cid, $axes, $a, $v);
+    my $rc = so clutter_input_device_get_axis_value($!cid, $axes, $a, $v);
     $value = $v;
+    $rc;
   }
 
   method get_coords (
@@ -184,7 +361,7 @@ class Clutter::InputDevice {
 
   method update_from_event (ClutterEvent() $event, Int() $update_stage) {
     my gboolean $us = resolve-bool($update_stage);
-    clutter_input_device_update_from_event($!cid, $event, $u);
+    clutter_input_device_update_from_event($!cid, $event, $us);
   }
   
 }

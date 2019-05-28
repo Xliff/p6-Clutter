@@ -11,7 +11,7 @@ use Clutter::Raw::VariousTypes;
 # Boxed
 
 class Clutter::Vertex {
-  has ClutterVertex $!cv;
+  has ClutterVertex $!cv handles<x y z>;
   
   submethod BUILD (:$cluttervertex) {
     $!cv = $cluttervertex;

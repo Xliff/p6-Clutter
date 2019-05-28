@@ -11,36 +11,66 @@ use Clutter::Raw::BoxLayout;
 
 use Clutter::LayoutManager;
 
+our subset BoxLayoutAncestry is export
+  where ClutterBoxLayout | ClutterLayoutManager;
+
 class Clutter::BoxLayout is Clutter::LayoutManager {
   has ClutterBoxLayout $!cb;
   
   submethod BUILD (:$boxlayout) {
-    # Needs ancestry logic.
-    self.setLayoutManager( cast(ClutterLayoutManager, $!cb = $boxlayout) )
+    given $boxlayout {
+      when BoxLayoutAncestry {
+        my $to-parent;
+        $!cb = do {
+          when ClutterBoxLayout {
+            $to-parent = cast(ClutterLayoutManager, $_);
+            $_;
+          } 
+          default {
+            $to-parent = $_;
+            cast(ClutterBoxLayout, $_);
+          }
+        }
+        self.setLayoutManager($to-parent)
+      }
+      when Clutter::BoxLayout {
+      }
+      default {
+      }
+    }
   }
   
-  method new {
+  method Clutter::Raw::Types::ClutterBoxLayout 
+  { $!cb }
+  
+  multi method new (BoxLayoutAncestry $boxlayout) {
+    self.bless(:$boxlayout);
+  }
+  multi method new {
     self.bless( boxlayout => clutter_box_layout_new() );
   }
   
-  method easing_duration is rw is DEPRECATED {
+  method easing_duration is rw is DEPRECATED is also<easing-duration> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_box_layout_get_easing_duration($!cb);
       },
-      STORE => sub ($, $msecs is copy) {
-        clutter_box_layout_set_easing_duration($!cb, $msecs);
+      STORE => sub ($, Int() $msecs is copy) {
+        my guint $ms = resolve-uint($msecs);
+        clutter_box_layout_set_easing_duration($!cb, $ms);
       }
     );
   }
 
-  method easing_mode is rw is DEPRECATED {
+  # XXX - ULONG, not UINT! -- Check other objects
+  method easing_mode is rw is DEPRECATED is also<easing-mode> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_box_layout_get_easing_mode($!cb);
       },
-      STORE => sub ($, $mode is copy) {
-        clutter_box_layout_set_easing_mode($!cb, $mode);
+      STORE => sub ($, Int() $mode is copy) {
+        my gulong $m = resolve-ulong($mode);
+        clutter_box_layout_set_easing_mode($!cb, $m);
       }
     );
   }
@@ -62,19 +92,21 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
       FETCH => sub ($) {
         clutter_box_layout_get_orientation($!cb);
       },
-      STORE => sub ($, $orientation is copy) {
-        clutter_box_layout_set_orientation($!cb, $orientation);
+      STORE => sub ($, Int() $orientation is copy) {
+        my guint $o = resolve-uint($orientation);
+        clutter_box_layout_set_orientation($!cb, $o);
       }
     );
   }
 
-  method pack_start is rw {
+  method pack_start is rw is also<pack-start> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_box_layout_get_pack_start($!cb);
       },
-      STORE => sub ($, $pack_start is copy) {
-        clutter_box_layout_set_pack_start($!cb, $pack_start);
+      STORE => sub ($, Int() $pack_start is copy) {
+        my gboolean $ps = resolve-bool($pack_start);
+        clutter_box_layout_set_pack_start($!cb, $ps);
       }
     );
   }
@@ -84,34 +116,38 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
       FETCH => sub ($) {
         clutter_box_layout_get_spacing($!cb);
       },
-      STORE => sub ($, $spacing is copy) {
-        clutter_box_layout_set_spacing($!cb, $spacing);
+      STORE => sub ($, Int() $spacing is copy) {
+        my guint $s = resolve-uint($spacing);
+        clutter_box_layout_set_spacing($!cb, $s);
       }
     );
   }
 
-  method use_animations is rw is DEPRECATED {
+  method use_animations is rw is DEPRECATED is also<use-animations> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_box_layout_get_use_animations($!cb);
       },
-      STORE => sub ($, $animate is copy) {
-        clutter_box_layout_set_use_animations($!cb, $animate);
+      STORE => sub ($, Int() $animate is copy) {
+        my gboolean $a = resolve-bool($animate);
+        clutter_box_layout_set_use_animations($!cb, $a);
       }
     );
   }
   
   method get_alignment (
     ClutterActor $actor, 
-    ClutterBoxAlignment $x_align, 
-    ClutterBoxAlignment $y_align
+    Int() $x_align, # ClutterBoxAlignment $x_align, 
+    Int() $y_align  # ClutterBoxAlignment $y_align  
   ) 
     is DEPRECATED
+    is also<get-alignment> 
   {
-    clutter_box_layout_get_alignment($!cb, $actor, $x_align, $y_align);
+    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    clutter_box_layout_get_alignment($!cb, $actor, $xa, $ya);
   }
 
-  method get_expand (ClutterActor $actor) is DEPRECATED {
+  method get_expand (ClutterActor() $actor) is DEPRECATED is also<get-expand> {
     clutter_box_layout_get_expand($!cb, $actor);
   }
 
@@ -120,44 +156,52 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
   #   clutter_box_layout_get_fill($!cb, $actor, $x_fill, $y_fill);
   # }
 
-  method get_type {
+  method get_type is also<get-type> {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_box_layout_get_type, $n, $t );
   }
 
   method pack (
-    ClutterActor $actor, 
-    gboolean $expand, 
-    gboolean $x_fill, 
-    gboolean $y_fill, 
-    ClutterBoxAlignment $x_align, 
-    ClutterBoxAlignment $y_align
+    ClutterActor() $actor, 
+    Int() $expand, 
+    Int() $x_fill, 
+    Int() $y_fill, 
+    Int() $x_align, # ClutterBoxAlignment $x_align, 
+    Int() $y_align  # ClutterBoxAlignment $y_align
   ) 
     is DEPRECATED
   {
-    clutter_box_layout_pack(
-      $!cb, $actor, $expand, $x_fill, $y_fill, $x_align, $y_align
-    );
+    my gboolean ($e, $xf, $yf) = resolve-bool($expand, $x_fill, $y_fill);
+    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    clutter_box_layout_pack($!cb, $actor, $e, $xf, $yf, $xa, $ya);
   }
 
   method set_alignment (
-    ClutterActor $actor, 
-    ClutterBoxAlignment $x_align, 
-    ClutterBoxAlignment $y_align
+    ClutterActor() $actor, 
+    Int() $x_align, # ClutterBoxAlignment $x_align, 
+    Int() $y_align  # ClutterBoxAlignment $y_align
   ) 
     is DEPRECATED
+    is also<set-alignment> 
   {
-    clutter_box_layout_set_alignment($!cb, $actor, $x_align, $y_align);
+    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    clutter_box_layout_set_alignment($!cb, $actor, $xa, $ya);
   }
 
-  method set_expand (ClutterActor $actor, gboolean $expand) is DEPRECATED {
-    clutter_box_layout_set_expand($!cb, $actor, $expand);
+  method set_expand (ClutterActor() $actor, Int() $expand) 
+    is DEPRECATED 
+    is also<set-expand> 
+  {
+    my gboolean $e = resolve-bool($expand);
+    clutter_box_layout_set_expand($!cb, $actor, $e);
   }
 
-  method set_fill (ClutterActor $actor, gboolean $x_fill, gboolean $y_fill) 
+  method set_fill (ClutterActor() $actor, Int() $x_fill, Int() $y_fill) 
     is DEPRECATED
+    is also<set-fill> 
   {
-    clutter_box_layout_set_fill($!cb, $actor, $x_fill, $y_fill);
+    my gboolean ($xf, $yf) = resolve-bool($x_fill, $y_fill);
+    clutter_box_layout_set_fill($!cb, $actor, $xf, $yf);
   }
   
 }

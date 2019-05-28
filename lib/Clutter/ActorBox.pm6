@@ -11,7 +11,7 @@ use Clutter::Raw::VariousTypes;
 # Boxed
 
 class Clutter::ActorBox {
-  has ClutterActorBox $!cab;
+  has ClutterActorBox $!cab handles <x1 y1 x2 y2>;
   
   submethod BUILD (:$actorbox) {
     $!cab = $actorbox;

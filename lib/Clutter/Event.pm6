@@ -1,5 +1,7 @@
 use v6.c;
 
+use Method::Also;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -29,8 +31,9 @@ class Clutter::Event {
   multi method new (ClutterEvent $event) {
     self.bless(:$event);
   }
-  multi method new {
-    self.bless( event => clutter_event_new() );
+  multi method new (Int() $type) {
+    my guint $t = resolve-uint($type);
+    self.bless( event => clutter_event_new($t) );
   }
   
   method button is rw {
@@ -230,7 +233,7 @@ class Clutter::Event {
   }
 
   method get {
-    clutter_event_get($!ce);
+    clutter_event_get();
   }
 
   method get_angle (ClutterEvent() $target) is also<get-angle> {
@@ -266,7 +269,7 @@ class Clutter::Event {
     clutter_event_get_click_count($!ce);
   }
 
-  method get_coords (|)
+  proto method get_coords (|)
     is also<get-coords>
   { * }
   
@@ -275,7 +278,7 @@ class Clutter::Event {
     samewith($x, $y);
   }
   multi method get_coords (Num() $x is rw, Num() $y is rw) {
-    my gfloat ($xx, $yy) = ($x, $y)
+    my gfloat ($xx, $yy) = ($x, $y);
     clutter_event_get_coords($!ce, $xx, $yy);
     ($x, $y) = ($xx, $yy);
   }
@@ -365,13 +368,17 @@ class Clutter::Event {
     my ($dx, $dy) = (0, 0);
     samewith($dx, $dy);
   }
-  method get_scroll_delta (Num() $dx is rw, Num() $dy is rw) {
+  multi method get_scroll_delta (Num() $dx is rw, Num() $dy is rw) {
     my gdouble ($ddx, $ddy) = ($dx, $dy);
     clutter_event_get_scroll_delta($!ce, $ddx, $ddy);
     ($dx, $dy) = ($ddx, $ddy);
   }
 
-  multi method get_state_full is also<get-state-full> {
+  proto method get_state_full (|)
+    is also<get-state-full>
+  { * }
+
+  multi method get_state_full {
     my ($btn, $base, $lat, $lck, $eff) = 0 xx 5;
     samewith($btn, $base, $lat, $lck, $eff);
     (
@@ -382,15 +389,13 @@ class Clutter::Event {
       ClutterModifierType($eff)
     );
   }
-  method get_state_full (
+  multi method get_state_full (
     Int() $button_state    is rw, # ClutterModifierType
     Int() $base_state      is rw, # ClutterModifierType
     Int() $latched_state   is rw, # ClutterModifierType
     Int() $locked_state    is rw, # ClutterModifierType
     Int() $effective_state is rw  # ClutterModifierType
-  ) 
-    is also<get-state-full> 
-  {
+  ) {
     my guint ($btn, $base, $lat, $lck, $eff) = resolve-uint(
       $button_state,   
       $base_state, 
@@ -426,7 +431,7 @@ class Clutter::Event {
   }
 
   method peek {
-    clutter_event_peek($!ce);
+    clutter_event_peek();
   }
 
   method put {
@@ -442,7 +447,7 @@ class Clutter::Event {
   }
 
   method set_coords (Num() $x, Num() $y) is also<set-coords> {
-    my gfloat ($xx, $yy) = ($x, $y)
+    my gfloat ($xx, $yy) = ($x, $y);
     clutter_event_set_coords($!ce, $xx, $yy);
   }
 

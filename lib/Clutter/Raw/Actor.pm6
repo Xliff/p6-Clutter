@@ -740,13 +740,19 @@ sub clutter_actor_iter_is_valid (ClutterActorIter $iter)
   is export
 { * }
 
-sub clutter_actor_iter_next (ClutterActorIter $iter, ClutterActor $child)
+sub clutter_actor_iter_next (
+  ClutterActorIter $iter, 
+  CArray[Pointer[ClutterActor]] $child
+)
   returns uint32
   is native(clutter)
   is export
 { * }
 
-sub clutter_actor_iter_prev (ClutterActorIter $iter, ClutterActor $child)
+sub clutter_actor_iter_prev (
+  ClutterActorIter $iter, 
+  CArray[Pointer[ClutterActor]] $child
+)
   returns uint32
   is native(clutter)
   is export

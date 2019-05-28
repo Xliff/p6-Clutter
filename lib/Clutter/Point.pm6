@@ -10,7 +10,7 @@ use Clutter::Raw::VariousTypes;
 # Boxed
 
 class Clutter::Point {
-  has ClutterPoint $!cp;
+  has ClutterPoint $!cp handles<x y>;
   
   my $zero = clutter_point_zero();
   
