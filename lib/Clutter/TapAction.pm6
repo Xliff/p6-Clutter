@@ -7,10 +7,10 @@ use Clutter::Raw::Types;
 
 use Clutter::GestureAction;
 
-use Clutter::Roles::Signals::TapAction;
+use Clutter::Roles::Signals::Generic;
 
 class Clutter::TapAction is Clutter::GestureAction {
-  also does Clutter::Roles::Signals::TapAction;
+  also does Clutter::Roles::Signals::Generic;
   
   has ClutterTapAction $!cta;
   
@@ -24,6 +24,12 @@ class Clutter::TapAction is Clutter::GestureAction {
     self.bless( tapaction => clutter_tap_action_new() );
   }
   
+  # Is originally:
+  # ClutterTapAction, ClutterActor, gpointer --> void
+  method tap {
+    self.connect-actor($!cta, 'tap');
+  }
+
   method get_type {
     state ($n, $t) 
     unstable_get_type( self.^name, &clutter_tap_action_get_type, $n, $t );
