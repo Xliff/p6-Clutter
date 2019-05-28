@@ -1,6 +1,6 @@
 # p6-Clutter
 
-# INSTALLATION
+## Installation
 
 Make a directory to contain the p6-Gtk-based projects. Once made, then set the P6_GTK_HOME environment variable to that directory:
 
