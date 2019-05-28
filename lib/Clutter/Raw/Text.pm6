@@ -112,25 +112,25 @@ sub clutter_text_insert_unichar (ClutterText $self, Str $wc)
 { * }
 
 sub clutter_text_new ()
-  returns ClutterActor
+  returns ClutterText
   is native(clutter)
   is export
 { * }
 
 sub clutter_text_new_full (Str $font_name, Str $text, ClutterColor $color)
-  returns ClutterActor
+  returns ClutterText
   is native(clutter)
   is export
 { * }
 
 sub clutter_text_new_with_buffer (ClutterTextBuffer $buffer)
-  returns ClutterActor
+  returns ClutterText
   is native(clutter)
   is export
 { * }
 
 sub clutter_text_new_with_text (Str $font_name, Str $text)
-  returns ClutterActor
+  returns ClutterText
   is native(clutter)
   is export
 { * }

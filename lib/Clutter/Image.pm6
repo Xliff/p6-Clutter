@@ -15,13 +15,17 @@ use Clutter::Raw::Image;
 
 use GTK::Compat::Roles::Object;
 
+use Clutter::Roles::Content;
+
 class Clutter::Image {
   also does GTK::Compat::Roles::Object;
+  also does Clutter::Roles::Content;
   
   has ClutterImage $!ci;
   
   submethod BUILD (:$image) {
     self!setObject( cast(GObject, $!ci = $image) );
+    $!cc = cast(ClutterContent, $!ci);  # Clutter::Roles::Content
   }
   
   method Clutter::Raw::Types::ClutterImage
@@ -51,7 +55,7 @@ class Clutter::Image {
     CoglPixelFormat $pixel_format, 
     cairo_rectangle_int_t $rect, 
     guint $row_stride, 
-    CArray[Pointer[GError]] $error = gerror()()
+    CArray[Pointer[GError]] $error = gerror()
   ) 
     is also<set-area> 
   {
@@ -67,7 +71,7 @@ class Clutter::Image {
     guint $width, 
     guint $height, 
     guint $row_stride, 
-    CArray[Pointer[GError]] $error = gerror()()
+    CArray[Pointer[GError]] $error = gerror()
   ) 
     is also<set-bytes> 
   {
@@ -83,7 +87,7 @@ class Clutter::Image {
     guint $width, 
     guint $height, 
     guint $row_stride, 
-    CArray[Pointer[GError]] $error = gerror()()
+    CArray[Pointer[GError]] $error = gerror()
   ) 
     is also<set-data> 
   {

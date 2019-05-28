@@ -17,7 +17,7 @@ class Clutter::TapAction is Clutter::GestureAction {
   submethod BUILD (:$tapaction) {
     self.setGestureAction( 
       cast(ClutterGestureAction, $!cta = $tapaction)
-    ):
+    )
   }
   
   method new {
@@ -31,7 +31,7 @@ class Clutter::TapAction is Clutter::GestureAction {
   }
 
   method get_type {
-    state ($n, $t) 
+    state ($n, $t);
     unstable_get_type( self.^name, &clutter_tap_action_get_type, $n, $t );
   }
   

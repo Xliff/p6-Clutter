@@ -14,12 +14,12 @@ class Clutter::GestureAction is Clutter::Action {
   
   # Needs ancestry logic
   submethod BUILD (:$gestureaction) {
-    self.setGestureAction($gestureaction);
+    self.setGestureAction($gestureaction) if $gestureaction.defined;
   }
   
   method setGestureAction(ClutterGestureAction $action) {
     self.IS-PROTECTED;
-    self.setAction( cast(ClutterAction, $!cga = $gestureaction) );
+    self.setAction( cast(ClutterAction, $!cga = $action) );
   }
   
   method Clutter::Raw::Types::ClutterGestureAction

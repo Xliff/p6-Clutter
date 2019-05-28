@@ -1,16 +1,23 @@
 use v6.c;
 
 use Clutter::Raw::Types;
+use Clutter::Compat::Types;
+
+use GTK::Compat::Pixbuf;
 
 use Clutter::Actor;
+use Clutter::AlignConstraint;
+use Clutter::Image;
 use Clutter::LayoutManager;
 use Clutter::Main;
+use Clutter::TapAction;
+use Clutter::Text;
 use Clutter::Stage;
 
 my @gravities = (
   CLUTTER_CONTENT_GRAVITY_TOP_LEFT      => 'Top Left',
   CLUTTER_CONTENT_GRAVITY_TOP           => 'Top',
-  CLUTTER_CONTENT_GRAVITY_TOP_RIGHT     => 'Top Right'
+  CLUTTER_CONTENT_GRAVITY_TOP_RIGHT     => 'Top Right',
    
   CLUTTER_CONTENT_GRAVITY_LEFT          => 'Left',
   CLUTTER_CONTENT_GRAVITY_CENTER        => 'Center',
@@ -27,6 +34,8 @@ my @gravities = (
 my $cur_gravity = 0;
 
 sub on_tap ($act, $a, $l) {
+  CATCH { default { .message.say } }
+  
   my $actor = Clutter::Actor.new($a);
   my $gpair = @gravities[$cur_gravity];
   
@@ -36,21 +45,24 @@ sub on_tap ($act, $a, $l) {
   
   $l.text = "Constant gravity: { $gpair.value }";
   $cur_gravity++;
-  $cur_gravity = 0 if $last_gravity >= @gravities.enums;
+  $cur_gravity = 0 if $cur_gravity >= +@gravities;
 }
 
 sub MAIN {
-  exit(EXIT_FAILURE) unless Clutter::Main.init;
+  exit(1) unless Clutter::Main.init;
   
   my $stage = Clutter::Stage.new;
   $stage.name = 'Stage';
   $stage.title = 'Content Box';
   $stage.user_resizable = True;
-  $stage.destory.tap({ Clutter::Main.quit });
+  $stage.destroy.tap({ Clutter::Main.quit });
   $stage.margins = 12 xx 4;
-  $stage.show;
+  $stage.show-actor;
   
-  my $pixbuf = GTK::Compat::Pixbuf.new_from_file('redhand.png');
+  my $image_file = 'redhand.png';
+  $image_file = "t/{$image_file}" unless $image_file.IO.e;
+  die "Cannot find image file '{ $image_file }'" unless $image_file.IO.e;
+  my $pixbuf = GTK::Compat::Pixbuf.new_from_file($image_file);
   my $image = Clutter::Image.new;
   $image.set_data(
     $pixbuf.pixels,
@@ -62,14 +74,14 @@ sub MAIN {
   );
   
   my $grav = @gravities[*-1];
-  $stage.set_conent_scaling_filters(
+  $stage.set_content_scaling_filters(
     CLUTTER_SCALING_FILTER_TRILINEAR,
     CLUTTER_SCALING_FILTER_LINEAR
   );
   $stage.content_gravity = ClutterContentGravity.enums.Hash{$grav.key};
   $stage.content = $image;
   
-  my $text = Clutter::Texty.new(;
+  my $text = Clutter::Text.new;
   $text.text = "Content gravity: { $grav.value }";
   $text.add_constraint( 
     Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.5)
@@ -77,7 +89,7 @@ sub MAIN {
   $stage.add_child($text);
   
   my $action = Clutter::TapAction.new;
-  $action.tap.tap(-> *@a { on-tap(|@a) });
+  $action.tap.tap(-> *@a { on_tap(|@a[0,1], $text) });
   $stage.add_action($action);
   
   Clutter::Main.run;

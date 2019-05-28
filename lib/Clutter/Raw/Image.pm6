@@ -29,7 +29,7 @@ sub clutter_image_get_type ()
 { * }
 
 sub clutter_image_new ()
-  returns ClutterContent
+  returns ClutterImage
   is native(clutter)
   is export
 { * }

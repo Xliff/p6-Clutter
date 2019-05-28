@@ -41,8 +41,9 @@ class Clutter::Text is Clutter::Actor {
 
   has ClutterText $!ct;
 
+  # REALLY needs ancestry logic.
   submethod BUILD (:$textactor) {
-    self.setActor( $!ct = $textactor );
+    self.setActor( cast(ClutterActor, $!ct = $textactor) );
   }
   
   method Clutter::Raw::Types::ClutterText 
