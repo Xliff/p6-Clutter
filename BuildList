@@ -30,6 +30,7 @@ Clutter::Raw::Animatable
 Clutter::Raw::Backend
 Clutter::Raw::BoxLayout
 Clutter::Raw::Boxed
+Clutter::Raw::ClickAction
 Clutter::Raw::Color
 Clutter::Raw::Container
 Clutter::Raw::DeviceManager
@@ -49,6 +50,8 @@ Clutter::Rect
 Clutter::Roles::Animatable
 Clutter::Roles::Scriptable
 Clutter::Roles::Settings
+Clutter::Roles::Signals::Canvas
+Clutter::Roles::Signals::ClickAction
 Clutter::Roles::Signals::Container
 Clutter::Roles::Signals::DeviceManager
 Clutter::Roles::Signals::Generic
@@ -60,10 +63,10 @@ Clutter::Threads
 Clutter::Timeline
 Clutter::Vertex
 Clutter::ActorBox
-Clutter::ActorIter
 Clutter::ActorMeta
 Clutter::AlignConstraint
 Clutter::Backend
+Clutter::ClickAction
 Clutter::Color
 Clutter::Effect
 Clutter::GestureAction
@@ -77,8 +80,10 @@ Clutter::Roles::Content
 Clutter::Roles::Signals::Actor
 Clutter::TapAction
 Clutter::Actor
+Clutter::ActorIter
 Clutter::BinLayout
 Clutter::BoxLayout
+Clutter::Canvas
 Clutter::Image
 Clutter::Stage
 Clutter::Text

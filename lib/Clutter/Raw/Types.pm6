@@ -30,8 +30,10 @@ class ClutterAnimatable           is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterBinLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBackend              is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBoxLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterCanvas               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterChildMeta            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterClickAction          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterDeviceManager        is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -554,7 +556,7 @@ class ClutterColor is repr('CStruct') is export does GTK::Roles::Pointers {
   has guint8 $.alpha is rw;
 }
 
-our subset ColorOrStatic is export of Mu where 
+our subset ColorOrStatic is export of Mu where
   ClutterColor | ClutterStaticColor | ClutterStaticColorExtra;
 
 class ClutterAnyEvent is repr('CStruct') is export does GTK::Roles::Pointers {
@@ -573,7 +575,7 @@ role ClutterEventMethods {
   method source { self.header.source }
 }
 
-class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint               $.modifier_state; # ClutterModifierType
@@ -583,7 +585,7 @@ class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does
   has ClutterInputDevice  $.device;
 }
 
-class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has gfloat              $.x;
@@ -595,57 +597,57 @@ class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods d
   has ClutterInputDevice  $.device;
 }
 
-class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
-  
+
   has gfloat             $.x;
   has gfloat             $.y;
   has ClutterInputDevice $.device;
   has ClutterActor       $.related;
 }
 
-class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
-  
+
   has gfloat             $.x;
   has gfloat             $.y;
   has guint              $.modifier_state; # ClutterModifierType
-  has CArray[gdouble]    $.axes; 
+  has CArray[gdouble]    $.axes;
   has ClutterInputDevice $.device;
 }
 
-class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
-  
+
   has gfloat             $.x;
   has gfloat             $.y;
   has guint              $.direction;      # ClutterScrollDirection direction;
   has guint              $.modifier_state; # ClutterModifierType
-  has CArray[gdouble]    $.axes; 
+  has CArray[gdouble]    $.axes;
   has ClutterInputDevice $.device;
   has guint              $.scroll_source;  # ClutterScrollSource scroll_source;
   has guint              $.finish_flags;   # ClutterScrollFinishFlags finish_flags;
 }
 
-class ClutterStageStateEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterStageStateEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint $.changed_mask; # ClutterStageState changed_mask;
   has guint $.new_state;    # ClutterStageState new_state;
 }
 
-class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent      $.header;
-  
+
   has gfloat               $.x;
   has gfloat               $.y;
   has ClutterEventSequence $.sequence;
   has guint                $.modifier_state; # ClutterModifierType
-  has CArray[gdouble]      $.axes; 
+  has CArray[gdouble]      $.axes;
   has ClutterInputDevice   $.device;
 }
 
-class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint           $.phase; # ClutterTouchpadGesturePhase phase;
@@ -657,7 +659,7 @@ class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat          $.scale;
 }
 
-class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {  
+class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint  $.phase; # ClutterTouchpadGesturePhase phase;
@@ -668,7 +670,7 @@ class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat $.dy;
 }
 
-class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GTK::Roles::Pointers {  
+class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GTK::Roles::Pointers {
   has guint                     $.type;
   has ClutterAnyEvent           $.any;
   has ClutterButtonEvent        $.button;
@@ -682,9 +684,9 @@ class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GTK::Role
   has ClutterTouchpadSwipeEvent $.touchpad_swipe;
 }
 
-our subset ClutterEvents is export where 
-  ClutterAnyEvent           | ClutterButtonEvent | ClutterKeyEvent           | 
-  ClutterMotionEvent        | ClutterScrollEvent | ClutterStageStateEvent    | 
+our subset ClutterEvents is export where
+  ClutterAnyEvent           | ClutterButtonEvent | ClutterKeyEvent           |
+  ClutterMotionEvent        | ClutterScrollEvent | ClutterStageStateEvent    |
   ClutterCrossingEvent      | ClutterTouchEvent  | ClutterTouchpadPinchEvent |
   ClutterTouchpadSwipeEvent ;
 
@@ -710,7 +712,7 @@ our enum ClutterModifierType is export (
   CLUTTER_BUTTON3_MASK  => 1 +< 10,
   CLUTTER_BUTTON4_MASK  => 1 +< 11,
   CLUTTER_BUTTON5_MASK  => 1 +< 12,
-  
+
   CLUTTER_MODIFIER_RESERVED_13_MASK  => 1 +< 13,
   CLUTTER_MODIFIER_RESERVED_14_MASK  => 1 +< 14,
   CLUTTER_MODIFIER_RESERVED_15_MASK  => 1 +< 15,
