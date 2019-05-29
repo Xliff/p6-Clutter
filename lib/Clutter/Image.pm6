@@ -20,22 +20,22 @@ use Clutter::Roles::Content;
 class Clutter::Image {
   also does GTK::Compat::Roles::Object;
   also does Clutter::Roles::Content;
-  
+
   has ClutterImage $!ci;
-  
+
   submethod BUILD (:$image) {
     self!setObject( cast(GObject, $!ci = $image) );
-    $!cc = cast(ClutterContent, $!ci);  # Clutter::Roles::Content
+    $!c-con = cast(ClutterContent, $!ci);  # Clutter::Roles::Content
   }
-  
+
   method Clutter::Raw::Types::ClutterImage
     is also<ClutterImage>
   { $!ci }
-  
+
   method new {
     self.bless( image => clutter_image_new() );
   }
-  
+
   method error_quark is also<error-quark> {
     clutter_image_error_quark();
   }
@@ -51,13 +51,13 @@ class Clutter::Image {
   }
 
   method set_area (
-    guint8 $data, 
-    CoglPixelFormat $pixel_format, 
-    cairo_rectangle_int_t $rect, 
-    guint $row_stride, 
+    guint8 $data,
+    CoglPixelFormat $pixel_format,
+    cairo_rectangle_int_t $rect,
+    guint $row_stride,
     CArray[Pointer[GError]] $error = gerror()
-  ) 
-    is also<set-area> 
+  )
+    is also<set-area>
   {
     clear_error;
     my $rc = clutter_image_set_area($!ci, $data, $pixel_format, $rect, $row_stride, $error);
@@ -66,14 +66,14 @@ class Clutter::Image {
   }
 
   method set_bytes (
-    GBytes $data, 
-    CoglPixelFormat $pixel_format, 
-    guint $width, 
-    guint $height, 
-    guint $row_stride, 
+    GBytes $data,
+    CoglPixelFormat $pixel_format,
+    guint $width,
+    guint $height,
+    guint $row_stride,
     CArray[Pointer[GError]] $error = gerror()
-  ) 
-    is also<set-bytes> 
+  )
+    is also<set-bytes>
   {
     clear_error;
     my $rc = clutter_image_set_bytes($!ci, $data, $pixel_format, $width, $height, $row_stride, $error);
@@ -82,14 +82,14 @@ class Clutter::Image {
   }
 
   method set_data (
-    Pointer $data, 
-    CoglPixelFormat $pixel_format, 
-    guint $width, 
-    guint $height, 
-    guint $row_stride, 
+    Pointer $data,
+    CoglPixelFormat $pixel_format,
+    guint $width,
+    guint $height,
+    guint $row_stride,
     CArray[Pointer[GError]] $error = gerror()
-  ) 
-    is also<set-data> 
+  )
+    is also<set-data>
   {
     clear_error;
     my $rc = clutter_image_set_data(
@@ -100,4 +100,3 @@ class Clutter::Image {
   }
 
 }
-  

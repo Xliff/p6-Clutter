@@ -19,6 +19,28 @@ use Clutter::Raw::Stage;
 
 use Clutter::Actor;
 
+my @attributes = <
+  accept-focus     accept_focus
+  color
+  cursor-visible   cursor_visible
+  fog
+  fullscreen-set   fullscreen_set
+  key-focus        key_focus
+  no-clear-hint    no_clear_hint
+  offscreen
+  perspective
+  title
+  use-alpha        use_alpha
+  use-fog          use_fog
+  user-resizable   user_resizable
+>;
+
+my @set_methods = <
+  minimum_size            minimum-size
+  perspective
+  sync_delay              sync-delay
+>;
+
 class Clutter::Stage is Clutter::Actor {
   also does Clutter::Roles::Signals::Stage;
 
@@ -34,6 +56,20 @@ class Clutter::Stage is Clutter::Actor {
   }
   multi method new {
     self.bless( stage => clutter_stage_new() );
+  }
+
+  method setup(*%data) {
+    for %data.keys {
+      when @attributes.any {
+        self."$_"() = %data{$_};
+        %data{$_}:delete
+      }
+      when @set_methods.any {
+        self."set_{$_}"( %data{$_} );
+        %data{$_}:delete
+      }
+    }
+    nextwith if %data.keys.elems;
   }
 
   # Type: gboolean

@@ -9,23 +9,23 @@ use Clutter::Roles::Signals::Generic;
 
 role Clutter::Roles::Content {
   also does Clutter::Roles::Signals::Generic;
-  
-  has ClutterContent $!cc;
-  
+
+  has ClutterContent $!c-con;
+
   method Clutter::Raw::Types::ClutterContent
-  { $!cc }
-  
+  { $!c-con }
+
   method attached {
-    self.connect-actor($!cc, 'attached');
+    self.connect-actor($!c-con, 'attached');
   }
   
   method detached {
-    self.connect-actor($!cc, 'detached');
+    self.connect-actor($!c-con, 'detached');
   }
-  
+
   method get_preferred_size (Num() $width, Num() $height) {
     my gfloat ($w, $h) = ($width, $height);
-    clutter_content_get_preferred_size($!cc, $width, $height);
+    clutter_content_get_preferred_size($!c-con, $width, $height);
   }
 
   method content_get_type {
@@ -34,14 +34,14 @@ role Clutter::Roles::Content {
   }
 
   method invalidate {
-    clutter_content_invalidate($!cc);
+    clutter_content_invalidate($!c-con);
   }
-  
+
 }
 
 sub clutter_content_get_preferred_size (
-  ClutterContent $content, 
-  gfloat $width, 
+  ClutterContent $content,
+  gfloat $width,
   gfloat $height
 )
   returns uint32

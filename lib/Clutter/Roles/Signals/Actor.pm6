@@ -10,10 +10,7 @@ use GTK::Raw::ReturnedValue;
 use GTK::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Generic;
 
-role Clutter::Roles::Signals::Actor {
-  also does GTK::Roles::Signals::Generic;
-  also does Clutter::Roles::Signals::Generic;
-  
+role Clutter::Roles::Signals::Actor {  
   has %!signals-a;
 
   # ClutterActor, ClutterActorBox, ClutterAllocationFlags, gpointer

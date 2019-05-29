@@ -31,13 +31,112 @@ use Clutter::Roles::Container;
 use Clutter::Roles::Scriptable;
 use Clutter::Roles::Signals::Actor;
 
+my @attributes = <
+  actions
+  allocation
+  anchor-gravity             anchor_gravity
+  anchor-x                   anchor_x
+  anchor-y                   anchor_y
+  background-color           background_color
+  background-color-set       background_color_set
+  child-transform            child_transform
+  child-transform-set        child_transform_set
+  clip
+  clip-rect                  clip_rect
+  clip-to-allocation         clip_to_allocation
+  constraints
+  content
+  content-box                content_box
+  content-gravity            content_gravity
+  content-repeat             content_repeat
+  depth
+  easing-duration            easing_duration
+  easing-mode                easing_mode
+  easing_delay
+  effect
+  fixed-position-set         fixed_position_set
+  fixed-x                    fixed_x
+  fixed-y                    fixed_y
+  height
+  layout-manager             layout_manager
+  magnification-filter       magnification_filter
+  mapped
+  margin-bottom              margin_bottom
+  margin-left                margin_left
+  margin-right               margin_right
+  margin-top                 margin_top
+  margins
+  min-height                 min_height
+  min-height-set             min_height_set
+  min-width                  min_width
+  min-width-set              min_width_set
+  minification-filter        minification_filter
+  name
+  natural-height             natural_height
+  natural-height-set         natural_height_set
+  natural-width              natural_width
+  natural-width-set          natural_width_set
+  offscreen-redirect         offscreen_redirect
+  opacity
+  opacity-override           opacity_override
+  pivot-point                pivot_point
+  pivot-point-z              pivot_point_z
+  position
+  reactive
+  realized
+  request-mode               request_mode
+  rotation-angle-x           rotation_angle_x
+  rotation-angle-y           rotation_angle_y
+  rotation-angle-z           rotation_angle_z
+  rotation-center-x          rotation_center_x
+  rotation-center-y          rotation_center_y
+  rotation-center-z          rotation_center_z
+  rotation-center-z-gravity  rotation_center_z_gravity
+  scale-center-x             scale_center_x
+  scale-center-y             scale_center_y
+  scale-gravity              scale_gravity
+  scale-x                    scale_x
+  scale-y                    scale_y
+  scale_z
+  show-on-set-parent         show_on_set_parent
+  size
+  text_direction
+  transform
+  transform-set              transform_set
+  translation-x              translation_x
+  translation-y              translation_y
+  translation-z              translation_z
+  visible
+  width
+  x
+  x-align                    x_align
+  x-expand                   x_expand
+  y
+  y-align                    y_align
+  y-expand                   y_expand
+  z-position                 z_position
+>;
+
+my @set_methods = <
+  child_above_sibling      child-above-sibling
+  child_at_index           child-at-index
+  child_below_sibling      child-below-sibling
+  content_scaling_filters  content-scaling-filters
+  fixed_position_set       fixed-position-set
+  flags
+  rotation_angle           rotation-angle
+  translation
+>;
+
 class Clutter::Actor {
   also does GTK::Roles::Protection;
   also does GTK::Roles::Properties;
+  also does GTK::Roles::Signals::Generic;
   also does Clutter::Roles::Animatable;
   also does Clutter::Roles::Container;
   also does Clutter::Roles::Scriptable;
   also does Clutter::Roles::Signals::Actor;
+#  also does Clutter::Roles::Signals::Generic;
 
   has ClutterActor $!ca;
 
@@ -223,7 +322,23 @@ class Clutter::Actor {
   method unrealize {
     self.connect($!ca, 'unrealize');
   }
-  
+
+  method setup(*%data) {
+    for %data.keys {
+      when @attributes.any  { self."$_"() = %data{$_}       }
+      when @set_methods.any { self."set_{$_}"( |%data{$_} ) }
+
+      # set-size uses 'cluttersize' key to distinguish itself from the attribute.
+      when 'cluttersize'   { self.set-size( |%data<size> )   }
+      when 'child'         { self.add-child(%data<child>)    }
+
+      when 'expand'   { (self.x-expand, self.y-expand) = |%data<expand> xx 2 }
+      when 'align'    { (self.x-align, self.y-align)   = |%data<align>  xx 2 }
+
+      default { die "Unknown attribute '{ $_ }'" }
+    }
+  }
+
   method opacity is rw {
     Proxy.new(
       FETCH => sub ($) {
@@ -235,7 +350,7 @@ class Clutter::Actor {
     );
   }
 
-  method opacity_override is rw is also<opacity-override> {
+  method opacity-override is rw is also<opacity_override> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_actor_get_opacity_override($!ca);
@@ -246,7 +361,7 @@ class Clutter::Actor {
     );
   }
 
-  method pivot_point_z is rw is also<pivot-point-z> {
+  method pivot-point-z is rw is also<pivot_point_z> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_actor_get_pivot_point_z($!ca);
@@ -326,7 +441,7 @@ class Clutter::Actor {
     );
   }
 
-  method x_align is rw is also<x-align> {
+  method x-align is rw is also<x_align> {
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_x_align($!ca) );
@@ -337,7 +452,7 @@ class Clutter::Actor {
     );
   }
 
-  method x_expand is rw is also<x-expand> {
+  method x-expand is rw is also<x_expand> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_x_expand($!ca);
@@ -360,7 +475,7 @@ class Clutter::Actor {
     );
   }
 
-  method y_align is rw is also<y-align> {
+  method y-align is rw is also<y_align> {
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_y_align($!ca) );
@@ -371,7 +486,7 @@ class Clutter::Actor {
     );
   }
 
-  method y_expand is rw is also<y-expand> {
+  method y-expand is rw is also<y_expand> {
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_y_expand($!ca);
@@ -383,7 +498,7 @@ class Clutter::Actor {
     );
   }
 
-  method z_position is rw is also<z-position> {
+  method z-position is rw is also<z_position> {
     Proxy.new(
       FETCH => sub ($) {
         clutter_actor_get_z_position($!ca);
@@ -476,10 +591,10 @@ class Clutter::Actor {
       }
     );
   }
-  
+
   method background-color is rw is also<background_color> {
-    Proxy.new: 
-      FETCH => -> $       { self.get-background-color },
+    Proxy.new:
+      FETCH => -> $       { self.get-background-color       },
       STORE => -> $, $val { self.set-background-color($val) };
   }
 
@@ -641,19 +756,19 @@ class Clutter::Actor {
       }
     );
   }
-  
+
   method easing_delay is rw is also<easing-delay> {
     Proxy.new:
       FETCH => -> $             { self.get-easing-delay },
       STORE => -> $, Int() \val { self.set-easing-delay(val) };
   }
-  
+
   method easing-duration is rw is also<easing_duration> {
     Proxy.new:
       FETCH => -> $             { self.get-easing-duration },
       STORE => -> $, Int() \val { self.set-easing-duration(val) };
   }
-  
+
   method easing-mode is rw is also<easing_mode> {
     Proxy.new:
       FETCH => -> $             { self.get-easing-mode },
@@ -718,7 +833,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method height is rw {
-    Proxy.new: 
+    Proxy.new:
       FETCH => -> $             { self.get-height },
       STORE => -> $, Num() \val { self.set-height(val) };
   }
@@ -726,11 +841,11 @@ class Clutter::Actor {
   # Type: ClutterLayoutManager
   method layout-manager is rw is also<layout_manager> {
     Proxy.new:
-      FETCH => -> $ { 
-        self.get-layout-manager 
+      FETCH => -> $ {
+        self.get-layout-manager
       },
-      STORE => -> $, ClutterLayoutManager() \val { 
-        self.set-layout-manager(val) 
+      STORE => -> $, ClutterLayoutManager() \val {
+        self.set-layout-manager(val)
       };
   }
 
@@ -766,23 +881,23 @@ class Clutter::Actor {
       }
     );
   }
-  
+
   method margins is rw {
     Proxy.new:
-      FETCH => -> $ { 
+      FETCH => -> $ {
         (
-          self.margin-top, 
-          self.margin-left, 
-          self.margin-right, 
+          self.margin-top,
+          self.margin-left,
+          self.margin-right,
           self.margin-bottom
-        ) 
+        )
       },
       STORE => -> $, Num() $val {
         my gfloat $v = $val;
         (
-          self.margin-top, 
-          self.margin-left, 
-          self.margin-right, 
+          self.margin-top,
+          self.margin-left,
+          self.margin-right,
           self.margin-bottom
         ) = $val xx 4;
       }
@@ -790,7 +905,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method margin-bottom is rw is also<margin_bottom> {
-    Proxy.new: 
+    Proxy.new:
       FETCH => -> $             { self.get-margin-bottom },
       STORE => -> $, Num() \val { self.set-margin-bottom(val) };
   }
@@ -806,7 +921,7 @@ class Clutter::Actor {
   method margin-right is rw is also<margin_right> {
   Proxy.new:
     FETCH => -> $             { self.get-margin-right },
-    STORE => -> $, Num() \val { self.set-margin-right(val) };  
+    STORE => -> $, Num() \val { self.set-margin-right(val) };
   }
 
   # Type: gfloat
@@ -1511,10 +1626,17 @@ class Clutter::Actor {
     clutter_actor_get_allocation_box($!ca, $box);
   }
 
-  method get_background_color (ClutterColor() $color)
+  multi method get_background_color (|)
     is also<get-background-color>
-  {
+  { * }
+
+  multi method get_background_color {
+    my $cc = ClutterColor.new;
+    samewith($cc);
+  }
+  multi method get_background_color (ClutterColor() $color) {
     clutter_actor_get_background_color($!ca, $color);
+    $color;
   }
 
   method get_child_at_index (Int() $index) is also<get-child-at-index> {
@@ -1917,7 +2039,7 @@ class Clutter::Actor {
   )
     is also<get-transformed-paint-volume>
   {
-    Clutter::PaintVolume.new( 
+    Clutter::PaintVolume.new(
       clutter_actor_get_transformed_paint_volume($!ca, $relative_to_ancestor)
     );
   }
@@ -2170,7 +2292,7 @@ class Clutter::Actor {
   method set_background_color ($color is copy)
     is also<set-background-color>
   {
-    $color = Clutter::Color.get_static($color) 
+    $color = Clutter::Color.get_static($color)
       if $color ~~ (ClutterStaticColor, ClutterStaticColorExtra).any;
     $color .= ClutterColor if $color ~~ Clutter::Color;
     clutter_actor_set_background_color($!ca, $color);
@@ -2362,7 +2484,7 @@ class Clutter::Actor {
     clutter_actor_set_pivot_point_z($!ca, $pz);
   }
 
-  method set_position (gfloat $x, gfloat $y) is also<set-position> {
+  method set_position (Num() $x, Num() $y) is also<set-position> {
     my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_set_position($!ca, $xx, $yy);
   }
@@ -2481,7 +2603,7 @@ class Clutter::Actor {
     clutter_actor_should_pick_paint($!ca);
   }
 
-  method show-actor {
+  method show_actor is also<show-actor> {
     clutter_actor_show($!ca);
   }
 
@@ -2501,7 +2623,7 @@ class Clutter::Actor {
     clutter_actor_unmap($!ca);
   }
 
-  method unrealize-actor {
+  method unrealize_actor is also<unrealize-actor> {
     clutter_actor_unrealize($!ca);
   }
 
@@ -2511,7 +2633,7 @@ class Clutter::Actor {
     my guint $f = resolve-uint($flags);
     clutter_actor_unset_flags($!ca, $f);
   }
-  
+
   method add_action (ClutterAction() $action) {
     clutter_actor_add_action($!ca, $action);
   }
@@ -2523,11 +2645,11 @@ class Clutter::Actor {
   method clear_actions is also<clear-action> {
     clutter_actor_clear_actions($!ca);
   }
-  
+
   method get_action (Str() $name) is also<get-action> {
     Clutter::Action.new( clutter_actor_get_action($!ca, $name) );
   }
-  
+
   method get_actions (:$raw = False) is also<get-actions> {
     my $l = GTK::Compat::GList.new( clutter_actor_get_actions($!ca) )
       but GTK::Compat::Roles::ListData[ClutterAction];
@@ -2546,19 +2668,19 @@ class Clutter::Actor {
   method remove_action_by_name (Str() $name) is also<remove-action-by-name> {
     clutter_actor_remove_action_by_name($!ca, $name);
   }
-  
+
   # Constraints
-  
-  method add_constraint (ClutterConstraint() $constraint) 
-    is also<add-constraint> 
+
+  method add_constraint (ClutterConstraint() $constraint)
+    is also<add-constraint>
   {
     clutter_actor_add_constraint($!ca, $constraint);
   }
 
   method add_constraint_with_name (
-    Str() $name, 
+    Str() $name,
     ClutterConstraint() $constraint
-  ) 
+  )
     is also<add-constraint-with-name>
   {
     clutter_actor_add_constraint_with_name($!ca, $name, $constraint);
@@ -2571,7 +2693,7 @@ class Clutter::Actor {
   method get_constraint (Str() $name) is also<get-constraint> {
     Clutter::Constraint.new( clutter_actor_get_constraint($!ca, $name) );
   }
-  
+
   method get_constraints (:$raw = False) is also<get-constraints> {
     my $l = GTK::Compat::GList.new( clutter_actor_get_constraints($!ca) )
       but GTK::Compat::Roles::ListData[ClutterConstraint];
@@ -2583,23 +2705,23 @@ class Clutter::Actor {
     so clutter_actor_has_constraints($!ca);
   }
 
-  method remove_constraint (ClutterConstraint() $constraint) 
+  method remove_constraint (ClutterConstraint() $constraint)
     is also<remove-constraint>
   {
     clutter_actor_remove_constraint($!ca, $constraint);
   }
 
-  method remove_constraint_by_name (Str() $name) 
+  method remove_constraint_by_name (Str() $name)
     is also<remove-constraint-by-name>
   {
     clutter_actor_remove_constraint_by_name($!ca, $name);
   }
-  
+
   method add_effect (ClutterEffect() $effect) is also<add-effect> {
     clutter_actor_add_effect($!ca, $effect);
   }
 
-  method add_effect_with_name (Str() $name, ClutterEffect() $effect) 
+  method add_effect_with_name (Str() $name, ClutterEffect() $effect)
     is also<add-effect-with-name>
   {
     clutter_actor_add_effect_with_name($!ca, $name, $effect);
@@ -2628,10 +2750,10 @@ class Clutter::Actor {
     clutter_actor_remove_effect($!ca, $effect);
   }
 
-  method remove_effect_by_name (Str() $name) 
+  method remove_effect_by_name (Str() $name)
     is also<remove-effect-by-name>
   {
     clutter_actor_remove_effect_by_name($!ca, $name);
   }
- 
+
 }

@@ -10,8 +10,6 @@ use GTK::Raw::ReturnedValue;
 use GTK::Roles::Signals::Generic;
 
 role Clutter::Roles::Signals::Stage {
-  also does GTK::Roles::Signals::Generic;
-
   has %!signals-cs;
 
   # ClutterStage, ClutterEvent, gpointer --> gboolean

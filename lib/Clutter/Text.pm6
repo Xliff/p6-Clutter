@@ -36,6 +36,45 @@ sub resolve-unichar($wc) {
   });
 }
 
+my @attributes = <
+  activatable
+  attributes
+  buffer
+  cursor_position          cursor-position
+  cursor_size              cursor-size
+  cursor_visible           cursor-visible
+  editable
+  ellipsize
+  font_description         font-description
+  font_name                font-name
+  justify
+  line_alignment           line-alignment
+  line_wrap                line-wrap
+  line_wrap_mode           line-wrap-mode
+  max_length               max-length
+  password_char            password-char
+  selectable
+  selection_bound          selection-bound
+  single_line_mode         single-line-mode
+  text
+  use_markup               use-markup
+  color
+  cursor-color             cursor-color
+  cursor_color_set         cursor-color-set
+  position
+  selected_text_color_set  selected-text-color-set
+  selection_color          selection-color
+  selection_color_set      selection-color-set
+>;
+
+my @set_methods = <
+  color
+  cursor_color         cursor-color
+  markup
+  selected_text_color selected-text-color
+  selection_color     selection-color
+>;
+
 class Clutter::Text is Clutter::Actor {
   also does Clutter::Roles::Signals::Text;
 
@@ -45,34 +84,52 @@ class Clutter::Text is Clutter::Actor {
   submethod BUILD (:$textactor) {
     self.setActor( cast(ClutterActor, $!ct = $textactor) );
   }
-  
-  method Clutter::Raw::Types::ClutterText 
+
+  method Clutter::Raw::Types::ClutterText
   { $!ct }
-  
+
   method new {
     self.bless( textactor => clutter_text_new() );
   }
 
   method new_full (
-    Str() $font_name, 
-    Str() $text, 
+    Str() $font_name,
+    Str() $text,
     ClutterColor() $color
-  ) 
-    is also<new-full> 
+  )
+    is also<new-full>
   {
-    self.bless( 
+    self.bless(
       textactor => clutter_text_new_full($font_name, $text, $color)
     );
   }
 
-  method new_with_buffer (ClutterTextBuffer() $buffer) 
-    is also<new-with-buffer> 
+  method new_with_buffer (ClutterTextBuffer() $buffer)
+    is also<new-with-buffer>
   {
     self.bless( textactor => clutter_text_new_with_buffer($buffer) );
   }
 
   method new_with_text (Str() $font, Str() $text) is also<new-with-text> {
     self.bless( textactor => clutter_text_new_with_text($font, $text) );
+  }
+
+  method setup(*%data) {
+    for %data.keys {
+      when @attributes.any {
+        self."$_"() = %data{$_};
+        %data{$_}:delete
+      }
+      when @set_methods.any {
+        self."set_{$_}"( %data{$_} );
+        %data{$_}:delete
+      }
+      when 'selection' {
+        self.set-selection( |%data<selection> );
+        %data{$_}:delete;
+      }
+    }
+    nextwith if %data.keys.elems;
   }
 
   method activatable is rw {
@@ -515,11 +572,11 @@ class Clutter::Text is Clutter::Actor {
     clutter_text_get_cursor_rect($!ct, $rect);
   }
 
-  method get_layout 
+  method get_layout
     is also<
       get-layout
       layout
-    > 
+    >
   {
     Pango::Layout.new( clutter_text_get_layout($!ct) );
   }
@@ -583,21 +640,29 @@ class Clutter::Text is Clutter::Actor {
     Str() $preedit_str,
     PangoAttrList() $preedit_attrs,
     Int() $cursor_pos
-  ) is also<set-preedit-string> {
+  )
+    is also<set-preedit-string>
+  {
     my guint $c = resolve-uint($cursor_pos);
     clutter_text_set_preedit_string($!ct, $preedit_str, $preedit_attrs, $c);
   }
 
-  method set_selected_text_color (ClutterColor() $color) is also<set-selected-text-color> {
+  method set_selected_text_color (ClutterColor() $color)
+    is also<set-selected-text-color>
+  {
     clutter_text_set_selected_text_color($!ct, $color);
   }
 
-  method set_selection (Int() $start_pos, Int() $end_pos) is also<set-selection> {
+  method set_selection (Int() $start_pos, Int() $end_pos)
+    is also<set-selection>
+  {
     my gssize ($sp, $ep) = resolve-long($start_pos, $end_pos);
     clutter_text_set_selection($!ct, $start_pos, $end_pos);
   }
 
-  method set_selection_color (ClutterColor() $color) is also<set-selection-color> {
+  method set_selection_color (ClutterColor() $color)
+    is also<set-selection-color>
+  {
     clutter_text_set_selection_color($!ct, $color);
   }
 

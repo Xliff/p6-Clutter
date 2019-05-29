@@ -8,8 +8,6 @@ use Clutter::Raw::Types;
 use GTK::Roles::Signals::Generic;
 
 role Clutter::Roles::Signals::Text {
-  also does GTK::Roles::Signals::Generic;
-
   has %!signals-ct;
 
   # ClutterText, ClutterGeometry, gpointer
