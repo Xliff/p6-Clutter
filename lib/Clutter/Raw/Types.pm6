@@ -28,6 +28,7 @@ class ClutterAlignConstraint      is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterAlpha                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterAnimatable           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBinLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterBindConstraint       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBackend              is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBoxLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterCanvas               is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -755,3 +756,11 @@ class ClutterPathNode is repr('CStruct') is export does GTK::Roles::Pointers {
   has ClutterKnot $.point2;
   has ClutterKnot $.point3;
 };
+
+our enum ClutterInitError is export (
+  CLUTTER_INIT_SUCCESS        =>  1,
+  CLUTTER_INIT_ERROR_UNKNOWN  =>  0,
+  CLUTTER_INIT_ERROR_THREADS  => -1,
+  CLUTTER_INIT_ERROR_BACKEND  => -2,
+  CLUTTER_INIT_ERROR_INTERNAL => -3
+);

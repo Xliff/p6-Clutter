@@ -120,7 +120,7 @@ role Clutter::Roles::Signals::Actor {
 sub g-connect-allocation-changed (
   Pointer $app,
   Str $name,
-  &handler (Pointer, ClutterActorBox, ClutterAllocationFlags, Pointer),
+  &handler (Pointer, ClutterActorBox, guint, Pointer),
   Pointer $data,
   uint32 $flags
 )

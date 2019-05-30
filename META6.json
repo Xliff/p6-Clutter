@@ -11,15 +11,17 @@
       "Clutter::Raw::Keysyms"                  :  "lib/Clutter/Raw/Keysyms.pm6"                 ,
       "Clutter::Raw::Types"                    :  "lib/Clutter/Raw/Types.pm6"                   ,
       "Clutter::Action"                        :  "lib/Clutter/Action.pm6"                      ,
+      "Clutter::Compat::Types"                 :  "lib/Clutter/Compat/Types.pm6"                ,
+      "Clutter::Cairo"                         :  "lib/Clutter/Cairo.pm6"                       ,
       "Clutter::ChildMeta"                     :  "lib/Clutter/ChildMeta.pm6"                   ,
       "Clutter::Constraint"                    :  "lib/Clutter/Constraint.pm6"                  ,
-      "Clutter::Compat::Types"                 :  "lib/Clutter/Compat/Types.pm6"                ,
       "Clutter::LayoutMeta"                    :  "lib/Clutter/LayoutMeta.pm6"                  ,
       "Clutter::Raw::Actor"                    :  "lib/Clutter/Raw/Actor.pm6"                   ,
       "Clutter::Raw::ActorMeta"                :  "lib/Clutter/Raw/ActorMeta.pm6"               ,
       "Clutter::Raw::AlignConstraint"          :  "lib/Clutter/Raw/AlignConstraint.pm6"         ,
       "Clutter::Raw::Animatable"               :  "lib/Clutter/Raw/Animatable.pm6"              ,
       "Clutter::Raw::Backend"                  :  "lib/Clutter/Raw/Backend.pm6"                 ,
+      "Clutter::Raw::BindConstraint"           :  "lib/Clutter/Raw/BindConstraint.pm6"          ,
       "Clutter::Raw::BoxLayout"                :  "lib/Clutter/Raw/BoxLayout.pm6"               ,
       "Clutter::Raw::Boxed"                    :  "lib/Clutter/Raw/Boxed.pm6"                   ,
       "Clutter::Raw::ClickAction"              :  "lib/Clutter/Raw/ClickAction.pm6"             ,
@@ -43,7 +45,6 @@
       "Clutter::Roles::Scriptable"             :  "lib/Clutter/Roles/Scriptable.pm6"            ,
       "Clutter::Roles::Settings"               :  "lib/Clutter/Roles/Settings.pm6"              ,
       "Clutter::Roles::Signals::Canvas"        :  "lib/Clutter/Roles/Signals/Canvas.pm6"        ,
-      "Clutter::Roles::Signals::ClickAction"   :  "lib/Clutter/Roles/Signals/ClickAction.pm6"   ,
       "Clutter::Roles::Signals::Container"     :  "lib/Clutter/Roles/Signals/Container.pm6"     ,
       "Clutter::Roles::Signals::DeviceManager" :  "lib/Clutter/Roles/Signals/DeviceManager.pm6" ,
       "Clutter::Roles::Signals::Generic"       :  "lib/Clutter/Roles/Signals/Generic.pm6"       ,
@@ -58,7 +59,7 @@
       "Clutter::ActorMeta"                     :  "lib/Clutter/ActorMeta.pm6"                   ,
       "Clutter::AlignConstraint"               :  "lib/Clutter/AlignConstraint.pm6"             ,
       "Clutter::Backend"                       :  "lib/Clutter/Backend.pm6"                     ,
-      "Clutter::ClickAction"                   :  "lib/Clutter/ClickAction.pm6"                 ,
+      "Clutter::BindConstraint"                :  "lib/Clutter/BindConstraint.pm6"              ,
       "Clutter::Color"                         :  "lib/Clutter/Color.pm6"                       ,
       "Clutter::Effect"                        :  "lib/Clutter/Effect.pm6"                      ,
       "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
@@ -70,12 +71,14 @@
       "Clutter::Roles::Container"              :  "lib/Clutter/Roles/Container.pm6"             ,
       "Clutter::Roles::Content"                :  "lib/Clutter/Roles/Content.pm6"               ,
       "Clutter::Roles::Signals::Actor"         :  "lib/Clutter/Roles/Signals/Actor.pm6"         ,
+      "Clutter::Roles::Signals::ClickAction"   :  "lib/Clutter/Roles/Signals/ClickAction.pm6"   ,
       "Clutter::TapAction"                     :  "lib/Clutter/TapAction.pm6"                   ,
       "Clutter::Actor"                         :  "lib/Clutter/Actor.pm6"                       ,
       "Clutter::ActorIter"                     :  "lib/Clutter/ActorIter.pm6"                   ,
       "Clutter::BinLayout"                     :  "lib/Clutter/BinLayout.pm6"                   ,
       "Clutter::BoxLayout"                     :  "lib/Clutter/BoxLayout.pm6"                   ,
       "Clutter::Canvas"                        :  "lib/Clutter/Canvas.pm6"                      ,
+      "Clutter::ClickAction"                   :  "lib/Clutter/ClickAction.pm6"                 ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::Stage"                         :  "lib/Clutter/Stage.pm6"                       ,
       "Clutter::Text"                          :  "lib/Clutter/Text.pm6"                        ,
@@ -96,6 +99,10 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
+
+
+
 
 
 
