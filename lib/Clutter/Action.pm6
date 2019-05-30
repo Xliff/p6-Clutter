@@ -31,7 +31,7 @@ class Clutter::Action {
     self!setObject($!c-act = $action);
   }
 
-  method get_type is also<get-type> {
+  method action_get_type is also<action-get-type> {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_action_get_type, $n, $t );
   }

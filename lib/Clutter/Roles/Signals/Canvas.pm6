@@ -1,6 +1,10 @@
 use v6.c;
 
+use NativeCall;
+
 use Clutter::Compat::Types;
+
+use GTK::Raw::ReturnedValue;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
@@ -18,13 +22,13 @@ role Clutter::Roles::Signals::Canvas {
     %!signals-cc{$signal} //= do {
       my $s = Supplier.new;
       $hid = g-connect-draw($obj, $signal,
-        -> $, $cct, $gt, $gt, $ud --> gboolean {
+        -> $, $cct, $gt1, $gt2, $ud --> gboolean {
           CATCH {
             default { $s.quit($_) }
           }
 
           my $r = ReturnedValue.new;
-          $s.emit( [self, $cct, $gt, $gt, $ud, $r] );
+          $s.emit( [self, $cct, $gt1, $gt2, $ud, $r] );
           $r.r;
         },
         Pointer, 0

@@ -13,6 +13,9 @@ use Clutter::Roles::Signals::Canvas;
 
 use Clutter::Roles::Content;
 
+our subset CanvasAncestry is export
+  where ClutterCanvas | ClutterContent;
+
 class Clutter::Canvas {
   also does GTK::Roles::Properties;
   also does Clutter::Roles::Content;
@@ -21,10 +24,31 @@ class Clutter::Canvas {
   has ClutterCanvas $!cc;
 
   submethod BUILD (:$canvas) {
-    self!setObject( cast(GObject, $!cc = $canvas) );
+    given $canvas {
+      when CanvasAncestry {
+        $!cc = do {
+          when ClutterCanvas {
+            $_;
+          }
+          when ClutterContent {
+            $!c-con = $_;
+            cast(ClutterCanvas, $_);
+          }
+        }
+        $!c-con //= cast(ClutterContent, $_); # Clutter::Roles::Content
+        self!setObject( cast(GObject, $!cc = $canvas) );
+      }
+      when Clutter::Canvas {
+      }
+      default {
+      }
+    }
   }
 
-  method new {
+  multi method new (CanvasAncestry $canvas) {
+    self.bless(:$canvas);
+  }
+  multi method new {
     self.bless( canvas => clutter_canvas_new() );
   }
 

@@ -12,13 +12,21 @@ role Clutter::Roles::Content {
 
   has ClutterContent $!c-con;
 
+  submethod BUILD (:$content) {
+    $!c-con = $content;
+  }
+
   method Clutter::Raw::Types::ClutterContent
   { $!c-con }
+
+  method role-new (ClutterContent $content) {
+    self.bless(:$content);
+  }
 
   method attached {
     self.connect-actor($!c-con, 'attached');
   }
-  
+
   method detached {
     self.connect-actor($!c-con, 'detached');
   }

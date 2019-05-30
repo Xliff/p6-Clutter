@@ -496,54 +496,6 @@ our enum ClutterStaticColor is export (
   'CLUTTER_COLOR_TRANSPARENT'
 );
 
-our enum ClutterStaticColorExtra is export (
-  CLUTTER_COLOR_White             => CLUTTER_COLOR_WHITE,
-  CLUTTER_COLOR_Black             => CLUTTER_COLOR_BLACK,
-  CLUTTER_COLOR_Red               => CLUTTER_COLOR_RED,
-  CLUTTER_COLOR_DarkRed           => CLUTTER_COLOR_DARK_RED,
-  CLUTTER_COLOR_Green             => CLUTTER_COLOR_GREEN,
-  CLUTTER_COLOR_DarkGreen         => CLUTTER_COLOR_DARK_GREEN,
-  CLUTTER_COLOR_Blue              => CLUTTER_COLOR_BLUE,
-  CLUTTER_COLOR_DarkBlue          => CLUTTER_COLOR_DARK_BLUE,
-  CLUTTER_COLOR_Cyan              => CLUTTER_COLOR_CYAN,
-  CLUTTER_COLOR_DarkCyan          => CLUTTER_COLOR_DARK_CYAN,
-  CLUTTER_COLOR_Magenta           => CLUTTER_COLOR_MAGENTA,
-  CLUTTER_COLOR_DarkMagenta       => CLUTTER_COLOR_DARK_MAGENTA,
-  CLUTTER_COLOR_Yellow            => CLUTTER_COLOR_YELLOW,
-  CLUTTER_COLOR_DarkYellow        => CLUTTER_COLOR_DARK_YELLOW,
-  CLUTTER_COLOR_Gray              => CLUTTER_COLOR_GRAY,
-  CLUTTER_COLOR_DarkGray          => CLUTTER_COLOR_DARK_GRAY,
-  CLUTTER_COLOR_LightGray         => CLUTTER_COLOR_LIGHT_GRAY,
-  CLUTTER_COLOR_Butter            => CLUTTER_COLOR_BUTTER,
-  CLUTTER_COLOR_LightButter       => CLUTTER_COLOR_BUTTER_LIGHT,
-  CLUTTER_COLOR_DarkButter        => CLUTTER_COLOR_BUTTER_DARK,
-  CLUTTER_COLOR_Orange            => CLUTTER_COLOR_ORANGE,
-  CLUTTER_COLOR_LightOrange       => CLUTTER_COLOR_ORANGE_LIGHT,
-  CLUTTER_COLOR_DarkOrange        => CLUTTER_COLOR_ORANGE_DARK,
-  CLUTTER_COLOR_Chocolate         => CLUTTER_COLOR_CHOCOLATE,
-  CLUTTER_COLOR_LightChocolate    => CLUTTER_COLOR_CHOCOLATE_LIGHT,
-  CLUTTER_COLOR_DarkChocolate     => CLUTTER_COLOR_CHOCOLATE_DARK,
-  CLUTTER_COLOR_Chameleon         => CLUTTER_COLOR_CHAMELEON,
-  CLUTTER_COLOR_LightChameleon    => CLUTTER_COLOR_CHAMELEON_LIGHT,
-  CLUTTER_COLOR_DarkChameleon     => CLUTTER_COLOR_CHAMELEON_DARK,
-  CLUTTER_COLOR_SkyBlue           => CLUTTER_COLOR_SKY_BLUE,
-  CLUTTER_COLOR_LightSkyBlue      => CLUTTER_COLOR_SKY_BLUE_LIGHT,
-  CLUTTER_COLOR_DarkSkyBlue       => CLUTTER_COLOR_SKY_BLUE_DARK,
-  CLUTTER_COLOR_Plum              => CLUTTER_COLOR_PLUM,
-  CLUTTER_COLOR_LightPlum         => CLUTTER_COLOR_PLUM_LIGHT,
-  CLUTTER_COLOR_DarkPlum          => CLUTTER_COLOR_PLUM_DARK,
-  CLUTTER_COLOR_ScarletRed        => CLUTTER_COLOR_SCARLET_RED,
-  CLUTTER_COLOR_LightScarletRed   => CLUTTER_COLOR_SCARLET_RED_LIGHT,
-  CLUTTER_COLOR_DarkScarletRed    => CLUTTER_COLOR_SCARLET_RED_DARK,
-  CLUTTER_COLOR_Aluminium1        => CLUTTER_COLOR_ALUMINIUM_1,
-  CLUTTER_COLOR_Aluminium2        => CLUTTER_COLOR_ALUMINIUM_2,
-  CLUTTER_COLOR_Aluminium3        => CLUTTER_COLOR_ALUMINIUM_3,
-  CLUTTER_COLOR_Aluminium4        => CLUTTER_COLOR_ALUMINIUM_4,
-  CLUTTER_COLOR_Aluminium5        => CLUTTER_COLOR_ALUMINIUM_5,
-  CLUTTER_COLOR_Aluminium6        => CLUTTER_COLOR_ALUMINIUM_6,
-  CLUTTER_COLOR_Transparent       => CLUTTER_COLOR_TRANSPARENT,
-);
-
 our enum ClutterEventAction is export (
   CLUTTER_EVENT_PROPAGATE => 0,
   CLUTTER_EVENT_STOP      => 1,
@@ -555,9 +507,6 @@ class ClutterColor is repr('CStruct') is export does GTK::Roles::Pointers {
   has guint8 $.blue  is rw;
   has guint8 $.alpha is rw;
 }
-
-our subset ColorOrStatic is export of Mu where
-  ClutterColor | ClutterStaticColor | ClutterStaticColorExtra;
 
 class ClutterAnyEvent is repr('CStruct') is export does GTK::Roles::Pointers {
   has guint        $.type  ;

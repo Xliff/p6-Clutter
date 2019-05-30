@@ -8,6 +8,7 @@ use Pango::Context;
 use Pango::Layout;
 
 use GTK::Compat::Types;
+use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
 use GTK::Raw::Utils;
@@ -21,6 +22,7 @@ use Clutter::Color;
 use Clutter::Constraint;
 use Clutter::LayoutManager;
 use Clutter::PaintVolume;
+use Clutter::Size;
 use Clutter::Vertex;
 
 use GTK::Roles::Protection;
@@ -28,8 +30,10 @@ use GTK::Roles::Properties;
 
 use Clutter::Roles::Animatable;
 use Clutter::Roles::Container;
+use Clutter::Roles::Content;
 use Clutter::Roles::Scriptable;
 use Clutter::Roles::Signals::Actor;
+use Clutter::Roles::Signals::Generic;
 
 my @attributes = <
   actions
@@ -99,7 +103,6 @@ my @attributes = <
   scale-y                    scale_y
   scale_z
   show-on-set-parent         show_on_set_parent
-  size
   text_direction
   transform
   transform-set              transform_set
@@ -117,6 +120,9 @@ my @attributes = <
   z-position                 z_position
 >;
 
+# Please note that for .setup, 'size' is consdered a SET method. To set using a
+# Clutter::Size or equivalent, use the key 'cluttersize' or directly via the
+# .size  attribute
 my @set_methods = <
   child_above_sibling      child-above-sibling
   child_at_index           child-at-index
@@ -125,6 +131,7 @@ my @set_methods = <
   fixed_position_set       fixed-position-set
   flags
   rotation_angle           rotation-angle
+  size
   translation
 >;
 
@@ -136,7 +143,7 @@ class Clutter::Actor {
   also does Clutter::Roles::Container;
   also does Clutter::Roles::Scriptable;
   also does Clutter::Roles::Signals::Actor;
-#  also does Clutter::Roles::Signals::Generic;
+  also does Clutter::Roles::Signals::Generic;
 
   has ClutterActor $!ca;
 
@@ -324,13 +331,21 @@ class Clutter::Actor {
   }
 
   method setup(*%data) {
-    for %data.keys {
-      when @attributes.any  { self."$_"() = %data{$_}       }
-      when @set_methods.any { self."set_{$_}"( |%data{$_} ) }
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        .say if $DEBUG;
+        self."$_"() = %data{$_}
+      }
+
+      when @set_methods.any {
+        my $proper-name = S:g /'-'/_/;
+        say "$_: { %data{$_}.^name }" if $DEBUG;
+        self."set_{ $proper-name }"( |%data{$_} )
+      }
 
       # set-size uses 'cluttersize' key to distinguish itself from the attribute.
-      when 'cluttersize'   { self.set-size( |%data<size> )   }
-      when 'child'         { self.add-child(%data<child>)    }
+      when 'cluttersize'   { self.size = %data<cluttersize>  }
+      when 'child'         { self.add-child( %data<child> )  }
 
       when 'expand'   { (self.x-expand, self.y-expand) = |%data<expand> xx 2 }
       when 'align'    { (self.x-align, self.y-align)   = |%data<align>  xx 2 }
@@ -594,8 +609,8 @@ class Clutter::Actor {
 
   method background-color is rw is also<background_color> {
     Proxy.new:
-      FETCH => -> $       { self.get-background-color       },
-      STORE => -> $, $val { self.set-background-color($val) };
+      FETCH => -> $       { self.get-background-color      },
+      STORE => -> $, \val { self.set-background-color(val) };
   }
 
   # Type: gboolean
@@ -609,7 +624,7 @@ class Clutter::Actor {
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
-        warn "background-color-set does not allow writing"
+        warn "'background-color-set' does not allow writing" if $DEBUG;
       }
     );
   }
@@ -642,7 +657,7 @@ class Clutter::Actor {
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
-        warn "child-transform-set does not allow writing"
+        warn "'child-transform-set' does not allow writing" if $DEBUG;
       }
     );
   }
@@ -693,7 +708,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Constraint.get_type );
     Proxy.new(
       FETCH => -> $ {
-        warn 'constraints does not allow reading' if $DEBUG;
+        warn "'constraints' does not allow reading" if $DEBUG;
         0;
       },
       STORE => -> $, ClutterConstraint() $val is copy {
@@ -1686,7 +1701,7 @@ class Clutter::Actor {
   }
 
   method get_content is also<get-content> {
-    Clutter::Content.new( clutter_actor_get_content($!ca) );
+    Clutter::Roles::Content.role-new( clutter_actor_get_content($!ca) );
   }
 
   method get_content_box (ClutterActorBox() $box) is also<get-content-box>
@@ -2289,12 +2304,9 @@ class Clutter::Actor {
     clutter_actor_set_allocation($!ca, $box, $f);
   }
 
-  method set_background_color ($color is copy)
+  method set_background_color (ClutterColor() $color)
     is also<set-background-color>
   {
-    $color = Clutter::Color.get_static($color)
-      if $color ~~ (ClutterStaticColor, ClutterStaticColorExtra).any;
-    $color .= ClutterColor if $color ~~ Clutter::Color;
     clutter_actor_set_background_color($!ca, $color);
   }
 
@@ -2463,6 +2475,7 @@ class Clutter::Actor {
   }
 
   method set_opacity (Int() $opacity) is also<set-opacity> {
+    say 'opacity';
     my guint8 $o = resolve-uint8($opacity);
     clutter_actor_set_opacity($!ca, $opacity);
   }
@@ -2526,6 +2539,7 @@ class Clutter::Actor {
 
   method set_size (Num() $width, Num() $height) is also<set-size> {
     my gfloat ($w, $h) = ($width, $height);
+    say "set_size {$w}x{$h}";
     clutter_actor_set_size($!ca, $w, $h);
   }
 

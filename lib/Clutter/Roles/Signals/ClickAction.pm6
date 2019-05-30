@@ -7,7 +7,11 @@ use Clutter::Raw::Types;
 
 use GTK::Raw::ReturnedValue;
 
+use Clutter::Roles::Signals::Generic;
+
 role Clutter::Roles::Signals::ClickAction {
+  also does Clutter::Roles::Signals::Generic;
+
   has %!signals-cca;
 
   # ClutterClickAction, ClutterActor, ClutterLongPressState (guint), gpointer --> gboolean
@@ -25,6 +29,7 @@ role Clutter::Roles::Signals::ClickAction {
             default { $s.quit($_) }
           }
 
+          say 'long click';
           my $r = ReturnedValue.new;
           $s.emit( [self, $car, $clpse, $ud, $r] );
           $r.r;

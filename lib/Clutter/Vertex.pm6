@@ -12,16 +12,16 @@ use Clutter::Raw::VariousTypes;
 
 class Clutter::Vertex {
   has ClutterVertex $!cv handles<x y z>;
-  
+
   submethod BUILD (:$cluttervertex) {
     $!cv = $cluttervertex;
   }
-  
+
   method new (Num() $x, Num() $y, Num() $z) {
     my gfloat ($xx, $yy, $zz) = ($x, $y, $z);
     self.bless( cluttervertex => clutter_vertex_new($x, $y, $z) );
   }
-  
+
   method alloc (Clutter::Vertex:U:) {
     clutter_vertex_alloc();
   }
@@ -54,7 +54,7 @@ class Clutter::Vertex {
 }
 
 # Should be done for all types in Clutter::Raw::VariousTypes
-sub infix:<eqv> (ClutterVertex $a, ClutterVertex $b) is export {
+multi sub infix:<eqv> (ClutterVertex $a, ClutterVertex $b) is export {
   clutter_vertex_equal($a, $b);
 }
 

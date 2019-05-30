@@ -1,10 +1,14 @@
 use v6.c;
 
+use Cairo;
+
 use NativeCall;
 
 use GTK::Roles::Pointers;
 
 unit package Clutter::Compat::Types;
+
+constant cairo_t is export := Cairo::cairo_t;
 
 class CoglTexture is repr('CPointer') is export does GTK::Roles::Pointers { }
 class CoglContext is repr('CPointer') is export does GTK::Roles::Pointers { }

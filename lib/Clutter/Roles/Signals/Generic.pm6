@@ -7,7 +7,7 @@ use Clutter::Raw::Types;
 
 role Clutter::Roles::Signals::Generic {
   has %!signals-clutter;
-  
+
   # ClutterActor, ClutterActor, gpointer
   method connect-actor (
     $obj,
@@ -20,8 +20,10 @@ role Clutter::Roles::Signals::Generic {
       $hid = g-connect-actor($obj, $signal,
         -> $, $car, $ud {
           CATCH {
-            default { $s.quit($_) }
+            default { .message.say; $s.quit($_) }
           }
+
+          say 'connect-actor';
 
           $s.emit( [self, $car, $ud ] );
         },
@@ -32,7 +34,7 @@ role Clutter::Roles::Signals::Generic {
     %!signals-clutter{$signal}[0].tap(&handler) with &handler;
     %!signals-clutter{$signal}[0];
   }
-  
+
 }
 
 # Object, ClutterActor, gpointer

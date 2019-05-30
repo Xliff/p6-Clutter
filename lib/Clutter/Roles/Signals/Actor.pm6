@@ -10,7 +10,7 @@ use GTK::Raw::ReturnedValue;
 use GTK::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Generic;
 
-role Clutter::Roles::Signals::Actor {  
+role Clutter::Roles::Signals::Actor {
   has %!signals-a;
 
   # ClutterActor, ClutterActorBox, ClutterAllocationFlags, gpointer
@@ -25,7 +25,7 @@ role Clutter::Roles::Signals::Actor {
       $hid = g-connect-allocation-changed($obj, $signal,
         -> $, $cabx, $cafs, $ud {
           CATCH {
-            default { $s.quit($_) }
+            default { .message.say; $s.quit($_) }
           }
 
           $s.emit( [self, $cabx, $cafs, $ud ] );
@@ -50,7 +50,7 @@ role Clutter::Roles::Signals::Actor {
       $hid = g-connect-clutter-event($obj, $signal,
         -> $, $cet, $ud --> gboolean {
           CATCH {
-            default { $s.quit($_) }
+            default { .message.say; $s.quit($_) }
           }
 
           my $r = ReturnedValue.new;
@@ -77,7 +77,7 @@ role Clutter::Roles::Signals::Actor {
       $hid = g-connect-pick($obj, $signal,
         -> $, $ccr, $ud {
           CATCH {
-            default { $s.quit($_) }
+            default { .message.say; $s.quit($_) }
           }
 
           $s.emit( [self, $ccr, $ud ] );
@@ -102,7 +102,7 @@ role Clutter::Roles::Signals::Actor {
       $hid = g-connect-transition-stopped($obj, $signal,
         -> $, $gr, $gn, $ud {
           CATCH {
-            default { $s.quit($_) }
+            default { .message.say; $s.quit($_) }
           }
 
           $s.emit( [self, $gr, $gn, $ud ] );

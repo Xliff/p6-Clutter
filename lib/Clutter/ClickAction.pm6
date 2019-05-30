@@ -9,7 +9,11 @@ use Clutter::Raw::ClickAction;
 
 use Clutter::Action;
 
+use Clutter::Roles::Signals::ClickAction;
+
 class Clutter::ClickAction is Clutter::Action {
+  also does Clutter::Roles::Signals::ClickAction;
+
   has ClutterClickAction $!cca;
 
   # Needs ancestry logic
@@ -22,7 +26,7 @@ class Clutter::ClickAction is Clutter::Action {
   { $!cca }
 
   method new {
-    clutter_click_action_new();
+    self.bless( clickaction => clutter_click_action_new() );
   }
 
   # Type: gboolean

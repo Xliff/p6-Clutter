@@ -84,16 +84,17 @@ class Clutter::Image {
   method set_data (
     Pointer $data,
     CoglPixelFormat $pixel_format,
-    guint $width,
-    guint $height,
-    guint $row_stride,
+    Int() $width,
+    Int() $height,
+    Int() $row_stride,
     CArray[Pointer[GError]] $error = gerror()
   )
     is also<set-data>
   {
+    my guint ($w, $h, $r) = resolve-uint($width, $height, $row_stride);
     clear_error;
     my $rc = clutter_image_set_data(
-      $!ci, $data, $pixel_format, $width, $height, $row_stride, $error
+      $!ci, $data, $pixel_format, $w, $h, $r, $error
     );
     set_error($error);
     so $rc;
