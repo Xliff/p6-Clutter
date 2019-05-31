@@ -1,5 +1,6 @@
 use v6.c;
 
+use Method::Also;
 use NativeCall;
 
 use GTK::Compat::Types;
@@ -17,9 +18,10 @@ role Clutter::Roles::Content {
   }
 
   method Clutter::Raw::Types::ClutterContent
+    is also<ClutterContent>
   { $!c-con }
 
-  method role-new (ClutterContent $content) {
+  method role-new (ClutterContent $content) is also<role_new> {
     self.bless(:$content);
   }
 
@@ -31,12 +33,14 @@ role Clutter::Roles::Content {
     self.connect-actor($!c-con, 'detached');
   }
 
-  method get_preferred_size (Num() $width, Num() $height) {
+  method get_preferred_size (Num() $width, Num() $height)
+    is also<get-preferred-size>
+  {
     my gfloat ($w, $h) = ($width, $height);
     clutter_content_get_preferred_size($!c-con, $width, $height);
   }
 
-  method content_get_type {
+  method content_get_type is also<content-get-type> {
     state ($n, $t);
     unstable_get_type('Clutter::Content', &clutter_content_get_type, $n, $t );
   }

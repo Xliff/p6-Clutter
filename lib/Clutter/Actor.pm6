@@ -18,10 +18,13 @@ use Clutter::Raw::Actor;
 use GTK::Compat::Value;
 
 use Clutter::Action;
+use Clutter::ActorBox;
 use Clutter::Color;
 use Clutter::Constraint;
 use Clutter::LayoutManager;
 use Clutter::PaintVolume;
+use Clutter::Point;
+use Clutter::Rect;
 use Clutter::Size;
 use Clutter::Vertex;
 
@@ -133,6 +136,16 @@ my @set_methods = <
   rotation_angle           rotation-angle
   size
   translation
+>;
+
+my @add_methods = <
+  action
+  action_wth_name       action-with-name
+  constraint
+  constraint_with_name  constraint-with-name
+  child
+  effect
+  effect_with_name      effect-with-name
 >;
 
 class Clutter::Actor {
@@ -333,13 +346,19 @@ class Clutter::Actor {
   method setup(*%data) {
     for %data.keys -> $_ is copy {
       when @attributes.any  {
-        .say if $DEBUG;
+        say "AA: {$_}"; # if $DEBUG;
         self."$_"() = %data{$_}
+      }
+
+      when @add_methods.any {
+        my $proper-name = S:g /'-'/_/;
+        say "AddA: {$_}"; # if $DEBUG;
+        self."add_{ $proper-name }"( |%data{$_} )
       }
 
       when @set_methods.any {
         my $proper-name = S:g /'-'/_/;
-        say "$_: { %data{$_}.^name }" if $DEBUG;
+        say "ASM: {$_}"; #if $DEBUG;
         self."set_{ $proper-name }"( |%data{$_} )
       }
 
@@ -457,6 +476,7 @@ class Clutter::Actor {
   }
 
   method x-align is rw is also<x_align> {
+    say 'x-align';
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_x_align($!ca) );
@@ -468,6 +488,7 @@ class Clutter::Actor {
   }
 
   method x-expand is rw is also<x_expand> {
+    say 'x-expand';
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_x_expand($!ca);
@@ -491,6 +512,7 @@ class Clutter::Actor {
   }
 
   method y-align is rw is also<y_align> {
+    say 'y-align';
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_y_align($!ca) );
@@ -502,6 +524,7 @@ class Clutter::Actor {
   }
 
   method y-expand is rw is also<y_expand> {
+    say 'y-expand';
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_y_expand($!ca);
@@ -530,7 +553,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Action.get_type );
     Proxy.new(
       FETCH => -> $ {
-        warn 'actions does not allow reading' if $DEBUG;
+        warn "'actions' does not allow reading" if $DEBUG;
         0;
       },
       STORE => -> $, ClutterAction() $val is copy {
@@ -542,7 +565,7 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method allocation is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.actor_box_get_type );
+    my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
@@ -551,7 +574,7 @@ class Clutter::Actor {
         cast(ClutterActorBox, $gv.boxed);
       },
       STORE => -> $, $val is copy {
-        warn 'allocation does not allow writing'
+        warn "'allocation' does not allow writing"
       }
     );
   }
@@ -681,7 +704,7 @@ class Clutter::Actor {
 
   # Type: ClutterRect
   method clip-rect is rw is also<clip_rect> {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.rect_get_type );
+    my GTK::Compat::Value $gv .= new( Clutter::Rect.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
@@ -727,7 +750,7 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method content-box is rw is also<content_box> {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.actor_box_get_type );
+    my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
@@ -736,7 +759,7 @@ class Clutter::Actor {
         cast(ClutterActorBox, $gv.boxed);
       },
       STORE => -> $, $val is copy {
-        warn 'content-box does not allow writing'
+        warn "'content-box' does not allow writing";
       }
     );
   }
@@ -795,7 +818,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Effect.get_type );
     Proxy.new(
       FETCH => -> $ {
-        warn 'effect does not allow reading' if $DEBUG;
+        warn "'effect' does not allow reading" if $DEBUG;
         0;
       },
       STORE => -> $, ClutterEffect() $val is copy {
@@ -892,7 +915,7 @@ class Clutter::Actor {
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
-        warn "mapped does not allow writing"
+        warn "'mapped' does not allow writing"
       }
     );
   }
@@ -1115,7 +1138,7 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method pivot-point is rw is also<pivot_point> {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.point_get_type );
+    my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
@@ -1132,7 +1155,7 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method position is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Boxed.point_get_type );
+    my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GTK::Compat::Value.new(
@@ -1140,7 +1163,7 @@ class Clutter::Actor {
         );
         cast(ClutterPoint, $gv.boxed);
       },
-      STORE => -> $, ClutterPoint $val is copy {
+      STORE => -> $, ClutterPoint() $val is copy {
         $gv.boxed = $val;
         self.prop_set('position', $gv);
       }

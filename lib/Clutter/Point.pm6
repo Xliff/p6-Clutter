@@ -11,22 +11,22 @@ use Clutter::Raw::VariousTypes;
 
 class Clutter::Point {
   has ClutterPoint $!cp handles<x y>;
-  
+
   my $zero = clutter_point_zero();
-  
+
   submethod BUILD (:$point) {
     $!cp = $point;
   }
-  
+
   method Clutter::Raw::Types::ClutterPoint
     is also<ClutterPoint>
   { $!cp }
-  
-  method init (Num() $x, Num() $y) is also<new> {
+
+  method new (Num() $x, Num() $y) is also<init> {
     my gfloat ($xx, $yy) = ($x, $y);
     self.bless( point => clutter_point_init(Clutter::Point.alloc, $xx, $yy) );
   }
-  
+
   method alloc {
     clutter_point_alloc();
   }
@@ -40,9 +40,9 @@ class Clutter::Point {
   }
   multi method distance (
     Clutter::Point:U:
-    ClutterPoint $a, 
-    ClutterPoint $b, 
-    Num() $x_distance, 
+    ClutterPoint $a,
+    ClutterPoint $b,
+    Num() $x_distance,
     Num() $y_distance
   ) {
     my gfloat ($xd, $yd) = ($x_distance, $y_distance);
@@ -53,17 +53,17 @@ class Clutter::Point {
     clutter_point_equals($!cp, $b);
   }
 
-  method free (Clutter::Point:U: ClutterPoint $f) { 
+  method free (Clutter::Point:U: ClutterPoint $f) {
     die 'Cannot free the <zero> point. It is owned by libclutter.'
       if $f =:= $zero;
     clutter_point_free($f);
   }
-  
+
   method !free {
     Clutter::Point.free($!cp);
   }
 
-  method get_type {
+  method get_type is also<get-type> {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_point_get_type, $n, $t );
   }
@@ -71,7 +71,7 @@ class Clutter::Point {
   multi method zero (Clutter::Point:U:) {
     $zero;
   }
-  
+
 }
 
 multi sub infix:<eqv> (ClutterPoint $a, ClutterPoint $b) {

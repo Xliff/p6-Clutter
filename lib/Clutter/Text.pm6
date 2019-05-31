@@ -117,10 +117,12 @@ class Clutter::Text is Clutter::Actor {
   method setup(*%data) {
     for %data.keys {
       when @attributes.any {
+        say "TA: { $_ }";
         self."$_"() = %data{$_};
         %data{$_}:delete
       }
       when @set_methods.any {
+        say "TSM: { $_ }";
         self."set_{$_}"( %data{$_} );
         %data{$_}:delete
       }
@@ -129,7 +131,7 @@ class Clutter::Text is Clutter::Actor {
         %data{$_}:delete;
       }
     }
-    nextwith if %data.keys.elems;
+    self.Clutter::Actor::setup(|%data) if %data.keys.elems;
   }
 
   method activatable is rw {

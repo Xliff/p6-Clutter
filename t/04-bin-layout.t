@@ -20,9 +20,7 @@ use Clutter::Text;
 use Clutter::Main;
 
 constant BG_ROUND_RADIUS = 12;
-constant BG_COLOR = ClutterColor.new(
-  red => 0xcc, green => 0xcc, blue => 0xcc, alpha => 0x99
-);
+my $BG_COLOR = Clutter::Color.new(0xcc, 0xcc, 0xcc, 0x99);
 
 my $is_expanded = False;
 
@@ -35,7 +33,7 @@ sub on_canvas_draw($cc, $ct, $w, $h, $r) {
   my $c = Cairo::Context.new($cc);
 
   $c.save;
-  $c.set_operator(CAIRO_OPERATOR_CLEAR);
+  $c.operator = CAIRO_OPERATOR_CLEAR;
   $c.paint;
   $c.restore;
 
@@ -57,12 +55,12 @@ sub on_canvas_draw($cc, $ct, $w, $h, $r) {
   };
 
   $dr();
-  $c.set_source_color(BG_COLOR);
+  Clutter::Cairo.set_source_color($BG_COLOR);
   $c.stroke;
   ($x, $y, $w, $h) «+=» 4;
   $dr();
 
-  my $p = Cairo::Pattern.new;
+  my $p = Cairo::Pattern::Gradient::Linear.new(0, 0, 0, $h);
   $p.add_color_stop_rgba(1, 0.85, 0.85, 0.85, 1);
   $p.add_color_stop_rgba(0.95, 1, 1, 1, 1);
   $p.add_color_stop_rgba(0.05, 1, 1, 1, 1);
@@ -97,7 +95,7 @@ sub on-emblem-clicked($box) {
   say 'clicked';
   $box.save-easing-state;
   ($box.easing-mode, $box.easing-duration) = (CLUTTER_EASE_OUT_BOUNCE, 500);
-  my $size = (not $is_expanded) ?? 400 !! 200;
+  my $size = $is_expanded ?? 200 !! 400;
   say "size: $size";
   $box.set_size($size, $size);
   $box.restore-easing-state;
@@ -116,6 +114,7 @@ sub on_emblem_long_press($emblem, $e, $s, $b, $r) {
     when CLUTTER_LONG_PRESS_CANCEL   { say '*** long press: cancel   ***' }
     when CLUTTER_LONG_PRESS_ACTIVATE { say '*** long press: activate ***' }
   }
+  say "R: { $r.r }";
 }
 
 sub redraw_canvas ($c, $a) {
@@ -128,14 +127,11 @@ sub MAIN {
   exit(1) unless Clutter::Main.init;
 
   my $stage = Clutter::Stage.new;
-  # For some reason background-color does not work, here.
   $stage.setup(
      title => 'BinLayout',
-     size => (640, 480)
+     size  => (640, 480),
+     background-color => $CLUTTER_COLOR_Aluminium2,
   );
-  my $bgcolor = Clutter::Color.new_from_hls(128, 0.5, 0.1);
-  $bgcolor.alpha = 255;
-  $stage.background-color = $bgcolor;
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.show_actor;
 
@@ -143,31 +139,39 @@ sub MAIN {
     CLUTTER_BIN_ALIGNMENT_CENTER, CLUTTER_BIN_ALIGNMENT_CENTER
   );
 
+  say 'box';
   my $box = Clutter::Actor.new;
-  $box.layout-manager = $layout;
-  $box.add_constraint(
-    Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.50)
+  $box.setup(
+    name => 'box',
+    layout-manager => $layout,
+    constraint => Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.50),
+    position => Clutter::Point.new(320, 240),
+    reactive => True,
   );
-  $box.set_position(320, 240);
-  ($box.reactive, $box.name) = (True, 'box');
   $stage.add-child($box);
 
   my $canvas = Clutter::Canvas.new;
-  $canvas.draw.tap(-> *@a { on_canvas_draw(|@a) });
+  $canvas.draw.tap(-> *@a {
+    CATCH { default { .message.say } }
+    say 'draw';
+    on_canvas_draw(|@a)
+  });
   $canvas.set_size(200, 200);
 
   my $bg = Clutter::Actor.new;
+  say 'bg';
   $bg.setup(
     name    => 'background',
     size    => (200, 200),
-    content => $canvas,
     expand  => True,
+    content => $canvas,
     align   => CLUTTER_ACTOR_ALIGN_FILL
   );
   $box.transitions-completed.tap({
     CATCH { default { .message.say } };
     say 'transitions-completed';
-    redraw_canvas($canvas, $box)
+    redraw_canvas($canvas, $box);
+    $canvas.invalidate;
   });
   $box.add-child($bg);
 
@@ -197,14 +201,18 @@ sub MAIN {
     size    => (196, 196),
     expand  => True,
     align   => CLUTTER_ACTOR_ALIGN_CENTER,
-    content-scaling-filters =>
-      (CLUTTER_SCALING_FILTER_TRILINEAR, CLUTTER_SCALING_FILTER_LINEAR),
+    content-scaling-filters => (
+      CLUTTER_SCALING_FILTER_TRILINEAR,
+      CLUTTER_SCALING_FILTER_LINEAR
+    ),
     content         => $image,
     content_gravity => CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT
   );
+  ($icon.x-expand, $icon.y-expand) = True xx 2;
 
   my $color = Clutter::Color.new( |((^255).rand.floor xx 3), 224 );
   my $emblem = Clutter::Actor.new;
+  say 'emblem';
   $emblem.setup(
     name             => 'emblem',
     size             => (48, 48),
@@ -223,6 +231,7 @@ sub MAIN {
   $box.leave-event.tap(-> *@a { @a[2] = $emblem; on_box_leave(|@a) });
 
   my $label = Clutter::Text.new;
+  say 'label';
   $label.setup(
     name    => 'text',
     text    => 'A simple test',

@@ -61,15 +61,18 @@ class Clutter::Stage is Clutter::Actor {
   method setup(*%data) {
     for %data.keys {
       when @attributes.any {
+        say "StA: {$_}";
         self."$_"() = %data{$_};
         %data{$_}:delete
       }
       when @set_methods.any {
+        say "StSM: {$_}";
         self."set_{$_}"( %data{$_} );
         %data{$_}:delete
       }
     }
-    nextwith if %data.keys.elems;
+    # Not as clean as I like it, but it solves problems nextwith does NOT.
+    self.Clutter::Actor::setup(|%data) if %data.keys.elems;
   }
 
   # Type: gboolean
