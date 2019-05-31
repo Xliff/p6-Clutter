@@ -35,6 +35,7 @@
       "Clutter::Raw::LayoutManager"            :  "lib/Clutter/Raw/LayoutManager.pm6"           ,
       "Clutter::Raw::Main"                     :  "lib/Clutter/Raw/Main.pm6"                    ,
       "Clutter::Raw::Scriptable"               :  "lib/Clutter/Raw/Scriptable.pm6"              ,
+      "Clutter::Raw::SnapConstraint"           :  "lib/Clutter/Raw/SnapConstraint.pm6"          ,
       "Clutter::Raw::Stage"                    :  "lib/Clutter/Raw/Stage.pm6"                   ,
       "Clutter::Raw::Text"                     :  "lib/Clutter/Raw/Text.pm6"                    ,
       "Clutter::Raw::TextBuffer"               :  "lib/Clutter/Raw/TextBuffer.pm6"              ,
@@ -80,6 +81,7 @@
       "Clutter::Canvas"                        :  "lib/Clutter/Canvas.pm6"                      ,
       "Clutter::ClickAction"                   :  "lib/Clutter/ClickAction.pm6"                 ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
+      "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
       "Clutter::Stage"                         :  "lib/Clutter/Stage.pm6"                       ,
       "Clutter::Text"                          :  "lib/Clutter/Text.pm6"                        ,
       "Clutter::InputDevice"                   :  "lib/Clutter/InputDevice.pm6"                 ,
@@ -99,6 +101,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 

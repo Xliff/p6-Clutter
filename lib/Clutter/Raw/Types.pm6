@@ -55,6 +55,7 @@ class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterSettings             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterScript               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterScriptable           is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterSnapConstraint       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterStage                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterTapAction            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterText                 is repr('CPointer') does GTK::Roles::Pointers is export { }
