@@ -23,7 +23,7 @@ role Clutter::Roles::Signals::Generic {
             default { .message.say; $s.quit($_) }
           }
 
-          say 'connect-actor';
+          say 'connect-actor' if $DEBUG;
 
           $s.emit( [self, $car, $ud ] );
         },

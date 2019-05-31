@@ -27,8 +27,6 @@ role Clutter::Roles::Signals::Canvas {
             default { $s.quit($_) }
           }
 
-          say 'draw-handler';
-
           my $r = ReturnedValue.new;
           $s.emit( [self, $cct, $gt1, $gt2, $ud, $r] );
           $r.r;

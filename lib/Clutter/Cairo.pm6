@@ -10,12 +10,12 @@ use Clutter::Raw::Types;
 
 class Clutter::Cairo {
   method clear (CairoOrContext $cr is copy) {
-    $cr .= Context if $cr ~~ Cairo::Context;
+    $cr .= context if $cr ~~ Cairo::Context;
     clutter_cairo_clear($cr);
   }
 
-  method set_source_color (CairoOrContext $cr, ClutterColor() $color) {
-    $cr .= Context if $cr ~~ Cairo::Context;
+  method set_source_color (CairoOrContext $cr is copy, ClutterColor() $color) {
+    $cr .= context if $cr ~~ Cairo::Context;
     clutter_cairo_set_source_color($cr, $color);
   }
 }

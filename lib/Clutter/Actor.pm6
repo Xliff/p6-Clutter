@@ -346,28 +346,37 @@ class Clutter::Actor {
   method setup(*%data) {
     for %data.keys -> $_ is copy {
       when @attributes.any  {
-        say "AA: {$_}"; # if $DEBUG;
+        say "AA: {$_}" if $DEBUG;
         self."$_"() = %data{$_}
       }
 
       when @add_methods.any {
         my $proper-name = S:g /'-'/_/;
-        say "AddA: {$_}"; # if $DEBUG;
+        say "AddA: {$_}" if $DEBUG;
         self."add_{ $proper-name }"( |%data{$_} )
       }
 
       when @set_methods.any {
         my $proper-name = S:g /'-'/_/;
-        say "ASM: {$_}"; #if $DEBUG;
+        say "ASM: {$_}" if $DEBUG;
         self."set_{ $proper-name }"( |%data{$_} )
       }
 
       # set-size uses 'cluttersize' key to distinguish itself from the attribute.
-      when 'cluttersize'   { self.size = %data<cluttersize>  }
-      when 'child'         { self.add-child( %data<child> )  }
+      when 'cluttersize'   {
+        say 'A cluttersize' if $DEBUG;
+        self.size = %data<cluttersize>
+      }
 
-      when 'expand'   { (self.x-expand, self.y-expand) = |%data<expand> xx 2 }
-      when 'align'    { (self.x-align, self.y-align)   = |%data<align>  xx 2 }
+      when 'expand'   {
+        say 'A expand' if $DEBUG;
+        (self.x-expand, self.y-expand) = |%data<expand> xx 2
+      }
+
+      when 'align'    {
+        say 'A align' if $DEBUG;
+        (self.x-align, self.y-align) = |%data<align>  xx 2
+      }
 
       default { die "Unknown attribute '{ $_ }'" }
     }
@@ -476,7 +485,6 @@ class Clutter::Actor {
   }
 
   method x-align is rw is also<x_align> {
-    say 'x-align';
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_x_align($!ca) );
@@ -488,7 +496,6 @@ class Clutter::Actor {
   }
 
   method x-expand is rw is also<x_expand> {
-    say 'x-expand';
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_x_expand($!ca);
@@ -512,7 +519,6 @@ class Clutter::Actor {
   }
 
   method y-align is rw is also<y_align> {
-    say 'y-align';
     Proxy.new(
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_y_align($!ca) );
@@ -524,7 +530,6 @@ class Clutter::Actor {
   }
 
   method y-expand is rw is also<y_expand> {
-    say 'y-expand';
     Proxy.new(
       FETCH => sub ($) {
         so clutter_actor_get_y_expand($!ca);
@@ -2039,16 +2044,20 @@ class Clutter::Actor {
     clutter_actor_get_scale_z($!ca);
   }
 
+  proto method get_size (|)
+    is also<get-size>
+  { * }
+
   multi method get_size {
-    my ($w, $h) = 0 xx 2;
+    my ($w, $h) = 0e0 xx 2;
     samewith($w, $h);
   }
   multi method get_size (
-    Num() $width  is rw,
-    Num() $height is rw
-  )
-    is also<get-size>
-  {
+    $width  is rw,
+    $height is rw
+  ) {
+    $width  .= Num if $width.^can('Num').elems;
+    $height .= Num if $height.^can('Num').elems;
     my gfloat ($w, $h) = ($width, $height);
     clutter_actor_get_size($!ca, $w, $h);
     ($width, $height) = ($w, $h);
@@ -2498,7 +2507,6 @@ class Clutter::Actor {
   }
 
   method set_opacity (Int() $opacity) is also<set-opacity> {
-    say 'opacity';
     my guint8 $o = resolve-uint8($opacity);
     clutter_actor_set_opacity($!ca, $opacity);
   }
@@ -2562,7 +2570,7 @@ class Clutter::Actor {
 
   method set_size (Num() $width, Num() $height) is also<set-size> {
     my gfloat ($w, $h) = ($width, $height);
-    say "set_size {$w}x{$h}";
+    say "set_size {$w}x{$h}" if $DEBUG;
     clutter_actor_set_size($!ca, $w, $h);
   }
 
@@ -2602,7 +2610,9 @@ class Clutter::Actor {
 
   method set_x_align (
     Int() $x_align # ClutterActorAlign $x_align
-  ) is also<set-x-align> {
+  )
+    is also<set-x-align>
+  {
     my guint $xa = resolve-uint($x_align);
     clutter_actor_set_x_align($!ca, $xa);
   }

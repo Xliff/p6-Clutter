@@ -29,7 +29,8 @@ role Clutter::Roles::Signals::ClickAction {
             default { $s.quit($_) }
           }
 
-          say 'long click';
+          say 'long-press' if $DEBUG;
+          
           my $r = ReturnedValue.new;
           $s.emit( [self, $car, $clpse, $ud, $r] );
           $r.r;

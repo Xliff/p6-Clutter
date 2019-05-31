@@ -117,16 +117,17 @@ class Clutter::Text is Clutter::Actor {
   method setup(*%data) {
     for %data.keys {
       when @attributes.any {
-        say "TA: { $_ }";
+        say "TA: { $_ }" if $DEBUG;
         self."$_"() = %data{$_};
         %data{$_}:delete
       }
       when @set_methods.any {
-        say "TSM: { $_ }";
+        say "TSM: { $_ }" if $DEBUG;
         self."set_{$_}"( %data{$_} );
         %data{$_}:delete
       }
       when 'selection' {
+        say 'T selection' if $DEBUG;
         self.set-selection( |%data<selection> );
         %data{$_}:delete;
       }

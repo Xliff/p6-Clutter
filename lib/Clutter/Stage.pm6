@@ -61,12 +61,12 @@ class Clutter::Stage is Clutter::Actor {
   method setup(*%data) {
     for %data.keys {
       when @attributes.any {
-        say "StA: {$_}";
+        say "StA: {$_}" if $DEBUG;
         self."$_"() = %data{$_};
         %data{$_}:delete
       }
       when @set_methods.any {
-        say "StSM: {$_}";
+        say "StSM: {$_}" if $DEBUG;
         self."set_{$_}"( %data{$_} );
         %data{$_}:delete
       }

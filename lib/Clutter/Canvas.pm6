@@ -127,7 +127,7 @@ class Clutter::Canvas {
 
   method set_size (Int() $width, Int() $height) is also<set-size> {
     my gint ($w, $h) = resolve-int($width, $height);
-    so clutter_canvas_set_size($!cc, 0, 0);
+    so clutter_canvas_set_size($!cc, $w, $h);
   }
 
 }

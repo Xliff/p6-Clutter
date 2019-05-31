@@ -10,6 +10,7 @@ use GTK::Compat::Signal;
 
 use Clutter::AlignConstraint;
 use Clutter::BinLayout;
+use Clutter::Cairo;
 use Clutter::Canvas;
 use Clutter::Color;
 use Clutter::ClickAction;
@@ -21,27 +22,22 @@ use Clutter::Main;
 
 constant BG_ROUND_RADIUS = 12;
 my $BG_COLOR = Clutter::Color.new(0xcc, 0xcc, 0xcc, 0x99);
-
 my $is_expanded = False;
 
-sub on_canvas_draw($cc, $ct, $w, $h, $r) {
+sub on_canvas_draw($cc, $ct, $w is copy, $h is copy, $ud, $r) {
   CATCH { default { .message.say } }
 
-  say 'on_canvas_draw';
   say "Painting at {$w} x {$h}";
 
-  my $c = Cairo::Context.new($cc);
-
+  my $c = Cairo::Context.new($ct);
   $c.save;
   $c.operator = CAIRO_OPERATOR_CLEAR;
   $c.paint;
   $c.restore;
 
   my ($x, $y) = (0, 0);
-
   my $dr = sub {
     CATCH { default { .message.say } }
-    say 'dr';
     $c.move_to(BG_ROUND_RADIUS, $y);
     $c.line_to($w - BG_ROUND_RADIUS, $y);
     $c.curve_to($w, $y, $w, $y, $w, BG_ROUND_RADIUS);
@@ -55,18 +51,18 @@ sub on_canvas_draw($cc, $ct, $w, $h, $r) {
   };
 
   $dr();
-  Clutter::Cairo.set_source_color($BG_COLOR);
+  Clutter::Cairo.set_source_color($c, $BG_COLOR);
   $c.stroke;
   ($x, $y, $w, $h) «+=» 4;
   $dr();
 
-  my $p = Cairo::Pattern::Gradient::Linear.new(0, 0, 0, $h);
+  my $p = Cairo::Pattern::Gradient::Linear.create(0, 0, 0, $h);
   $p.add_color_stop_rgba(1, 0.85, 0.85, 0.85, 1);
   $p.add_color_stop_rgba(0.95, 1, 1, 1, 1);
   $p.add_color_stop_rgba(0.05, 1, 1, 1, 1);
   $p.add_color_stop_rgba(0, 0.85, 0.85, 0.85, 1);
 
-  $c.set_source($p);
+  $c.pattern($p);
   $c.fill;
 
   $r.r = 1
@@ -74,7 +70,6 @@ sub on_canvas_draw($cc, $ct, $w, $h, $r) {
 
 sub on_box_enter($b, $e, $emblem, $r) {
   CATCH { default { .message.say } }
-  say 'box enter';
   $emblem.save-easing-state;
   ($emblem.easing-mode, $emblem.opacity) = (CLUTTER_LINEAR, 255);
   $emblem.restore-easing-state;
@@ -83,7 +78,6 @@ sub on_box_enter($b, $e, $emblem, $r) {
 
 sub on_box_leave($a, $e, $emblem, $r) {
   CATCH { default { .message.say } }
-  say 'box leave';
   $emblem.save-easing-state;
   ($emblem.easing-mode, $emblem.opacity) = (CLUTTER_LINEAR, 0);
   $emblem.restore-easing-state;
@@ -92,11 +86,9 @@ sub on_box_leave($a, $e, $emblem, $r) {
 
 sub on-emblem-clicked($box) {
   CATCH { default { .message.say } }
-  say 'clicked';
   $box.save-easing-state;
   ($box.easing-mode, $box.easing-duration) = (CLUTTER_EASE_OUT_BOUNCE, 500);
   my $size = $is_expanded ?? 200 !! 400;
-  say "size: $size";
   $box.set_size($size, $size);
   $box.restore-easing-state;
   $is_expanded .= not;
@@ -104,7 +96,6 @@ sub on-emblem-clicked($box) {
 
 sub on_emblem_long_press($emblem, $e, $s, $b, $r) {
   CATCH { default { .message.say } }
-  say 'long-press';
   $r.r = 1;
   given ClutterLongPressState($s) {
     when CLUTTER_LONG_PRESS_QUERY    {
@@ -114,12 +105,10 @@ sub on_emblem_long_press($emblem, $e, $s, $b, $r) {
     when CLUTTER_LONG_PRESS_CANCEL   { say '*** long press: cancel   ***' }
     when CLUTTER_LONG_PRESS_ACTIVATE { say '*** long press: activate ***' }
   }
-  say "R: { $r.r }";
 }
 
 sub redraw_canvas ($c, $a) {
   CATCH { default { .message.say } }
-  say "redraw {$a.width}x{$a.height}";
   $c.set_size($a.width, $a.height);
 }
 
@@ -139,7 +128,6 @@ sub MAIN {
     CLUTTER_BIN_ALIGNMENT_CENTER, CLUTTER_BIN_ALIGNMENT_CENTER
   );
 
-  say 'box';
   my $box = Clutter::Actor.new;
   $box.setup(
     name => 'box',
@@ -151,15 +139,10 @@ sub MAIN {
   $stage.add-child($box);
 
   my $canvas = Clutter::Canvas.new;
-  $canvas.draw.tap(-> *@a {
-    CATCH { default { .message.say } }
-    say 'draw';
-    on_canvas_draw(|@a)
-  });
+  $canvas.draw.tap(-> *@a { on_canvas_draw(|@a) });
   $canvas.set_size(200, 200);
 
   my $bg = Clutter::Actor.new;
-  say 'bg';
   $bg.setup(
     name    => 'background',
     size    => (200, 200),
@@ -167,12 +150,7 @@ sub MAIN {
     content => $canvas,
     align   => CLUTTER_ACTOR_ALIGN_FILL
   );
-  $box.transitions-completed.tap({
-    CATCH { default { .message.say } };
-    say 'transitions-completed';
-    redraw_canvas($canvas, $box);
-    $canvas.invalidate;
-  });
+  $box.transitions-completed.tap({ redraw_canvas($canvas, $box) });
   $box.add-child($bg);
 
   my $file = 'redhand.png';
@@ -180,7 +158,6 @@ sub MAIN {
   die "Cannot find pixbuf file '{$file}'" unless $file.IO.e;
   my $pixbuf = GTK::Compat::Pixbuf.new_from_file($file);
   my $image = Clutter::Image.new;
-  # Uninitialized data here?
   $image.set-data(
     $pixbuf.pixels,
     $pixbuf.has_alpha ??
@@ -208,11 +185,9 @@ sub MAIN {
     content         => $image,
     content_gravity => CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT
   );
-  ($icon.x-expand, $icon.y-expand) = True xx 2;
 
   my $color = Clutter::Color.new( |((^255).rand.floor xx 3), 224 );
   my $emblem = Clutter::Actor.new;
-  say 'emblem';
   $emblem.setup(
     name             => 'emblem',
     size             => (48, 48),
@@ -231,7 +206,6 @@ sub MAIN {
   $box.leave-event.tap(-> *@a { @a[2] = $emblem; on_box_leave(|@a) });
 
   my $label = Clutter::Text.new;
-  say 'label';
   $label.setup(
     name    => 'text',
     text    => 'A simple test',
