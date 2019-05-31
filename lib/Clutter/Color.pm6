@@ -77,6 +77,17 @@ class Clutter::Color {
     self.bless( color => $c );
   }
 
+  method new_from_color (ClutterColor() $color) {
+    self.bless(
+      color => ClutterColor.new(
+        red   => $color.red,
+        green => $color.green,
+        blue  => $color.blue,
+        alpha => $color.alpha
+      )
+    );
+  }
+
   method get_static (Clutter::Color:U: $static is copy)
     is also<get-static>
   {
