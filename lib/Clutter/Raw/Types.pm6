@@ -37,6 +37,7 @@ class ClutterConstraint           is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterClickAction          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterDragAction           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterDeviceManager        is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEffect               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEventSequence        is repr('CPointer') does GTK::Roles::Pointers is export { }

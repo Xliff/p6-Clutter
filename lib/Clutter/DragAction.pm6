@@ -72,7 +72,7 @@ class Clutter::DragAction is Clutter::Action {
       $_ .= Int if .^can('Int').elems;
     }
     my gint ($xt, $yt) = resolve-int($x_threshold, $y_threshold);
-    clutter_drag_action_get_drag_threshold($!cda, $xy, $yt);
+    clutter_drag_action_get_drag_threshold($!cda, $xt, $yt);
     ($x_threshold, $y_threshold) = ($xt, $yt);
   }
 
