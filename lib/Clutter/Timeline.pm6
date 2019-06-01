@@ -15,22 +15,22 @@ use GTK::Roles::Signals::Generic;
 class Clutter::Timeline {
   also does GTK::Compat::Roles::Object;
   also does GTK::Roles::Signals::Generic;
-  
+
   has ClutterTimeline $!ctime;
-  
+
   submethod BUILD (:$timeline) {
     self!setObject( cast(GObject, $!ctime = $timeline) );
   }
-  
+
   method Clutter::Raw::Types::ClutterTimeline
     is also<ClutterTimeline>
   { $!ctime }
-  
+
   method new (Int() $msecs) {
     my guint $ms = resolve-uint($msecs);
     self.bless( timeline => clutter_timeline_new($ms) );
   }
-  
+
   method auto_reverse is rw is also<auto-reverse> {
     Proxy.new(
       FETCH => sub ($) {
@@ -102,7 +102,7 @@ class Clutter::Timeline {
       }
     );
   }
-  
+
     # Is originally:
   # ClutterTimeline, gpointer --> void
   method completed {
@@ -138,15 +138,15 @@ class Clutter::Timeline {
   method stopped {
     self.connect-bool($!ctime, 'stopped');
   }
-  
-  method add_marker (Str() $marker_name, gdouble $progress) 
-    is also<add-marker> 
+
+  method add_marker (Str() $marker_name, gdouble $progress)
+    is also<add-marker>
   {
     clutter_timeline_add_marker($!ctime, $marker_name, $progress);
   }
 
-  method add_marker_at_time (Str() $marker_name, guint $msecs) 
-    is also<add-marker-at-time> 
+  method add_marker_at_time (Str() $marker_name, guint $msecs)
+    is also<add-marker-at-time>
   {
     clutter_timeline_add_marker_at_time($!ctime, $marker_name, $msecs);
   }
@@ -159,16 +159,16 @@ class Clutter::Timeline {
     clutter_timeline_advance_to_marker($!ctime, $marker_name);
   }
 
-  proto method get_cubic_bezier_progress 
+  proto method get_cubic_bezier_progress
     is also<get-cubic-bezier-progress>
   { * }
-  
+
   multi method get_cubic_bezier_progress {
     my ($c1, $c2) = ClutterPoint.new xx 2;
     samewith($c1, $c2);
   }
   multi method get_cubic_bezier_progress (
-    ClutterPoint() $c_1, 
+    ClutterPoint() $c_1,
     ClutterPoint() $c_2
   ) {
     clutter_timeline_get_cubic_bezier_progress($!ctime, $c_1, $c_2);
@@ -195,8 +195,8 @@ class Clutter::Timeline {
     clutter_timeline_get_progress($!ctime);
   }
 
-  method get_step_progress (gint $n_steps, ClutterStepMode $step_mode) 
-    is also<get-step-progress> 
+  method get_step_progress (gint $n_steps, ClutterStepMode $step_mode)
+    is also<get-step-progress>
   {
     clutter_timeline_get_step_progress($!ctime, $n_steps, $step_mode);
   }
@@ -231,26 +231,26 @@ class Clutter::Timeline {
   }
 
   method set_cubic_bezier_progress (
-    ClutterPoint() $c_1, 
+    ClutterPoint() $c_1,
     ClutterPoint() $c_2
-  ) 
-    is also<set-cubic-bezier-progress> 
+  )
+    is also<set-cubic-bezier-progress>
   {
     clutter_timeline_set_cubic_bezier_progress($!ctime, $c_1, $c_2);
   }
 
   method set_progress_func (
-    ClutterTimelineProgressFunc $func, 
-    gpointer $data, 
+    ClutterTimelineProgressFunc $func,
+    gpointer $data,
     GDestroyNotify $notify
-  ) 
-    is also<set-progress-func> 
+  )
+    is also<set-progress-func>
   {
     clutter_timeline_set_progress_func($!ctime, $func, $data, $notify);
   }
 
-  method set_step_progress (gint $n_steps, ClutterStepMode $step_mode) 
-    is also<set-step-progress> 
+  method set_step_progress (gint $n_steps, ClutterStepMode $step_mode)
+    is also<set-step-progress>
   {
     clutter_timeline_set_step_progress($!ctime, $n_steps, $step_mode);
   }
@@ -266,6 +266,5 @@ class Clutter::Timeline {
   method stop {
     clutter_timeline_stop($!ctime);
   }
-  
+
 }
-  

@@ -2718,7 +2718,7 @@ class Clutter::Actor {
 
   # Constraints
 
-  method add_constraints (*@constraints) {
+  method add_constraints (*@constraints) is also<add-constraints> {
     self.add_constraint($_) for @constraints;
   }
 

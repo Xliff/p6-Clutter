@@ -39,7 +39,7 @@ sub MAIN {
     background-color => $CLUTTER_COLOR_DarkButter,
     name => 'layerB',
   );
-  $layer_b.add_constraints(
+  $layer_b.add-constraints(
     Clutter::BindConstraint.new($layer_a, CLUTTER_BIND_X, 0),
     Clutter::BindConstraint.new($layer_a, CLUTTER_BIND_WIDTH, 0),
     Clutter::SnapConstraint.new(
@@ -56,7 +56,7 @@ sub MAIN {
     background-color => $CLUTTER_COLOR_LightChameleon,
     name => 'layerC'
   );
-  $layer_c.add_constraints(
+  $layer_c.add-constraints(
     Clutter::BindConstraint.new($layer_a, CLUTTER_BIND_X, 0),
     Clutter::BindConstraint.new($layer_a, CLUTTER_BIND_WIDTH, 0),
     Clutter::SnapConstraint.new(
