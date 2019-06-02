@@ -378,6 +378,15 @@ class Clutter::Actor {
         (self.x-align, self.y-align) = |%data<align>  xx 2
       }
 
+      when 'actions'  {
+        say 'A actionS';
+        # Coerce to array in case user added an 's' by mistake.
+        %data<actions> .= Array;
+        die 'actions value must only contain Clutter::Action compatible types!'
+          unless %data<actions>.all ~~ (Clutter::Action, ClutterAction).any;
+        self.add_action($_) for %data<actions>;
+      }
+
       default { die "Unknown attribute '{ $_ }'" }
     }
   }
