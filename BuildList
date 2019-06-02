@@ -61,6 +61,7 @@ Clutter::Roles::Settings
 Clutter::Roles::Signals::Canvas
 Clutter::Roles::Signals::Container
 Clutter::Roles::Signals::DeviceManager
+Clutter::Roles::Signals::DragAction
 Clutter::Roles::Signals::Generic
 Clutter::Roles::Signals::Stage
 Clutter::Roles::Signals::Text
@@ -98,6 +99,7 @@ Clutter::BoxLayout
 Clutter::Canvas
 Clutter::ClickAction
 Clutter::DeformEffect
+Clutter::DesaturateEffect
 Clutter::DragAction
 Clutter::Image
 Clutter::SnapConstraint

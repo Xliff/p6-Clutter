@@ -53,6 +53,7 @@
       "Clutter::Roles::Signals::Canvas"        :  "lib/Clutter/Roles/Signals/Canvas.pm6"        ,
       "Clutter::Roles::Signals::Container"     :  "lib/Clutter/Roles/Signals/Container.pm6"     ,
       "Clutter::Roles::Signals::DeviceManager" :  "lib/Clutter/Roles/Signals/DeviceManager.pm6" ,
+      "Clutter::Roles::Signals::DragAction"    :  "lib/Clutter/Roles/Signals/DragAction.pm6"    ,
       "Clutter::Roles::Signals::Generic"       :  "lib/Clutter/Roles/Signals/Generic.pm6"       ,
       "Clutter::Roles::Signals::Stage"         :  "lib/Clutter/Roles/Signals/Stage.pm6"         ,
       "Clutter::Roles::Signals::Text"          :  "lib/Clutter/Roles/Signals/Text.pm6"          ,
@@ -90,6 +91,7 @@
       "Clutter::Canvas"                        :  "lib/Clutter/Canvas.pm6"                      ,
       "Clutter::ClickAction"                   :  "lib/Clutter/ClickAction.pm6"                 ,
       "Clutter::DeformEffect"                  :  "lib/Clutter/DeformEffect.pm6"                ,
+      "Clutter::DesaturateEffect"              :  "lib/Clutter/DesaturateEffect.pm6"            ,
       "Clutter::DragAction"                    :  "lib/Clutter/DragAction.pm6"                  ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
@@ -112,6 +114,8 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
+
 
 
 
