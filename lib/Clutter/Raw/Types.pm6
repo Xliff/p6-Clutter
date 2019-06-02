@@ -52,6 +52,7 @@ class ClutterLayoutManager        is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterLayoutMeta           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterMargin               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterMatrix               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterOffscreenEffect      is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPropertyTransition   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSettings             is repr('CPointer') does GTK::Roles::Pointers is export { }

@@ -10,9 +10,11 @@ unit package Clutter::Compat::Types;
 
 constant cairo_t is export := Cairo::cairo_t;
 
-class CoglTexture is repr('CPointer') is export does GTK::Roles::Pointers { }
-class CoglContext is repr('CPointer') is export does GTK::Roles::Pointers { }
-class JsonNode    is repr('CPointer') is export does GTK::Roles::Pointers { }
+class CoglContext  is repr('CPointer') is export does GTK::Roles::Pointers { }
+class CoglHandle   is repr('CPointer') is export does GTK::Roles::Pointers { }
+class CoglMaterial is repr('CPointer') is export does GTK::Roles::Pointers { }
+class CoglTexture  is repr('CPointer') is export does GTK::Roles::Pointers { }
+class JsonNode     is repr('CPointer') is export does GTK::Roles::Pointers { }
 
 our enum CoglAttributeType is export (
   COGL_ATTRIBUTE_TYPE_BYTE           =>  0x1400,

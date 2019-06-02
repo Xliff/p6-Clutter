@@ -43,12 +43,14 @@ Clutter::Raw::Image
 Clutter::Raw::InputDevice
 Clutter::Raw::LayoutManager
 Clutter::Raw::Main
+Clutter::Raw::OffscreenEffect
 Clutter::Raw::Scriptable
 Clutter::Raw::SnapConstraint
 Clutter::Raw::Stage
 Clutter::Raw::Text
 Clutter::Raw::TextBuffer
 Clutter::Raw::Timeline
+Clutter::Raw::Transition
 Clutter::Raw::VariousTypes
 Clutter::Rect
 Clutter::Roles::Animatable
@@ -64,6 +66,7 @@ Clutter::Size
 Clutter::TextBuffer
 Clutter::Threads
 Clutter::Timeline
+Clutter::Transition
 Clutter::Vertex
 Clutter::ActorBox
 Clutter::ActorMeta
@@ -76,8 +79,10 @@ Clutter::GestureAction
 Clutter::LayoutManager
 Clutter::Main
 Clutter::Misc
+Clutter::OffscreenEffect
 Clutter::PaintVolume
 Clutter::Point
+Clutter::PropertyTransition
 Clutter::Roles::Container
 Clutter::Roles::Content
 Clutter::Roles::Signals::Actor
