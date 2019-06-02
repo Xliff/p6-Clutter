@@ -18,7 +18,7 @@ sub clutter_page_turn_effect_new (
   gdouble $angle,
   gfloat $radius
 )
-  returns ClutterEffect
+  returns ClutterPageTurnEffect
   is native(clutter)
   is export
 { * }

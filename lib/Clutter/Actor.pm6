@@ -21,11 +21,13 @@ use Clutter::Action;
 use Clutter::ActorBox;
 use Clutter::Color;
 use Clutter::Constraint;
+use Clutter::Effect;
 use Clutter::LayoutManager;
 use Clutter::PaintVolume;
 use Clutter::Point;
 use Clutter::Rect;
 use Clutter::Size;
+use Clutter::Transition;
 use Clutter::Vertex;
 
 use GTK::Roles::Protection;
@@ -148,6 +150,9 @@ my @add_methods = <
   effect_with_name      effect-with-name
 >;
 
+our subset ActorAncestry is export of Mu
+  where ClutterAnimatable | ClutterContainer | ClutterScriptable | ClutterActor;
+
 class Clutter::Actor {
   also does GTK::Roles::Protection;
   also does GTK::Roles::Properties;
@@ -172,12 +177,25 @@ class Clutter::Actor {
     >
   { $!ca }
 
-  method setActor ($actor) {
+  method setActor (ActorAncestry $actor) {
     self.IS-PROTECTED;
-    self!setObject( cast(GObject, $!ca = $actor) );
-    self.setAnimatable( cast(ClutterAnimatable, $!ca) ); # Clutter::Roles::Animatable
-    self.setContainer( cast(ClutterContainer, $!ca)   ); # Clutter::Roles::Container
-    self.setScriptable( cast(ClutterScriptable, $!ca) ); # Clutter::Roles::Scriptable
+    my ($c-anim, $c-container, $c-script);
+    $!ca = do given $actor {
+      when ClutterAnimatable { $c-anim = $_;      proceed; }
+      when ClutterScriptable { $c-script = $_;    proceed; }
+      when ClutterContainer  { $c-container = $_; proceed; }
+
+      when ClutterAnimatable | ClutterContainer | ClutterScriptable {
+        cast(ClutterActor, $_);
+      }
+
+      default { $_ }
+    }
+
+    self!setObject( cast(GObject, $!ca) );
+    self.setAnimatable( $c-anim      // cast(ClutterAnimatable, $!ca) ); # Clutter::Roles::Animatable
+    self.setContainer(  $c-container // cast(ClutterContainer,  $!ca) ); # Clutter::Roles::Container
+    self.setScriptable( $c-script    // cast(ClutterScriptable, $!ca) ); # Clutter::Roles::Scriptable
   }
 
   multi method new (ClutterActor $actor) {
@@ -379,12 +397,26 @@ class Clutter::Actor {
       }
 
       when 'actions'  {
-        say 'A actionS';
+        say 'A actionS' if $DEBUG;
         # Coerce to array in case user added an 's' by mistake.
         %data<actions> .= Array;
-        die 'actions value must only contain Clutter::Action compatible types!'
-          unless %data<actions>.all ~~ (Clutter::Action, ClutterAction).any;
-        self.add_action($_) for %data<actions>;
+        for %data<actions> {
+          unless $_ ~~ Clutter::Action || .^can('ClutterAction').elems {
+            die 'actions value must only contain Clutter::Action compatible types!'
+          }
+          self.add_action($_);
+        }
+      }
+
+      when 'effects-with-name' | 'effects_with_name' {
+        say 'A effects-with-name' if $DEBUG;
+        for %data{$_} {
+          unless .[1] ~~ Clutter::Effect || .[1].^can('ClutterEffect').elems {
+            die "'effects-with-name' value must only contain Clutter::Effects compatible types"
+          }
+          say "Effect: { .[0] }" if $DEBUG;
+          self.add-effect-with-name(|$_);
+        }
       }
 
       default { die "Unknown attribute '{ $_ }'" }
@@ -2078,7 +2110,9 @@ class Clutter::Actor {
       stage
     >
   {
-    ::('Clutter::Stage').new( clutter_actor_get_stage($!ca) );
+    my $s = clutter_actor_get_stage($!ca);
+    say "get_stage: { $s // 'UNDEFINED' }";
+    $s.defined ?? ::('Clutter::Stage').new($s) !! Nil;
   }
 
   method get_text_direction is also<get-text-direction>
@@ -2131,7 +2165,8 @@ class Clutter::Actor {
   }
 
   method get_transition (Str() $name) is also<get-transition> {
-    Clutter::Transition.new( clutter_actor_get_transition($!ca, $name) );
+    my $t = clutter_actor_get_transition($!ca, $name);
+    $t.defined ?? Clutter::Transition.new($t) !! Nil;
   }
 
   multi method get_translation {
@@ -2663,16 +2698,27 @@ class Clutter::Actor {
     clutter_actor_show($!ca);
   }
 
-  method transform_stage_point (
+  proto method transform_stage_point (|)
+    is also<transform-stage-point>
+  { * }
+
+  multi method transform_stage_point (Num() $x, Num() $y) {
+    my ($yo, $xo) = (0, 0);
+    samewith($x, $y, $xo, $yo);
+  }
+  multi method transform_stage_point (
     Num() $x,
     Num() $y,
-    Num() $x_out,
-    Num() $y_out
-  )
-    is also<transform-stage-point>
-  {
+    $x_out is rw,
+    $y_out is rw
+  ) {
+    die '$x_out must be a Num compatible value' unless $x_out.^can('Num').elems;
+    die '$y_out must be a Num compatible value' unless $y_out.^can('Num').elems;
+    $x_out .= Num;
+    $y_out .= Num;
     my gfloat ($xx, $yy, $xo, $yo) = ($x, $y, $x_out, $y_out);
     clutter_actor_transform_stage_point($!ca, $xx, $yy, $xo, $yo);
+    ($x_out, $y_out) = ($xo, $yo);
   }
 
   method unmap {
@@ -2690,11 +2736,13 @@ class Clutter::Actor {
     clutter_actor_unset_flags($!ca, $f);
   }
 
-  method add_action (ClutterAction() $action) {
+  method add_action (ClutterAction() $action) is also<add-action> {
     clutter_actor_add_action($!ca, $action);
   }
 
-  method add_action_with_name (Str() $name, ClutterAction() $action) {
+  method add_action_with_name (Str() $name, ClutterAction() $action)
+    is also<add-action-with-name>
+  {
     clutter_actor_add_action_with_name($!ca, $name, $action);
   }
 

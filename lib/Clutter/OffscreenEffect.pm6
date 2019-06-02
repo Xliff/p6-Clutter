@@ -13,7 +13,7 @@ use Clutter::Effect;
 our subset OffscreenEffectAncestry is export of Mu
   where ClutterOffscreenEffect | ClutterEffect;
 
-class Clutter::OffscreenEffect is ClutterEffect {
+class Clutter::OffscreenEffect is Clutter::Effect {
   has ClutterOffscreenEffect $!coe;
 
   submethod BUILD (:$offscreen) {
@@ -30,6 +30,7 @@ class Clutter::OffscreenEffect is ClutterEffect {
 
   method setOffscreenEffect(OffscreenEffectAncestry $offscreen) {
     self.IS-PROTECTED;
+    say 'setOffscreenEffect' if $DEBUG;
     my $to-parent;
     $!coe = do given $offscreen {
       when ClutterOffscreenEffect {

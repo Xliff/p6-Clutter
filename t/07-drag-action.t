@@ -5,6 +5,10 @@ use Clutter::Raw::Types;
 use Clutter::Actor;
 use Clutter::Color;
 use Clutter::DragAction;
+use Clutter::DesaturateEffect;
+use Clutter::PageTurnEffect;
+use Clutter::PropertyTransition;
+use Clutter::Point;
 use Clutter::Stage;
 
 # For gv_<Type> helpers.
@@ -12,7 +16,9 @@ use GTK::Compat::Value;
 
 use Clutter::Main;
 
-sub on_enter($a, $ud, $r) {
+my %globals;
+
+sub on_enter($a, $e, $ud, $r) {
   my $t = $a.get_transition('curl');
   unless $t.defined {
     $t = Clutter::PropertyTransition.new('@effects.curl.period');
@@ -26,7 +32,7 @@ sub on_enter($a, $ud, $r) {
   $r.r = CLUTTER_EVENT_STOP;
 }
 
-sub on_leave ($a, $ud, $r) {
+sub on_leave ($a, $e, $ud, $r) {
   my $t = $a.get_transition('curl');
   unless $t.defined {
     $t = Clutter::PropertyTransition.new('@effects.curl.period');
@@ -40,27 +46,38 @@ sub on_leave ($a, $ud, $r) {
   $r.r = CLUTTER_EVENT_STOP;
 }
 
-sub on-drag-begin ($act, $a, $ex, $ey, $m) {
+sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
+  CATCH { default { .message.say } }
+  say 'odb';
   my $dh;
   my $actor = Clutter::Actor.new($a);
   if $m +& CLUTTER_SHIFT_MASK  {
+    say 'get-stage';
     my $s = $actor.get-stage;
+    say "Real stage = { +%globals<stage>.ClutterStage.p }";
+    say "actor new / stage = {+$s.ClutterStage.p}";
     $dh = Clutter::Actor.new;
+    say "set-size actor={$dh}";
     $dh.set_size(48, 48);
+    say 'background-color';
     $dh.background-color = $CLUTTER_COLOR_DarkSkyBlue;
+    say "add-child {$dh}";
     $s.add-child($dh);
-    $s.set_positon($ex, $ey);
+    say 'show-actor';
+    $dh.show-actor;
+    say "set-position ({$ex}, {$ey})";
+    $dh.set_position($ex, $ey);
   } else {
     $dh = $actor;
   }
-  $act.set-drag-handle($dh);
+  $act.drag-handle = $dh;
 
   # Fully desaturate the actor
-  my $t = $act.get_transition('disable');
+  my $t = $actor.get_transition('disable');
   if not $t.defined {
     $t = Clutter::PropertyTransition.new('@effects.disable.factor');
     $t.duration = 250;
-    $act.add_transition('disable', $t);
+    $actor.add_transition('disable', $t);
   }
   $t.set-from-value( gv_dbl(0) );
   $t.set-to-value( gv_dbl(1) );
@@ -68,8 +85,10 @@ sub on-drag-begin ($act, $a, $ex, $ey, $m) {
   $t.start;
 }
 
-sub on-drag-end ($act, $a, $ex, $ey, $m) {
-  my ($dh, $actor, $p) = ( $act.get-drag-handle, Clutter::Actor.new($a) );
+sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
+  CATCH { default { .message.say } }
+
+  my ($dh, $actor, $p) = ( $act.drag-handle, Clutter::Actor.new($a) );
   # Compare pointers
   if $a.p != $dh.ClutterActor.p {
     $dh.save-easing-state;
@@ -93,7 +112,7 @@ sub on-drag-end ($act, $a, $ex, $ey, $m) {
   }
 
   $t.set-from-value( gv_dbl(1) );
-  $t.set-to_value( gv_dbl(0) );
+  $t.set-to-value( gv_dbl(0) );
   $t.rewind;
   $t.start;
 }
@@ -116,33 +135,33 @@ sub MAIN (
 
   my $action = Clutter::DragAction.new;
   $action.set-drag-threshold($x-threshold, $y-threshold);
-  $action.set-axis($axis);
-  $action.drag-begin.tap(-> *@a { on-drag-begin(|@a) });
+  $action.drag-axis = $axis;
+  $action.drag-begin.tap(-> *@a { CATCH { default { .message.say } }; say 'odb'; on-drag-begin(|@a) });
   $action.drag-end.tap(  -> *@a { on-drag-end(|@a) });
 
   my $handle = Clutter::Actor.new;
   $handle.setup(
     background-color  => $CLUTTER_COLOR_SkyBlue,
     size              => 128 xx 2,
-    position          => ( (800 - 128) / 2, (600 - 128) / 2 ),
+    position          => Clutter::Point.new( (800 - 128) / 2, (600 - 128) / 2 ),
     reactive          => True,
     action            => $action,
     effects-with-name => (
-      'disable', Clutter::DesatureateEffect.new(0),
-      'curl',    Clutter::PageTurnEffect.new(0, 45, 12)
+      [ 'disable', Clutter::DesaturateEffect.new(0)       ],
+      [ 'curl',    Clutter::PageTurnEffect.new(0, 45, 12) ]
     )
   );
   $handle.enter-event.tap(-> *@a { on_enter(|@a) });
   $handle.leave-event.tap(-> *@a { on_leave(|@a) });
 
-  my $stage = Clutter::Stage.new;
-  $stage.setup(
+  %globals<stage> = Clutter::Stage.new;
+  %globals<stage>.setup(
     title   => 'Drag Test',
     size    => (800, 600),
     child   => $handle
   );
-  $stage.destroy.tap({ Clutter::Main.quit });
-  $stage.show-actor;
+  %globals<stage>.destroy.tap({ Clutter::Main.quit });
+  %globals<stage>.show-actor;
 
   Clutter::Main.run;
 }

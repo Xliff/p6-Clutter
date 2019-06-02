@@ -29,6 +29,7 @@ class Clutter::PageTurnEffect is Clutter::OffscreenEffect {
             cast(ClutterPageTurnEffect, $_);
           }
         }
+        self.setOffscreenEffect($to-parent);
       }
       when Clutter::PageTurnEffect {
       }
@@ -40,9 +41,13 @@ class Clutter::PageTurnEffect is Clutter::OffscreenEffect {
   method Clutter::Raw::Types::PageTurnEffect
   { $!cpte }
 
-  method new (Num() $angle, Num() $radius) {
-    my gdouble ($a, $r) = ($angle, $radius);
-    clutter_page_turn_effect_new($!cpte, $a, $r);
+  multi method new (ClutterPageTurnEffect $page-turn) {
+    self.bless(:$page-turn);
+  }
+  multi method new (Num() $period, Num() $angle, Num() $radius) {
+    my gdouble ($p, $a) = ($period, $angle);
+    my gfloat $r = $radius;
+    self.bless( page-turn => clutter_page_turn_effect_new($p, $a, $r) );
   }
 
   method angle is rw {

@@ -10,15 +10,23 @@ use GTK::Raw::Utils;
 use Clutter::Raw::Timeline;
 
 use GTK::Compat::Roles::Object;
+use GTK::Roles::Protection;
 use GTK::Roles::Signals::Generic;
 
 class Clutter::Timeline {
   also does GTK::Compat::Roles::Object;
+  also does GTK::Roles::Protection;
   also does GTK::Roles::Signals::Generic;
 
   has ClutterTimeline $!ctime;
 
   submethod BUILD (:$timeline) {
+    self.ADD-PREFIX('Clutter::');
+    self.setTimeline($timeline) if $timeline.defined;
+  }
+
+  method setTimeline (ClutterTimeline $timeline) {
+    self.IS-PROTECTED;
     self!setObject( cast(GObject, $!ctime = $timeline) );
   }
 

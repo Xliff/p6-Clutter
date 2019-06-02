@@ -11,9 +11,6 @@ use GTK::Raw::Utils;
 
 use Clutter::Roles::Signals::Stage;
 
-# our subset ClutterStageAncestry is export of Mu
-#   where ClutterStage | ClutterGroupAncestry;
-
 use Clutter::Raw::Boxed;
 use Clutter::Raw::Stage;
 
@@ -41,6 +38,9 @@ my @set_methods = <
   sync_delay              sync-delay
 >;
 
+our subset StageAncestry is export of Mu
+  where ClutterStage | ActorAncestry;
+
 class Clutter::Stage is Clutter::Actor {
   also does Clutter::Roles::Signals::Stage;
 
@@ -50,9 +50,12 @@ class Clutter::Stage is Clutter::Actor {
     self.setActor( cast(ClutterActor, $!cs = $stage) );
   }
 
-  # Replace ancestry logic
-  multi method new (ClutterStage $stage) {
-    self.bless( :$stage );
+  method Clutter::Raw::Types::ClutterStage
+    is also<ClutterStage>
+  { $!cs }
+
+  multi method new (StageAncestry $stage) {
+    self.bless(:$stage);
   }
   multi method new {
     self.bless( stage => clutter_stage_new() );

@@ -1,5 +1,7 @@
 use v6.c;
 
+use Method::Also;
+
 use NativeCall;
 
 use GTK::Compat::Types;
@@ -14,6 +16,7 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
   has ClutterDesaturateEffect $!cde;
 
   submethod BUILD (:$desaturate) {
+    say "{$desaturate}";
     given $desaturate {
       when DesaturateEffectAncestry {
         my $to-parent;
@@ -40,8 +43,9 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
     }
   }
 
-  method new {
-    self.bless( desaturate => clutter_desaturate_effect_new() );
+  method new (Num() $factor) {
+    my gdouble $f = $factor;
+    self.bless( desaturate => clutter_desaturate_effect_new($f) );
   }
 
   method factor is rw {
@@ -56,8 +60,8 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
     );
   }
 
-  method get_type {
-    state ($n, $t)
+  method get_type is also<get-type> {
+    state ($n, $t);
     unstable_get_type( self.^name, &clutter_desaturate_effect_get_type, $n, $t )
   }
 
@@ -70,7 +74,7 @@ sub clutter_desaturate_effect_get_type ()
 { * }
 
 sub clutter_desaturate_effect_new (gdouble $factor)
-  returns ClutterEffect
+  returns ClutterDesaturateEffect
   is native(clutter)
   is export
 { * }

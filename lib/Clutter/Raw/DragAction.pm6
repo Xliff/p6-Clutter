@@ -50,7 +50,7 @@ sub clutter_drag_action_get_type ()
 { * }
 
 sub clutter_drag_action_new ()
-  returns ClutterAction
+  returns ClutterDragAction
   is native(clutter)
   is export
 { * }

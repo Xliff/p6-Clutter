@@ -12,20 +12,21 @@ use Clutter::Raw::Transition;
 use GTK::Roles::Properties;
 use GTK::Roles::Protection;
 
-class Clutter::Transition {
+use Clutter::Timeline;
+
+class Clutter::Transition is Clutter::Timeline {
   also does GTK::Roles::Properties;
   also does GTK::Roles::Protection;
 
   has ClutterTransition $!ct;
 
   submethod BUILD (:$transition) {
-    self.ADD-PREFIX('Clutter::');
-    self.setTransition($transition);
+    self.setTransition($transition) if $transition.defined;
   }
 
-  method setTransition ($transition) {
+  method setTransition (ClutterTransition $transition) {
     self.IS-PROTECTED;
-    self!setObject( cast(GObject, $!ct = $transition) );
+    self.setTimeline( cast(ClutterTimeline, $!ct = $transition) );
   }
 
   method Clutter::Raw::Types::ClutterTransition

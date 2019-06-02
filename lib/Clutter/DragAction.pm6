@@ -12,7 +12,11 @@ use Clutter::Raw::DragAction;
 use Clutter::Action;
 use Clutter::Actor;
 
+use Clutter::Roles::Signals::DragAction;
+
 class Clutter::DragAction is Clutter::Action {
+  also does Clutter::Roles::Signals::DragAction;
+  
   has ClutterDragAction $!cda;
 
   # Needs ancestry logic
@@ -54,6 +58,31 @@ class Clutter::DragAction is Clutter::Action {
   method get_drag_area (ClutterRect() $drag_area) is also<get-drag-area> {
     clutter_drag_action_get_drag_area($!cda, $drag_area);
   }
+
+  # Is originally:
+  # ClutterDragAction, ClutterActor, gfloat, gfloat, ClutterModifierType, gpointer --> void
+  method drag-begin {
+    self.connect-drag($!cda, 'drag-begin');
+  }
+
+  # Is originally:
+  # ClutterDragAction, ClutterActor, gfloat, gfloat, ClutterModifierType, gpointer --> void
+  method drag-end {
+    self.connect-drag($!cda, 'drag-end');
+  }
+
+  # Is originally:
+  # ClutterDragAction, ClutterActor, gfloat, gfloat, gpointer --> void
+  method drag-motion {
+    self.connect-drag-motion($!cda);
+  }
+
+  # Is originally:
+  # ClutterDragAction, ClutterActor, gfloat, gfloat, gpointer --> gboolean
+  method drag-progress {
+    self.connect-drag-progress($!cda);
+  }
+
 
   # Move back to coercive if that ever gets fixed.
   proto method get_drag_threshold (|)

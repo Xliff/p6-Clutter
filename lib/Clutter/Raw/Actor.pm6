@@ -490,8 +490,8 @@ sub clutter_actor_get_scale_z (ClutterActor $self)
 { * }
 
 sub clutter_actor_get_size (
-  ClutterActor $self, 
-  gfloat $width  is rw, 
+  ClutterActor $self,
+  gfloat $width  is rw,
   gfloat $height is rw
 )
   is native(clutter)
@@ -499,7 +499,7 @@ sub clutter_actor_get_size (
 { * }
 
 sub clutter_actor_get_stage (ClutterActor $actor)
-  returns ClutterActor
+  returns ClutterStage
   is native(clutter)
   is export
 { * }
@@ -741,7 +741,7 @@ sub clutter_actor_iter_is_valid (ClutterActorIter $iter)
 { * }
 
 sub clutter_actor_iter_next (
-  ClutterActorIter $iter, 
+  ClutterActorIter $iter,
   CArray[Pointer[ClutterActor]] $child
 )
   returns uint32
@@ -750,7 +750,7 @@ sub clutter_actor_iter_next (
 { * }
 
 sub clutter_actor_iter_prev (
-  ClutterActorIter $iter, 
+  ClutterActorIter $iter,
   CArray[Pointer[ClutterActor]] $child
 )
   returns uint32
@@ -1206,8 +1206,8 @@ sub clutter_actor_transform_stage_point (
   ClutterActor $self,
   gfloat $x,
   gfloat $y,
-  gfloat $x_out,
-  gfloat $y_out
+  gfloat $x_out is rw,
+  gfloat $y_out is rw
 )
   returns uint32
   is native(clutter)
@@ -1231,17 +1231,17 @@ sub clutter_actor_unset_flags (
   is native(clutter)
   is export
 { * }
-  
+
  # Action
-  
+
  sub clutter_actor_add_action (ClutterActor $self, ClutterAction $action)
   is native(clutter)
   is export
 { * }
 
 sub clutter_actor_add_action_with_name (
-  ClutterActor $self, 
-  Str $name, 
+  ClutterActor $self,
+  Str $name,
   ClutterAction $action
 )
   is native(clutter)
@@ -1280,11 +1280,11 @@ sub clutter_actor_remove_action_by_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
 { * }
-  
-# Constraint 
+
+# Constraint
 
 sub clutter_actor_add_constraint (
-  ClutterActor $self, 
+  ClutterActor $self,
   ClutterConstraint $constraint
 )
   is native(clutter)
@@ -1292,8 +1292,8 @@ sub clutter_actor_add_constraint (
 { * }
 
 sub clutter_actor_add_constraint_with_name (
-  ClutterActor $self, 
-  Str $name, 
+  ClutterActor $self,
+  Str $name,
   ClutterConstraint $constraint
 )
   is native(clutter)
@@ -1324,7 +1324,7 @@ sub clutter_actor_has_constraints (ClutterActor $self)
 { * }
 
 sub clutter_actor_remove_constraint (
-  ClutterActor $self, 
+  ClutterActor $self,
   ClutterConstraint $constraint
 )
   is native(clutter)
@@ -1335,7 +1335,7 @@ sub clutter_actor_remove_constraint_by_name (ClutterActor $self, Str $name)
   is native(clutter)
   is export
 { * }
-  
+
 # Effect
 
 sub clutter_actor_add_effect (ClutterActor $self, ClutterEffect $effect)
@@ -1344,8 +1344,8 @@ sub clutter_actor_add_effect (ClutterActor $self, ClutterEffect $effect)
 { * }
 
 sub clutter_actor_add_effect_with_name (
-  ClutterActor $self, 
-  Str $name, 
+  ClutterActor $self,
+  Str $name,
   ClutterEffect $effect
 )
   is native(clutter)

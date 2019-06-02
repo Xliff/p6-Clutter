@@ -14,27 +14,28 @@ use GTK::Roles::Protection;
 
 class Clutter::ActorMeta {
   also does GTK::Compat::Roles::Object;
-  
+  also does GTK::Roles::Protection;
+
   has ClutterActorMeta $!cam;
-  
+
   submethod BUILD (:$metaactor) {
     self.ADD-PREFIX('Clutter::');
     self.setActorMeta(:$metaactor) if $metaactor.defined;
   }
-  
+
   method setActorMeta (ClutterActorMeta $metaactor) {
     self.IS-PROTECTED;
     self!setObject( cast(GObject, $!cam = $metaactor) );
   }
-  
+
   method Clutter::Raw::Types::ClutterActorMeta
     is also<ClutterActorMeta>
   { $!cam }
-  
+
   method new (ClutterActorMeta $metaactor) {
     self.bless(:$metaactor);
   }
-  
+
   method enabled is rw {
     Proxy.new(
       FETCH => sub ($) {
@@ -57,8 +58,8 @@ class Clutter::ActorMeta {
       }
     );
   }
-  
-  method get_actor 
+
+  method get_actor
     is also<
       get-actor
       actor
@@ -71,5 +72,5 @@ class Clutter::ActorMeta {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_actor_meta_get_type, $n, $t );
   }
-  
+
 }

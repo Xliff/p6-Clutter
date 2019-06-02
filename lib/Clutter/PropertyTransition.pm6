@@ -13,8 +13,12 @@ class Clutter::PropertyTransition is Clutter::Transition {
 
   # REALLY needs ancestry logic!
   submethod BUILD (:$propertytransition) {
-    self.setTransition( cast(ClutterTransition, $!cpt, $propertytransition) );
+    self.setTransition( cast(ClutterTransition, $!cpt = $propertytransition) );
   }
+
+  method Clutter::Raw::Types::ClutterPropertyTransition
+    is also<ClutterPropertyTransition>
+  { $!cpt }
 
   method new (Str() $property_name) {
     self.bless(
@@ -46,7 +50,7 @@ sub clutter_property_transition_get_type ()
 { * }
 
 sub clutter_property_transition_new (Str $property_name)
-returns ClutterTransition
+returns ClutterPropertyTransition
 is native(clutter)
 is export
 { * }
