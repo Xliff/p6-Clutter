@@ -421,13 +421,14 @@ class Clutter::Actor {
 
       # Attribute with special handling
       when 'position' {
+        my subset ListLike where List | Array | Seq;
         say 'A position' if $DEBUG;
         die "'position' value must be a Clutter::Point-compatible object or a 2-element list'"
           unless [||](
-            so %data<position> ~~ (Clutter::Point, ClutterPoint, Seq).any,
-            %data<position> ~~ Seq && %data<position>.elems == 2
+            so %data<position> ~~ (Clutter::Point, ClutterPoint, Array).any,
+            %data<position> ~~ ListLike && %data<position>.elems == 2
           );
-        if %data<position> ~~ Seq {
+        if %data<position> ~~ ListLike {
           self.set-position(|%data<position>);
         } else {
           self.position = %data<position>;
@@ -1769,18 +1770,25 @@ class Clutter::Actor {
       $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
   }
 
+  proto method get_clip (|)
+    is also<get-clip>
+  { * }
+
   multi method get_clip {
     my ($xo, $yo, $w, $h) = 0 xx 4;
     samewith($xo, $yo, $w, $h);
   }
   multi method get_clip (
-    Num() $xoff   is rw,
-    Num() $yoff   is rw,
-    Num() $width  is rw,
-    Num() $height is rw
-  )
-    is also<get-clip>
-  {
+    $xoff   is rw,
+    $yoff   is rw,
+    $width  is rw,
+    $height is rw
+  ) {
+    for $xoff, $yoff, $width, $height -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my num32 ($xo, $yo, $w, $h) = ($xoff, $yoff, $width, $height);
     clutter_actor_get_clip($!ca, $xo, $yo, $w, $h);
     ($xoff, $yoff, $width, $height) = ($xo, $yo, $w, $h);
@@ -1999,11 +2007,16 @@ class Clutter::Actor {
     samewith($px, $py);
   }
   multi method get_pivot_point (
-    Num() $pivot_x is rw,
-    Num() $pivot_y is rw
+    $pivot_x is rw,
+    $pivot_y is rw
   )
     is also<get-pivot-point>
   {
+    for $pivot_x, $pivot_y -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gfloat ($px, $py) = ($pivot_x, $pivot_y);
     clutter_actor_get_pivot_point($!ca, $px, $py);
     ($pivot_x, $pivot_y) = ($px, $py);
@@ -2022,9 +2035,15 @@ class Clutter::Actor {
     samewith($x, $y);
   }
   multi method get_position (
-    Num() $x is rw,
-    Num() $y is rw
+    $x is rw,
+    $y is rw
   ) {
+    for $x, $y -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible! value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
+
     my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_get_position($!ca, $xx, $yy);
     ($x, $y) = ($xx, $yy);
@@ -2097,11 +2116,16 @@ class Clutter::Actor {
     samewith($sx, $sy);
   }
   multi method get_scale (
-    Num() $scale_x is rw,
-    Num() $scale_y is rw
+    $scale_x is rw,
+    $scale_y is rw
   )
     is also<get-scale>
   {
+    for $scale_x, $scale_y -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gdouble ($sx, $sy) = ($scale_x, $scale_y);
     clutter_actor_get_scale($!ca, $sx, $sy);
     ($scale_x, $scale_y) = ($sx, $sy);
@@ -2123,8 +2147,11 @@ class Clutter::Actor {
     $width  is rw,
     $height is rw
   ) {
-    $width  .= Num if $width.^can('Num').elems;
-    $height .= Num if $height.^can('Num').elems;
+    for $width, $height -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gfloat ($w, $h) = ($width, $height);
     clutter_actor_get_size($!ca, $w, $h);
     ($width, $height) = ($w, $h);
@@ -2137,7 +2164,7 @@ class Clutter::Actor {
     >
   {
     my $s = clutter_actor_get_stage($!ca);
-    say "get_stage: { $s // 'UNDEFINED' }";
+    say "get_stage: { $s // 'UNDEFINED' }" if $DEBUG;
     $s.defined ?? ::('Clutter::Stage').new($s) !! Nil;
   }
 
@@ -2160,31 +2187,45 @@ class Clutter::Actor {
     );
   }
 
+  proto method get_transformed_position (|)
+    is also<get-transformed-position>
+  { * }
+
   multi method get_transformed_position {
     my ($x, $y) = 0 xx 2;
     samewith($x, $y);
   }
   multi method get_transformed_position (
-    Num() $x is rw,
-    Num() $y is rw
-  )
-    is also<get-transformed-position>
-  {
+    $x is rw,
+    $y is rw
+  ) {
+    for $x, $y -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_get_transformed_position($!ca, $xx, $yy);
     ($x, $y) = ($xx, $yy);
   }
+
+  proto method get_transformed_size (|)
+    is also<get-transformed-size>
+  { * }
 
   multi method get_transformed_size {
     my ($w, $h) = 0 xx 2;
     samewith($w, $h);
   }
   multi method get_transformed_size (
-    Num() $width,
-    Num() $height
-  )
-    is also<get-transformed-size>
-  {
+    $width,
+    $height
+  ) {
+    for $width, $height -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gfloat ($w, $h) = ($width, $height);
     clutter_actor_get_transformed_size($!ca, $w, $h);
     ($width, $height) = ($w, $h);
@@ -2195,17 +2236,24 @@ class Clutter::Actor {
     $t.defined ?? Clutter::Transition.new($t) !! Nil;
   }
 
+  proto method get_translation (|)
+    is also<get-translation>
+  { * }
+  
   multi method get_translation {
     my ($x, $y, $z) = 0 xx 3;
     samewith($x, $y, $z);
   }
   multi method get_translation (
-    Num() $translate_x is rw,
-    Num() $translate_y is rw,
-    Num() $translate_z is rw
-  )
-    is also<get-translation>
-  {
+    $translate_x is rw,
+    $translate_y is rw,
+    $translate_z is rw
+  ) {
+    for $translate_x, $translate_y, $translate_z -> $_ is rw {
+      die "{ .VAR.name } must be a Num-compatible value!"
+        unless .^can('Num').elems;
+      $_ .= Num;
+    }
     my gfloat ($tx, $ty, $tz) = ($translate_x, $translate_y, $translate_z);
     clutter_actor_get_translation($!ca, $tx, $ty, $tz);
     ($translate_x, $translate_y, $translate_z) = ($tx, $ty, $tz);

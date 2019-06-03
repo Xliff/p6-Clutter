@@ -12,6 +12,9 @@ use Clutter::Raw::ActorMeta;
 use GTK::Compat::Roles::Object;
 use GTK::Roles::Protection;
 
+our subset MetaActorAncestry is export of Mu
+  where ClutterActorMeta;
+
 class Clutter::ActorMeta {
   also does GTK::Compat::Roles::Object;
   also does GTK::Roles::Protection;

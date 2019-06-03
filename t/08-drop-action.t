@@ -20,8 +20,11 @@ constant HANDLE_SIZE = 128;
 my %globals;
 
 sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
-  my $h = $act.get-drag-handle;
+  CATCH { default { .message.say } }
+  my $h = $act.drag-handle;
   say "Drag ended at: { $ex.fmt('%.0f')}, { $ey.fmt('%0.f') }";
+
+  say "$act / $h / {$h.^name}";
 
   my $actor = Clutter::Actor.new($a);
   $actor.save-easing-state;
@@ -39,7 +42,7 @@ sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
 
     my ($x, $y) = $actor.get-transformed-position;
     $h.easing-mode = CLUTTER_EASE_OUT_BOUNCE;
-    $h.set_position($x, $y);
+    $h.set-position($x, $y);
     $h.opacity = 0;
   } else {
     $h.easing-mode = CLUTTER_LINEAR;
@@ -47,12 +50,16 @@ sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
   }
   $h.restore-easing-state;
 
-  $h.transitions-completed.tap({ $h.destroy-actor });
+  $h.transitions-completed.tap({
+    $h.destroy-actor;
+  });
 }
 
 sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
+  CATCH { default { .message.say } }
+  say 'on-drag-begin';
   my $actor = Clutter::Actor.new($a);
-  my ($x, $y) = $a.get-position;
+  my ($x, $y) = $actor.get-position;
 
   my $h = Clutter::Actor.new;
   $h.setup(
@@ -61,14 +68,17 @@ sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
     position         => ($ex - $x, $ey - $y),
   );
   %globals<stage>.add-child($h);
+  $act.drag-handle = $h;
   $actor.save-easing-state;
   $actor.easing-mode =  CLUTTER_LINEAR;
   $actor.opacity = 128;
   $actor.restore-easing-state;
   %globals<drop-successful> = False;
+  say 'on-drag-begin exit';
 }
 
 sub add-drag-object($t) {
+  CATCH { default { .message.say } }
   if not %globals<drag>.defined {
     my $action = Clutter::DragAction.new;
     $action.drag-begin.tap(-> *@a { on-drag-begin(|@a) });
@@ -117,6 +127,8 @@ sub add-drag-object($t) {
 }
 
 sub on-target-over ($act, $a, $io) {
+  CATCH { default { .message.say } }
+  say 'target-over';
   my $fo = $io ?? 128 !! 64;
   my $t = $act.get-actor;
   $t.save-easing-state;
@@ -126,6 +138,8 @@ sub on-target-over ($act, $a, $io) {
 }
 
 sub on-target-drop($act, $a, $ex, $ey) {
+  CATCH { default { .message.say } }
+  say 'target-drop';
   my $actor = Clutter::Actor.new($a);
   my ($ax, $ay) = $actor.transform-stage-point($ex, $ey);
   say "Dropped at { $ax.fmt('%0.f') }, { $ay.fmt('%0.f') } (screen: {

@@ -6,23 +6,16 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Roles::Properties;
-use GTK::Roles::Protection;
-
 # Abstract.
 # GObject.
 
-our subset ActionAncestry is export of Mu where ClutterAction;
+use Clutter::ActorMeta;
 
-class Clutter::Action {
-  also does GTK::Roles::Properties;
-  also does GTK::Roles::Protection;
+our subset ActionAncestry is export of Mu
+  where ClutterAction | MetaActorAncestry;
 
+class Clutter::Action is Clutter::ActorMeta {
   has ClutterAction $!c-act;
-
-  submethod BUILD {
-    self.ADD-PREFIX('Clutter::');
-  }
 
   method Clutter::Raw::Types::ClutterAction
     is also<ClutterAction>
@@ -30,7 +23,7 @@ class Clutter::Action {
 
   method setAction(ClutterAction $action) {
     self.IS-PROTECTED;
-    self!setObject($!c-act = $action);
+    self.setActorMeta( cast(ClutterActorMeta, $!c-act = $action) );
   }
 
   method action_get_type is also<action-get-type> {

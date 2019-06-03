@@ -16,7 +16,7 @@ use Clutter::Roles::Signals::DragAction;
 
 class Clutter::DragAction is Clutter::Action {
   also does Clutter::Roles::Signals::DragAction;
-  
+
   has ClutterDragAction $!cda;
 
   # Needs ancestry logic
@@ -47,7 +47,8 @@ class Clutter::DragAction is Clutter::Action {
   method drag_handle is rw is also<drag-handle> {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Actor.new( clutter_drag_action_get_drag_handle($!cda) );
+        my $dh = clutter_drag_action_get_drag_handle($!cda);
+        $dh.defined ?? Clutter::Actor.new($dh) !! Nil;
       },
       STORE => sub ($, ClutterActor() $handle is copy) {
         clutter_drag_action_set_drag_handle($!cda, $handle);
