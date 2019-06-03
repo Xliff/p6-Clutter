@@ -437,6 +437,7 @@ class Clutter::Actor {
 
       default { die "Unknown attribute '{ $_ }'" }
     }
+    self;
   }
 
   method opacity is rw {
@@ -2239,7 +2240,7 @@ class Clutter::Actor {
   proto method get_translation (|)
     is also<get-translation>
   { * }
-  
+
   multi method get_translation {
     my ($x, $y, $z) = 0 xx 3;
     samewith($x, $y, $z);
