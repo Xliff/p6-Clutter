@@ -48,7 +48,7 @@ class Clutter::DropAction is Clutter::Action {
   # Is originally:
   # ClutterDropAction, ClutterActor, gfloat, gfloat, gpointer --> void
   method drop-cancel is also<drop_cancel> {
-    self.connect-drop-cancel($!cda, 'drop-cancel');
+    self.connect-drop($!cda, 'drop-cancel');
   }
 
   # Is originally:

@@ -24,8 +24,6 @@ sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
   my $h = $act.drag-handle;
   say "Drag ended at: { $ex.fmt('%.0f')}, { $ey.fmt('%0.f') }";
 
-  say "$act / $h / {$h.^name}";
-
   my $actor = Clutter::Actor.new($a);
   $actor.save-easing-state;
   $actor.easing-mode = CLUTTER_LINEAR;
@@ -57,7 +55,6 @@ sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
 
 sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
   CATCH { default { .message.say } }
-  say 'on-drag-begin';
   my $actor = Clutter::Actor.new($a);
   my ($x, $y) = $actor.get-position;
 
@@ -74,7 +71,6 @@ sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
   $actor.opacity = 128;
   $actor.restore-easing-state;
   %globals<drop-successful> = False;
-  say 'on-drag-begin exit';
 }
 
 sub add-drag-object($t) {
@@ -128,7 +124,6 @@ sub add-drag-object($t) {
 
 sub on-target-over ($act, $a, $io) {
   CATCH { default { .message.say } }
-  say 'target-over';
   my $fo = $io ?? 128 !! 64;
   my $t = $act.get-actor;
   $t.save-easing-state;
@@ -137,9 +132,8 @@ sub on-target-over ($act, $a, $io) {
   $t.restore-easing-state;
 }
 
-sub on-target-drop($act, $a, $ex, $ey) {
+sub on-target-drop($act, $a, $ex, $ey, $ud) {
   CATCH { default { .message.say } }
-  say 'target-drop';
   my $actor = Clutter::Actor.new($a);
   my ($ax, $ay) = $actor.transform-stage-point($ex, $ey);
   say "Dropped at { $ax.fmt('%0.f') }, { $ay.fmt('%0.f') } (screen: {
@@ -151,7 +145,7 @@ sub on-target-drop($act, $a, $ex, $ey) {
 sub setupDrop ($d) {
   $d.over-in.tap( -> *@a { @a.pop; on-target-over(|@a, True)  });
   $d.over-out.tap(-> *@a { @a.pop; on-target-over(|@a, False) });
-  $d.drop.tap(    -> *@a { on-target-drop(|@a); });
+  $d.drop.tap(    -> *@a { CATCH { default { .message.say } }; on-target-drop(|@a); });
 }
 
 sub MAIN {
@@ -162,6 +156,7 @@ sub MAIN {
   %globals<stage>.title = 'Drop Action';
   %globals<stage>.destroy.tap({ Clutter::Main.quit });
 
+  my ($drop1, $drop2);
   %globals<target1> = Clutter::Actor.new;
   %globals<target1>.setup(
     background-color   => $CLUTTER_COLOR_LightScarletRed,
@@ -169,12 +164,12 @@ sub MAIN {
     opacity            => 64,
     x                  => 10,
     reactive           => True,
-    action-with-name   => ('drop', ($drop = Clutter::DropAction.new)),
+    action-with-name   => ('drop', ($drop1 = Clutter::DropAction.new)),
     constraint         => Clutter::AlignConstraint.new(
       %globals<stage>, CLUTTER_ALIGN_Y_AXIS, 0.5
     )
   );
-  setupDrop($drop);
+  setupDrop($drop1);
   add-drag-object(%globals<target1>);
 
   my $dummy = Clutter::Actor.new;
@@ -195,12 +190,12 @@ sub MAIN {
     opacity          => 64,
     reactive         => True,
     x                => 640 - TARGET_SIZE - 10,
-    action-with-name => ('drop', $drop = Clutter::DropAction.new),
+    action-with-name => ('drop', $drop2 = Clutter::DropAction.new),
     constraint       => Clutter::AlignConstraint.new(
       %globals<stage>, CLUTTER_ALIGN_Y_AXIS, 0.5
     ),
   );
-  setupDrop($drop);
+  setupDrop($drop2);
 
   %globals<stage>.add-child($_)
     for %globals<target1>, $dummy, %globals<target2>;
