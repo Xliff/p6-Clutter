@@ -83,6 +83,7 @@
       "Clutter::Roles::Content"                :  "lib/Clutter/Roles/Content.pm6"               ,
       "Clutter::Roles::Signals::Actor"         :  "lib/Clutter/Roles/Signals/Actor.pm6"         ,
       "Clutter::Roles::Signals::ClickAction"   :  "lib/Clutter/Roles/Signals/ClickAction.pm6"   ,
+      "Clutter::Roles::Signals::DropAction"    :  "lib/Clutter/Roles/Signals/DropAction.pm6"    ,
       "Clutter::TapAction"                     :  "lib/Clutter/TapAction.pm6"                   ,
       "Clutter::Actor"                         :  "lib/Clutter/Actor.pm6"                       ,
       "Clutter::ActorIter"                     :  "lib/Clutter/ActorIter.pm6"                   ,
@@ -93,6 +94,7 @@
       "Clutter::DeformEffect"                  :  "lib/Clutter/DeformEffect.pm6"                ,
       "Clutter::DesaturateEffect"              :  "lib/Clutter/DesaturateEffect.pm6"            ,
       "Clutter::DragAction"                    :  "lib/Clutter/DragAction.pm6"                  ,
+      "Clutter::DropAction"                    :  "lib/Clutter/DropAction.pm6"                  ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
       "Clutter::Stage"                         :  "lib/Clutter/Stage.pm6"                       ,
@@ -114,6 +116,8 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
+
 
 
 

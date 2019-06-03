@@ -40,6 +40,7 @@ use Clutter::Roles::Scriptable;
 use Clutter::Roles::Signals::Actor;
 use Clutter::Roles::Signals::Generic;
 
+# Removed for special handling: position
 my @attributes = <
   actions
   allocation
@@ -53,7 +54,6 @@ my @attributes = <
   clip
   clip-rect                  clip_rect
   clip-to-allocation         clip_to_allocation
-  constraints
   content
   content-box                content_box
   content-gravity            content_gravity
@@ -90,7 +90,6 @@ my @attributes = <
   opacity-override           opacity_override
   pivot-point                pivot_point
   pivot-point-z              pivot_point_z
-  position
   reactive
   realized
   request-mode               request_mode
@@ -144,6 +143,7 @@ my @add_methods = <
   action
   action_wth_name       action-with-name
   constraint
+  constraints
   constraint_with_name  constraint-with-name
   child
   effect
@@ -397,7 +397,7 @@ class Clutter::Actor {
       }
 
       when 'actions'  {
-        say 'A actionS' if $DEBUG;
+        say 'A actions' if $DEBUG;
         # Coerce to array in case user added an 's' by mistake.
         %data<actions> .= Array;
         for %data<actions> {
@@ -419,6 +419,21 @@ class Clutter::Actor {
         }
       }
 
+      # Attribute with special handling
+      when 'position' {
+        say 'A position' if $DEBUG;
+        die "'position' value must be a Clutter::Point-compatible object or a 2-element list'"
+          unless [||](
+            so %data<position> ~~ (Clutter::Point, ClutterPoint, Seq).any,
+            %data<position> ~~ Seq && %data<position>.elems == 2
+          );
+        if %data<position> ~~ Seq {
+          self.set-position(|%data<position>);
+        } else {
+          self.position = %data<position>;
+        }
+      }
+
       default { die "Unknown attribute '{ $_ }'" }
     }
   }
@@ -428,8 +443,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_opacity($!ca);
       },
-      STORE => sub ($, $opacity is copy) {
-        clutter_actor_set_opacity($!ca, $opacity);
+      STORE => sub ($, Int() $opacity is copy) {
+        my guint8 $o = resolve-uint8($opacity);
+        clutter_actor_set_opacity($!ca, $o);
       }
     );
   }
@@ -439,8 +455,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_opacity_override($!ca);
       },
-      STORE => sub ($, $opacity is copy) {
-        clutter_actor_set_opacity_override($!ca, $opacity);
+      STORE => sub ($, Int() $opacity is copy) {
+        my gint $o = resolve-int($opacity);
+        clutter_actor_set_opacity_override($!ca, $o);
       }
     );
   }
@@ -508,8 +525,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_width($!ca);
       },
-      STORE => sub ($, $width is copy) {
-        clutter_actor_set_width($!ca, $width);
+      STORE => sub ($, Num() $width is copy) {
+        my gfloat $w = $width;
+        clutter_actor_set_width($!ca, $w);
       }
     );
   }
@@ -519,8 +537,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_x($!ca);
       },
-      STORE => sub ($, $x is copy) {
-        clutter_actor_set_x($!ca, $x);
+      STORE => sub ($, Num() $x is copy) {
+        my gfloat $xx = $x;
+        clutter_actor_set_x($!ca, $xx);
       }
     );
   }
@@ -530,8 +549,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_x_align($!ca) );
       },
-      STORE => sub ($, $x_align is copy) {
-        clutter_actor_set_x_align($!ca, $x_align);
+      STORE => sub ($, Int() $x_align is copy) {
+        my guint $xa = resolve-uint($x_align);
+        clutter_actor_set_x_align($!ca, $xa);
       }
     );
   }
@@ -553,8 +573,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         clutter_actor_get_y($!ca);
       },
-      STORE => sub ($, $y is copy) {
-        clutter_actor_set_y($!ca, $y);
+      STORE => sub ($, Num() $y is copy) {
+        my gfloat $yy = $y;
+        clutter_actor_set_y($!ca, $yy);
       }
     );
   }
@@ -564,8 +585,9 @@ class Clutter::Actor {
       FETCH => sub ($) {
         ClutterActorAlign( clutter_actor_get_y_align($!ca) );
       },
-      STORE => sub ($, $y_align is copy) {
-        clutter_actor_set_y_align($!ca, $y_align);
+      STORE => sub ($, Int() $y_align is copy) {
+        my guint $ya = resolve-uint($y_align);
+        clutter_actor_set_y_align($!ca, $ya);
       }
     );
   }
@@ -772,20 +794,21 @@ class Clutter::Actor {
       STORE => -> $, Int() \val { self.set-clip-to-allocation(val) };
   }
 
+  # Removed because it was redundant. Left here as reference.
   # Type: ClutterConstraint
-  method constraints is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Constraint.get_type );
-    Proxy.new(
-      FETCH => -> $ {
-        warn "'constraints' does not allow reading" if $DEBUG;
-        0;
-      },
-      STORE => -> $, ClutterConstraint() $val is copy {
-        $gv.object = $val;
-        self.prop_set('constraints', $gv);
-      }
-    );
-  }
+  # method constraint is rw  {
+  #   my GTK::Compat::Value $gv .= new( Clutter::Constraint.get_type );
+  #   Proxy.new(
+  #     FETCH => -> $ {
+  #       warn "'constraints' does not allow reading" if $DEBUG;
+  #       0;
+  #     },
+  #     STORE => -> $, ClutterConstraint() $val is copy {
+  #       $gv.object = $val;
+  #       self.prop_set('constraints', $gv);
+  #     }
+  #   );
+  # }
 
   # Type: ClutterContent
   method content is rw  {
@@ -1967,7 +1990,8 @@ class Clutter::Actor {
       parent
     >
   {
-    Clutter::Actor.new( clutter_actor_get_parent($!ca) );
+    my $p = clutter_actor_get_parent($!ca);
+    $p.defined ?? Clutter::Actor.new($p) !! Nil;
   }
 
   multi method get_pivot_point {
@@ -1989,6 +2013,10 @@ class Clutter::Actor {
     clutter_actor_get_pivot_point_z($!ca);
   }
 
+  proto method get_position (|)
+    is also<get-position>
+  { * }
+
   multi method get_position {
     my ($x, $y) = 0 xx 2;
     samewith($x, $y);
@@ -1996,9 +2024,7 @@ class Clutter::Actor {
   multi method get_position (
     Num() $x is rw,
     Num() $y is rw
-  )
-    is also<get-position>
-  {
+  ) {
     my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_get_position($!ca, $xx, $yy);
     ($x, $y) = ($xx, $yy);
@@ -2776,6 +2802,8 @@ class Clutter::Actor {
   # Constraints
 
   method add_constraints (*@constraints) is also<add-constraints> {
+    die '@constraints must contain only Clutter::Constraint compatible values'
+      unless @constraints.all ~~ (Clutter::Constraint, ClutterConstraint).any;
     self.add_constraint($_) for @constraints;
   }
 
@@ -2799,7 +2827,8 @@ class Clutter::Actor {
   }
 
   method get_constraint (Str() $name) is also<get-constraint> {
-    Clutter::Constraint.new( clutter_actor_get_constraint($!ca, $name) );
+    my $c = clutter_actor_get_constraint($!ca, $name);
+    $c ?? Clutter::Constraint.new($c) !! Nil;
   }
 
   method get_constraints (:$raw = False) is also<get-constraints> {

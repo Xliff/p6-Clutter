@@ -12,6 +12,8 @@ use GTK::Roles::Protection;
 # Abstract.
 # GObject.
 
+our subset ActionAncestry is export of Mu where ClutterAction;
+
 class Clutter::Action {
   also does GTK::Roles::Properties;
   also does GTK::Roles::Protection;
