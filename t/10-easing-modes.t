@@ -1,5 +1,8 @@
 use v6.c;
 
+# Find the original implementation here:
+# https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/easing-modes.c
+
 use Cairo;
 
 use Pango::Raw::Types;

@@ -1,5 +1,8 @@
 use v6.c;
 
+# Find the original implementation here:
+# https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/box-layout.c
+
 use GTK::Compat::Types;
 use Pango::Raw::Types;
 use Clutter::Raw::Types;

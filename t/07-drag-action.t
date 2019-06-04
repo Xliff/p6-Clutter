@@ -1,5 +1,8 @@
 use v6.c;
 
+# Find the original implementation here:
+# https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/drag-action.c
+
 use Clutter::Raw::Types;
 
 use Clutter::Actor;
