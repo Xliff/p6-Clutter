@@ -7,6 +7,7 @@ use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
 use Clutter::Actor;
+use Clutter::AlignConstraint;
 use Clutter::Canvas;
 use Clutter::Color;
 use Clutter::Stage;
@@ -35,10 +36,10 @@ my %globals = (
 );
 
 sub update-text {
-  %globals<easing_mode_label>.set-markup(
+  %globals<easing-mode-label>.set-markup(
     HELP_TEXT.sprintf(
       @modes[%globals<current-mode>].key,
-      %globals<current_mode> + 1,
+      %globals<current-mode> + 1,
       @modes.elems
     )
   );
@@ -48,7 +49,7 @@ sub on-button-press ($actor, $e, $rect, $r) {
   my $event = cast(ClutterButtonEvent, $e);
   given $event.button {
     when CLUTTER_BUTTON_SECONDARY {
-      %globals<current_mode> = 0 if ++%globals<current_mode> >= @modes.elems;
+      %globals<current-mode> = 0 if ++%globals<current-mode> >= @modes.elems;
       update-text;
     }
     when CLUTTER_BUTTON_MIDDLE {
@@ -65,7 +66,7 @@ sub on-button-press ($actor, $e, $rect, $r) {
   $r.r = CLUTTER_EVENT_STOP;
 }
 
-sub draw-bouncer ($c, $cr, $w, $h, $r) {
+sub draw-bouncer ($c, $cr, $w, $h, $ud, $r) {
   my $ct = Cairo::Context.new($cr);
   $ct.operator = CAIRO_OPERATOR_CLEAR;
   $ct.paint;
@@ -73,19 +74,29 @@ sub draw-bouncer ($c, $cr, $w, $h, $r) {
 
   my $rad = ($w, $h).max;
   $ct.arc($rad/2, $rad/2, $rad/2, 0, 2 * π);
-  my $bc = $CLUTTER_COLOR_DarkScarletRed;
+  my $bc = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkScarletRed);
+  $bc.alpha = 255;
 
-  my $pat = Cairo::Pattern::Radial.new($rad/2, $rad/2, 0, $rad, $rad, $rad);
-  $pat.add_stop(0,    $bc.red/255, $bc.green/255, $bc.blue/255, $bc.alpha/255);
-  $pat.add_stop(0.85, $bc.red/255, $bc.green/255, $bc.blue/255, 0.25);
-  $ct.source = $pat;
-  $ct.fill(:preserve);
+  my $pat = Cairo::Pattern::Gradient::Radial.create(
+    $rad/2, $rad/2, 0, $rad, $rad, $rad
+  );
+  $pat.add_color_stop_rgba(
+    0,    $bc.red/255, $bc.green/255, $bc.blue/255, $bc.alpha/255
+  );
+  $pat.add_color_stop_rgba(
+    0.85, $bc.red/255, $bc.green/255, $bc.blue/255, 0.25
+  );
+  $ct.pattern($pat);
+  $cr.fill_preserve;
   $r.r = 1;
 }
 
 sub make-bouncer ($w, $h) {
+  CATCH { default { .message.say } }
+
   my $canvas = Clutter::Canvas.new;
-  $canvas.draw(-> *@a { draw-bouncer(|@a) });
+  $canvas.set-size($w, $h);
+  $canvas.draw.tap(-> *@a { draw-bouncer(|@a) });
 
   my $rv = Clutter::Actor.new.setup(
     name        => 'bouncer',
@@ -95,6 +106,8 @@ sub make-bouncer ($w, $h) {
     reactive    => True,
     content     => $canvas
   );
+  $canvas.invalidate;
+  $rv;
 }
 
 sub MAIN (
@@ -107,21 +120,25 @@ sub MAIN (
     background-color => $CLUTTER_COLOR_LightSkyBlue
   );
   %globals<main-stage>.destroy.tap({ Clutter::Main.quit });
-  %globals<main-stage>.button-press-event.tap(-> *@a { on-button-press(|@a) });
-  %globals<main-stage>.show-actor;
 
   my ($w, $h) = %globals<main-stage>.get-size;
   ( my $rect = make-bouncer(50, 50) ).set-position($w/2, $h/2);
   %globals<main-stage>.add-child($rect);
+  %globals<main-stage>.button-press-event.tap(-> *@a {
+    @a[2] = $rect; on-button-press(|@a)
+  });
 
-  %globals<easing-mode-text> = Clutter::Text.new.setup(
+  %globals<easing-mode-label> = Clutter::Text.new.setup(
     line-alignment => PANGO_ALIGN_RIGHT,
     constraints => [
-      Clutter::AlignConstraint.new(%globals<main-stage>, CLUTTER_ALIGN_X_AXIS, 0.5),
-      Clutter::AlignConstraint.new(%globals<main-stage>, CLUTTER_ALIGN_Y_AXIS, 0.5)
+      Clutter::AlignConstraint.new(%globals<main-stage>, CLUTTER_ALIGN_X_AXIS, 0.95),
+      Clutter::AlignConstraint.new(%globals<main-stage>, CLUTTER_ALIGN_Y_AXIS, 0.95)
     ]
   );
+  %globals<main-stage>.add-child(%globals<easing-mode-label>);
   update-text;
+
+  %globals<main-stage>.show-actor;
 
   Clutter::Main.run;
 }

@@ -40,7 +40,7 @@ use Clutter::Roles::Scriptable;
 use Clutter::Roles::Signals::Actor;
 use Clutter::Roles::Signals::Generic;
 
-# Removed for special handling: position
+# Removed for special handling: position, pivot-point
 my @attributes = <
   actions
   allocation
@@ -88,7 +88,6 @@ my @attributes = <
   offscreen-redirect         offscreen_redirect
   opacity
   opacity-override           opacity_override
-  pivot-point                pivot_point
   pivot-point-z              pivot_point_z
   reactive
   realized
@@ -361,6 +360,21 @@ class Clutter::Actor {
     self.connect($!ca, 'unrealize');
   }
 
+  method !setAmbiguousPoint (%data, $name is copy) {
+    say "A { $name }" if $DEBUG;
+    $name .= subst('_', '-', :g);
+    die "'{ $name }' value must be a Clutter::Point-compatible object or a 2-element list'"
+      unless [||](
+        so %data{$name} ~~ (Clutter::Point, ClutterPoint).any,
+        %data{$name}.^can('elems')
+      );
+    if %data{$name}.^can('elems') {
+      self."set-{$name}"(|%data{$name});
+    } else {
+      self.$name() = %data{$name};
+    }
+  }
+
   method setup(*%data) {
     for %data.keys -> $_ is copy {
       when @attributes.any  {
@@ -419,20 +433,11 @@ class Clutter::Actor {
         }
       }
 
-      # Attribute with special handling
-      when 'position' {
-        my subset ListLike where List | Array | Seq;
-        say 'A position' if $DEBUG;
-        die "'position' value must be a Clutter::Point-compatible object or a 2-element list'"
-          unless [||](
-            so %data<position> ~~ (Clutter::Point, ClutterPoint, Array).any,
-            %data<position> ~~ ListLike && %data<position>.elems == 2
-          );
-        if %data<position> ~~ ListLike {
-          self.set-position(|%data<position>);
-        } else {
-          self.position = %data<position>;
-        }
+      # Attributes needing special handling
+      when 'position'    |
+           'pivot-point' | 'pivot_point'
+      {
+        self!setAmbiguousPoint(%data, $_);
       }
 
       default { die "Unknown attribute '{ $_ }'" }
@@ -2942,4 +2947,9 @@ class Clutter::Actor {
     clutter_actor_remove_effect_by_name($!ca, $name);
   }
 
+}
+
+INIT {
+  #say 'setting debug';
+  $DEBUG = %*ENV<P6_GTK_DEBUG>;
 }
