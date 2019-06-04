@@ -48,24 +48,15 @@ sub on_leave ($a, $e, $ud, $r) {
 
 sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
   CATCH { default { .message.say } }
-  say 'odb';
   my $dh;
   my $actor = Clutter::Actor.new($a);
   if $m +& CLUTTER_SHIFT_MASK  {
-    say 'get-stage';
     my $s = $actor.get-stage;
-    say "Real stage = { +%globals<stage>.ClutterStage.p }";
-    say "actor new / stage = {+$s.ClutterStage.p}";
     $dh = Clutter::Actor.new;
-    say "set-size actor={$dh}";
     $dh.set_size(48, 48);
-    say 'background-color';
-    $dh.background-color = $CLUTTER_COLOR_DarkSkyBlue;
-    say "add-child {$dh}";
+    $dh.background-color = $CLUTTER_COLOR_DarkSkyBlue;;
     $s.add-child($dh);
-    say 'show-actor';
     $dh.show-actor;
-    say "set-position ({$ex}, {$ey})";
     $dh.set_position($ex, $ey);
   } else {
     $dh = $actor;

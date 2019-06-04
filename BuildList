@@ -18,7 +18,6 @@ Pango::FontDescription
 Pango::Layout
 Pango::Raw::Types
 Clutter::Raw::Types
-Clutter::Action
 Clutter::Compat::Types
 Clutter::Cairo
 Clutter::ChildMeta
@@ -39,6 +38,7 @@ Clutter::Raw::DeformEffect
 Clutter::Raw::DeviceManager
 Clutter::Raw::DragAction
 Clutter::Raw::Event
+Clutter::Raw::FlowLayout
 Clutter::Raw::GestureAction
 Clutter::Raw::Image
 Clutter::Raw::InputDevice
@@ -78,7 +78,7 @@ Clutter::Backend
 Clutter::BindConstraint
 Clutter::Color
 Clutter::Effect
-Clutter::GestureAction
+Clutter::FlowLayout
 Clutter::LayoutManager
 Clutter::Main
 Clutter::Misc
@@ -92,7 +92,7 @@ Clutter::Roles::Content
 Clutter::Roles::Signals::Actor
 Clutter::Roles::Signals::ClickAction
 Clutter::Roles::Signals::DropAction
-Clutter::TapAction
+Clutter::Action
 Clutter::Actor
 Clutter::ActorIter
 Clutter::BinLayout
@@ -103,9 +103,11 @@ Clutter::DeformEffect
 Clutter::DesaturateEffect
 Clutter::DragAction
 Clutter::DropAction
+Clutter::GestureAction
 Clutter::Image
 Clutter::SnapConstraint
 Clutter::Stage
+Clutter::TapAction
 Clutter::Text
 Clutter::InputDevice
 Clutter::DeviceManager

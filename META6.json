@@ -10,7 +10,6 @@
       "Clutter::Raw::Canvas"                   :  "lib/Clutter/Raw/Canvas.pm6"                  ,
       "Clutter::Raw::Keysyms"                  :  "lib/Clutter/Raw/Keysyms.pm6"                 ,
       "Clutter::Raw::Types"                    :  "lib/Clutter/Raw/Types.pm6"                   ,
-      "Clutter::Action"                        :  "lib/Clutter/Action.pm6"                      ,
       "Clutter::Compat::Types"                 :  "lib/Clutter/Compat/Types.pm6"                ,
       "Clutter::Cairo"                         :  "lib/Clutter/Cairo.pm6"                       ,
       "Clutter::ChildMeta"                     :  "lib/Clutter/ChildMeta.pm6"                   ,
@@ -31,6 +30,7 @@
       "Clutter::Raw::DeviceManager"            :  "lib/Clutter/Raw/DeviceManager.pm6"           ,
       "Clutter::Raw::DragAction"               :  "lib/Clutter/Raw/DragAction.pm6"              ,
       "Clutter::Raw::Event"                    :  "lib/Clutter/Raw/Event.pm6"                   ,
+      "Clutter::Raw::FlowLayout"               :  "lib/Clutter/Raw/FlowLayout.pm6"              ,
       "Clutter::Raw::GestureAction"            :  "lib/Clutter/Raw/GestureAction.pm6"           ,
       "Clutter::Raw::Image"                    :  "lib/Clutter/Raw/Image.pm6"                   ,
       "Clutter::Raw::InputDevice"              :  "lib/Clutter/Raw/InputDevice.pm6"             ,
@@ -70,7 +70,7 @@
       "Clutter::BindConstraint"                :  "lib/Clutter/BindConstraint.pm6"              ,
       "Clutter::Color"                         :  "lib/Clutter/Color.pm6"                       ,
       "Clutter::Effect"                        :  "lib/Clutter/Effect.pm6"                      ,
-      "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
+      "Clutter::FlowLayout"                    :  "lib/Clutter/FlowLayout.pm6"                  ,
       "Clutter::LayoutManager"                 :  "lib/Clutter/LayoutManager.pm6"               ,
       "Clutter::Main"                          :  "lib/Clutter/Main.pm6"                        ,
       "Clutter::Misc"                          :  "lib/Clutter/Misc.pm6"                        ,
@@ -84,7 +84,7 @@
       "Clutter::Roles::Signals::Actor"         :  "lib/Clutter/Roles/Signals/Actor.pm6"         ,
       "Clutter::Roles::Signals::ClickAction"   :  "lib/Clutter/Roles/Signals/ClickAction.pm6"   ,
       "Clutter::Roles::Signals::DropAction"    :  "lib/Clutter/Roles/Signals/DropAction.pm6"    ,
-      "Clutter::TapAction"                     :  "lib/Clutter/TapAction.pm6"                   ,
+      "Clutter::Action"                        :  "lib/Clutter/Action.pm6"                      ,
       "Clutter::Actor"                         :  "lib/Clutter/Actor.pm6"                       ,
       "Clutter::ActorIter"                     :  "lib/Clutter/ActorIter.pm6"                   ,
       "Clutter::BinLayout"                     :  "lib/Clutter/BinLayout.pm6"                   ,
@@ -95,9 +95,11 @@
       "Clutter::DesaturateEffect"              :  "lib/Clutter/DesaturateEffect.pm6"            ,
       "Clutter::DragAction"                    :  "lib/Clutter/DragAction.pm6"                  ,
       "Clutter::DropAction"                    :  "lib/Clutter/DropAction.pm6"                  ,
+      "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
       "Clutter::Stage"                         :  "lib/Clutter/Stage.pm6"                       ,
+      "Clutter::TapAction"                     :  "lib/Clutter/TapAction.pm6"                   ,
       "Clutter::Text"                          :  "lib/Clutter/Text.pm6"                        ,
       "Clutter::InputDevice"                   :  "lib/Clutter/InputDevice.pm6"                 ,
       "Clutter::DeviceManager"                 :  "lib/Clutter/DeviceManager.pm6"               ,
@@ -116,6 +118,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 
