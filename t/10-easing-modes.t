@@ -74,17 +74,20 @@ sub draw-bouncer ($c, $cr, $w, $h, $ud, $r) {
 
   my $rad = ($w, $h).max;
   $ct.arc($rad/2, $rad/2, $rad/2, 0, 2 * π);
-  my $bc = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkScarletRed);
-  $bc.alpha = 255;
+  my $bc = $CLUTTER_COLOR_DarkScarletRed;
 
   my $pat = Cairo::Pattern::Gradient::Radial.create(
     $rad/2, $rad/2, 0, $rad, $rad, $rad
   );
+
+  # An error in perl6 returns negative numbers in a ClutterColor class.
+  # For now, we counter for it by adding 256 to the relevant components.
+  # Since DarkScarletRed has no G or B component, they are ignored.
   $pat.add_color_stop_rgba(
-    0,    $bc.red/255, $bc.green/255, $bc.blue/255, $bc.alpha/255
+    0,    ($bc.red + 256)/255, $bc.green/255, $bc.blue/255, ($bc.alpha + 256)/255
   );
   $pat.add_color_stop_rgba(
-    0.85, $bc.red/255, $bc.green/255, $bc.blue/255, 0.25
+    0.85, ($bc.red + 256)/255, $bc.green/255, $bc.blue/255, 0.25
   );
   $ct.pattern($pat);
   $cr.fill_preserve;
