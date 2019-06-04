@@ -12,20 +12,20 @@ use Clutter::Raw::FlowLayout;
 use Clutter::LayoutManager;
 
 my @attributes = <
-  column_spacing
+  column_spacing      column-spacing
   homogeneous
-  max-column-width        max_column_width
-  max-row-height          max_row_height
-  min-column-width        min_column_width
-  min-row-height          min_row_height
+  max-column-width    max_column_width
+  max-row-height      max_row_height
+  min-column-width    min_column_width
+  min-row-height      min_row_height
   orientation
-  row_spacing
-  snap_to_grid
+  row_spacing         row-spacing
+  snap_to_grid        snap-to-grid
 >;
 
 my @set-methods = <
-  column_width            column-width
-  row_height              row-height
+  column_width        column-width
+  row_height          row-height
 >;
 
 class Clutter::FlowLayout is Clutter::LayoutManager {
@@ -55,7 +55,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
       }
 
       when @set-methods.any {
-        my $proper-name = S:g /_/-/;
+        my $proper-name = S:g /_//;
         say "FlSM: {$_}" if $DEBUG;
         self."set-{ $proper-name }"( |%data{$_} )
       }

@@ -45,21 +45,22 @@ sub MAIN (
     layout-manager   => $layout,
     background-color => $CLUTTER_COLOR_Aluminium2,
     position         => (0, 0),
-    size             => ( $random-size ?? (50..100).rand.Int !! 50 ) xx 2,
   );
   $stage.add-child($box);
   $box.add-constraint(
     Clutter::BindConstraint.new($stage, CLUTTER_BIND_SIZE, 0)
-  ) if $fixed-size.so;
+  ) if $fixed-size.so.not;
 
   for ^$num-rects {
-    my $color = Clutter::Color.new_from_hls(360 * $_ / $num-rects, 0.5, 0.8);
-    my $rect = Clolor::Actor.new.setup(
-      background-color => $color,
-      name => "rect{ $_.fmt('%02d') }",
-      size => ( $random-size ?? (50..100).rand.Int !! 50 ) xx 2,
+    my $color = Clutter::Color.new_from_hls(
+      360 * $_ / $num-rects, 0.5, 0.8, :alpha(255)
     );
-    $box.add-child($rect);
+    $box.add-child( Clutter::Actor.new.setup(
+        background-color => $color,
+        name             => "rect{ $_.fmt('%02d') }",
+        size             => ( $random-size ?? (50..100).rand.Int !! 50 ) xx 2,
+      )
+    );
   }
 
   $stage.show-actor;
