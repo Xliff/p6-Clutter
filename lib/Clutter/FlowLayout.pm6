@@ -11,6 +11,23 @@ use Clutter::Raw::FlowLayout;
 
 use Clutter::LayoutManager;
 
+my @attributes = <
+  column_spacing
+  homogeneous
+  max-column-width        max_column_width
+  max-row-height          max_row_height
+  min-column-width        min_column_width
+  min-row-height          min_row_height
+  orientation
+  row_spacing
+  snap_to_grid
+>;
+
+my @set-methods = <
+  column_width            column-width
+  row_height              row-height
+>;
+
 class Clutter::FlowLayout is Clutter::LayoutManager {
   has ClutterFlowLayout $!cfl;
 
@@ -28,6 +45,24 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   multi method new (Int() $orientation) {
     my guint $o = resolve-uint($orientation);
     self.bless( flowlayout => clutter_flow_layout_new($o) );
+  }
+
+  method setup(*%data) {
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        say "FlA: {$_}" if $DEBUG;
+        self."$_"() = %data{$_}
+      }
+
+      when @set-methods.any {
+        my $proper-name = S:g /_/-/;
+        say "FlSM: {$_}" if $DEBUG;
+        self."set-{ $proper-name }"( |%data{$_} )
+      }
+
+      default { die "Unknown attribute '{ $_ }'" }
+    }
+    self;
   }
 
   method column_spacing is rw is also<column-spacing> {
