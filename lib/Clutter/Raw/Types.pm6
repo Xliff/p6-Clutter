@@ -35,6 +35,7 @@ class ClutterCanvas               is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterChildMeta            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterClickAction          is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterCloneActor           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContainer            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterContent              is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterDragAction           is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -63,6 +64,7 @@ class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterPropertyTransition   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSettings             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterScript               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterScrollActor          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterScriptable           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSnapConstraint       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterStage                is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -773,4 +775,11 @@ our enum ClutterInitError is export (
   CLUTTER_INIT_ERROR_THREADS  => -1,
   CLUTTER_INIT_ERROR_BACKEND  => -2,
   CLUTTER_INIT_ERROR_INTERNAL => -3
+);
+
+our enum ClutterScrollMode is export (
+  CLUTTER_SCROLL_NONE         => 0,
+  CLUTTER_SCROLL_HORIZONTALLY => 1,
+  CLUTTER_SCROLL_VERTICALLY   => 2,
+  CLUTTER_SCROLL_BOTH         => 3  # CLUTTER_SCROLL_HORIZONTALLY | CLUTTER_SCROLL_VERTICALLY
 );
