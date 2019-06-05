@@ -58,6 +58,7 @@ class ClutterMargin               is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterMatrix               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterOffscreenEffect      is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPageTurnEffect       is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPath                 is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPropertyTransition   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSettings             is repr('CPointer') does GTK::Roles::Pointers is export { }
@@ -760,7 +761,7 @@ our enum ClutterPathNodeType is export (
 );
 
 class ClutterPathNode is repr('CStruct') is export does GTK::Roles::Pointers {
-  has guint       $.type; #ClutterPathNodeType type;
+  has guint       $.type     is rw;     # ClutterPathNodeType type;
   has ClutterKnot $.point1;
   has ClutterKnot $.point2;
   has ClutterKnot $.point3;
