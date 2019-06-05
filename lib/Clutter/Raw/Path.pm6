@@ -1,5 +1,7 @@
 use v6.c;
 
+use NativeCall;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -74,7 +76,7 @@ sub clutter_path_clear (ClutterPath $path)
 
 sub clutter_path_foreach (
   ClutterPath $path,
-  &callback(ClutterPathNode, Pointer),
+  &callback (ClutterPathNode, Pointer),
   gpointer $user_data
 )
   is native(clutter)

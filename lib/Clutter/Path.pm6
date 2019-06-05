@@ -23,7 +23,7 @@ class Clutter::Path {
   has ClutterPath $!cp;
 
   submethod BUILD (:$path) {
-    self!setObject( cast(GObject, $!cp = $path) ):
+    self!setObject( cast(GObject, $!cp = $path) );
   }
 
   method Clutter::Raw::Types::ClutterPath
@@ -67,7 +67,7 @@ class Clutter::Path {
   )
     is also<add-curve-to>
   {
-    my gint @a = resolve-int($x_1, $y_1. $x_2, $y_2, $x_3, $y_3);
+    my gint @a = resolve-int($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
     clutter_path_add_curve_to($!cp, |@a);
   }
 
@@ -95,7 +95,7 @@ class Clutter::Path {
   )
     is also<add-rel-curve-to>
   {
-    my gint @a = resolve-int($x_1, $y_1. $x_2, $y_2, $x_3, $y_3);
+    my gint @a = resolve-int($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
     clutter_path_add_rel_curve_to($!cp, |@a);
   }
 

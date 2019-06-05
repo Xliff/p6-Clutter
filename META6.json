@@ -38,6 +38,7 @@
       "Clutter::Raw::Main"                     :  "lib/Clutter/Raw/Main.pm6"                    ,
       "Clutter::Raw::OffscreenEffect"          :  "lib/Clutter/Raw/OffscreenEffect.pm6"         ,
       "Clutter::Raw::PageTurnEffect"           :  "lib/Clutter/Raw/PageTurnEffect.pm6"          ,
+      "Clutter::Raw::Path"                     :  "lib/Clutter/Raw/Path.pm6"                    ,
       "Clutter::Raw::Scriptable"               :  "lib/Clutter/Raw/Scriptable.pm6"              ,
       "Clutter::Raw::SnapConstraint"           :  "lib/Clutter/Raw/SnapConstraint.pm6"          ,
       "Clutter::Raw::Stage"                    :  "lib/Clutter/Raw/Stage.pm6"                   ,
@@ -70,13 +71,13 @@
       "Clutter::BindConstraint"                :  "lib/Clutter/BindConstraint.pm6"              ,
       "Clutter::Color"                         :  "lib/Clutter/Color.pm6"                       ,
       "Clutter::Effect"                        :  "lib/Clutter/Effect.pm6"                      ,
-      "Clutter::FlowLayout"                    :  "lib/Clutter/FlowLayout.pm6"                  ,
       "Clutter::LayoutManager"                 :  "lib/Clutter/LayoutManager.pm6"               ,
       "Clutter::Main"                          :  "lib/Clutter/Main.pm6"                        ,
       "Clutter::Misc"                          :  "lib/Clutter/Misc.pm6"                        ,
       "Clutter::OffscreenEffect"               :  "lib/Clutter/OffscreenEffect.pm6"             ,
       "Clutter::PageTurnEffect"                :  "lib/Clutter/PageTurnEffect.pm6"              ,
       "Clutter::PaintVolume"                   :  "lib/Clutter/PaintVolume.pm6"                 ,
+      "Clutter::Path"                          :  "lib/Clutter/Path.pm6"                        ,
       "Clutter::Point"                         :  "lib/Clutter/Point.pm6"                       ,
       "Clutter::PropertyTransition"            :  "lib/Clutter/PropertyTransition.pm6"          ,
       "Clutter::Roles::Container"              :  "lib/Clutter/Roles/Container.pm6"             ,
@@ -95,6 +96,7 @@
       "Clutter::DesaturateEffect"              :  "lib/Clutter/DesaturateEffect.pm6"            ,
       "Clutter::DragAction"                    :  "lib/Clutter/DragAction.pm6"                  ,
       "Clutter::DropAction"                    :  "lib/Clutter/DropAction.pm6"                  ,
+      "Clutter::FlowLayout"                    :  "lib/Clutter/FlowLayout.pm6"                  ,
       "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
@@ -118,6 +120,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 

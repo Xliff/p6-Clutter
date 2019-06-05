@@ -7,6 +7,8 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::ClickAction;
 
+use GTK::Compat::Value;
+
 use Clutter::Action;
 
 use Clutter::Roles::Signals::ClickAction;
@@ -40,7 +42,7 @@ class Clutter::ClickAction is Clutter::Action {
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
-        warn "held does not allow writing"
+        warn "'held' does not allow writing" if $DEBUG;
       }
     );
   }

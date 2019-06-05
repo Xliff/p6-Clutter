@@ -17,14 +17,14 @@ use Clutter::Stage;
 
 class Clutter::Event {
   has ClutterEvent $!ce;
-  
+
   submethod BUILD (:$event) {
     $!ce = $event;
   }
-  
+
   method Clutter::Raw::Types::ClutterEvent
   { $!ce }
-  
+
   multi method new (ClutterEvents $event_pointer) {
     self.bless( event => cast(ClutterEvent, $event_pointer) );
   }
@@ -35,7 +35,7 @@ class Clutter::Event {
     my guint $t = resolve-uint($type);
     self.bless( event => clutter_event_new($t) );
   }
-  
+
   method button is rw {
     Proxy.new(
       FETCH => sub ($) {
@@ -176,50 +176,51 @@ class Clutter::Event {
       FETCH => sub ($) {
         clutter_event_get_time($!ce);
       },
-      STORE => sub ($, $time_ is copy) {
-        clutter_event_set_time($!ce, $time_);
+      STORE => sub ($, Int() $time is copy) {
+        my guint $t = resolve-uint($time);
+        clutter_event_set_time($!ce, $t);
       }
     );
   }
-  
+
   method add_filter (
     Clutter::Event:U:
     ClutterStage() $stage,
-    &func, 
-    GDestroyNotify $notify = gpointer, 
+    &func,
+    GDestroyNotify $notify = gpointer,
     gpointer $user_data    = gpointer
-  ) 
-    is also<add-filter> 
+  )
+    is also<add-filter>
   {
     clutter_event_add_filter($stage, &func, $notify, $user_data);
   }
 
-  method get_pending (Clutter::Event:U:) 
+  method get_pending (Clutter::Event:U:)
     is also<
       get-pending
       pending
-    > 
+    >
   {
     clutter_events_pending();
   }
 
-  method get_current_event (Clutter::Event:U:) 
+  method get_current_event (Clutter::Event:U:)
     is also<
       get-current-event
       get_current
       get-current
       current
-    > 
+    >
   {
     clutter_get_current_event();
   }
 
-  method get_current_event_time (Clutter::Event:U:) 
+  method get_current_event_time (Clutter::Event:U:)
     is also<
       get-current-event-time
       current_event_time
       current-event-time
-    > 
+    >
   {
     clutter_get_current_event_time();
   }
@@ -243,7 +244,7 @@ class Clutter::Event {
   proto method get_axes (|)
     is also<get-axes>
   { * }
-  
+
   multi method get_axes is also<axes> {
     my $na = 0;
     samewith($na);
@@ -252,19 +253,19 @@ class Clutter::Event {
     my guint $na = 0;
     my $ar = clutter_event_get_axes($!ce, $na);
     $n_axes = $na;
-    
+
     my @a;
     @a[$_] = $ar[$_] for ^$na;
     @a.unshift: $na;
     @a;
   }
 
-  method get_click_count 
+  method get_click_count
     is also<
       get-click-count
       click_count
       click-count
-    > 
+    >
   {
     clutter_event_get_click_count($!ce);
   }
@@ -272,7 +273,7 @@ class Clutter::Event {
   proto method get_coords (|)
     is also<get-coords>
   { * }
-  
+
   multi method get_coords is also<coords> {
     my ($x, $y) = (0, 0);
     samewith($x, $y);
@@ -283,22 +284,22 @@ class Clutter::Event {
     ($x, $y) = ($xx, $yy);
   }
 
-  method get_device_id 
+  method get_device_id
     is also<
       get-device-id
       device_id
       device-id
-    > 
+    >
   {
     clutter_event_get_device_id($!ce);
   }
 
-  method get_device_type 
+  method get_device_type
     is also<
       get-device-type
       device_type
       device-type
-    > 
+    >
   {
     ClutterInputDeviceType( clutter_event_get_device_type($!ce) );
   }
@@ -307,7 +308,7 @@ class Clutter::Event {
     clutter_event_get_distance($!ce, $target);
   }
 
-  method get_event_sequence 
+  method get_event_sequence
     is also<
       get-event-sequence
       event_sequence
@@ -317,26 +318,26 @@ class Clutter::Event {
     clutter_event_get_event_sequence($!ce);
   }
 
-  method get_gesture_motion_delta (Num() $dx is rw, Num() $dy is rw) 
-    is also<get-gesture-motion-delta> 
+  method get_gesture_motion_delta (Num() $dx is rw, Num() $dy is rw)
+    is also<get-gesture-motion-delta>
   {
     my gdouble ($ddx, $ddy) = ($dx, $dy);
     clutter_event_get_gesture_motion_delta($!ce, $ddx, $ddy);
     ($dx, $dy) = ($ddx, $ddy);
   }
 
-  method get_gesture_phase 
+  method get_gesture_phase
     is also<
       get-gesture-phase
       gesture_phase
       gesture-phase
-    > 
+    >
   {
     clutter_event_get_gesture_phase($!ce);
   }
 
-  method get_gesture_pinch_angle_delta 
-    is also<get-gesture-pinch-angle-delta> 
+  method get_gesture_pinch_angle_delta
+    is also<get-gesture-pinch-angle-delta>
   {
     clutter_event_get_gesture_pinch_angle_delta($!ce);
   }
@@ -345,8 +346,8 @@ class Clutter::Event {
     clutter_event_get_gesture_pinch_scale($!ce);
   }
 
-  method get_gesture_swipe_finger_count 
-    is also<get-gesture-swipe-finger-count> 
+  method get_gesture_swipe_finger_count
+    is also<get-gesture-swipe-finger-count>
   {
     clutter_event_get_gesture_swipe_finger_count($!ce);
   }
@@ -355,15 +356,15 @@ class Clutter::Event {
     clutter_event_get_position($!ce, $position);
   }
 
-  proto method get_scroll_delta (|) 
-    is also<get-scroll-delta> 
+  proto method get_scroll_delta (|)
+    is also<get-scroll-delta>
   { * }
-  
-  multi method get_scroll_delta 
+
+  multi method get_scroll_delta
     is also<
       scroll_delta
       scroll-delta
-    > 
+    >
   {
     my ($dx, $dy) = (0, 0);
     samewith($dx, $dy);
@@ -397,18 +398,18 @@ class Clutter::Event {
     Int() $effective_state is rw  # ClutterModifierType
   ) {
     my guint ($btn, $base, $lat, $lck, $eff) = resolve-uint(
-      $button_state,   
-      $base_state, 
-      $latched_state, 
-      $locked_state, 
+      $button_state,
+      $base_state,
+      $latched_state,
+      $locked_state,
       $effective_state
     );
     clutter_event_get_state_full($!ce, $btn, $base, $lat, $lck, $eff);
     (
-      $button_state,   
-      $base_state, 
-      $latched_state, 
-      $locked_state, 
+      $button_state,
+      $base_state,
+      $latched_state,
+      $locked_state,
       $effective_state
     ) = ($btn, $base, $lat, $lck, $eff);
   }
