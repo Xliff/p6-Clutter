@@ -1,15 +1,22 @@
 use v6.c;
 
+use GTK::Compat::Types;
 use Clutter::Raw::Keysyms;
 use Clutter::Raw::Types;
+
+use GTK::Roles::Pointers;
+use GTK::Roles::Properties;
+use GTK::Compat::Roles::Object;
 
 use Clutter::Actor;
 use Clutter::AlignConstraint;
 use Clutter::BindConstraint;
 use Clutter::BoxLayout;
 use Clutter::Color;
+use Clutter::Event;
 use Clutter::ScrollActor;
 use Clutter::Stage;
+use Clutter::Text;
 
 use Clutter::Main;
 
@@ -36,11 +43,15 @@ sub set-data (ObjectOrPointer $i is copy, $k, $v) {
 my @options = 'Option ' «~» (1..11);
 
 sub select-item-at-index ($s, $i is copy) {
+  CATCH { default { .message.say } }
   my $menu = $s.first-child;
 
   my $old-selected = get-data($s, 'selected-item');
   if $old-selected.defined {
-    my $item = $menu.get-child-at-index($old-selected);
+    # MUST cast to prevent an ambiguity.
+    my $item = Clutter::Text.new(
+      cast( ClutterText, $menu.get-child-at-index($old-selected, :raw) )
+    );
     $item.color = $CLUTTER_COLOR_White;
   }
 
@@ -48,7 +59,10 @@ sub select-item-at-index ($s, $i is copy) {
   $i = 0               if $i >= $menu.elems;
 
   my $p = Clutter::Point.new;
-  my $item = $menu.get-child-at($i);
+  # MUST cast to prevent an ambiguity.
+  my $item = Clutter::Text.new(
+    cast( ClutterText, $menu.get-child-at-index($i, :raw) )
+  );
   ($p.x, $p.y) = $item.get-position;
 
   $s.save-easing-state;
@@ -56,7 +70,7 @@ sub select-item-at-index ($s, $i is copy) {
   $s.restore-easing-state;
 
   $item.color = $CLUTTER_COLOR_LightSkyBlue;
-  set-data($s, $i);
+  set-data($s, 'selected-item', $i);
 }
 
 sub select-next-item ($s) {
@@ -86,7 +100,7 @@ sub create-menu-actor ($s) {
     layout-manager => $layout,
     background-color => $CLUTTER_COLOR_Black
   );
-  $menu.add-child($_) for @options;
+  $menu.add-child( create-menu-item($_) ) for @options;
   $menu;
 }
 
@@ -105,10 +119,9 @@ sub create-scroll-actor ($stage) {
 }
 
 sub on-key-press ($s, $e, $u, $r) {
-  my $scroll = $s.get-first-child;
   given Clutter::Event.new($e).key-symbol {
-    when CLUTTER_KEY_Up   { select-prev-item($scroll) }
-    when CLUTTER_KEY_Down { select-next-item($scroll) }
+    when CLUTTER_KEY_Up   { select-prev-item($s) }
+    when CLUTTER_KEY_Down { select-next-item($s) }
   }
   $r.r = CLUTTER_EVENT_STOP;
 }
@@ -120,9 +133,9 @@ sub MAIN {
     name           => 'Scroll Actor',
     user-resizable => True,
   );
-  $stage.add-child( create-scroll-actor($stage) );
+  $stage.add-child( my $scroll = create-scroll-actor($stage) );
   $stage.destroy.tap({ Clutter::Main.quit });
-  $stage.key-press-event.tap(-> *@a { on-key-press( |@a ) });
+  $stage.key-press-event.tap(-> *@a { @a[0] = $scroll; on-key-press( |@a ) });
   $stage.show-actor;
 
   Clutter::Main.run;

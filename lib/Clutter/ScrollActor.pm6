@@ -17,8 +17,8 @@ our subset ScrollActorAncestry is export of Mu
 class Clutter::ScrollActor is Clutter::Actor {
   has ClutterScrollActor $!csa;
 
-  submethod BUILD (:$clone) {
-    given $clone {
+  submethod BUILD (:$scroll) {
+    given $scroll {
       when ScrollActorAncestry {
         my $to-parent;
         $!csa = do {
@@ -46,6 +46,18 @@ class Clutter::ScrollActor is Clutter::Actor {
 
   method new {
     self.bless( scroll => clutter_scroll_actor_new() );
+  }
+
+  method setup(*%data) {
+    for %data.keys {
+      when 'scroll-mode' | 'scroll_mode' {
+        say "SAA: $_" if $DEBUG;
+        self.scroll-mode = %data{$_};
+        %data{$_}:delete;
+      }
+    }
+
+    self.Clutter::Actor::setup(|%data) if %data.elems;
   }
 
   method scroll_mode is rw is also<scroll-mode> {

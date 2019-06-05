@@ -1753,9 +1753,15 @@ class Clutter::Actor {
     $color;
   }
 
-  method get_child_at_index (Int() $index) is also<get-child-at-index> {
+  method get_child_at_index (Int() $index, :$raw = False)
+    is also<get-child-at-index>
+  {
     my gint $i = resolve-int($index);
-    Clutter::Actor.new( clutter_actor_get_child_at_index($!ca, $index) );
+    my $a = clutter_actor_get_child_at_index($!ca, $index);
+    $a.defined ??
+      $raw ?? $a !! Clutter::Actor.new($a)
+      !!
+      Nil;
   }
 
   method get_child_transform (ClutterMatrix() $transform)

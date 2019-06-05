@@ -14,6 +14,18 @@ use Clutter::LayoutManager;
 our subset BoxLayoutAncestry is export
   where ClutterBoxLayout | ClutterLayoutManager;
 
+my @attributes = <
+  easing_duration  easing-duration
+  easing_mode      easing-modfe
+  homogeneous
+  orientation
+  pack_start       pack-start
+  spacing
+  use_animation    use-animation
+>;
+
+my @set-methods = <expand alignment fill>;
+
 class Clutter::BoxLayout is Clutter::LayoutManager {
   has ClutterBoxLayout $!cb;
 
@@ -48,6 +60,24 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
   }
   multi method new {
     self.bless( boxlayout => clutter_box_layout_new() );
+  }
+
+  method setup(*%data) {
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        say "BA: {$_}" if $DEBUG;
+        self."$_"() = %data{$_}
+      }
+
+      when @set-methods.any {
+        my $proper-name = S:g/_/-/;
+        say "BSM: {$_}" if $DEBUG;
+        self."set-{ $proper-name }"( |%data{$_} )
+      }
+
+      default { die "Unknown attribute '{ $_ }'" }
+    }
+    self;
   }
 
   method easing_duration is rw is DEPRECATED is also<easing-duration> {

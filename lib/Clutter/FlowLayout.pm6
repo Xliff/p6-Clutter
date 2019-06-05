@@ -55,7 +55,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
       }
 
       when @set-methods.any {
-        my $proper-name = S:g /_//;
+        my $proper-name = S:g/_/-/;
         say "FlSM: {$_}" if $DEBUG;
         self."set-{ $proper-name }"( |%data{$_} )
       }

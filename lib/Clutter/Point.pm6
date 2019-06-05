@@ -22,7 +22,7 @@ class Clutter::Point {
     is also<ClutterPoint>
   { $!cp }
 
-  method new (Num() $x, Num() $y) is also<init> {
+  multi method new (Num() $x = 0, Num() $y = 0) is also<init> {
     my gfloat ($xx, $yy) = ($x, $y);
     self.bless( point => clutter_point_init(Clutter::Point.alloc, $xx, $yy) );
   }

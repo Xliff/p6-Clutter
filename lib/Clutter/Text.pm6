@@ -68,28 +68,51 @@ my @attributes = <
 >;
 
 my @set_methods = <
-  color
   cursor_color         cursor-color
   markup
   selected_text_color selected-text-color
   selection_color     selection-color
 >;
 
+our subset TextAncestry is export of Mu
+  where ClutterText | ActorAncestry;
+
 class Clutter::Text is Clutter::Actor {
   also does Clutter::Roles::Signals::Text;
 
   has ClutterText $!ct;
 
-  # REALLY needs ancestry logic.
-  submethod BUILD (:$textactor) {
-    self.setActor( cast(ClutterActor, $!ct = $textactor) );
+  submethod BUILD (:$text) {
+    given $text {
+      when TextAncestry {
+        my $to-parent;
+        $!ct = do {
+          when ClutterText {
+            $to-parent = cast(ClutterActor, $text);
+            $_;
+          }
+          default {
+            $to-parent = $_;
+            cast(ClutterText, $_);
+          }
+        }
+        self.setActor($to-parent);
+      }
+      when Clutter::Text {
+      }
+      default {
+      }
+    }
   }
 
   method Clutter::Raw::Types::ClutterText
   { $!ct }
 
-  method new {
-    self.bless( textactor => clutter_text_new() );
+  multi method new (TextAncestry $text) {
+    self.bless(:$text);
+  }
+  multi method new {
+    self.bless( text => clutter_text_new() );
   }
 
   method new_full (
@@ -100,7 +123,7 @@ class Clutter::Text is Clutter::Actor {
     is also<new-full>
   {
     self.bless(
-      textactor => clutter_text_new_full($font_name, $text, $color)
+      text => clutter_text_new_full($font_name, $text, $color)
     );
   }
 
@@ -390,7 +413,7 @@ class Clutter::Text is Clutter::Actor {
         );
         Clutter::Color.new( cast(ClutterColor, $gv.boxed) );
       },
-      STORE => -> $, ClutterColor $val is copy {
+      STORE => -> $, ClutterColor() $val is copy {
         $gv.boxed = $val;
         self.prop_set('color', $gv);
       }
