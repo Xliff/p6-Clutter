@@ -13,12 +13,29 @@ use GTK::Compat::Roles::Object;
 use GTK::Roles::Protection;
 use GTK::Roles::Signals::Generic;
 
+my @attributes = <
+  auto_reverse    auto-reverse
+  delay
+  direction
+  duration
+  progress_mode   progress-mode
+  repeat_count    repeat-count
+>;
+
+my @set-methods = <
+  cubic_bezier_progress   cubic-bezier-progress
+  progress_func           progress-func
+  step_progress           step-progress
+>;
+
 class Clutter::Timeline {
   also does GTK::Compat::Roles::Object;
   also does GTK::Roles::Protection;
   also does GTK::Roles::Signals::Generic;
 
   has ClutterTimeline $!ctime;
+
+  # needs refinement
 
   submethod BUILD (:$timeline) {
     self.ADD-PREFIX('Clutter::');
@@ -37,6 +54,24 @@ class Clutter::Timeline {
   method new (Int() $msecs) {
     my guint $ms = resolve-uint($msecs);
     self.bless( timeline => clutter_timeline_new($ms) );
+  }
+
+  method setup(*%data) {
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        say "TlA: {$_}" if $DEBUG;
+        self."$_"() = %data{$_}
+      }
+
+      when @set-methods.any {
+        my $proper-name = S:g/_/-/;
+        say "TlSM: {$_}" if $DEBUG;
+        self."set-{ $proper-name }"( |%data{$_} )
+      }
+
+      default { die "Unknown attribute '{ $_ }'" }
+    }
+    self;
   }
 
   method auto_reverse is rw is also<auto-reverse> {
@@ -147,19 +182,22 @@ class Clutter::Timeline {
     self.connect-bool($!ctime, 'stopped');
   }
 
-  method add_marker (Str() $marker_name, gdouble $progress)
+  method add_marker (Str() $marker_name, Num() $progress)
     is also<add-marker>
   {
-    clutter_timeline_add_marker($!ctime, $marker_name, $progress);
+    my gdouble $p = $progress;
+    clutter_timeline_add_marker($!ctime, $marker_name, $p);
   }
 
-  method add_marker_at_time (Str() $marker_name, guint $msecs)
+  method add_marker_at_time (Str() $marker_name, Int() $msecs)
     is also<add-marker-at-time>
   {
+    my guint $ms = resolve-uint($msecs);
     clutter_timeline_add_marker_at_time($!ctime, $marker_name, $msecs);
   }
 
-  method advance (guint $msecs) {
+  method advance (Int() $msecs) {
+    my guint $ms = resolve-uint($msecs);
     clutter_timeline_advance($!ctime, $msecs);
   }
 
@@ -171,16 +209,23 @@ class Clutter::Timeline {
     is also<get-cubic-bezier-progress>
   { * }
 
-  multi method get_cubic_bezier_progress {
+  multi method get_cubic_bezier_progress (:$raw = False) {
     my ($c1, $c2) = ClutterPoint.new xx 2;
-    samewith($c1, $c2);
+    samewith($c1, $c2, :$raw);
   }
   multi method get_cubic_bezier_progress (
     ClutterPoint() $c_1,
-    ClutterPoint() $c_2
+    ClutterPoint() $c_2,
+    :$raw = False
   ) {
     clutter_timeline_get_cubic_bezier_progress($!ctime, $c_1, $c_2);
-    ( Clutter::Point.new($c_1), Clutter::Point.new($c_2) );
+    $raw ??
+      (
+        $c_1.defined ?? Clutter::Point.new($c_1) !! Nil,
+        $c_2.defined ?? Clutter::Point.new($c_2) !! Nil
+      )
+      !!
+      ( $c_1 // Nil, $c_2 // Nil );
   }
 
   method get_current_repeat is also<get-current-repeat> {
@@ -203,10 +248,24 @@ class Clutter::Timeline {
     clutter_timeline_get_progress($!ctime);
   }
 
-  method get_step_progress (gint $n_steps, ClutterStepMode $step_mode)
+  proto method get_step_progress (|)
     is also<get-step-progress>
-  {
-    clutter_timeline_get_step_progress($!ctime, $n_steps, $step_mode);
+  { * }
+
+  multi method get_step_progress {
+    my ($ns, $sm) = (0, 0);
+    samewith($ns, $sm);
+  }
+  multi method get_step_progress ($n_steps is rw, $step_mode is rw) {
+    die '$n_steps must be an Int-compabtible value'
+      unless $n_steps.^can('Int').elems;
+    die '$step_mode must be an Int-compatible value'
+      unless $step_mode.^can('Int').elems;
+    $_ .= Int for $n_steps, $step_mode;
+    my gint $ns = resolve-int($n_steps);
+    my guint $sm = resolve-uint($step_mode);
+    clutter_timeline_get_step_progress($!ctime, $ns, $sm);
+    ($n_steps, $step_mode) = ($ns, $sm);
   }
 
   method get_type is also<get-type> {
@@ -222,8 +281,10 @@ class Clutter::Timeline {
     clutter_timeline_is_playing($!ctime);
   }
 
-  method list_markers (gint $msecs, gsize $n_markers) is also<list-markers> {
-    clutter_timeline_list_markers($!ctime, $msecs, $n_markers);
+  method list_markers (Int() $msecs, Int() $n_markers) is also<list-markers> {
+    my guint $ms = resolve-uint($msecs);
+    my gsize $nm = resolve-int64($n_markers);
+    clutter_timeline_list_markers($!ctime, $ms, $nm);
   }
 
   method pause {
@@ -248,22 +309,25 @@ class Clutter::Timeline {
   }
 
   method set_progress_func (
-    ClutterTimelineProgressFunc $func,
-    gpointer $data,
-    GDestroyNotify $notify
+    &func,
+    gpointer       $data   = gpointer,
+    GDestroyNotify $notify = gpointer
   )
     is also<set-progress-func>
   {
-    clutter_timeline_set_progress_func($!ctime, $func, $data, $notify);
+    clutter_timeline_set_progress_func($!ctime, &func, $data, $notify);
   }
 
-  method set_step_progress (gint $n_steps, ClutterStepMode $step_mode)
+  method set_step_progress (Int() $n_steps, Int() $step_mode)
     is also<set-step-progress>
   {
-    clutter_timeline_set_step_progress($!ctime, $n_steps, $step_mode);
+    my gint $ns = resolve-int($n_steps);
+    my guint $sm = resolve-uint($step_mode);
+    clutter_timeline_set_step_progress($!ctime, $ns, $sm);
   }
 
-  method skip (guint $msecs) {
+  method skip (Int() $msecs) {
+    my guint $ms = resolve-uint($msecs);
     clutter_timeline_skip($!ctime, $msecs);
   }
 

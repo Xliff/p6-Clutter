@@ -14,6 +14,17 @@ use GTK::Roles::Protection;
 
 use Clutter::Timeline;
 
+my @attributes = <
+  animatable
+  interval
+  remove_on_complete    remove-on-complete
+>;
+
+my @set-methods = <
+  from_value            from-value
+  to_value              to-value
+>;
+
 class Clutter::Transition is Clutter::Timeline {
   also does GTK::Roles::Properties;
   also does GTK::Roles::Protection;
@@ -35,6 +46,38 @@ class Clutter::Transition is Clutter::Timeline {
 
   method new (ClutterTransition $transition) {
     self.bless(:$transition);
+  }
+
+  method setup (*%data) {
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        say "TrA: {$_}" if $DEBUG;
+        self."$_"() = %data{$_};
+        %data{$_}:delete;
+      }
+
+      when @set-methods.any {
+        my $proper-name = S:g/_/-/;
+        say "TrSM: {$_}" if $DEBUG;
+        self."set-{ $proper-name }"( |%data{$_} );
+        %data{$_}:delete;
+      }
+
+      when 'from' {
+        say "Tr from = { %data<from>.value }" if $DEBUG;
+        self.set-from-value( %data<from> );
+        %data<from>:delete;
+
+      }
+      when 'to' {
+        say "Tr to = { %data<to>.value }" if $DEBUG;
+        self.set-to-value( %data<to> );
+        %data<to>:delete;
+      }
+    }
+
+    self.Clutter::Timeline::setup( |%data ) if %data.keys;
+    self;
   }
 
   method animatable is rw {

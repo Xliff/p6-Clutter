@@ -16,6 +16,19 @@ class Clutter::PropertyTransition is Clutter::Transition {
     self.setTransition( cast(ClutterTransition, $!cpt = $propertytransition) );
   }
 
+  method setup (*%data) {
+    given %data.keys {
+      when 'property-name' | 'property_name' {
+        say 'property-name';
+        self.property-name = %data{$_};
+        %data{$_}:delete;
+      }
+    }
+
+    self.Clutter::Transition::setup( |%data ) if %data.keys;
+    self;
+  }
+
   method Clutter::Raw::Types::ClutterPropertyTransition
     is also<ClutterPropertyTransition>
   { $!cpt }

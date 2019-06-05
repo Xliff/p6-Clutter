@@ -75,7 +75,8 @@ class Clutter::Stage is Clutter::Actor {
       }
     }
     # Not as clean as I like it, but it solves problems nextwith does NOT.
-    self.Clutter::Actor::setup(|%data) if %data.keys.elems;
+    self.Clutter::Actor::setup(|%data) if %data.keys;
+    self;
   }
 
   # Type: gboolean
