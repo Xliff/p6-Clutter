@@ -20,14 +20,17 @@ class Clutter::PanAction is Clutter::GestureAction {
   
   # Needs ancestry logic
   submethod BUILD (:$pan) {
-    self.setAction( cast(ClutterGestureAction, $!cpa = $pan) );
+    self.setGestureAction( cast(ClutterGestureAction, $!cpa = $pan) );
   }
   
   method Clutter::Raw::Types::ClutterPanAction
   { $!cpa }
-  
-  method new () {
-    clutter_pan_action_new();
+
+  multi method new (ClutterPanAction $pan) {
+    self.bless(:$pan);
+  }
+  multi method new {
+    self.bless( pan => clutter_pan_action_new() );
   }
   
   method acceleration_factor is rw is also<acceleration-factor> {
@@ -140,8 +143,8 @@ class Clutter::PanAction is Clutter::GestureAction {
     samewith($dx, $dy);
   }
   multi method get_interpolated_delta (
-    Num() $delta_x is rw, 
-    Num() $delta_y is rw
+    $delta_x is rw, 
+    $delta_y is rw
   ) {
     die '$delta_x must be Num-compatible' unless $delta_x.^can('Num').elems;
     die '$delta_y must be Num-compatible' unless $delta_y.^can('Num').elems;
@@ -191,7 +194,7 @@ class Clutter::PanAction is Clutter::GestureAction {
     $_ .= Num for $delta_x, $delta_y;
     my guint $p = resolve-uint($point);
     my gfloat ($dx, $dy) = ($delta_x, $delta_y);
-    clutter_pan_action_get_motion_delta($!cpa, $point, $delta_x, $delta_y);
+    clutter_pan_action_get_motion_delta($!cpa, $p, $dx, $dy);
     ($delta_x, $delta_y) = ($dx, $dy);
   }
 

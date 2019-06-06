@@ -10,8 +10,8 @@ unit package Clutter::Raw::PanAction;
 sub clutter_pan_action_get_constrained_motion_delta (
   ClutterPanAction $self, 
   guint $point, 
-  gfloat $delta_x, 
-  gfloat $delta_y
+  gfloat $delta_x is rw, 
+  gfloat $delta_y is rw
 )
   returns gfloat
   is native(clutter)
@@ -20,8 +20,8 @@ sub clutter_pan_action_get_constrained_motion_delta (
 
 sub clutter_pan_action_get_interpolated_coords (
   ClutterPanAction $self, 
-  gfloat $interpolated_x, 
-  gfloat $interpolated_y
+  gfloat $interpolated_x is rw, 
+  gfloat $interpolated_y is rw
 )
   is native(clutter)
   is export
@@ -29,8 +29,8 @@ sub clutter_pan_action_get_interpolated_coords (
 
 sub clutter_pan_action_get_interpolated_delta (
   ClutterPanAction $self, 
-  gfloat $delta_x, 
-  gfloat $delta_y
+  gfloat $delta_x is rw, 
+  gfloat $delta_y is rw
 )
   returns gfloat
   is native(clutter)
@@ -40,8 +40,8 @@ sub clutter_pan_action_get_interpolated_delta (
 sub clutter_pan_action_get_motion_coords (
   ClutterPanAction $self, 
   guint $point, 
-  gfloat $motion_x, 
-  gfloat $motion_y
+  gfloat $motion_x is rw, 
+  gfloat $motion_y is rw
 )
   is native(clutter)
   is export
@@ -50,8 +50,8 @@ sub clutter_pan_action_get_motion_coords (
 sub clutter_pan_action_get_motion_delta (
   ClutterPanAction $self, 
   guint $point, 
-  gfloat $delta_x, 
-  gfloat $delta_y
+  gfloat $delta_x is rw, 
+  gfloat $delta_y is rw
 )
   returns gfloat
   is native(clutter)
@@ -65,7 +65,7 @@ sub clutter_pan_action_get_type ()
 { * }
 
 sub clutter_pan_action_new ()
-  returns ClutterAction
+  returns ClutterPanAction
   is native(clutter)
   is export
 { * }

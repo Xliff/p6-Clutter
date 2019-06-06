@@ -2836,8 +2836,10 @@ class Clutter::Actor {
     clutter_actor_clear_actions($!ca);
   }
 
-  method get_action (Str() $name) is also<get-action> {
-    Clutter::Action.new( clutter_actor_get_action($!ca, $name) );
+  method get_action (Str() $name, :$raw = False) is also<get-action> {
+    my $a = clutter_actor_get_action($!ca, $name);
+    return Nil unless $a.defined;
+    $raw ?? $a !! Clutter::Action.new($a);
   }
 
   method get_actions (:$raw = False) is also<get-actions> {

@@ -130,11 +130,11 @@ class Clutter::Text is Clutter::Actor {
   method new_with_buffer (ClutterTextBuffer() $buffer)
     is also<new-with-buffer>
   {
-    self.bless( textactor => clutter_text_new_with_buffer($buffer) );
+    self.bless( text => clutter_text_new_with_buffer($buffer) );
   }
 
   method new_with_text (Str() $font, Str() $text) is also<new-with-text> {
-    self.bless( textactor => clutter_text_new_with_text($font, $text) );
+    self.bless( text => clutter_text_new_with_text($font, $text) );
   }
 
   method setup(*%data) {

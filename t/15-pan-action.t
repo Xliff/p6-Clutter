@@ -9,8 +9,12 @@ use Clutter::Raw::Keysyms;
 use GTK::Compat::Pixbuf;
 
 use Clutter::Actor;
+use Clutter::AlignConstraint;
+use Clutter::BindConstraint;
 use Clutter::BoxLayout;
+use Clutter::Event;
 use Clutter::Image;
+use Clutter::PanAction;
 use Clutter::ScrollActor;
 use Clutter::Stage;
 use Clutter::Text;
@@ -42,75 +46,75 @@ sub create-content-actor {
 }
 
 sub on-pan ($a, $s, $ii, $ud, $r) {
-  my ($e, $dx, $dy) = ( ClutterEvent.new );
+  CATCH { default { .message.say } }
+  my ($e, $dx, $dy);
   
   if $ii {
-    ($dx, $dy) = $a.get-motion-delta(0);
+    ($dx, $dy) = $a.get-interpolated-delta;
   } else {
-     my $ga = Clutter::GestureAction.new($a.ClutterAction);
-     ($dx, $dy) = $ga.get-motion-delta(0);
-     $e = $ga.get-last-event(0);
+    ($dx, $dy) = $a.get-motion-delta(0);
+    $e = $a.get-last-event(0);
   }
    
   say "[{ do if    $e.defined.not                  { 'INTERPOLATED' }
              elsif $e.type == CLUTTER_MOTION       { 'MOTION'       }
              elsif $e.type == CLUTTER_TOUCH_UPDATE {'TOUCH_UPDATE'  }
              else                                  { '?' }
-      }] panning dx:{ $dx.round(1e-2) } dy:{ $dy.round(1e-2) }";
+      }] panning dx:{ $dx.fmt('%.2f') } dy:{ $dy.fmt('%.2f') }";
   $r.r = 1;
 }
 
 sub create-scroll-actor ($s) {
-  my $pa = Clutter::PanAction.new;
-  $pa.set-interpolate = True;
+  (my $pa = Clutter::PanAction.new).interpolate = True;
   $pa.pan.tap(-> *@a { on-pan(|@a) });
   
   Clutter::Actor.new.setup(
-    name => 'scroll',
-    constraints => [
+    name             => 'scroll',
+    child            => create-content-actor,
+    reactive         => True,
+    action-with-name => ('pan', $pa),
+    constraints      => [
       Clutter::AlignConstraint.new($s, CLUTTER_ALIGN_X_AXIS, 0),
       Clutter::BindConstraint.new($s, CLUTTER_BIND_SIZE, 0)
     ],
-    child => create-content-actor;
-    reactive => True,
-    action-with-name => ('pan', $pa)
   );
 }
 
 sub on-key-press ($s, $e, $ud, $r) {
   my $scroll = $s.get-first-child;
-  if Clutter::Eventnew($e).key-symbol == CLUTTER_KEY_space {
+  if Clutter::Event.new($e).key-symbol == CLUTTER_KEY_space {
     $scroll.save-easing-state;
     $scroll.easing-duration = 100;
     $scroll.set-child-transform(ClutterMatrix);
-    $scroll.restore-easing-stage;
+    $scroll.restore-easing-state;
   }
   $r.r = CLUTTER_EVENT_STOP;
 }
   
 sub on-label-clicked($l, $e, $scroll, $r) {
+  CATCH { default { .message.say } }
   my $action = Clutter::PanAction.new( 
     cast( ClutterPanAction, $scroll.get-action('pan', :raw) ) 
   );
-  $action.set-pan-axis( 
-    do given $l.text {
-      when 'X AXIS' { CLUTTER_PAN_X_AXIS    }
-      when 'Y AXIS' { CLUTTER_PAN_Y_AXIS    }
-      when 'AUTO'   { CLUTTER_PAN_AXIS_AUTO }
-      default       { CLUTTER_PAN_AXIS_NONE }
-    }
-  );
+  $action.pan-axis = do given $l.text {
+    when 'X AXIS' { CLUTTER_PAN_X_AXIS    }
+    when 'Y AXIS' { CLUTTER_PAN_Y_AXIS    }
+    when 'AUTO'   { CLUTTER_PAN_AXIS_AUTO }
+    default       { CLUTTER_PAN_AXIS_NONE }
+  };
   $r.r = 1;
 }
 
 sub add-label($t, $b, $s) {
   my $label = Clutter::Text.new-with-text(Str, $t).setup(
-    reactive => True,
-    x-align  => CLUTTER_ACTOR_ALIGN_START,
-    x-expand => True
+    reactive    => True,
+    x-align     => CLUTTER_ACTOR_ALIGN_START,
+    x-expand    => True,
+    activatable => False,
+    selectable  => False,
   );
   $b.add-child($label);
-  $label.button-release-event(-> *@a { @a[2] = $s; on-label-clicked(|@a) });
+  $label.button-release-event.tap(-> *@a { @a[2] = $s; on-label-clicked(|@a) });
 }
 
 sub MAIN {
@@ -123,7 +127,7 @@ sub MAIN {
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.key-press-event.tap(-> *@a { on-key-press(|@a) });
   
-  my $scroll = Clutter::ScrollActor.new;
+  my $scroll = create-scroll-actor($stage);
   my $layout = Clutter::BoxLayout.new;
   $layout.orientation = CLUTTER_ORIENTATION_VERTICAL;
   my $box = Clutter::Actor.new.setup(
