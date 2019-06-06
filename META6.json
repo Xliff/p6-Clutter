@@ -38,8 +38,10 @@
       "Clutter::Raw::Main"                     :  "lib/Clutter/Raw/Main.pm6"                    ,
       "Clutter::Raw::OffscreenEffect"          :  "lib/Clutter/Raw/OffscreenEffect.pm6"         ,
       "Clutter::Raw::PageTurnEffect"           :  "lib/Clutter/Raw/PageTurnEffect.pm6"          ,
+      "Clutter::Raw::PanAction"                :  "lib/Clutter/Raw/PanAction.pm6"               ,
       "Clutter::Raw::Path"                     :  "lib/Clutter/Raw/Path.pm6"                    ,
       "Clutter::Raw::Scriptable"               :  "lib/Clutter/Raw/Scriptable.pm6"              ,
+      "Clutter::Raw::ScrollActor"              :  "lib/Clutter/Raw/ScrollActor.pm6"             ,
       "Clutter::Raw::SnapConstraint"           :  "lib/Clutter/Raw/SnapConstraint.pm6"          ,
       "Clutter::Raw::Stage"                    :  "lib/Clutter/Raw/Stage.pm6"                   ,
       "Clutter::Raw::Text"                     :  "lib/Clutter/Raw/Text.pm6"                    ,
@@ -56,9 +58,9 @@
       "Clutter::Roles::Signals::DeviceManager" :  "lib/Clutter/Roles/Signals/DeviceManager.pm6" ,
       "Clutter::Roles::Signals::DragAction"    :  "lib/Clutter/Roles/Signals/DragAction.pm6"    ,
       "Clutter::Roles::Signals::Generic"       :  "lib/Clutter/Roles/Signals/Generic.pm6"       ,
+      "Clutter::Roles::Signals::PanAction"     :  "lib/Clutter/Roles/Signals/PanAction.pm6"     ,
       "Clutter::Roles::Signals::Stage"         :  "lib/Clutter/Roles/Signals/Stage.pm6"         ,
       "Clutter::Roles::Signals::Text"          :  "lib/Clutter/Roles/Signals/Text.pm6"          ,
-      "Clutter::Raw::ScrollActor"              :  "lib/Clutter/Raw/ScrollActor.pm6"             ,
       "Clutter::Size"                          :  "lib/Clutter/Size.pm6"                        ,
       "Clutter::TextBuffer"                    :  "lib/Clutter/TextBuffer.pm6"                  ,
       "Clutter::Threads"                       :  "lib/Clutter/Threads.pm6"                     ,
@@ -100,6 +102,7 @@
       "Clutter::FlowLayout"                    :  "lib/Clutter/FlowLayout.pm6"                  ,
       "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
+      "Clutter::PanAction"                     :  "lib/Clutter/PanAction.pm6"                   ,
       "Clutter::ScrollActor"                   :  "lib/Clutter/ScrollActor.pm6"                 ,
       "Clutter::SnapConstraint"                :  "lib/Clutter/SnapConstraint.pm6"              ,
       "Clutter::Stage"                         :  "lib/Clutter/Stage.pm6"                       ,
@@ -122,6 +125,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 

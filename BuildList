@@ -46,8 +46,10 @@ Clutter::Raw::LayoutManager
 Clutter::Raw::Main
 Clutter::Raw::OffscreenEffect
 Clutter::Raw::PageTurnEffect
+Clutter::Raw::PanAction
 Clutter::Raw::Path
 Clutter::Raw::Scriptable
+Clutter::Raw::ScrollActor
 Clutter::Raw::SnapConstraint
 Clutter::Raw::Stage
 Clutter::Raw::Text
@@ -64,9 +66,9 @@ Clutter::Roles::Signals::Container
 Clutter::Roles::Signals::DeviceManager
 Clutter::Roles::Signals::DragAction
 Clutter::Roles::Signals::Generic
+Clutter::Roles::Signals::PanAction
 Clutter::Roles::Signals::Stage
 Clutter::Roles::Signals::Text
-Clutter::Raw::ScrollActor
 Clutter::Size
 Clutter::TextBuffer
 Clutter::Threads
@@ -108,6 +110,7 @@ Clutter::DropAction
 Clutter::FlowLayout
 Clutter::GestureAction
 Clutter::Image
+Clutter::PanAction
 Clutter::ScrollActor
 Clutter::SnapConstraint
 Clutter::Stage
