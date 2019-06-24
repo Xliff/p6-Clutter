@@ -11,6 +11,7 @@ use GTK::Compat::Signal;
 use Clutter::Actor;
 use Clutter::AlignConstraint;
 use Clutter::BoxLayout;
+use Clutter::Color;
 use Clutter::Main;
 use Clutter::Stage;
 
@@ -20,7 +21,7 @@ sub animate_color($a, $e) {
   CATCH { default { .message.say } }
   state $t = True;
 
-  my $end_color = $t ?? CLUTTER_COLOR_Blue !! CLUTTER_COLOR_Red;
+  my $end_color = $t ?? $CLUTTER_COLOR_Blue !! $CLUTTER_COLOR_Red;
   $a.save_easing_state;;
   $a.easing-duration = 500;
   $a.easing-mode = CLUTTER_LINEAR;
@@ -87,7 +88,7 @@ sub MAIN {
   my $vase = Clutter::Actor.new;
   $vase.name = 'vase';
   $vase.layout_manager = Clutter::BoxLayout.new;
-  $vase.background_color = CLUTTER_COLOR_LightSkyBlue;
+  $vase.background_color = $CLUTTER_COLOR_LightSkyBlue;
   $vase.add_constraint(
     Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.5)
   );
@@ -98,7 +99,7 @@ sub MAIN {
   @flowers[0].set_name('flower.1');
   @flowers[0].set_size(SIZE, SIZE);
   @flowers[0].margin-left = 12;
-  @flowers[0].background_color = CLUTTER_COLOR_Red;
+  @flowers[0].background_color = $CLUTTER_COLOR_Red;
   @flowers[0].reactive = True;
   @flowers[0].button-press-event.tap(-> *@a {
     CATCH { default { .message.say } }
@@ -111,7 +112,7 @@ sub MAIN {
   @flowers[1].set_size(SIZE, SIZE);
   (@flowers[1].margin-top,  @flowers[1].margin-bottom) = 12 xx 2;
   (@flowers[1].margin-left, @flowers[1].margin-right) = 6 xx 2;
-  @flowers[1].background_color = CLUTTER_COLOR_Yellow;
+  @flowers[1].background_color = $CLUTTER_COLOR_Yellow;
   @flowers[1].reactive = True;
   @flowers[1].enter-event.tap(-> *@a {
     CATCH { default { .message.say } }
@@ -130,7 +131,7 @@ sub MAIN {
   @flowers[2].name = 'flower.3';
   @flowers[2].set_size(SIZE, SIZE);
   @flowers[2].margin-right = 12;
-  @flowers[2].background_color = CLUTTER_COLOR_Green;
+  @flowers[2].background_color = $CLUTTER_COLOR_Green;
   @flowers[2].set_pivot_point(0.5, 0);
   @flowers[2].reactive = True;
   @flowers[2].button-press-event.tap(-> *@a {
