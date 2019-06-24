@@ -50,6 +50,7 @@ class ClutterFog                  is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterGeometry             is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGestureAction        is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGroup                is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterGridLayout           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterImage                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterInputDevice          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterInterval             is repr('CPointer') does GTK::Roles::Pointers is export { }
