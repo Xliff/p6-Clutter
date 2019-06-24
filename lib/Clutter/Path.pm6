@@ -48,8 +48,11 @@ class Clutter::Path {
       }
     );
   }
-
-  method add_cairo_path (cairo_path_t $cpath) is also<add-cairo-path> {
+ 
+  method add_cairo_path ($cpath is copy) is also<add-cairo-path> {
+    die "\$cpath must be of Cairo::Path or cairo_path_t, not { $cpath.^name }!"
+      unless $cpath ~~ (Cairo::Path, cairo_path_t).any;
+    $cpath = cairo_path_t($cpath) if $cpath ~~ Cairo::Path;
     clutter_path_add_cairo_path($!cp, $cpath);
   }
 
@@ -133,7 +136,7 @@ class Clutter::Path {
   }
 
   method get_node (Int() $index, ClutterPathNode $node) is also<get-node> {
-    my guint $i = resolve-guint($index);
+    my guint $i = resolve-uint($index);
     clutter_path_get_node($!cp, $index, $node);
   }
 
@@ -161,19 +164,19 @@ class Clutter::Path {
   method insert_node (Int() $index, ClutterPathNode $node)
     is also<insert-node>
   {
-    my gint $i = resove-int($index);
+    my gint $i = resolve-int($index);
     clutter_path_insert_node($!cp, $i, $node);
   }
 
   method remove_node (Int() $index) is also<remove-node> {
-    my guint $i = resolve-guint($index);
+    my guint $i = resolve-uint($index);
     clutter_path_remove_node($!cp, $i);
   }
 
   method replace_node (Int() $index, ClutterPathNode $node)
     is also<replace-node>
   {
-    my guint $i = resolve-guint($index);
+    my guint $i = resolve-uint($index);
     clutter_path_replace_node($!cp, $index, $node);
   }
 

@@ -2,6 +2,8 @@ use v6.c;
 
 use NativeCall;
 
+use Cairo;
+
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
@@ -174,6 +176,11 @@ sub clutter_path_get_description (ClutterPath $path)
 
 sub clutter_path_set_description (ClutterPath $path, Str $str)
   returns uint32
+  is native(clutter)
+  is export
+{ * }
+
+sub clutter_path_add_cairo_path (ClutterPath $path, cairo_path_t $cpath) 
   is native(clutter)
   is export
 { * }

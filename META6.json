@@ -32,6 +32,7 @@
       "Clutter::Raw::Event"                    :  "lib/Clutter/Raw/Event.pm6"                   ,
       "Clutter::Raw::FlowLayout"               :  "lib/Clutter/Raw/FlowLayout.pm6"              ,
       "Clutter::Raw::GestureAction"            :  "lib/Clutter/Raw/GestureAction.pm6"           ,
+      "Clutter::Raw::GridLayout"               :  "lib/Clutter/Raw/GridLayout.pm6"              ,
       "Clutter::Raw::Image"                    :  "lib/Clutter/Raw/Image.pm6"                   ,
       "Clutter::Raw::InputDevice"              :  "lib/Clutter/Raw/InputDevice.pm6"             ,
       "Clutter::Raw::LayoutManager"            :  "lib/Clutter/Raw/LayoutManager.pm6"           ,
@@ -101,6 +102,7 @@
       "Clutter::DropAction"                    :  "lib/Clutter/DropAction.pm6"                  ,
       "Clutter::FlowLayout"                    :  "lib/Clutter/FlowLayout.pm6"                  ,
       "Clutter::GestureAction"                 :  "lib/Clutter/GestureAction.pm6"               ,
+      "Clutter::GridLayout"                    :  "lib/Clutter/GridLayout.pm6"                  ,
       "Clutter::Image"                         :  "lib/Clutter/Image.pm6"                       ,
       "Clutter::PanAction"                     :  "lib/Clutter/PanAction.pm6"                   ,
       "Clutter::ScrollActor"                   :  "lib/Clutter/ScrollActor.pm6"                 ,
@@ -125,6 +127,7 @@
     "support": { "source": null },
     "authors": [ "clifton.wood@gmail.com" ]
 }
+
 
 
 
