@@ -77,7 +77,9 @@ class Clutter::Color {
     self.bless( color => $c );
   }
 
-  method new_from_color (ClutterColor() $color) {
+  method new_from_color (ClutterColor() $color) 
+    is also<new-from-color>
+  {
     self.bless(
       color => ClutterColor.new(
         red   => $color.red,
