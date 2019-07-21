@@ -1897,8 +1897,9 @@ class Clutter::Actor {
     Clutter::Actor.new( clutter_actor_get_last_child($!ca) );
   }
 
-  method get_layout_manager is also<get-layout-manager> {
-    Clutter::LayoutManager.new( clutter_actor_get_layout_manager($!ca) );
+  method get_layout_manager(:$raw) is also<get-layout-manager> {
+    my $lm = clutter_actor_get_layout_manager($!ca);
+    $raw ?? $lm !! Clutter::LayoutManager.new($lm);
   }
 
   method get_margin (ClutterMargin() $margin) is also<get-margin> {
