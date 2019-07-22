@@ -402,12 +402,12 @@ class Clutter::Actor {
 
       when 'expand'   {
         say 'A expand' if $DEBUG;
-        (self.x-expand, self.y-expand) = |%data<expand> xx 2
+        (self.x-expand, self.y-expand) = %data<expand> xx 2
       }
 
       when 'align'    {
         say 'A align' if $DEBUG;
-        (self.x-align, self.y-align) = |%data<align>  xx 2
+        (self.x-align, self.y-align) = %data<align> xx 2
       }
 
       when 'actions'  {

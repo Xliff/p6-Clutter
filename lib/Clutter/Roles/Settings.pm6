@@ -10,10 +10,14 @@ use GTK::Roles::Properties;
 role Clutter::Roles::Settings {
   also does GTK::Roles::Properties;
   
-  has ClutterSettings $!cs;
+  has ClutterSettings $!c-set;
+  
+  method Clutter::Raw::Types::ClutterSettings
+    is also<Settings>
+  { $!c-set }
   
   method get_settings_default {
-    self.setSettings( $!cs = clutter_settings_get_default() );
+    self.setSettings( $!c-set = clutter_settings_get_default() );
   }
   
   method setSettings(ClutterSettings $settings) {

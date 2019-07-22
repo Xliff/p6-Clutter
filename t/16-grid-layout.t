@@ -11,6 +11,7 @@ use Clutter::Actor;
 use Clutter::BinLayout;
 use Clutter::BoxLayout;
 use Clutter::Color;
+use Clutter::Event;
 use Clutter::GridLayout;
 use Clutter::Stage;
 use Clutter::Text;
@@ -26,62 +27,69 @@ Press s\t→\tIncrement spacing (up to 12px)
 Press q\t→\tQuit
 
 Left/right click\t\t→\tChange actor align
-Shift left/right click\t→tChange actor expand
+Shift left/right click\t→\tChange actor expand
 INSTRUCT
 
 sub on-button-release($a, $e, $d, $r) {
+  CATCH { default { .message.say } }
+  
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
 
   $r.r = True;
   given Clutter::Event.new($e) {
     when .button == CLUTTER_BUTTON_PRIMARY {
       if  .has-shift-modifier { $xe .= not            }
-      else                    { $xa = 0 if ++$xa >= 3 }
+      else                    { $xa = 0 if ++$xa >= 4 }
     }
     when .button == CLUTTER_BUTTON_SECONDARY {
       if .has-shift-modifier  { $ye .= not  }
-      else                    { $ya = 0 if ++$ya >= 3 }
+      else                    { $ya = 0 if ++$ya >= 4 }
     }
     default { $r.r = 0 }
   }
   ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand) = ($xa, $ya, $ye, $ye);
 }
 
-sub get-align-name ($a) {
-  $a.Str.split('_')[* - 1].lc;
+sub get-align-name (Int() $a) {
+  ClutterActorAlign($a).Str.split('_')[* - 1].lc;
 }
 
 sub on-changed ($a, $p, $label) {
-  my $box = $a.parent;
+  CATCH { default { .message.say } }
+  
+  my ($box, %ma) = ($a.parent);
   my $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
   my $m = $layout.get-child-meta($box, $a);
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
-  my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height);
+  %ma{$_} = $m.get-data-int($_) // 0 for <left-attach top-attach width height>;
 
   $label.text = qq:to/TEXT/.chomp;
-    attach: { $l.fmt('%4d') }, { $t.fmt('%4d') }
-    span:   { $w.fmt('%4d') }, { $h.fmt('%4d') }
-    expand: { $xe }, { $ye }
+    attach: { %ma<left-attach>.fmt('%4d') }, { %ma<top-attach>.fmt('%4d') }
+    span:   { %ma<width>.fmt('%4d')       }, { %ma<height>.fmt('%4d') }
+    expand: { $xe.Int }, { $ye.Int }
     align:  { get-align-name($xa) },{ get-align-name($ya) }
     TEXT
 }
 
 sub add-actor ($box, $l, $t, $w, $h) {
+  CATCH { default { .message.say } }
+  
   my $color = Clutter::Color.new-from-hls(360 * rand, 0.5, 0.5);
   $color.alpha = 255;
 
   my $layout = Clutter::BinLayout.new(
     CLUTTER_BIN_ALIGNMENT_CENTER, CLUTTER_BIN_ALIGNMENT_CENTER
   );
-  my $c    = CLUTTER_ACTOR_ALIGN_CENTER;
+  my $a = %globals<expand> ?? 
+    CLUTTER_ACTOR_ALIGN_FILL !! CLUTTER_ACTOR_ALIGN_CENTER;
   my $rect = Clutter::Actor.new.setup(
     layout-manager   => $layout,
     background-color => $color,
     reactive         => True,
     size             => %globals<random-size> ?? (40...80).pick xx 2 !! (60, 60),
     expand           => %globals<expand>,
-    x-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $c,
-    y-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $c,
+    x-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $a,
+    y-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $a,
   );
   my $text = Clutter::Text.new-with-text("Sans 8px", Str);
   $text.line-alignment = PANGO_ALIGN_CENTER;
@@ -89,8 +97,9 @@ sub add-actor ($box, $l, $t, $w, $h) {
 
   $rect.button-release-event.tap(-> *@a { on-button-release(|@a) });
 
+  # This is through GTK!! -- The first parameter is a pointer, not an object!
   GTK::Compat::Signal.connect($rect, "notify::$_", -> *@a {
-    @a[2] = $text; on-changed(|@a)
+    my @b = ($rect, @a[1], $text); on-changed(|@b)
   }) for <x-expand y-expand y-align y-align>;
 
   # Reusing $layout.
@@ -101,6 +110,8 @@ sub add-actor ($box, $l, $t, $w, $h) {
 }
 
 sub on-key-release ($s, $e, $b, $r) {
+  CATCH { default { .message.say } }
+  
   my $l = Clutter::GridLayout.new($b.get-layout-manager.ClutterLayout);
 
   $r.r = 1;
@@ -122,7 +133,7 @@ sub on-key-release ($s, $e, $b, $r) {
 sub MAIN (
   :$random-size  is copy = False,   #= Randomly size the rectangles
   :$random-align is copy = False,   #= Randomly set the align values
-  :$expand       is copy = False,   #= Determins whether the actors are expanded by default
+  :$expand       is copy = True,    #= Determins whether the actors are expanded by default
   :$box-layout   is copy = False,   #= Use the layout in a ClutterBoxLayout style
   :$vertical     is copy = False,   #= Use a vertical orientation when used with --box
 ) {
@@ -179,7 +190,11 @@ sub MAIN (
   );
 
   $stage.destroy.tap({ Clutter::Main.quit });
-  $stage.key-release-event(-> *@a { @a[2] = $box, on-key-release(|@a) });
+  $stage.key-release-event.tap(-> *@a { 
+    CATCH { default { .message.say } }
+    @a[2] = $box, on-key-release(|@a) 
+  });
+  $stage.show-actor;
 
   Clutter::Main.run;
 }

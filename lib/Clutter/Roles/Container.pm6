@@ -17,6 +17,10 @@ role Clutter::Roles::Container {
   also does Clutter::Roles::Signals::Container;
 
   has ClutterContainer $!c;
+  
+  method Clutter::Raw::Types::ClutterContainer 
+    is also<Container>
+  { $!c }
 
   method setContainer ($container) {
     self.IS-PROTECTED;

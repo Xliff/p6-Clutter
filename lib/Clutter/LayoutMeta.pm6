@@ -13,8 +13,14 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
   
   submethod BUILD (:$metalayout) {
     self.setChildMeta( 
-      cast(ClutterLayoutMeta, $!clmeta = $metalayout) 
+      cast(ClutterChildMeta, $!clmeta = $metalayout) 
     );
+  }
+    
+  method new (ClutterLayoutMeta $metalayout) {
+    # No GTK::Roles::References
+    # No destroy yet, so no upref logic.
+    self.bless(:$metalayout);
   }
   
   method get_manager is also<get-manager> {

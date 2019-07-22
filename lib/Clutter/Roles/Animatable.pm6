@@ -8,23 +8,27 @@ use Clutter::Raw::Types;
 use Clutter::Raw::Animatable;
 
 role Clutter::Roles::Animatable {
-  has ClutterAnimatable $!canim;
+  has ClutterAnimatable $!c-anim;
+  
+  method Clutter::Raw::Types::Animatable 
+    is also<Animatable>
+  { $!c-anim }
 
   method setAnimatable ($animatable) {
     self.IS-PROTECTED;
-    $!canim = $animatable;
+    $!c-anim = $animatable;
   }
 
   method find_property (Str() $property_name)
     is also<find-property>
   {
-    clutter_animatable_find_property($!canim, $property_name);
+    clutter_animatable_find_property($!c-anim, $property_name);
   }
 
   method get_initial_state (Str() $property_name, GValue() $value)
     is also<get-initial-state>
   {
-    clutter_animatable_get_initial_state($!canim, $property_name, $value);
+    clutter_animatable_get_initial_state($!c-anim, $property_name, $value);
   }
 
   method animatable_get_type is also<animatable-get-type> {
@@ -42,7 +46,7 @@ role Clutter::Roles::Animatable {
   {
     my gdouble $p = $progress;
     clutter_animatable_interpolate_value(
-      $!canim,
+      $!c-anim,
       $property_name,
       $interval,
       $p,
@@ -53,7 +57,7 @@ role Clutter::Roles::Animatable {
   method set_final_state (Str() $property_name, GValue() $value)
     is also<set-final-state>
   {
-    clutter_animatable_set_final_state($!canim, $property_name, $value);
+    clutter_animatable_set_final_state($!c-anim, $property_name, $value);
   }
 
 }
