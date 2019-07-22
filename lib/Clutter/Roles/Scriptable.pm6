@@ -10,6 +10,10 @@ use Clutter::Raw::Scriptable;
 
 role Clutter::Roles::Scriptable {
   has ClutterScriptable $!cs;
+  
+  method Clutter::Raw::Types::ClutterScriptable 
+    is also<Scriptable>
+  { $!cs }
 
   method setScriptable ($scriptable) {
     self.IS-PROTECTED;
