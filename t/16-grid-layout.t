@@ -50,14 +50,18 @@ sub on-button-release($a, $e, $d, $r) {
   ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand) = ($xa, $ya, $ye, $ye);
 }
 
-sub get-align-name (Int() $a) {
-  ClutterActorAlign($a).Str.split('_')[* - 1].lc;
+sub get-align-name ($a) {
+  $a.Str.split('_')[* - 1].lc;
 }
 
 sub on-changed ($a, $p, $label) {
   CATCH { default { .message.say } }
   
   my ($box, %ma) = ($a.parent);
+  unless $box {
+    say 'Box is NIL!';
+    return;
+  }
   my $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
   my $m = $layout.get-child-meta($box, $a);
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
@@ -100,7 +104,7 @@ sub add-actor ($box, $l, $t, $w, $h) {
   # This is through GTK!! -- The first parameter is a pointer, not an object!
   GTK::Compat::Signal.connect($rect, "notify::$_", -> *@a {
     my @b = ($rect, @a[1], $text); on-changed(|@b)
-  }) for <x-expand y-expand y-align y-align>;
+  }) for <x-expand y-expand x-align y-align>;
 
   # Reusing $layout.
   $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
