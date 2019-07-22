@@ -20,6 +20,12 @@ use Clutter::Main;
 
 my %globals;
 
+use NativeCall;
+
+sub print_gobject_data_keys(Pointer $obj) 
+  is native('./gtk-cheat')
+  { * }
+
 constant INSTRUCTIONS = qq:to/INSTRUCT/.chomp;
 Press r\t→\tSwitch row homogeneous
 Press c\t→\tSwitch column homogeneous
@@ -58,14 +64,15 @@ sub on-changed ($a, $p, $label) {
   CATCH { default { .message.say } }
   
   my ($box, %ma) = ($a.parent);
-  my $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
-  my $m = $layout.get-child-meta($box, $a);
+  my $m = %globals<grid-layout>.get-child-meta($box, $a);
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
   %ma{$_} = $m.get-data-int($_) // 0 for <left-attach top-attach width height>;
+  
+  print_gobject_data_keys($m.LayoutMeta.p);
 
   $label.text = qq:to/TEXT/.chomp;
-    attach: { %ma<left-attach>.fmt('%4d') }, { %ma<top-attach>.fmt('%4d') }
-    span:   { %ma<width>.fmt('%4d')       }, { %ma<height>.fmt('%4d') }
+    attach: { %ma<left-attach> }, { %ma<top-attach> }
+    span:   { %ma<width>       }, { %ma<height> }
     expand: { $xe.Int }, { $ye.Int }
     align:  { get-align-name($xa) },{ get-align-name($ya) }
     TEXT
@@ -119,11 +126,11 @@ sub on-key-release ($s, $e, $b, $r) {
   $r.r = 1;
   given Clutter::Event.new($e).key-symbol {
 
-    when CLUTTER_KEY_c { $l.column-homogeneous = $l.column-homogeneos.not }
-    when CLUTTER_KEY_r { $l.row-homogeneous    = $l.row-homogeneos.not    }
+    when CLUTTER_KEY_c { $l.column-homogeneous = $l.column-homogeneous.not }
+    when CLUTTER_KEY_r { $l.row-homogeneous    = $l.row-homogeneous.not    }
 
     when CLUTTER_KEY_s { (my $s = $l.column-spacing + 1)++;
-                         $l.column-spacing = $s <= 12 ?? $s !! 0;
+                         $l.column-spacing = 
                          $l.row-spacing    = $s <= 12 ?? $s !! 0           }
 
     when CLUTTER_KEY_q { Clutter::Main.quit }
@@ -153,7 +160,7 @@ sub MAIN (
     ),
   );
 
-  my $grid-layout = Clutter::GridLayout.new.setup(
+  %globals<grid-layout> = Clutter::GridLayout.new.setup(
     orientation   => $vertical ??
                      CLUTTER_ORIENTATION_VERTICAL   !!
                      CLUTTER_ORIENTATION_HORIZONTAL
@@ -162,7 +169,7 @@ sub MAIN (
   my $box = Clutter::Actor.new.setup(
     background-color => $CLUTTER_COLOR_LightGray,
     expand           => True,
-    layout-manager   => $grid-layout,
+    layout-manager   => %globals<grid-layout>,
   );
   $stage-layout.pack(
     $box,

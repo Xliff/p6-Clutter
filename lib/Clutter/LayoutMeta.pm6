@@ -16,6 +16,10 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
       cast(ClutterChildMeta, $!clmeta = $metalayout) 
     );
   }
+  
+  method Clutter::Raw::Types::ClutterLayoutMeta
+    is also<LayoutMeta>
+  { $!clmeta }
     
   method new (ClutterLayoutMeta $metalayout) {
     # No GTK::Roles::References

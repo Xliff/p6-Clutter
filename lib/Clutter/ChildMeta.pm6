@@ -24,6 +24,10 @@ class Clutter::ChildMeta {
   method setChildMeta (ClutterChildMeta $childmeta) {
     self!setObject( cast(GObject, $!data = ($!ccmeta = $childmeta).p ) );
   }
+  
+  method Clutter::Raw::Types::ClutterChildMeta 
+    is also<ChildMeta>
+  { $!ccmeta }
 
   method get_actor
     is also<
