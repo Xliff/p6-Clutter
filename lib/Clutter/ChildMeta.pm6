@@ -6,24 +6,26 @@ use Method::Also;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
+use GTK::Roles::Data;
 use GTK::Roles::Protection;
 use GTK::Compat::Roles::Object;
 
 class Clutter::ChildMeta {
   also does GTK::Roles::Protection;
   also does GTK::Compat::Roles::Object;
-  
+  also does GTK::Roles::Data;
+
   has ClutterChildMeta $!ccmeta;
-    
+
   submethod BUILD {
     self.ADD-PREFIX('Clutter::');
   }
-  
+
   method setChildMeta (ClutterChildMeta $childmeta) {
-    self!setObject( cast(GObject, $!ccmeta = $childmeta) );
+    self!setObject( cast(GObject, $!data = ($!ccmeta = $childmeta).p ) );
   }
-  
-  method get_actor 
+
+  method get_actor
     is also<
       get-actor
       actor
@@ -32,7 +34,7 @@ class Clutter::ChildMeta {
     ::('Clutter::Actor').new( clutter_child_meta_get_actor($!ccmeta) );
   }
 
-  method get_container 
+  method get_container
     is also<
       get-container
       container
@@ -47,7 +49,7 @@ class Clutter::ChildMeta {
   }
 
 }
-  
+
 sub clutter_child_meta_get_actor (ClutterChildMeta $data)
   returns ClutterActor
   is native(clutter)
