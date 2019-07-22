@@ -47,7 +47,7 @@ sub on-button-release($a, $e, $d, $r) {
     }
     default { $r.r = 0 }
   }
-  ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand) = ($xa, $ya, $ye, $ye);
+  ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand) = ($xa, $ya, $xe, $ye);
 }
 
 sub get-align-name ($a) {
@@ -58,10 +58,6 @@ sub on-changed ($a, $p, $label) {
   CATCH { default { .message.say } }
   
   my ($box, %ma) = ($a.parent);
-  unless $box {
-    say 'Box is NIL!';
-    return;
-  }
   my $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
   my $m = $layout.get-child-meta($box, $a);
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
@@ -103,6 +99,7 @@ sub add-actor ($box, $l, $t, $w, $h) {
 
   # This is through GTK!! -- The first parameter is a pointer, not an object!
   GTK::Compat::Signal.connect($rect, "notify::$_", -> *@a {
+    CATCH { default { .message.say } }
     my @b = ($rect, @a[1], $text); on-changed(|@b)
   }) for <x-expand y-expand x-align y-align>;
 
@@ -116,7 +113,8 @@ sub add-actor ($box, $l, $t, $w, $h) {
 sub on-key-release ($s, $e, $b, $r) {
   CATCH { default { .message.say } }
   
-  my $l = Clutter::GridLayout.new($b.get-layout-manager.ClutterLayout);
+  #my $box = Clutter::Actor.new( cast(ClutterActor, $b) );
+  my $l = Clutter::GridLayout.new($b.get-layout-manager.ClutterLayoutManager);
 
   $r.r = 1;
   given Clutter::Event.new($e).key-symbol {
@@ -124,9 +122,9 @@ sub on-key-release ($s, $e, $b, $r) {
     when CLUTTER_KEY_c { $l.column-homogeneous = $l.column-homogeneos.not }
     when CLUTTER_KEY_r { $l.row-homogeneous    = $l.row-homogeneos.not    }
 
-    when CLUTTER_KEY_s { my $s = $l.column-spacing;
-                         $l.column-spacing =
-                         $l.row-spacing    = ++$s > 12 ?? $s !! 0         }
+    when CLUTTER_KEY_s { (my $s = $l.column-spacing + 1)++;
+                         $l.column-spacing = $s <= 12 ?? $s !! 0;
+                         $l.row-spacing    = $s <= 12 ?? $s !! 0           }
 
     when CLUTTER_KEY_q { Clutter::Main.quit }
 
@@ -196,7 +194,8 @@ sub MAIN (
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.key-release-event.tap(-> *@a { 
     CATCH { default { .message.say } }
-    @a[2] = $box, on-key-release(|@a) 
+    my @b = (@a[0], @a[1], $box, @a[3]); 
+    on-key-release(|@b) 
   });
   $stage.show-actor;
 
