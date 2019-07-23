@@ -7,6 +7,7 @@ GTK::Compat::Value
 GTK::Raw::ReturnedValue
 GTK::Raw::Types
 GTK::Raw::Utils
+GTK::Roles::Data
 GTK::Roles::Pointers
 GTK::Roles::Properties
 GTK::Roles::Protection
@@ -49,6 +50,7 @@ Clutter::Raw::OffscreenEffect
 Clutter::Raw::PageTurnEffect
 Clutter::Raw::PanAction
 Clutter::Raw::Path
+Clutter::Raw::PathConstraint
 Clutter::Raw::Scriptable
 Clutter::Raw::ScrollActor
 Clutter::Raw::SnapConstraint
@@ -83,6 +85,7 @@ Clutter::Backend
 Clutter::BindConstraint
 Clutter::Color
 Clutter::Effect
+Clutter::GridLayoutMeta
 Clutter::LayoutManager
 Clutter::Main
 Clutter::Misc
@@ -90,6 +93,7 @@ Clutter::OffscreenEffect
 Clutter::PageTurnEffect
 Clutter::PaintVolume
 Clutter::Path
+Clutter::PathConstraint
 Clutter::Point
 Clutter::PropertyTransition
 Clutter::Roles::Container

@@ -63,6 +63,7 @@ class ClutterOffscreenEffect      is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterPageTurnEffect       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPanAction            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPath                 is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterPathConstraint       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPaintVolume          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterPropertyTransition   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterSettings             is repr('CPointer') does GTK::Roles::Pointers is export { }
