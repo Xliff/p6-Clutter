@@ -13,6 +13,7 @@ use Clutter::BoxLayout;
 use Clutter::Color;
 use Clutter::Event;
 use Clutter::GridLayout;
+use Clutter::LayoutMeta;
 use Clutter::Stage;
 use Clutter::Text;
 
@@ -21,10 +22,6 @@ use Clutter::Main;
 my %globals;
 
 use NativeCall;
-
-sub print_gobject_data_keys(Pointer $obj) 
-  is native('./gtk-cheat')
-  { * }
 
 constant INSTRUCTIONS = qq:to/INSTRUCT/.chomp;
 Press r\t→\tSwitch row homogeneous
@@ -64,15 +61,14 @@ sub on-changed ($a, $p, $label) {
   CATCH { default { .message.say } }
   
   my ($box, %ma) = ($a.parent);
-  my $m = %globals<grid-layout>.get-child-meta($box, $a);
+  my $m = %globals<grid-layout>.get-child-meta($box, $a); 
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
-  %ma{$_} = $m.get-data-int($_) // 0 for <left-attach top-attach width height>;
-  
-  print_gobject_data_keys($m.LayoutMeta.p);
+  #my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height) «//» 0 xx 4;
+  my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height);
 
   $label.text = qq:to/TEXT/.chomp;
-    attach: { %ma<left-attach> }, { %ma<top-attach> }
-    span:   { %ma<width>       }, { %ma<height> }
+    attach: { $l }, { $t }
+    span:   { $w }, { $h }
     expand: { $xe.Int }, { $ye.Int }
     align:  { get-align-name($xa) },{ get-align-name($ya) }
     TEXT
@@ -111,9 +107,8 @@ sub add-actor ($box, $l, $t, $w, $h) {
   }) for <x-expand y-expand x-align y-align>;
 
   # Reusing $layout.
-  $layout = Clutter::GridLayout.new( $box.get-layout-manager(:raw) );
   %globals<box-layout> ?? $box.add-child($rect) !!
-                          $layout.attach($rect, $l, $t, $w, $h);
+                          %globals<grid-layout>.attach($rect, $l, $t, $w, $h);
   on-changed($rect, Nil, $text);
 }
 

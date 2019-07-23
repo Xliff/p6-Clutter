@@ -11,6 +11,7 @@ use GTK::Raw::Utils;
 use Clutter::Raw::LayoutManager;
 
 use Clutter::LayoutMeta;
+use Clutter::GridLayoutMeta;
 
 use GTK::Roles::Properties;
 use GTK::Roles::Protection;
@@ -98,13 +99,16 @@ class Clutter::LayoutManager {
 
   method get_child_meta (
     ClutterContainer() $container, 
-    ClutterActor() $actor
+    ClutterActor() $actor,
+    :$raw,
+    :$grid,
   ) 
     is also<get-child-meta> 
   {
-    Clutter::LayoutMeta.new( 
-      clutter_layout_manager_get_child_meta($!clm, $container, $actor)
-    );
+    my $cm = clutter_layout_manager_get_child_meta($!clm, $container, $actor);
+    $raw ?? $cm !! $grid ?? 
+      Clutter::GridLayoutMeta.new($cm) !!
+      Clutter::LayoutMeta.new($cm);
   }
 
   method get_preferred_height (

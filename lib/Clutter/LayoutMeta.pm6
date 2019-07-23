@@ -8,13 +8,37 @@ use Clutter::Raw::Types;
 
 use Clutter::ChildMeta;
 
+our subset LayoutMetaAncestry of Mu
+  where ClutterLayoutMeta | ClutterChildMeta;
+
 class Clutter::LayoutMeta is Clutter::ChildMeta {
   has ClutterLayoutMeta $!clmeta;
   
   submethod BUILD (:$metalayout) {
-    self.setChildMeta( 
-      cast(ClutterChildMeta, $!clmeta = $metalayout) 
-    );
+    given $metalayout {
+      when LayoutMetaAncestry {
+        self.setLayoutMeta($metalayout);
+      }
+      when Clutter::LayoutMeta {
+      }
+      default {
+      } 
+    }
+  }
+  
+  method setLayoutMeta(LayoutMetaAncestry $_) {
+    my $to-parent;
+    $!clmeta = do {
+      when ClutterLayoutMeta {
+        $to-parent = cast(ClutterChildMeta, $_);
+        $_;
+      } 
+      default {
+        $to-parent = $_;
+        cast(ClutterLayoutMeta, $_);
+      }
+    };
+    self.setChildMeta($to-parent);
   }
   
   method Clutter::Raw::Types::ClutterLayoutMeta
