@@ -643,9 +643,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('allocation', $gv)
-        );
+        self.prop_get('allocation', $gv);
         cast(ClutterActorBox, $gv.boxed);
       },
       STORE => -> $, $val is copy {
@@ -659,9 +657,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('anchor-gravity', $gv)
-        );
+        self.prop_get('anchor-gravity', $gv);
         ClutterGravity( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
@@ -676,9 +672,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('anchor-x', $gv)
-        );
+        self.prop_get('anchor-x', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -693,9 +687,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('anchor-y', $gv)
-        );
+        self.prop_get('anchor-y', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -716,9 +708,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('background-color-set', $gv)
-        );
+        self.prop_get('background-color-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -732,9 +722,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('child-transform', $gv)
-        );
+        self.prop_get('child-transform', $gv);
         cast(ClutterMatrix, $gv.pointer)
       },
       STORE => -> $, ClutterMatrix() $val is copy {
@@ -749,9 +737,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('child-transform-set', $gv)
-        );
+        self.prop_get('child-transform-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -782,9 +768,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Rect.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('clip-rect', $gv)
-        );
+        self.prop_get('clip-rect', $gv);
         cast(ClutterRect, $gv.boxed);
       },
       STORE => -> $, ClutterRect $val is copy {
@@ -829,9 +813,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('content-box', $gv)
-        );
+        self.prop_get('content-box', $gv);
         cast(ClutterActorBox, $gv.boxed);
       },
       STORE => -> $, $val is copy {
@@ -859,9 +841,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('depth', $gv)
-        );
+        self.prop_get('depth', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -916,9 +896,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('fixed-x', $gv)
-        );
+        self.prop_get('fixed-x', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -933,9 +911,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('fixed-y', $gv)
-        );
+        self.prop_get('fixed-y', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -968,9 +944,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('magnification-filter', $gv)
-        );
+        self.prop_get('magnification-filter', $gv);
         ClutterScalingFilter( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
@@ -985,9 +959,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('mapped', $gv)
-        );
+        self.prop_get('mapped', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1050,9 +1022,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('min-height', $gv)
-        );
+        self.prop_get('min-height', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1067,9 +1037,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('min-height-set', $gv)
-        );
+        self.prop_get('min-height-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1084,9 +1052,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('min-width', $gv)
-        );
+        self.prop_get('min-width', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1101,9 +1067,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('min-width-set', $gv)
-        );
+        self.prop_get('min-width-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1118,9 +1082,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('minification-filter', $gv)
-        );
+        self.prop_get('minification-filter', $gv);
         ClutterScalingFilter( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
@@ -1142,9 +1104,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('natural-height', $gv)
-        );
+        self.prop_get('natural-height', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1159,9 +1119,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('natural-height-set', $gv)
-        );
+        self.prop_get('natural-height-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1176,9 +1134,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('natural-width', $gv)
-        );
+        self.prop_get('natural-width', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1193,9 +1149,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('natural-width-set', $gv)
-        );
+        self.prop_get('natural-width-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1217,9 +1171,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('pivot-point', $gv)
-        );
+        self.prop_get('pivot-point', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
       STORE => -> $, ClutterPoint $val is copy {
@@ -1234,9 +1186,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('position', $gv)
-        );
+        self.prop_get('position', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
       STORE => -> $, ClutterPoint() $val is copy {
@@ -1251,9 +1201,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('realized', $gv)
-        );
+        self.prop_get('realized', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1267,9 +1215,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-angle-x', $gv)
-        );
+        self.prop_get('rotation-angle-x', $gv);
         $gv.double;
       },
       STORE => -> $, Num() $val is copy {
@@ -1284,9 +1230,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-angle-y', $gv)
-        );
+        self.prop_get('rotation-angle-y', $gv);
         $gv.double;
       },
       STORE => -> $, Num() $val is copy {
@@ -1301,9 +1245,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-angle-z', $gv)
-        );
+        self.prop_get('rotation-angle-z', $gv);
         $gv.double;
       },
       STORE => -> $, Num() $val is copy {
@@ -1314,13 +1256,13 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-x is rw is also<rotation_center_x> is DEPRECATED( 'pivot-point' ) {
+  method rotation-center-x is rw is also<rotation_center_x> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-center-x', $gv)
-        );
+        self.prop_get('rotation-center-x', $gv);
         Clutter::Vertex.new($gv.boxed);
       },
       STORE => -> $, ClutterVertex() $val is copy {
@@ -1331,13 +1273,13 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-y is rw is also<rotation_center_y> is DEPRECATED( 'pivot-point' ) {
+  method rotation-center-y is rw is also<rotation_center_y> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-center-y', $gv)
-        );
+        self.prop_get('rotation-center-y', $gv);
         Clutter::Vertex.new($gv.boxed);
       },
       STORE => -> $, ClutterVertex() $val is copy {
@@ -1348,13 +1290,13 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-z is rw is also<rotation_center_z> is DEPRECATED( 'pivot-point' ) {
+  method rotation-center-z is rw is also<rotation_center_z> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-center-z', $gv)
-        );
+        self.prop_get('rotation-center-z', $gv);
         Clutter::Vertex.new($gv.boxed);
       },
       STORE => -> $, ClutterVertex() $val is copy {
@@ -1365,13 +1307,13 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGravity
-  method rotation-center-z-gravity is rw is also<rotation_center_z_gravity> is DEPRECATED( 'pivot-point' ) {
+  method rotation-center-z-gravity is rw is also<rotation_center_z_gravity> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('rotation-center-z-gravity', $gv)
-        );
+        self.prop_get('rotation-center-z-gravity', $gv);
         ClutterGravity( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
@@ -1382,13 +1324,13 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method scale-center-x is rw is also<scale_center_x> is DEPRECATED( 'pivot-point' ) {
+  method scale-center-x is rw is also<scale_center_x> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('scale-center-x', $gv)
-        );
+        self.prop_get('scale-center-x', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1399,13 +1341,13 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method scale-center-y is rw is also<scale_center_y> is DEPRECATED( 'pivot-point' ) {
+  method scale-center-y is rw is also<scale_center_y> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('scale-center-y', $gv)
-        );
+        self.prop_get('scale-center-y', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1416,13 +1358,13 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGravity
-  method scale-gravity is rw is also<scale_gravity> is DEPRECATED( 'pivot-point' ) {
+  method scale-gravity is rw is also<scale_gravity> 
+    is DEPRECATED( 'pivot-point' ) 
+  {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('scale-gravity', $gv)
-        );
+        self.prop_get('scale-gravity', $gv);
         ClutterGravity( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
@@ -1437,9 +1379,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('scale-x', $gv)
-        );
+        self.prop_get('scale-x', $gv);
         $gv.double;
       },
       STORE => -> $, Num() $val is copy {
@@ -1454,9 +1394,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('scale-y', $gv)
-        );
+        self.prop_get('scale-y', $gv);
         $gv.double;
       },
       STORE => -> $, Num() $val is copy {
@@ -1471,9 +1409,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('show-on-set-parent', $gv)
-        );
+        self.prop_get('show-on-set-parent', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1488,9 +1424,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Size.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('size', $gv)
-        );
+        self.prop_get('size', $gv);
         Clutter::Size.new($gv.boxed);
       },
       STORE => -> $, ClutterSize() $val is copy {
@@ -1505,9 +1439,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('transform', $gv)
-        );
+        self.prop_get('transform', $gv);
         cast(ClutterMatrix, $gv.pointer);
       },
       STORE => -> $, ClutterMatrix() $val is copy {
@@ -1522,9 +1454,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('transform-set', $gv)
-        );
+        self.prop_get('transform-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -1538,9 +1468,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('translation-x', $gv)
-        );
+        self.prop_get('translation-x', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1555,9 +1483,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('translation-y', $gv)
-        );
+        self.prop_get('translation-y', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1572,9 +1498,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('translation-z', $gv)
-        );
+        self.prop_get('translation-z', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
@@ -1589,9 +1513,7 @@ class Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('visible', $gv)
-        );
+        self.prop_get('visible', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {

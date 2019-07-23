@@ -18,7 +18,6 @@ use Clutter::Actor;
 
 my @attributes = <
   accept-focus     accept_focus
-  color
   cursor-visible   cursor_visible
   fog
   fullscreen-set   fullscreen_set
@@ -70,7 +69,7 @@ class Clutter::Stage is Clutter::Actor {
       }
       when @set_methods.any {
         say "StSM: {$_}" if $DEBUG;
-        self."set_{$_}"( %data{$_} );
+        self."set_{$_}"( |%data{$_} );
         %data{$_}:delete
       }
     }
@@ -84,9 +83,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('accept-focus', $gv)
-        );
+        self.prop_get('accept-focus', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -96,33 +93,31 @@ class Clutter::Stage is Clutter::Actor {
     );
   }
 
+  # Using this method will cause a SEGV!
+  #
   # Type: ClutterColor
-  method color is rw
-    is DEPRECATED<the “background-color” property of ClutterActor>
-  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
-    Proxy.new(
-      FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('color', $gv)
-        );
-        cast(ClutterColor, $gv.pointer);
-      },
-      STORE => -> $, ClutterColor $val is copy {
-        $gv.pointer = $val;
-        self.prop_set('color', $gv);
-      }
-    );
-  }
+  # method color is rw
+  #   is DEPRECATED('the “background-color” property of ClutterActor')
+  # {
+  #   my GTK::Compat::Value $gv .= new( G_TYPE_OBJECT );
+  #   Proxy.new(
+  #     FETCH => -> $ {
+  #       self.prop_get('color', $gv);
+  #       cast(ClutterColor, $gv.object);
+  #     },
+  #     STORE => -> $, ClutterColor() $val is copy {
+  #       $gv.object = $val;
+  #       self.prop_set('color', $gv);
+  #     }
+  #   );
+  # }
 
   # Type: gboolean
   method cursor-visible is rw  is also<cursor_visible> {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('cursor-visible', $gv)
-        );
+        self.prop_get('cursor-visible', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -137,9 +132,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Boxed.fog_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('fog', $gv)
-        );
+        self.prop_get('fog', $gv);
         cast(ClutterFog, $gv.boxed);
       },
       STORE => -> $, ClutterFog $val is copy {
@@ -154,9 +147,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('fullscreen-set', $gv)
-        );
+        self.prop_get('fullscreen-set', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -170,9 +161,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Actor.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('key-focus', $gv)
-        );
+        self.prop_get('key-focus', $gv);
         Clutter::Actor.new( cast(ClutterActor, $gv.object) )
       },
       STORE => -> $, ClutterActor() $val is copy {
@@ -187,9 +176,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('no-clear-hint', $gv)
-        );
+        self.prop_get('no-clear-hint', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -204,9 +191,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('offscreen', $gv)
-        );
+        self.prop_get('offscreen', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -221,9 +206,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( Clutter::Boxed.perspective_get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('perspective', $gv)
-        );
+        self.prop_get('perspective', $gv);
         cast(ClutterPerspective, $gv.boxed);
       },
       STORE => -> $, ClutterPerspective $val is copy {
@@ -238,9 +221,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('title', $gv)
-        );
+        self.prop_get('title', $gv);
         $gv.string;
       },
       STORE => -> $, Str() $val is copy {
@@ -255,9 +236,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('use-alpha', $gv)
-        );
+        self.prop_get('use-alpha', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -272,9 +251,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('use-fog', $gv)
-        );
+        self.prop_get('use-fog', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {
@@ -289,9 +266,7 @@ class Clutter::Stage is Clutter::Actor {
     my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
-          self.prop_get('user-resizable', $gv)
-        );
+        self.prop_get('user-resizable', $gv);
         $gv.boolean;
       },
       STORE => -> $, Int() $val is copy {

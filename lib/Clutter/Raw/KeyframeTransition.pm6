@@ -75,7 +75,7 @@ sub clutter_keyframe_transition_set_modes (
 sub clutter_keyframe_transition_set_values (
   ClutterKeyframeTransition $transition, 
   guint $n_values, 
-  GValue $values
+  Pointer $values
 )
   is native(clutter)
   is export

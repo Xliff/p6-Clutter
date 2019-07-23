@@ -12,6 +12,8 @@ use GTK::Raw::Utils;
 
 use Clutter::PropertyTransition;
 
+use GTK::Compat::Roles::TypedBuffer;
+
 my @set-methods = <
   key_frame     key-frame
   key_frames    key-frames
@@ -71,6 +73,10 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
   method clear {
     clutter_keyframe_transition_clear($!ckt);
   }
+  
+  # cw: Future enhancement... do we want to make this object an Iterator
+  # so it can iterate over key-frames and return a tuple of:
+  #   (key-frame, mode, ACTUAL value) -- return the GValue if :$gvalue.
 
   method get_key_frame (
     Int() $index, 
@@ -85,7 +91,12 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     clutter_keyframe_transition_get_key_frame($!ckt, $i, $k, $m, $value);
   }
 
-  method get_n_key_frames is also<get-n-key-frames> {
+  method get_n_key_frames 
+    is also<
+      get-n-key-frames 
+      elems
+    > 
+  {
     clutter_keyframe_transition_get_n_key_frames($!ckt);
   }
 
@@ -109,9 +120,18 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     clutter_keyframe_transition_set_key_frame($!ckt, $i, $k, $m, $value);
   }
 
-  method set_key_frames (Int() $n_key_frames, @key_frames) 
-    is also<set-key-frames> 
-  {
+  proto method set_key_frames (|)
+    is also<set-key-frames>
+  { * }
+  
+  # cw: Why @f and $f? -- Because I CAN.
+  multi method set_key_frames(*@frames where .all ~~ Cool) {
+    my @f = @frames.map( *.Num );
+    my $f = CArray[gdouble].new;
+    $f[$_] = @f[$_] for @f.keys;
+    samewith(@f.elems, $f);
+  }
+  multi method set_key_frames (Int() $n_key_frames, @key_frames) {
     my @frames = @key_frames.map({ try .Num });
     die '@key_frames must only contain floating point values!'
       unless @frames.all ~~ Num;
@@ -121,22 +141,37 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     $f[$_] = @frames[$_] for @frames.keys;
     clutter_keyframe_transition_set_key_frames($!ckt, $nf, $f);
   }
-
-  method set_modes (Int() $n_modes, @modes) is also<set-modes> {
-    die '@modes must only contain integers!'
-      unless @modes.all ~~ Int;
-      
-    my guint $nm = resolve-uint($n_modes);
+  
+  proto method set_modes (|) 
+    is also<set-modes>
+  { * }
+  
+  multi method set_modes (*@modes where .all ~~ Cool) {
+    my @m = @modes.map(*.Int);
     my $m = CArray[guint].new;
-    $m[$_] = @modes[$_] for @modes.keys;
-    clutter_keyframe_transition_set_modes($!ckt, $n_modes, $m);
+    $m[$_] = @modes[$_] for @m.keys;
+    samewith(@m.elems, $m);
+  }
+  multi method set_modes(Int() $n_modes, CArray[guint] $modes) {
+    my guint $nm = resolve-uint($n_modes);
+    clutter_keyframe_transition_set_modes($!ckt, $n_modes, $modes);
   }
 
-  method set_values (Int() $n_values, GValue() $values) 
-    is also<set-values> 
-  {
+  proto method set_values (|) 
+    is also<set-values>
+  { * }
+  
+  # GValue is a CStruct... must use a typed buffer!
+  multi method set_values (
+    *@values where .all ~~ (GValue, GTK::Compat::Value).any
+  ) {
+    my @v = @values.map({ $_ !~~ GValue ?? .gvalue !! $_ });
+    my $v = GTK::Compat::Roles::TypedBuffer[GValue].new(@v);
+    samewith(@v.elems, $v.p);
+  }
+  multi method set_values(Int() $n_values, Pointer $vals) {
     my guint $nv = resolve-uint($n_values);
-    clutter_keyframe_transition_set_values($!ckt, $nv, $values);
+    clutter_keyframe_transition_set_values($!ckt, $nv, $vals);
   }
 
 }

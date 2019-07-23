@@ -43,7 +43,7 @@ class Clutter::Path {
       FETCH => sub ($) {
         clutter_path_get_description($!cp);
       },
-      STORE => sub ($, $str is copy) {
+      STORE => sub ($, Str() $str is copy) {
         clutter_path_set_description($!cp, $str);
       }
     );
@@ -74,13 +74,13 @@ class Clutter::Path {
     clutter_path_add_curve_to($!cp, |@a);
   }
 
-  method add_line_to (Num() $x, Num() $y) is also<add-line-to> {
-    my gint ($xx, $yy) = ($x, $y);
+  method add_line_to (Int() $x, Int() $y) is also<add-line-to> {
+    my gint ($xx, $yy) = resolve-int($x, $y);
     clutter_path_add_line_to($!cp, $x, $y);
   }
 
-  method add_move_to (Num() $x, Num() $y) is also<add-move-to> {
-    my gint ($xx, $yy) = ($x, $y);
+  method add_move_to (Int() $x, Int() $y) is also<add-move-to> {
+    my gint ($xx, $yy) = resolve-int($x, $y);
     clutter_path_add_move_to($!cp, $x, $y);
   }
 
@@ -102,13 +102,13 @@ class Clutter::Path {
     clutter_path_add_rel_curve_to($!cp, |@a);
   }
 
-  method add_rel_line_to (Num() $x, Num() $y) is also<add-rel-line-to> {
-    my gint ($xx, $yy) = ($x, $y);
+  method add_rel_line_to (Int() $x, Int() $y) is also<add-rel-line-to> {
+    my gint ($xx, $yy) = resolve-int($x, $y);
     clutter_path_add_rel_line_to($!cp, $xx, $yy);
   }
 
-  method add_rel_move_to (Num() $x, Num() $y) is also<add-rel-move-to> {
-    my gint ($xx, $yy) = ($x, $y);
+  method add_rel_move_to (Int() $x, Int() $y) is also<add-rel-move-to> {
+    my gint ($xx, $yy) = resolve-int($x, $y);
     clutter_path_add_rel_move_to($!cp, $x, $yy);
   }
 
