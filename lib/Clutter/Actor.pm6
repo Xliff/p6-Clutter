@@ -432,6 +432,17 @@ class Clutter::Actor {
           self.add-effect-with-name(|$_);
         }
       }
+      
+      when 'constraints-with-name' | 'constraints_with_name' {
+        say 'A constraints-with-name' if $DEBUG;
+        for %data{$_} {
+          unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
+            die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
+          }
+          say "Constraint: { .[0] }" if $DEBUG;
+          self.add-constraint-with-name(|$_);
+        }
+      }
 
       # Attributes needing special handling
       when 'position'    |
