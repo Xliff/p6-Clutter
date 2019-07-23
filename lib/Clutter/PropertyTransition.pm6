@@ -8,12 +8,38 @@ use Clutter::Raw::Types;
 
 use Clutter::Transition;
 
+our subset PropertyTransitionAncestry of Mu
+  where ClutterPropertyTransition | ClutterTransition;
+
 class Clutter::PropertyTransition is Clutter::Transition {
   has ClutterPropertyTransition $!cpt;
 
   # REALLY needs ancestry logic!
   submethod BUILD (:$propertytransition) {
-    self.setTransition( cast(ClutterTransition, $!cpt = $propertytransition) );
+    given $propertytransition {
+      when PropertyTransitionAncestry {
+        self.setPropertyTransition($propertytransition);
+      }
+      when Clutter::PropertyTransition {
+      }
+      default {
+      }
+    }
+  }
+  
+  method setPropertyTransition(PropertyTransitionAncestry $_) {
+    my $to-parent;
+    $!cpt = do {
+      when ClutterPropertyTransition {
+        $to-parent = cast(ClutterTransition, $_);
+        $_;
+      }
+      default {
+        $to-parent = $_;
+        cast(ClutterPropertyTransition, $_);
+      }
+    };  
+    self.setTransition($to-parent);
   }
 
   method setup (*%data) {
@@ -63,9 +89,9 @@ sub clutter_property_transition_get_type ()
 { * }
 
 sub clutter_property_transition_new (Str $property_name)
-returns ClutterPropertyTransition
-is native(clutter)
-is export
+  returns ClutterPropertyTransition
+  is native(clutter)
+  is export
 { * }
 
 sub clutter_property_transition_get_property_name (

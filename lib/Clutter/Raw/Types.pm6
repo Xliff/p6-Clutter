@@ -55,6 +55,7 @@ class ClutterGridLayoutMeta       is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterImage                is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterInputDevice          is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterInterval             is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterKeyframeTransition   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterLayoutManager        is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterLayoutMeta           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterMargin               is repr('CPointer') does GTK::Roles::Pointers is export { }
