@@ -13,9 +13,9 @@ use Clutter::Main;
 
 use Clutter::Actor;
 use Clutter::Color;
-use Clutter::KeyframeTransition;
 use Clutter::Path;
 use Clutter::PathConstraint;
+use Clutter::PropertyTransition;
 use Clutter::Stage;
 
 constant STAGE_SIDE = 400;
@@ -67,10 +67,10 @@ sub MAIN {
   );
   
   my $rectangle = Clutter::Actor.new.setup(
-    size             => (STAGE_SIDE / 8) xx 2,
-    background-color => $CLUTTER_COLOR_Red,
-    position         => (STAGE_SIDE / 2) xx 2,
-    constraint       => $constraint
+    size                  => (STAGE_SIDE / 8) xx 2,
+    background-color      => $CLUTTER_COLOR_Red,
+    position              => (STAGE_SIDE / 2) xx 2,
+    constraint-with-name  => [ 'Path', $constraint ],
   );
   $stage.add-child($rectangle);
   
@@ -85,33 +85,41 @@ sub MAIN {
   #   ALL keyframes. 
   #   
   #   Method resolution would be .set-values -> .set-modevalues
-  # my $animator = Clutter::KeyframeTransition.new('offset').setup(
-  #   duration     => 4000,
-  #   repeat-count => -1,
-  #   auto-reverse => True,
-  #   key-frames   => (0, 1),
-  #   modes        => CLUTTER_LINEAR xx 2,
-  #   values       => ( gv_flt(0), gv_flt(1) )
-  # );
+  #
+  # Keyframe usage is still vague, but achieved matching results using 
+  # a PropertyTransition.
+  my $animator = Clutter::PropertyTransition.new('@constraints.Path.offset').setup(
+    duration     => 4000,
+    repeat-count => -1,
+    auto-reverse => True,
+    # key-frames   => (0, 1),
+    # modes        => CLUTTER_LINEAR xx 2,
+    # values       => ( gv_flt(0), gv_flt(1) )
+    from-value => gv_flt(0),
+    to-value   => gv_flt(1)
+  );
+  $rectangle.add-transition('animator', $animator);
+  $animator.stop;
+  $animator.rewind;
 
   # Animator is not currently working, so equivalent code.
-  my $o = 0;
-  my $s = 1 / 30;
-  GTK::Compat::Timeout.simple_timeout($s ** -1).act(
-    -> @ ($t, $dt) {
-      $constraint.offset = $o;
-      $o += $s;
-      $s *= -1 if $o > 1 or $o < 0;
-      $o = 1 if $o > 1;
-      $o = 0 if $o < 0;
-    }
-  );
+  # my $o = 0;
+  # my $s = 1 / 30;
+  # GTK::Compat::Timeout.simple_timeout($s ** -1).act(
+  #   -> @ ($t, $dt) {
+  #     $constraint.offset = $o;
+  #     $o += $s;
+  #     $s *= -1 if $o > 1 or $o < 0;
+  #     $o = 1 if $o > 1;
+  #     $o = 0 if $o < 0;
+  #   }
+  # );
   
-  # $stage.key-press-event.tap(-> *@a {
-  #   say "S: { $animator.is-playing }";
-  #   $animator.start unless $animator.is-playing;
-  #   @a[* - 1].r = 1;
-  # });
+  $stage.key-press-event.tap(-> *@a {
+    say "S: { $animator.is-playing }";
+    $animator.start unless $animator.is-playing;
+    @a[* - 1].r = 1;
+  });
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.show-actor;
   
