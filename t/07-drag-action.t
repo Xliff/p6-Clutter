@@ -68,7 +68,7 @@ sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
 
   # Fully desaturate the actor
   my $t = $actor.get_transition('disable');
-  if not $t.defined {
+  unless $t.defined {
     $t = Clutter::PropertyTransition.new('@effects.disable.factor');
     $t.duration = 250;
     $actor.add_transition('disable', $t);
