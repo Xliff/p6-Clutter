@@ -36,7 +36,7 @@ sub clutter_image_new ()
 
 sub clutter_image_set_area (
   ClutterImage $image, 
-  guint8 $data, 
+  Pointer $data, 
   guint $pixel_format, # CoglPixelFormat $pixel_format, 
   cairo_rectangle_int_t $rect, 
   guint $row_stride, 

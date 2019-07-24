@@ -51,39 +51,42 @@ class Clutter::Image {
   }
 
   method set_area (
-    guint8 $data,
-    CoglPixelFormat $pixel_format,
+    Pointer $data,
+    Int() $pixel_format,
     cairo_rectangle_int_t $rect,
-    guint $row_stride,
+    Int() $row_stride,
     CArray[Pointer[GError]] $error = gerror()
   )
     is also<set-area>
   {
     clear_error;
-    my $rc = clutter_image_set_area($!ci, $data, $pixel_format, $rect, $row_stride, $error);
+    my guint ($pf, $rs) = resolve-uint($pixel_format, $row_stride);
+    my $rc = clutter_image_set_area($!ci, $data, $pf, $rect, $rs, $error);
     set_error($error);
     so $rc;
   }
 
   method set_bytes (
     GBytes $data,
-    CoglPixelFormat $pixel_format,
-    guint $width,
-    guint $height,
-    guint $row_stride,
+    Int() $pixel_format,
+    Int() $width,
+    Int() $height,
+    Int() $row_stride,
     CArray[Pointer[GError]] $error = gerror()
   )
     is also<set-bytes>
   {
+    my guint ($w, $h, $r) = resolve-uint($width, $height, $row_stride);
+    my guint $pf = resolve-uint($pixel_format);
     clear_error;
-    my $rc = clutter_image_set_bytes($!ci, $data, $pixel_format, $width, $height, $row_stride, $error);
+    my $rc = clutter_image_set_bytes($!ci, $data, $pf, $w, $h, $r, $error);
     set_error($error);
     so $rc;
   }
 
   method set_data (
     Pointer $data,
-    CoglPixelFormat $pixel_format,
+    Int() $pixel_format,
     Int() $width,
     Int() $height,
     Int() $row_stride,
@@ -92,9 +95,10 @@ class Clutter::Image {
     is also<set-data>
   {
     my guint ($w, $h, $r) = resolve-uint($width, $height, $row_stride);
+    my guint $pf = resolve-uint($pixel_format);
     clear_error;
     my $rc = clutter_image_set_data(
-      $!ci, $data, $pixel_format, $w, $h, $r, $error
+      $!ci, $data, $pf, $w, $h, $r, $error
     );
     set_error($error);
     so $rc;
