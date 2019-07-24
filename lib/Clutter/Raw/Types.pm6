@@ -30,6 +30,7 @@ class ClutterAnimatable           is repr('CPointer') does GTK::Roles::Pointers 
 class ClutterBinLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBindConstraint       is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBackend              is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterBlurEffect           is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterBoxLayout            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterCanvas               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterChildMeta            is repr('CPointer') does GTK::Roles::Pointers is export { }
