@@ -22,7 +22,7 @@ class Clutter::BlurEffect is Clutter::OffscreenEffect {
             $to-parent = cast(ClutterOffscreenEffect, $_);
             $_;
           }
-          when ClutterEffect {
+          when ClutterOffscreenEffect {
             $to-parent = $_;
             cast(ClutterBlurEffect, $_);
           } 

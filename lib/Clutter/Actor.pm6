@@ -450,6 +450,10 @@ class Clutter::Actor {
       {
         self!setAmbiguousPoint(%data, $_);
       }
+      
+      when 'parent' {
+        %data<parent>.add_child(self);
+      }
 
       default { die "Unknown attribute '{ $_ }'" }
     }

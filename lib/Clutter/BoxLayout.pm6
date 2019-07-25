@@ -24,7 +24,7 @@ my @attributes = <
   use_animation    use-animation
 >;
 
-my @set-methods = <expand alignment fill>;
+my @set-methods = <expand alignment>;
 
 class Clutter::BoxLayout is Clutter::LayoutManager {
   has ClutterBoxLayout $!cb;
