@@ -46,14 +46,33 @@ class Clutter::Stage is Clutter::Actor {
   has ClutterStage $!cs;
 
   submethod BUILD (:$stage) {
-    self.setActor( cast(ClutterActor, $!cs = $stage) );
+    given $stage {
+      when StageAncestry {
+        my $to-parent;
+        $!cs = do {
+          when ClutterStage {
+            $to-parent = cast(ClutterActor, $_);
+            $_;
+          }
+          default {
+            $to-parent = $_;
+            cast(ClutterStage, $_);
+          }
+        };
+        self.setActor($to-parent);
+      }
+      when Clutter::Stage {
+      }
+      default {
+      }
+    }
   }
 
   method Clutter::Raw::Types::ClutterStage
     is also<ClutterStage>
   { $!cs }
 
-  multi method new (StageAncestry $stage) {
+  multi method new (StageAncestry $stage) is default {
     self.bless(:$stage);
   }
   multi method new {

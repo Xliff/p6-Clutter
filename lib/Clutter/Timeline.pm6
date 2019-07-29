@@ -161,7 +161,7 @@ class Clutter::Timeline {
   # Is originally:
   # ClutterTimeline, gint, gpointer --> void
   method new-frame is also<new_frame> {
-    self.connect-int($!ctime);
+    self.connect-int($!ctime, 'new-frame');
   }
 
   # Is originally:
