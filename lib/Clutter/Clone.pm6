@@ -12,7 +12,13 @@ our subset CloneAncestry of Mu
 
 class Clutter::Clone is Clutter::Actor {
   has ClutterClone $!cc;
-  
+
+  method bless(*%attrinit) {
+    my $o = self.CREATE.BUILDALL(Empty, %attrinit);
+    $o.setType($o.^name);
+    $o;
+  }
+
   submethod BUILD (:$clone) {
     given $clone {
       when CloneAncestry {
@@ -35,14 +41,14 @@ class Clutter::Clone is Clutter::Actor {
       }
     }
   }
-  
+
   multi method new (ClutterClone $clone) {
     self.bless(:$clone);
   }
   multi method new (ClutterActor() $source) {
     self.bless( clone => clutter_clone_new($source) );
   }
-  
+
   method source(:$raw) is rw {
     Proxy.new(
       FETCH => sub ($) {
@@ -54,7 +60,7 @@ class Clutter::Clone is Clutter::Actor {
       }
     );
   }
-  
+
   method get_type {
     state ($n, $t);
     unstable_get_type( self.^name, &clutter_clone_get_type, $n, $t );

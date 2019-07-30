@@ -275,7 +275,8 @@ class Clutter::Event {
   { * }
 
   multi method get_coords is also<coords> {
-    my ($x, $y) = (0, 0);
+    # Ensure coercion does not occur.
+    my ($x, $y) = (0e0, 0e0);
     samewith($x, $y);
   }
   multi method get_coords (Num() $x is rw, Num() $y is rw) {
@@ -457,7 +458,15 @@ class Clutter::Event {
     clutter_event_set_scroll_delta($!ce, $ddx, $ddy);
   }
 
-  method type {
+  # Using .type as an alias for the next method is too close to .get-type, so
+  # to prevent confusion, we are only using the wordier options.
+  method get_event_type
+    is also<
+      get-event-type
+      event_type
+      event-type
+    >
+  {
     ClutterEventType( clutter_event_type($!ce) );
   }
 

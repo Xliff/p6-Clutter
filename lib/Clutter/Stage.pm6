@@ -45,6 +45,12 @@ class Clutter::Stage is Clutter::Actor {
 
   has ClutterStage $!cs;
 
+  method bless(*%attrinit) {
+    my $o = self.CREATE.BUILDALL(Empty, %attrinit);
+    $o.setType($o.^name);
+    $o;
+  }
+
   submethod BUILD (:$stage) {
     given $stage {
       when StageAncestry {
@@ -350,13 +356,15 @@ class Clutter::Stage is Clutter::Actor {
   method get_actor_at_pos (
     Int() $pick_mode, # ClutterPickMode $pick_mode,
     Int() $x,
-    Int() $y
+    Int() $y,
+    :$raw = False
   )
     is also<get-actor-at-pos>
   {
     my guint $pm = resolve-uint($pick_mode);
     my gint ($xx, $yy) = resolve-int($x, $y);
-    clutter_stage_get_actor_at_pos($!cs, $pm, $xx, $yy);
+    my $a = clutter_stage_get_actor_at_pos($!cs, $pm, $xx, $yy);
+    $raw ?? $a !! Clutter::Actor.new($a);
   }
 
   method get_minimum_size (Int() $width, Int() $height)

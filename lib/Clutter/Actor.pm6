@@ -30,6 +30,7 @@ use Clutter::Size;
 use Clutter::Transition;
 use Clutter::Vertex;
 
+use GTK::Roles::Data;
 use GTK::Roles::Protection;
 use GTK::Roles::Properties;
 
@@ -153,6 +154,7 @@ our subset ActorAncestry is export of Mu
   where ClutterAnimatable | ClutterContainer | ClutterScriptable | ClutterActor;
 
 class Clutter::Actor {
+  also does GTK::Roles::Data;
   also does GTK::Roles::Protection;
   also does GTK::Roles::Properties;
   also does GTK::Roles::Signals::Generic;
@@ -163,6 +165,12 @@ class Clutter::Actor {
   also does Clutter::Roles::Signals::Generic;
 
   has ClutterActor $!ca;
+
+  method bless(*%attrinit) {
+    my $o = self.CREATE.BUILDALL(Empty, %attrinit);
+    $o.setType($o.^name);
+    $o;
+  }
 
   submethod BUILD (:$actor) {
     self.ADD-PREFIX('Clutter::');
@@ -191,7 +199,8 @@ class Clutter::Actor {
       default { $_ }
     }
 
-    self!setObject( cast(GObject, $!ca) );
+    $!data = $!ca.p;                                                     # GTK::Roles::Data
+    self!setObject( cast(GObject, $!ca) );                               # GTK::Roles::Properties (GObject)
     self.setAnimatable( $c-anim      // cast(ClutterAnimatable, $!ca) ); # Clutter::Roles::Animatable
     self.setContainer(  $c-container // cast(ClutterContainer,  $!ca) ); # Clutter::Roles::Container
     self.setScriptable( $c-script    // cast(ClutterScriptable, $!ca) ); # Clutter::Roles::Scriptable
@@ -432,7 +441,7 @@ class Clutter::Actor {
           self.add-effect-with-name(|$_);
         }
       }
-      
+
       when 'constraints-with-name' | 'constraints_with_name' {
         say 'A constraints-with-name' if $DEBUG;
         for %data{$_} {
@@ -450,7 +459,7 @@ class Clutter::Actor {
       {
         self!setAmbiguousPoint(%data, $_);
       }
-      
+
       when 'parent' {
         %data<parent>.add_child(self);
       }
@@ -1271,8 +1280,8 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-x is rw is also<rotation_center_x> 
-    is DEPRECATED( 'pivot-point' ) 
+  method rotation-center-x is rw is also<rotation_center_x>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
@@ -1288,8 +1297,8 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-y is rw is also<rotation_center_y> 
-    is DEPRECATED( 'pivot-point' ) 
+  method rotation-center-y is rw is also<rotation_center_y>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
@@ -1305,8 +1314,8 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-z is rw is also<rotation_center_z> 
-    is DEPRECATED( 'pivot-point' ) 
+  method rotation-center-z is rw is also<rotation_center_z>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
@@ -1322,8 +1331,8 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGravity
-  method rotation-center-z-gravity is rw is also<rotation_center_z_gravity> 
-    is DEPRECATED( 'pivot-point' ) 
+  method rotation-center-z-gravity is rw is also<rotation_center_z_gravity>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
@@ -1339,8 +1348,8 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method scale-center-x is rw is also<scale_center_x> 
-    is DEPRECATED( 'pivot-point' ) 
+  method scale-center-x is rw is also<scale_center_x>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
@@ -1356,8 +1365,8 @@ class Clutter::Actor {
   }
 
   # Type: gfloat
-  method scale-center-y is rw is also<scale_center_y> 
-    is DEPRECATED( 'pivot-point' ) 
+  method scale-center-y is rw is also<scale_center_y>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
@@ -1373,8 +1382,8 @@ class Clutter::Actor {
   }
 
   # Type: ClutterGravity
-  method scale-gravity is rw is also<scale_gravity> 
-    is DEPRECATED( 'pivot-point' ) 
+  method scale-gravity is rw is also<scale_gravity>
+    is DEPRECATED( 'pivot-point' )
   {
     my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(

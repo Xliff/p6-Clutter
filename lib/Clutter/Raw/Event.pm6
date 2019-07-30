@@ -8,9 +8,9 @@ use Clutter::Raw::Types;
 unit package Clutter::Raw::Event;
 
 sub clutter_event_add_filter (
-  ClutterStage $stage, 
-  &func (ClutterEvent, Pointer --> gboolean), 
-  GDestroyNotify $notify, 
+  ClutterStage $stage,
+  &func (ClutterEvent, Pointer --> gboolean),
+  GDestroyNotify $notify,
   gpointer $user_data
 )
   returns guint
@@ -83,7 +83,11 @@ sub clutter_event_get_click_count (ClutterEvent $event)
   is export
 { * }
 
-sub clutter_event_get_coords (ClutterEvent $event, gfloat $x, gfloat $y)
+sub clutter_event_get_coords (
+  ClutterEvent $event,
+  gfloat $x is rw,
+  gfloat $y is rw
+)
   is native(clutter)
   is export
 { * }
@@ -113,8 +117,8 @@ sub clutter_event_get_event_sequence (ClutterEvent $event)
 { * }
 
 sub clutter_event_get_gesture_motion_delta (
-  ClutterEvent $event, 
-  gdouble $dx is rw, 
+  ClutterEvent $event,
+  gdouble $dx is rw,
   gdouble $dy is rw
 )
   is native(clutter)
@@ -151,8 +155,8 @@ sub clutter_event_get_position (ClutterEvent $event, ClutterPoint $position)
 { * }
 
 sub clutter_event_get_scroll_delta (
-  ClutterEvent $event, 
-  gdouble $dx is rw, 
+  ClutterEvent $event,
+  gdouble $dx is rw,
   gdouble $dy is rw
 )
   is native(clutter)
@@ -160,7 +164,7 @@ sub clutter_event_get_scroll_delta (
 { * }
 
 sub clutter_event_get_state_full (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   guint $button_state    is rw, # ClutterModifierType
   guint $base_state      is rw, # ClutterModifierType
   guint $latched_state   is rw, # ClutterModifierType
@@ -231,8 +235,8 @@ sub clutter_event_set_coords (ClutterEvent $event, gfloat $x, gfloat $y)
 { * }
 
 sub clutter_event_set_scroll_delta (
-  ClutterEvent $event, 
-  gdouble $dx, 
+  ClutterEvent $event,
+  gdouble $dx,
   gdouble $dy
 )
   is native(clutter)
@@ -324,7 +328,7 @@ sub clutter_event_get_time (ClutterEvent $event)
 { * }
 
 sub clutter_event_set_button (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   guint32 $button
 )
   is native(clutter)
@@ -332,7 +336,7 @@ sub clutter_event_set_button (
 { * }
 
 sub clutter_event_set_device (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   ClutterInputDevice $device
 )
   is native(clutter)
@@ -340,7 +344,7 @@ sub clutter_event_set_device (
 { * }
 
 sub clutter_event_set_flags (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   guint $flags # ClutterEventFlags $flags
 )
   is native(clutter)
@@ -363,7 +367,7 @@ sub clutter_event_set_key_unicode (ClutterEvent $event, gunichar $key_unicode)
 { * }
 
 sub clutter_event_set_related (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   ClutterActor $actor
 )
   is native(clutter)
@@ -371,7 +375,7 @@ sub clutter_event_set_related (
 { * }
 
 sub clutter_event_set_scroll_direction (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   guint $direction # ClutterScrollDirection $direction
 )
   is native(clutter)
@@ -384,7 +388,7 @@ sub clutter_event_set_source (ClutterEvent $event, ClutterActor $actor)
 { * }
 
 sub clutter_event_set_source_device (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   ClutterInputDevice $device
 )
   is native(clutter)
@@ -397,7 +401,7 @@ sub clutter_event_set_stage (ClutterEvent $event, ClutterStage $stage)
 { * }
 
 sub clutter_event_set_state (
-  ClutterEvent $event, 
+  ClutterEvent $event,
   guint $state # ClutterModifierType $state
 )
   is native(clutter)
