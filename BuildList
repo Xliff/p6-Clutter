@@ -2,9 +2,9 @@ Cairo
 GTK::Compat::GSList
 GTK::Compat::Roles::ListData
 GTK::Compat::Roles::Object
+GTK::Compat::Roles::TypedBuffer
 GTK::Compat::Types
 GTK::Compat::Value
-GTK::Copmpat::Types
 GTK::Raw::ReturnedValue
 GTK::Raw::Types
 GTK::Raw::Utils
@@ -33,6 +33,7 @@ Clutter::Raw::Backend
 Clutter::Raw::BindConstraint
 Clutter::Raw::BoxLayout
 Clutter::Raw::Boxed
+Clutter::Raw::BrightnessContrastEffect
 Clutter::Raw::ClickAction
 Clutter::Raw::Color
 Clutter::Raw::Container
@@ -107,9 +108,12 @@ Clutter::Action
 Clutter::Actor
 Clutter::ActorIter
 Clutter::BinLayout
+Clutter::BlurEffect
 Clutter::BoxLayout
+Clutter::BrightnessContrastEffect
 Clutter::Canvas
 Clutter::ClickAction
+Clutter::Clone
 Clutter::DeformEffect
 Clutter::DesaturateEffect
 Clutter::DragAction

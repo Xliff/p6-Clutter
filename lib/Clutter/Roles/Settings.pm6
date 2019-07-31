@@ -1,5 +1,6 @@
 use v6.c;
 
+use Method::Also;
 use NativeCall;
 
 use GTK::Compat::Types;
@@ -9,22 +10,22 @@ use GTK::Roles::Properties;
 
 role Clutter::Roles::Settings {
   also does GTK::Roles::Properties;
-  
+
   has ClutterSettings $!c-set;
-  
+
   method Clutter::Raw::Types::ClutterSettings
     is also<Settings>
   { $!c-set }
-  
+
   method get_settings_default {
     self.setSettings( $!c-set = clutter_settings_get_default() );
   }
-  
+
   method setSettings(ClutterSettings $settings) {
     self.IS-PROTECTED;
     self!setObject( cast(GObject, $settings) );
   }
-  
+
   # Type: ClutterBackend
   method backend is rw is DEPRECATED {
     my GTK::Compat::Value $gv .= new( ::('Clutter::Backend').get-type );
@@ -276,7 +277,7 @@ role Clutter::Roles::Settings {
 
   method settings_get_type {
     state ($n, $t);
-    unstable_get_type( 
+    unstable_get_type(
       'Clutter::Roles::Settings', &clutter_settings_get_type, $n, $t
     );
   }
