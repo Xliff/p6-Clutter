@@ -1,0 +1,60 @@
+use v6.c;
+
+use NativeCall;
+
+use GTK::Compat::Types;
+use Clutter::Raw::Types;
+
+use Clutter::Actor;
+use Clutter::Stage;
+
+use Clutter::Main;
+
+use GTK::Roles::Pointers;
+
+sub g_clear_object(CArray[Pointer] $o)
+  is native(gobject)
+{ * }
+
+sub clear-object($o) {
+  my GObject $go = cast(GObject, $o);
+  my $ca = CArray[Pointer].new;
+  $ca[0] = $o.p;
+  g_clear_object($ca);
+}
+
+class TestThreadData is repr<CStruct> also does GTK::Roles::Pointers {
+  has ClutterActor      $.stage;
+  has ClutterText       $.label;
+  has ClutterActor      $.progress;
+  has ClutterActor      $.rect;
+  has ClutterTransition $.flip;
+  has ClutterTransition $.bounce;
+
+  method destroy(TestThreadData:D:) {
+    clear-object($_) for $.stage, $.label, $.progress, $.rect, $.flip, $.bounce;
+    free(self);
+  }
+}
+
+sub test-thread-done-idle($ud) {
+  my $data = cast(TestThreadData, $ud);
+
+  say "Last update [{ +$data.p }]";
+
+  Clutter::Text.new($data.label).text = 'Completed';
+
+  my $a = Clutter::Actor.new($data.rect);
+  $a.remove-transition($_) for <bounce flip>;
+  $data.destroy;
+  
+  G_SOURCE_REMOVE;
+}
+
+sub test-thread-data-done($ud) {
+  say 'Thread Completed';
+
+  Clutter::Threads.add-idle-full(
+    &test-thread-done-idle, G_PRIORITY_DEFAULT, $ud
+  );
+}
