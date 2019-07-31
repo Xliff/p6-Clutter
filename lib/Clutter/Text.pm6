@@ -17,6 +17,7 @@ use Pango::FontDescription;
 use Pango::Layout;
 
 use Clutter::Actor;
+use Clutter::Color;
 use Clutter::TextBuffer;
 
 use Clutter::Roles::Signals::Text;
@@ -119,6 +120,16 @@ class Clutter::Text is Clutter::Actor {
   }
   multi method new {
     self.bless( text => clutter_text_new() );
+  }
+
+  method new_with_color (
+    $color where * ~~ (Clutter::Color | ClutterColor).any
+  )
+    is also<new-with-color>
+  {
+    my $c = $color;
+    $c = $color.ClutterColor if $c ~~ Clutter::Color;
+    Clutter::Text.new-full(Str, Str, $c);
   }
 
   method new_full (

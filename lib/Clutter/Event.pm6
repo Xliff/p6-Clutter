@@ -47,10 +47,11 @@ class Clutter::Event {
     );
   }
 
-  method device is rw {
+  method device (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::InputDevice.new( clutter_event_get_device($!ce) );
+        my $d = clutter_event_get_device($!ce);
+        $raw ?? $d !! Clutter::InputDevice.new($d);
       },
       STORE => sub ($, ClutterInputDevice() $device is copy) {
         clutter_event_set_device($!ce, $device);
@@ -103,10 +104,11 @@ class Clutter::Event {
     );
   }
 
-  method related is rw {
+  method related (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Actor.new( clutter_event_get_related($!ce) );
+        my $a = clutter_event_get_related($!ce);
+        $raw ?? $a !! Clutter::Actor.new($a);
       },
       STORE => sub ($, ClutterActor() $actor is copy) {
         clutter_event_set_related($!ce, $actor);
@@ -126,10 +128,11 @@ class Clutter::Event {
     );
   }
 
-  method source is rw {
+  method source (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Actor.new( clutter_event_get_source($!ce) );
+        my $a = clutter_event_get_source($!ce);
+        $raw ?? $a !! Clutter::Actor.new($a);
       },
       STORE => sub ($, ClutterActor() $actor is copy) {
         clutter_event_set_source($!ce, $actor);
@@ -137,10 +140,11 @@ class Clutter::Event {
     );
   }
 
-  method source_device is rw is also<source-device> {
+  method source_device (:$raw = False) is rw is also<source-device> {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::InputDevice.new( clutter_event_get_source_device($!ce) );
+        my $sd = clutter_event_get_source_device($!ce);
+        $raw ?? $sd !! Clutter::InputDevice.new($sd);
       },
       STORE => sub ($, ClutterInputDevice() $device is copy) {
         clutter_event_set_source_device($!ce, $device);
@@ -148,10 +152,11 @@ class Clutter::Event {
     );
   }
 
-  method stage is rw {
+  method stage (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Stage.new( clutter_event_get_stage($!ce) );
+        my $s = clutter_event_get_stage($!ce);
+        $raw ?? $s !! Clutter::Stage.new($s);
       },
       STORE => sub ($, ClutterStage() $stage is copy) {
         clutter_event_set_stage($!ce, $stage);
@@ -195,16 +200,16 @@ class Clutter::Event {
     clutter_event_add_filter($stage, &func, $notify, $user_data);
   }
 
-  method get_pending (Clutter::Event:U:)
+  method pending (Clutter::Event:U:)
     is also<
       get-pending
-      pending
+      get_pending
     >
   {
     clutter_events_pending();
   }
 
-  method get_current_event (Clutter::Event:U:)
+  method get_current_event (Clutter::Event:U: :$raw = False)
     is also<
       get-current-event
       get_current
@@ -212,7 +217,8 @@ class Clutter::Event {
       current
     >
   {
-    clutter_get_current_event();
+    my $e = clutter_get_current_event();
+    $raw ?? $e !! Clutter::Event.new($e);
   }
 
   method get_current_event_time (Clutter::Event:U:)
@@ -233,8 +239,9 @@ class Clutter::Event {
     clutter_event_free($!ce);
   }
 
-  method get {
-    clutter_event_get();
+  method get (Clutter::Event:U: :$raw = False) {
+    my $e = clutter_event_get();
+    $raw ?? $e !! Clutter::Event.new($e);
   }
 
   method get_angle (ClutterEvent() $target) is also<get-angle> {
@@ -432,12 +439,13 @@ class Clutter::Event {
     so clutter_event_is_pointer_emulated($!ce);
   }
 
-  method peek {
-    clutter_event_peek();
+  method peek (Clutter::Event:U: :$raw = False) {
+    my $e = clutter_event_peek();
+    $raw ?? $e !! Clutter::Event.new($e);
   }
 
-  method put {
-    clutter_event_put($!ce);
+  method put (Clutter::Event:U: ClutterEvent() $event) {
+    clutter_event_put($event);
   }
 
   method remove_filter is also<remove-filter> {
