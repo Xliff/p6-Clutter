@@ -37,6 +37,9 @@ sub resolve-unichar($wc) {
   });
 }
 
+# 'position' is not listed because it is deprecated. This also allows
+# The Clutter::Actor version to be use if it is specified in
+#  Clutter::Text.setup
 my @attributes = <
   activatable
   attributes
@@ -62,7 +65,6 @@ my @attributes = <
   color
   cursor-color             cursor-color
   cursor_color_set         cursor-color-set
-  position
   selected_text_color_set  selected-text-color-set
   selection_color          selection-color
   selection_color_set      selection-color-set
@@ -173,6 +175,7 @@ class Clutter::Text is Clutter::Actor {
       }
     }
     self.Clutter::Actor::setup(|%data) if %data.keys.elems;
+    self;
   }
 
   method activatable is rw {

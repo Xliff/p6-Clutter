@@ -1,0 +1,8 @@
+- Insure proper defineness checks are made whenever the :$raw option is used,
+  and that :$raw defaults to False! A proper defineness check looks like this
+  when specifying the return value:
+  
+    $a.defined ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      ClutterActor;
