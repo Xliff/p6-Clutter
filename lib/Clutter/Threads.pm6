@@ -29,10 +29,11 @@ DIE
     clutter_threads_add_idle(&func, $data);
   }
 
-  proto add_idle_full (|)
+  proto method add_idle_full (|)
     is also<add-idle-full>
   { * }
 
+  # This multi doesn't really serve much of a purpose, after a bit of thought.
   multi method add_idle_full (
     &func,
     Int() $priority        = G_PRIORITY_DEFAULT,
@@ -84,10 +85,11 @@ DIE
     clutter_threads_add_timeout($i, &func, $data);
   }
 
-  proto add_timeout_full (|)
+  proto method add_timeout_full (|)
     is also<add-timeout-full>
   { * }
 
+  # cw: May want to rethink the need for this multi.
   multi method add_timeout_full (
     &func,
     Int() $interval,
@@ -97,7 +99,7 @@ DIE
   ) {
     samewith($priority, $interval, &func, $data, $notify)
   }
-  method add_timeout_full (
+  multi method add_timeout_full (
     Int  $priority,
     Int() $interval,
     &func,
