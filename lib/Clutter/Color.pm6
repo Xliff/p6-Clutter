@@ -12,7 +12,7 @@ use Clutter::Raw::Color;
 # Boxed
 
 class Clutter::Color {
-  has ClutterColor $!cc handles <red green blue alpha>;
+  has ClutterColor $!cc handles <red green blue alpha gist perl>;
 
   submethod BUILD (:$color) {
     $!cc = $color;

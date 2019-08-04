@@ -141,14 +141,28 @@ my @set_methods = <
 
 my @add_methods = <
   action
-  action_wth_name       action-with-name
+  action_wth_name        action-with-name
   constraint
   constraints
-  constraint_with_name  constraint-with-name
+  constraint_by_name     constraint-by-name
+  constraint_with_name   constraint-with-name
   child
   effect
-  effect_with_name      effect-with-name
+  effect-by-name          effect-by-name
+  effect_with_name        effect-with-name
+  
+  actions_by_name         actions-by-name
+  actions_with_name       actions-with-name
+  constraints_by_name     constraints-by-name
+  constraints_with_name   constraints-with-name
+  effects_by_name         effects-by-name
+  effects_with_name       effects-with-name
 >;
+
+# The above arrays CAN be populated within a BEGIN block, but that will be
+# for a later date. Predefined values is currently the path of least resistance:
+#   - Tricky part is getting the right list of attributes. They MUST have both 
+#     getters and setters to be considered. This could be a fun chore.
 
 our subset ActorAncestry is export of Mu
   where ClutterAnimatable | ClutterContainer | ClutterScriptable | ClutterActor;
@@ -421,39 +435,7 @@ class Clutter::Actor {
 
       when 'actions'  {
         say 'A actions' if $DEBUG;
-        # Coerce to array in case user added an 's' by mistake.
-        %data<actions> .= Array;
-        for %data<actions> {
-          unless $_ ~~ Clutter::Action || .^can('ClutterAction').elems {
-            die 'actions value must only contain Clutter::Action compatible types!'
-          }
-          self.add_action($_);
-        }
-      }
 
-      when 'effects-with-name' | 'effects_with_name' {
-        say 'A effects-with-name' if $DEBUG;
-        for %data{$_} {
-          unless .[1] ~~ Clutter::Effect || .[1].^can('ClutterEffect').elems {
-            die "'effects-with-name' value must only contain Clutter::Effects compatible types"
-          }
-          say "Effect: { .[0] }" if $DEBUG;
-          self.add-effect-with-name(|$_);
-        }
-      }
-
-      when 'constraints-with-name' | 'constraints_with_name' {
-        say 'A constraints-with-name' if $DEBUG;
-        die 'constraints-with-name will only take a Positional!'
-          unless %data{$_} ~~ Positional;
-        
-        for %data{$_}.Array {
-          unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
-            die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
-          }
-          say "Constraint: { .[0] }" if $DEBUG;
-          self.add-constraint-with-name(|$_);
-        }
       }
 
       # Attributes needing special handling
@@ -2776,11 +2758,38 @@ class Clutter::Actor {
   method add_action (ClutterAction() $action) is also<add-action> {
     clutter_actor_add_action($!ca, $action);
   }
+  
+  method add_actions (*@actions) is also<add-actions> {
+    for @actions {
+      unless $_ ~~ Clutter::Action || .^can('ClutterAction').elems {
+        die 'actions value must only contain Clutter::Action compatible types!'
+      }
+      self.add_action($_);
+    }
+  }
 
   method add_action_with_name (Str() $name, ClutterAction() $action)
-    is also<add-action-with-name>
+    is also<
+      add-action-with-name
+      add_action_by_name
+      add-action-by-name
+    >
   {
     clutter_actor_add_action_with_name($!ca, $name, $action);
+  }
+  
+  method add_actions_with_name (*@actions) 
+    is also<
+      add-actions-with-name
+      add_actions_by_name
+      add-actions-by-name
+    >
+  {
+    unless .[1] ~~ Clutter::Action || .[1].^can('ClutterAction').elems {
+      die "'constraints-with-name' value must only contain Clutter::Action compatible types"
+    }
+    say "Action: { .[0] }" if $DEBUG;
+    self.add-action-with-name(|$_);
   }
 
   method clear_actions is also<clear-action> {
@@ -2830,9 +2839,29 @@ class Clutter::Actor {
     Str() $name,
     ClutterConstraint() $constraint
   )
-    is also<add-constraint-with-name>
+    is also<
+      add-constraint-with-name
+      add_constraint_by_name
+      add-constraint-by-name
+    >
   {
     clutter_actor_add_constraint_with_name($!ca, $name, $constraint);
+  }
+  
+  method add_constraints_with_name (*@constraints) 
+    is also<
+      add-constraints-with-name
+      add_constraints_by_name
+      add-constraints-by-name
+    >
+  {
+    for @constraints {
+      unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
+        die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
+      }
+      say "Constraint: { .[0] }" if $DEBUG;
+      self.add-constraint-with-name(|$_);
+    }
   }
 
   method clear_constraints is also<clear-constraints> {
@@ -2872,9 +2901,29 @@ class Clutter::Actor {
   }
 
   method add_effect_with_name (Str() $name, ClutterEffect() $effect)
-    is also<add-effect-with-name>
+    is also<
+      add-effect-with-name
+      add_effect_by_name
+      add-effect-by-name
+    >
   {
     clutter_actor_add_effect_with_name($!ca, $name, $effect);
+  }
+  
+  method add_effects_with_name(*@effects) 
+    is also<
+      add-effects-with-name
+      add_effects_by_name
+      add-effects-by-name
+    >
+  {
+    for @effects {
+      unless .[1] ~~ Clutter::Effect || .[1].^can('ClutterEffect').elems {
+        die "'effects-with-name' value must only contain Clutter::Effects compatible types"
+      }
+      say "Effect: { .[0] }" if $DEBUG;
+      self.add-effect-with-name(|$_);
+    }
   }
 
   method clear_effects is also<clear-effects> {
