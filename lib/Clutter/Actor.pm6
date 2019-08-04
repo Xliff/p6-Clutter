@@ -2855,7 +2855,8 @@ class Clutter::Actor {
       add-constraints-by-name
     >
   {
-    for @constraints {
+    # Turn back into proper pairs
+    for @constraints.rotor(2) {
       unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
         die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
       }
@@ -2917,7 +2918,8 @@ class Clutter::Actor {
       add-effects-by-name
     >
   {
-    for @effects {
+    # Turn back into a list of proper pairs.
+    for @effects.rotor(2) {
       unless .[1] ~~ Clutter::Effect || .[1].^can('ClutterEffect').elems {
         die "'effects-with-name' value must only contain Clutter::Effects compatible types"
       }
@@ -2930,15 +2932,21 @@ class Clutter::Actor {
     clutter_actor_clear_effects($!ca);
   }
 
-  method get_effect (Str() $name) is also<get-effect> {
-    Clutter::Effect.new( clutter_actor_get_effect($!ca, $name) );
+  method get_effect (Str() $name, :$raw) is also<get-effect> {
+    my $e = clutter_actor_get_effect($!ca, $name);
+    $e.defined ??
+      ( $raw ?? $e !! Clutter::Effect.new($e) )
+      !!
+      Nil
   }
 
   method get_effects (:$raw) is also<get-effects> {
     my $l = GTK::Compat::GList.new( clutter_actor_get_effects($!ca) )
       but GTK::Compat::Roles::ListData[ClutterEffect];
-    $raw ??
-      $l.Array !! $l.Array.map({ Clutter::Effect.new($_) });
+    $l.defined ??
+      ( $raw ?? $l.Array !! $l.Array.map({ Clutter::Effect.new($_) }) )
+      !!
+      Nil;
   }
 
   method has_effects is also<has-effects> {

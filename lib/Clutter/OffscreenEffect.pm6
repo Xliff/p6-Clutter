@@ -11,7 +11,7 @@ use Clutter::Raw::OffscreenEffect;
 use Clutter::Effect;
 
 our subset OffscreenEffectAncestry is export of Mu
-  where ClutterOffscreenEffect | ClutterEffect;
+  where ClutterOffscreenEffect | EffectAncestry;
 
 class Clutter::OffscreenEffect is Clutter::Effect {
   has ClutterOffscreenEffect $!coe;

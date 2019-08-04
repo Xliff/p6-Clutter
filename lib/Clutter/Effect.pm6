@@ -12,6 +12,9 @@ use GTK::Compat::Roles::Object;
 
 use Clutter::ActorMeta;
 
+our subset EffectAncestry of Mu is export
+  where ClutterEffect | ClutterActorMeta;
+
 class Clutter::Effect is Clutter::ActorMeta {
   also does GTK::Compat::Roles::Object;
 
@@ -24,7 +27,28 @@ class Clutter::Effect is Clutter::ActorMeta {
   method setEffect(ClutterEffect $effect) {
     self.IS-PROTECTED;
     say 'setEffect' if $DEBUG;
-    self.setActorMeta( cast(ClutterActorMeta, $!c-eff = $effect) );
+    given $effect {
+      when EffectAncestry {
+        my $to-parent;
+        $!c-eff = do {
+          when ClutterEffect {
+            $to-parent = cast(ClutterActorMeta, $_);
+            $_;
+          }
+          default {
+            $to-parent = $_;
+            cast(ClutterEffect, $_);
+          }
+        }
+        self.setActorMeta($to-parent);
+      }
+      
+      when Clutter::Effect {
+      }
+      
+      default {
+      }
+    }
   }
 
   method queue_repaint is also<queue-repaint> {
