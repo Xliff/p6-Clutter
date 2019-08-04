@@ -444,7 +444,10 @@ class Clutter::Actor {
 
       when 'constraints-with-name' | 'constraints_with_name' {
         say 'A constraints-with-name' if $DEBUG;
-        for %data{$_} {
+        die 'constraints-with-name will only take a Positional!'
+          unless %data{$_} ~~ Positional;
+        
+        for %data{$_}.Array {
           unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
             die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
           }
@@ -462,6 +465,7 @@ class Clutter::Actor {
 
       when 'parent' {
         %data<parent>.add_child(self);
+        self.show-actor;
       }
 
       default { die "Unknown attribute '{ $_ }'" }
