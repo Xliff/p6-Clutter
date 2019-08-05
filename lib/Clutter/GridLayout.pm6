@@ -135,8 +135,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
     ClutterActor() $child,
     Int() $left,
     Int() $top,
-    Int() $width,
-    Int() $height
+    Int() $width  = 1,
+    Int() $height = 1
   ) {
     my gint ($l, $t, $w, $h) = resolve-int($left, $top, $width, $height);
     clutter_grid_layout_attach($!cgl, $child, $l, $t, $w, $h);
@@ -146,8 +146,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
     ClutterActor() $child,
     ClutterActor() $sib,
     Int() $side,            # ClutterGridPosition $side,
-    Int() $width,
-    Int() $height
+    Int() $width  = 1,
+    Int() $height = 1
   )
     is also<attach-next-to>
   {
