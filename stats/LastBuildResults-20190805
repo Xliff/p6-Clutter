@@ -1,0 +1,1233 @@
+Dependency Generation
+=====================
+real 2.72
+user 3.53
+sys 0.45
+ === Cairo ===
+Stage start      :   0.000
+Stage parse      :   2.030
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.005
+Stage mast       :   0.010
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === GTK::Compat::GSList ===
+Stage start      :   0.000
+Stage parse      :   2.496
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Compat::Roles::ListData ===
+Stage start      :   0.000
+Stage parse      :   2.267
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Compat::Roles::Object ===
+Stage start      :   0.000
+Stage parse      :   2.553
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Compat::Roles::TypedBuffer ===
+Stage start      :   0.000
+Stage parse      :   2.353
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Compat::Types ===
+Stage start      :   0.000
+Stage parse      :   2.261
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.013
+Stage mast       :   0.022
+Stage mbc        :   0.009
+Stage moar       :   0.000
+ === GTK::Compat::Value ===
+Stage start      :   0.000
+Stage parse      :   2.659
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Raw::ReturnedValue ===
+Stage start      :   0.000
+Stage parse      :   1.735
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.008
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GTK::Raw::Types ===
+Stage start      :   0.000
+Stage parse      :   2.484
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.019
+Stage mast       :   0.021
+Stage mbc        :   0.009
+Stage moar       :   0.000
+ === GTK::Raw::Utils ===
+Stage start      :   0.000
+Stage parse      :   2.224
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Roles::Data ===
+Stage start      :   0.000
+Stage parse      :   2.614
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Roles::Pointers ===
+Stage start      :   0.000
+Stage parse      :   1.946
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Roles::Properties ===
+Stage start      :   0.000
+Stage parse      :   2.716
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Roles::Protection ===
+Stage start      :   0.000
+Stage parse      :   1.770
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GTK::Roles::Signals::Generic ===
+Stage start      :   0.000
+Stage parse      :   2.562
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Method::Also ===
+Stage start      :   0.000
+Stage parse      :   1.752
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::AttrList ===
+Stage start      :   0.000
+Stage parse      :   2.351
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Context ===
+Stage start      :   0.000
+Stage parse      :   2.544
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::FontDescription ===
+Stage start      :   0.000
+Stage parse      :   2.479
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Layout ===
+Stage start      :   0.000
+Stage parse      :   2.649
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Types ===
+Stage start      :   0.000
+Stage parse      :   2.244
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.008
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::Raw::Types ===
+Stage start      :   0.000
+Stage parse      :   1.826
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.012
+Stage mast       :   0.021
+Stage mbc        :   0.012
+Stage moar       :   0.000
+ === Clutter::Compat::Types ===
+Stage start      :   0.000
+Stage parse      :   2.179
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.007
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::Cairo ===
+Stage start      :   0.000
+Stage parse      :   4.804
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::ChildMeta ===
+Stage start      :   0.000
+Stage parse      :   3.050
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Constraint ===
+Stage start      :   0.000
+Stage parse      :   2.893
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::LayoutMeta ===
+Stage start      :   0.000
+Stage parse      :   3.063
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Actor ===
+Stage start      :   0.000
+Stage parse      :   2.521
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.012
+Stage mast       :   0.008
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::ActorMeta ===
+Stage start      :   0.000
+Stage parse      :   2.388
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::AlignConstraint ===
+Stage start      :   0.000
+Stage parse      :   2.391
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Animatable ===
+Stage start      :   0.000
+Stage parse      :   2.383
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Backend ===
+Stage start      :   0.000
+Stage parse      :   5.085
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::BindConstraint ===
+Stage start      :   0.000
+Stage parse      :   2.405
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::BoxLayout ===
+Stage start      :   0.000
+Stage parse      :   2.348
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Boxed ===
+Stage start      :   0.000
+Stage parse      :   2.444
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::BrightnessContrastEffect ===
+Stage start      :   0.000
+Stage parse      :   2.391
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::ClickAction ===
+Stage start      :   0.000
+Stage parse      :   4.612
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Color ===
+Stage start      :   0.000
+Stage parse      :   2.323
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Container ===
+Stage start      :   0.000
+Stage parse      :   2.329
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::DeformEffect ===
+Stage start      :   0.000
+Stage parse      :   4.913
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::DeviceManager ===
+Stage start      :   0.000
+Stage parse      :   4.652
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::DragAction ===
+Stage start      :   0.000
+Stage parse      :   5.205
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.009
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::Event ===
+Stage start      :   0.000
+Stage parse      :   2.393
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::FlowLayout ===
+Stage start      :   0.000
+Stage parse      :   5.569
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::GestureAction ===
+Stage start      :   0.000
+Stage parse      :   6.012
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::GridLayout ===
+Stage start      :   0.000
+Stage parse      :   1.851
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::Image ===
+Stage start      :   0.000
+Stage parse      :   5.028
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::InputDevice ===
+Stage start      :   0.000
+Stage parse      :   2.285
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Interval ===
+Stage start      :   0.000
+Stage parse      :   2.302
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::KeyframeTransition ===
+Stage start      :   0.000
+Stage parse      :   5.013
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::LayoutManager ===
+Stage start      :   0.000
+Stage parse      :   2.284
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Main ===
+Stage start      :   0.000
+Stage parse      :   2.411
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::OffscreenEffect ===
+Stage start      :   0.000
+Stage parse      :   2.387
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::PageTurnEffect ===
+Stage start      :   0.000
+Stage parse      :   4.978
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::PanAction ===
+Stage start      :   0.000
+Stage parse      :   5.535
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::Path ===
+Stage start      :   0.000
+Stage parse      :   6.812
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::PathConstraint ===
+Stage start      :   0.000
+Stage parse      :   4.732
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Scriptable ===
+Stage start      :   0.000
+Stage parse      :   2.377
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::ScrollActor ===
+Stage start      :   0.000
+Stage parse      :   2.371
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::SnapConstraint ===
+Stage start      :   0.000
+Stage parse      :   4.858
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::Stage ===
+Stage start      :   0.000
+Stage parse      :   2.363
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Text ===
+Stage start      :   0.000
+Stage parse      :   2.436
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::TextBuffer ===
+Stage start      :   0.000
+Stage parse      :   2.308
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Timeline ===
+Stage start      :   0.000
+Stage parse      :   2.324
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Transition ===
+Stage start      :   0.000
+Stage parse      :   2.285
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::VariousTypes ===
+Stage start      :   0.000
+Stage parse      :   2.341
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Rect ===
+Stage start      :   0.000
+Stage parse      :   2.405
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Animatable ===
+Stage start      :   0.000
+Stage parse      :   2.378
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Scriptable ===
+Stage start      :   0.000
+Stage parse      :   2.526
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Settings ===
+Stage start      :   0.000
+Stage parse      :   5.511
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Canvas ===
+Stage start      :   0.000
+Stage parse      :   4.632
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Container ===
+Stage start      :   0.000
+Stage parse      :   2.299
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DeviceManager ===
+Stage start      :   0.000
+Stage parse      :   4.502
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DragAction ===
+Stage start      :   0.000
+Stage parse      :   5.153
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Generic ===
+Stage start      :   0.000
+Stage parse      :   2.396
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::PanAction ===
+Stage start      :   0.000
+Stage parse      :   5.212
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Stage ===
+Stage start      :   0.000
+Stage parse      :   3.304
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Text ===
+Stage start      :   0.000
+Stage parse      :   3.438
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.011
+Stage moar       :   0.000
+ === Clutter::Size ===
+Stage start      :   0.000
+Stage parse      :   2.989
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::TextBuffer ===
+Stage start      :   0.000
+Stage parse      :   3.604
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Threads ===
+Stage start      :   0.000
+Stage parse      :   5.636
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.010
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Timeline ===
+Stage start      :   0.000
+Stage parse      :   3.764
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Transition ===
+Stage start      :   0.000
+Stage parse      :   4.086
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Vertex ===
+Stage start      :   0.000
+Stage parse      :   3.299
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::ActorBox ===
+Stage start      :   0.000
+Stage parse      :   3.228
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::ActorMeta ===
+Stage start      :   0.000
+Stage parse      :   3.651
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::AlignConstraint ===
+Stage start      :   0.000
+Stage parse      :   2.594
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Backend ===
+Stage start      :   0.000
+Stage parse      :   6.433
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::BindConstraint ===
+Stage start      :   0.000
+Stage parse      :   2.590
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Color ===
+Stage start      :   0.000
+Stage parse      :   3.400
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Effect ===
+Stage start      :   0.000
+Stage parse      :   4.072
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::GridLayoutMeta ===
+Stage start      :   0.000
+Stage parse      :   4.313
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Interval ===
+Stage start      :   0.000
+Stage parse      :   3.196
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::LayoutManager ===
+Stage start      :   0.000
+Stage parse      :   2.825
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Main ===
+Stage start      :   0.000
+Stage parse      :   2.457
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.017
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::Misc ===
+Stage start      :   0.000
+Stage parse      :   5.838
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::OffscreenEffect ===
+Stage start      :   0.000
+Stage parse      :   4.197
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::PageTurnEffect ===
+Stage start      :   0.000
+Stage parse      :   6.384
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::PaintVolume ===
+Stage start      :   0.000
+Stage parse      :   3.255
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.014
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Path ===
+Stage start      :   0.000
+Stage parse      :   7.445
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::PathConstraint ===
+Stage start      :   0.000
+Stage parse      :   6.748
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Point ===
+Stage start      :   0.000
+Stage parse      :   3.281
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::PropertyTransition ===
+Stage start      :   0.000
+Stage parse      :   7.302
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Roles::Container ===
+Stage start      :   0.000
+Stage parse      :   4.265
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Content ===
+Stage start      :   0.000
+Stage parse      :   3.293
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Actor ===
+Stage start      :   0.000
+Stage parse      :   3.754
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::ClickAction ===
+Stage start      :   0.000
+Stage parse      :   6.203
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.011
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DropAction ===
+Stage start      :   0.000
+Stage parse      :   6.590
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.011
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Action ===
+Stage start      :   0.000
+Stage parse      :   3.941
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Actor ===
+Stage start      :   0.000
+Stage parse      :   3.883
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.011
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::ActorIter ===
+Stage start      :   0.000
+Stage parse      :   8.970
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.021
+Stage mast       :   0.014
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::BinLayout ===
+Stage start      :   0.000
+Stage parse      :   7.357
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::BlurEffect ===
+Stage start      :   0.000
+Stage parse      :   7.016
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::BoxLayout ===
+Stage start      :   0.000
+Stage parse      :   3.003
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::BrightnessContrastEffect ===
+Stage start      :   0.000
+Stage parse      :   2.746
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Canvas ===
+Stage start      :   0.000
+Stage parse      :   7.377
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::ClickAction ===
+Stage start      :   0.000
+Stage parse      :   7.268
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::Clone ===
+Stage start      :   0.000
+Stage parse      :   9.279
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.015
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::DeformEffect ===
+Stage start      :   0.000
+Stage parse      :   7.029
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::DesaturateEffect ===
+Stage start      :   0.000
+Stage parse      :   7.285
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.014
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::DragAction ===
+Stage start      :   0.000
+Stage parse      :   9.469
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.005
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::DropAction ===
+Stage start      :   0.000
+Stage parse      :   6.863
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::FlowLayout ===
+Stage start      :   0.000
+Stage parse      :   8.098
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.014
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::GestureAction ===
+Stage start      :   0.000
+Stage parse      :   7.759
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::GridLayout ===
+Stage start      :   0.000
+Stage parse      :   3.083
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.006
+Stage moar       :   0.000
+ === Clutter::Image ===
+Stage start      :   0.000
+Stage parse      :   6.873
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::KeyframeTransition ===
+Stage start      :   0.000
+Stage parse      :   7.871
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.016
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::PanAction ===
+Stage start      :   0.000
+Stage parse      :   7.631
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::ScrollActor ===
+Stage start      :   0.000
+Stage parse      :   4.042
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.010
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::SnapConstraint ===
+Stage start      :   0.000
+Stage parse      :   9.301
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.013
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Clutter::Stage ===
+Stage start      :   0.000
+Stage parse      :   4.108
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.012
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::TapAction ===
+Stage start      :   0.000
+Stage parse      :   6.839
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Text ===
+Stage start      :   0.000
+Stage parse      :  14.782
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::InputDevice ===
+Stage start      :   0.000
+Stage parse      :  12.992
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::DeviceManager ===
+Stage start      :   0.000
+Stage parse      :  10.158
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.013
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Event ===
+Stage start      :   0.000
+Stage parse      :  14.787
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+real 597.11
+user 719.60
+sys 74.04
