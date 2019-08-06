@@ -728,6 +728,13 @@ class ClutterActorIter is repr('CStruct') is export does GTK::Roles::Pointers {
 class ClutterPoint is repr('CStruct') is export does GTK::Roles::Pointers {
   has gfloat $.x is rw;
   has gfloat $.y is rw;
+  
+  submethod BUILD (:$!x, :$!y) { }
+  
+  method new ($x, $y) {
+    self.bless(:$x, :$y);
+  }
+  
 }
 
 class ClutterSize is repr('CStruct') is export does GTK::Roles::Pointers {
