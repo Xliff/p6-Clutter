@@ -11,7 +11,7 @@ use GTK::Roles::Pointers;
 unit package Clutter::Raw::Types;
 
 # Number of times a forced compile has been made.
-constant forced = 6;
+constant forced = 7;
 
 constant clutter is export = 'clutter-1.0',v0;
 
@@ -47,6 +47,7 @@ class ClutterDesaturateEffect         is repr('CPointer') does GTK::Roles::Point
 class ClutterDeviceManager            is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEffect                   is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterEventSequence            is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterFixedLayout              is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterFlowLayout               is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterFog                      is repr('CPointer') does GTK::Roles::Pointers is export { }
 class ClutterGeometry                 is repr('CPointer') does GTK::Roles::Pointers is export { }
