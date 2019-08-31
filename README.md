@@ -13,6 +13,8 @@ Switch to that directory and clone both p6-GtkPlus and p6-Clutter
 ```
 $ git clone https://github.com/Xliff/p6-GtkPlus.git
 $ git clone https://github.com/Xliff/p6-Clutter.git
+$ cd p6-GtkPlus
+$ zef install --deps-only .
 ```
 
 [Optional] To build all of Clutter and the required GTK modules, you can change to the p6-Clutter directory and do:
@@ -21,11 +23,10 @@ $ git clone https://github.com/Xliff/p6-Clutter.git
 ./build.sh
 ```
 
-If you just want to run the examples, you can do: 
+If you just want to run the examples, you can do:
 
 ```
 ./p6gtkexec t/<name of example>
 ```
 
 Unfortunately, compile times are very long for this project, but I hope you find it interesting!
-
