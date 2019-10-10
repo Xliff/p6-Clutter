@@ -9,20 +9,18 @@ use Clutter::Main;
 
 my @g;
 sub create-rect($front-col, $back-col) {
-  for Clutter::Actor.new xx 3 {
-    .setup(
+  for ^3 {
+    @g.push: Clutter::Actor.new.setup(
       size             => (128, 128),
     );
-    @g.push: $_;
+    @g[* - 1].show-actor;
   }
 
-  with @g[0] {
-    .show-actor;
-    .set-position(64, 64);
-    .add-child($_) for @g[1, 2];
-    .set-child-below-sibling( @g[1], @g[2] );
-    .set-pivot-point(0.5, 0.5);
-  }
+  @g[0].show-actor;
+  @g[0].set-position(64, 64);
+  @g[0].add-child($_) for @g[1, 2];
+  @g[0].set-child-below-sibling( @g[1], @g[2] );
+  @g[0].set-pivot-point(0.5, 0.5);
 
   @g[1].background-color = $front-col;
   @g[2].background-color = $back-col;
