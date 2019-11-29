@@ -9,9 +9,7 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::Path;
 
-use GTK::Raw::Utils;
-
-use GTK::Compat::GSList;
+use GLib::GSList;
 use GTK::Compat::Value;
 
 use GTK::Compat::Roles::ListData;
@@ -20,10 +18,12 @@ use GTK::Compat::Roles::Object;
 class Clutter::Path {
   also does GTK::Compat::Roles::Object;
 
-  has ClutterPath $!cp;
+  has ClutterPath $!cp is implementor;
 
   submethod BUILD (:$path) {
-    self!setObject( cast(GObject, $!cp = $path) );
+    $!cp = $path;
+
+    self.roleInit-Object;
   }
 
   method Clutter::Raw::Types::ClutterPath
@@ -31,11 +31,15 @@ class Clutter::Path {
   { $!cp }
 
   method new {
-    self.bless( path => clutter_path_new() );
+    my $p = clutter_path_new();
+
+    $p ?? self.bless( path => $p ) !! Nil;
   }
 
   method new_with_description (Str() $desc) is also<new-with-description> {
-    self.bless( path => clutter_path_new_with_description($desc) );
+    my $p = clutter_path_new_with_description($desc);
+
+    $p ?? self.bless( path => $p ) !! Nil;
   }
 
   method description is rw {
@@ -48,7 +52,7 @@ class Clutter::Path {
       }
     );
   }
- 
+
   method add_cairo_path ($cpath is copy) is also<add-cairo-path> {
     die "\$cpath must be of Cairo::Path or cairo_path_t, not { $cpath.^name }!"
       unless $cpath ~~ (Cairo::Path, cairo_path_t).any;
@@ -70,17 +74,20 @@ class Clutter::Path {
   )
     is also<add-curve-to>
   {
-    my gint @a = resolve-int($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
+    my gint @a = ($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
+
     clutter_path_add_curve_to($!cp, |@a);
   }
 
   method add_line_to (Int() $x, Int() $y) is also<add-line-to> {
-    my gint ($xx, $yy) = resolve-int($x, $y);
+    my gint ($xx, $yy) = ($x, $y);
+
     clutter_path_add_line_to($!cp, $x, $y);
   }
 
   method add_move_to (Int() $x, Int() $y) is also<add-move-to> {
-    my gint ($xx, $yy) = resolve-int($x, $y);
+    my gint ($xx, $yy) = ($x, $y);
+
     clutter_path_add_move_to($!cp, $x, $y);
   }
 
@@ -98,17 +105,20 @@ class Clutter::Path {
   )
     is also<add-rel-curve-to>
   {
-    my gint @a = resolve-int($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
+    my gint @a = ($x_1, $y_1, $x_2, $y_2, $x_3, $y_3);
+
     clutter_path_add_rel_curve_to($!cp, |@a);
   }
 
   method add_rel_line_to (Int() $x, Int() $y) is also<add-rel-line-to> {
-    my gint ($xx, $yy) = resolve-int($x, $y);
+    my gint ($xx, $yy) = ($x, $y);
+
     clutter_path_add_rel_line_to($!cp, $xx, $yy);
   }
 
   method add_rel_move_to (Int() $x, Int() $y) is also<add-rel-move-to> {
-    my gint ($xx, $yy) = resolve-int($x, $y);
+    my gint ($xx, $yy) = ($x, $y);
+
     clutter_path_add_rel_move_to($!cp, $x, $yy);
   }
 
@@ -136,27 +146,34 @@ class Clutter::Path {
   }
 
   method get_node (Int() $index, ClutterPathNode $node) is also<get-node> {
-    my guint $i = resolve-uint($index);
+    my guint $i = $index;
+
     clutter_path_get_node($!cp, $index, $node);
   }
 
-  method get_nodes is also<get-nodes> {
-    my $n = clutter_path_get_nodes($!cp);
-    return Nil unless $n.defined;
-    my $l = GTK::Compat::Types::GSList.new($n)
+  method get_nodes ( :$glist = False ) is also<get-nodes> {
+    my $nl = clutter_path_get_nodes($!cp);
+
+    return Nil unless $nl;
+    return $nl if     $glist;
+
+    $nl = GLib::GSList.new($nl)
       but GTK::Compat::Roles::ListData[ClutterPathNode];
-    $l.Array;
+
+    $nl.Array;
   }
 
   method get_position (Num() $progress, ClutterKnot $position)
     is also<get-position>
   {
     my gdouble $p = $progress;
+
     clutter_path_get_position($!cp, $p, $position);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_path_get_type, $n, $t );
   }
 
@@ -164,19 +181,22 @@ class Clutter::Path {
   method insert_node (Int() $index, ClutterPathNode $node)
     is also<insert-node>
   {
-    my gint $i = resolve-int($index);
+    my gint $i = $index;
+
     clutter_path_insert_node($!cp, $i, $node);
   }
 
   method remove_node (Int() $index) is also<remove-node> {
-    my guint $i = resolve-uint($index);
+    my guint $i = $index;
+
     clutter_path_remove_node($!cp, $i);
   }
 
   method replace_node (Int() $index, ClutterPathNode $node)
     is also<replace-node>
   {
-    my guint $i = resolve-uint($index);
+    my guint $i = $index;
+
     clutter_path_replace_node($!cp, $index, $node);
   }
 
