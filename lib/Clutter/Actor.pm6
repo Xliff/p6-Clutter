@@ -15,7 +15,7 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::Actor;
 
-use GTK::Compat::Value;
+use GLib::Value;
 
 use Clutter::Action;
 use Clutter::ActorBox;
@@ -635,7 +635,7 @@ class Clutter::Actor {
 
   # Type: ClutterAction
   method actions is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Action.get_type );
+    my GLib::Value $gv .= new( Clutter::Action.get_type );
     Proxy.new(
       FETCH => -> $ {
         warn "'actions' does not allow reading" if $DEBUG;
@@ -650,7 +650,7 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method allocation is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
+    my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('allocation', $gv);
@@ -664,7 +664,7 @@ class Clutter::Actor {
 
   # Type: ClutterGravity
   method anchor-gravity is rw is also<anchor_gravity> is DEPRECATED( 'pivot-point' ) {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
+    my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('anchor-gravity', $gv);
@@ -679,7 +679,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method anchor-x is rw is also<anchor_x> is DEPRECATED( 'pivot-point' ) {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('anchor-x', $gv);
@@ -694,7 +694,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method anchor-y is rw is also<anchor_y> is DEPRECATED( 'pivot-point' ) {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('anchor-y', $gv);
@@ -715,7 +715,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method background-color-set is rw is also<background_color_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('background-color-set', $gv);
@@ -729,7 +729,7 @@ class Clutter::Actor {
 
   # Type: ClutterMatrix
   method child-transform is rw is also<child_transform> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
+    my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('child-transform', $gv);
@@ -744,7 +744,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method child-transform-set is rw is also<child_transform_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('child-transform-set', $gv);
@@ -758,10 +758,10 @@ class Clutter::Actor {
 
   # Type: ClutterGeometry
   # method clip is rw  is DEPRECATED( “clip-rect” ) {
-  #   my GTK::Compat::Value $gv .= new( -type- );
+  #   my GLib::Value $gv .= new( -type- );
   #   Proxy.new(
   #     FETCH => -> $ {
-  #       $gv = GTK::Compat::Value.new(
+  #       $gv = GLib::Value.new(
   #         self.prop_get('clip', $gv)
   #       );
   #       #$gv.TYPE
@@ -775,7 +775,7 @@ class Clutter::Actor {
 
   # Type: ClutterRect
   method clip-rect is rw is also<clip_rect> {
-    my GTK::Compat::Value $gv .= new( Clutter::Rect.get_type );
+    my GLib::Value $gv .= new( Clutter::Rect.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('clip-rect', $gv);
@@ -798,7 +798,7 @@ class Clutter::Actor {
   # Removed because it was redundant. Left here as reference.
   # Type: ClutterConstraint
   # method constraint is rw  {
-  #   my GTK::Compat::Value $gv .= new( Clutter::Constraint.get_type );
+  #   my GLib::Value $gv .= new( Clutter::Constraint.get_type );
   #   Proxy.new(
   #     FETCH => -> $ {
   #       warn "'constraints' does not allow reading" if $DEBUG;
@@ -820,7 +820,7 @@ class Clutter::Actor {
 
   # Type: ClutterActorBox
   method content-box is rw is also<content_box> {
-    my GTK::Compat::Value $gv .= new( Clutter::ActorBox.get_type );
+    my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('content-box', $gv);
@@ -848,7 +848,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method depth is rw is DEPRECATED( “z-position” ) {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('depth', $gv);
@@ -881,7 +881,7 @@ class Clutter::Actor {
 
   # Type: ClutterEffect
   method effect is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Effect.get_type );
+    my GLib::Value $gv .= new( Clutter::Effect.get_type );
     Proxy.new(
       FETCH => -> $ {
         warn "'effect' does not allow reading" if $DEBUG;
@@ -903,7 +903,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method fixed-x is rw is also<fixed_x> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('fixed-x', $gv);
@@ -918,7 +918,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method fixed-y is rw is also<fixed_y> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('fixed-y', $gv);
@@ -951,7 +951,7 @@ class Clutter::Actor {
 
   # Type: ClutterScalingFilter
   method magnification-filter is rw is also<magification_filter> {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
+    my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('magnification-filter', $gv);
@@ -966,7 +966,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method mapped is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('mapped', $gv);
@@ -1029,7 +1029,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method min-height is rw is also<min_height> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('min-height', $gv);
@@ -1044,7 +1044,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method min-height-set is rw is also<min_height_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('min-height-set', $gv);
@@ -1059,7 +1059,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method min-width is rw is also<min_width> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('min-width', $gv);
@@ -1074,7 +1074,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method min-width-set is rw is also<min_width_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('min-width-set', $gv);
@@ -1089,7 +1089,7 @@ class Clutter::Actor {
 
   # Type: ClutterScalingFilter
   method minification-filter is rw is also<minification_filter> {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
+    my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('minification-filter', $gv);
@@ -1111,7 +1111,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method natural-height is rw is also<natural_height> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('natural-height', $gv);
@@ -1126,7 +1126,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method natural-height-set is rw is also<natural_height_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('natural-height-set', $gv);
@@ -1141,7 +1141,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method natural-width is rw is also<natural_width> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('natural-width', $gv);
@@ -1156,7 +1156,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method natural-width-set is rw is also<natural_width_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('natural-width-set', $gv);
@@ -1178,7 +1178,7 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method pivot-point is rw is also<pivot_point> {
-    my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
+    my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('pivot-point', $gv);
@@ -1193,7 +1193,7 @@ class Clutter::Actor {
 
   # Type: ClutterPoint
   method position is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Point.get_type );
+    my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('position', $gv);
@@ -1208,7 +1208,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method realized is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('realized', $gv);
@@ -1222,7 +1222,7 @@ class Clutter::Actor {
 
   # Type: gdouble
   method rotation-angle-x is rw is also<rotation_angle_x> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
+    my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-angle-x', $gv);
@@ -1237,7 +1237,7 @@ class Clutter::Actor {
 
   # Type: gdouble
   method rotation-angle-y is rw is also<rotation_angle_y> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
+    my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-angle-y', $gv);
@@ -1252,7 +1252,7 @@ class Clutter::Actor {
 
   # Type: gdouble
   method rotation-angle-z is rw is also<rotation_angle_z> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
+    my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-angle-z', $gv);
@@ -1269,7 +1269,7 @@ class Clutter::Actor {
   method rotation-center-x is rw is also<rotation_center_x>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
+    my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-center-x', $gv);
@@ -1286,7 +1286,7 @@ class Clutter::Actor {
   method rotation-center-y is rw is also<rotation_center_y>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
+    my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-center-y', $gv);
@@ -1303,7 +1303,7 @@ class Clutter::Actor {
   method rotation-center-z is rw is also<rotation_center_z>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( Clutter::Vertex.get_type );
+    my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-center-z', $gv);
@@ -1320,7 +1320,7 @@ class Clutter::Actor {
   method rotation-center-z-gravity is rw is also<rotation_center_z_gravity>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
+    my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('rotation-center-z-gravity', $gv);
@@ -1337,7 +1337,7 @@ class Clutter::Actor {
   method scale-center-x is rw is also<scale_center_x>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('scale-center-x', $gv);
@@ -1354,7 +1354,7 @@ class Clutter::Actor {
   method scale-center-y is rw is also<scale_center_y>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('scale-center-y', $gv);
@@ -1371,7 +1371,7 @@ class Clutter::Actor {
   method scale-gravity is rw is also<scale_gravity>
     is DEPRECATED( 'pivot-point' )
   {
-    my GTK::Compat::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
+    my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('scale-gravity', $gv);
@@ -1386,7 +1386,7 @@ class Clutter::Actor {
 
   # Type: gdouble
   method scale-x is rw is also<scale_x> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
+    my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('scale-x', $gv);
@@ -1401,7 +1401,7 @@ class Clutter::Actor {
 
   # Type: gdouble
   method scale-y is rw is also<scale_y> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_DOUBLE );
+    my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('scale-y', $gv);
@@ -1416,7 +1416,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method show-on-set-parent is rw is also<show_on_set_parent> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('show-on-set-parent', $gv);
@@ -1431,7 +1431,7 @@ class Clutter::Actor {
 
   # Type: ClutterSize
   method size is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Size.get_type );
+    my GLib::Value $gv .= new( Clutter::Size.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('size', $gv);
@@ -1446,7 +1446,7 @@ class Clutter::Actor {
 
   # Type: ClutterMatrix
   method transform is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_POINTER );
+    my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('transform', $gv);
@@ -1461,7 +1461,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method transform-set is rw is also<transform_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('transform-set', $gv);
@@ -1475,7 +1475,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method translation-x is rw is also<translation_x> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('translation-x', $gv);
@@ -1490,7 +1490,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method translation-y is rw is also<translation_y> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('translation-y', $gv);
@@ -1505,7 +1505,7 @@ class Clutter::Actor {
 
   # Type: gfloat
   method translation-z is rw is also<translation_z> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('translation-z', $gv);
@@ -1520,7 +1520,7 @@ class Clutter::Actor {
 
   # Type: gboolean
   method visible is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('visible', $gv);

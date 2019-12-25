@@ -9,6 +9,7 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::SnapConstraint;
 
+use GLib::Value;
 use Clutter::Actor;
 use Clutter::Constraint;
 
@@ -62,10 +63,10 @@ class Clutter::SnapConstraint is Clutter::Constraint {
 
   # Type: ClutterSnapEdge
   method from-edge is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('from-edge', $gv)
         );
         ClutterSnapEdge( $gv.uint );
@@ -79,10 +80,10 @@ class Clutter::SnapConstraint is Clutter::Constraint {
 
   # Type: ClutterSnapEdge (guint)
   method to-edge is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('to-edge', $gv)
         );
         ClutterSnapEdge( $gv.uint );

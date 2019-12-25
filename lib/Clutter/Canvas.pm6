@@ -8,9 +8,10 @@ use Clutter::Raw::Types;
 
 use GTK::Raw::Utils;
 
+use GLib::Value;
+
 use GTK::Roles::Properties;
 use Clutter::Roles::Signals::Canvas;
-
 use Clutter::Roles::Content;
 
 our subset CanvasAncestry is export
@@ -72,10 +73,10 @@ class Clutter::Canvas {
 
   # Type: gint
   method height is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('height', $gv)
         );
         $gv.int;
@@ -89,10 +90,10 @@ class Clutter::Canvas {
 
   # Type: gboolean
   method scale-factor-set is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('scale-factor-set', $gv)
         );
         $gv.boolean;
@@ -105,10 +106,10 @@ class Clutter::Canvas {
 
   # Type: gint
   method width is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('width', $gv)
         );
         $gv.int;

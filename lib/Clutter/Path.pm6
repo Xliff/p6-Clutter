@@ -10,7 +10,7 @@ use Clutter::Raw::Types;
 use Clutter::Raw::Path;
 
 use GLib::GSList;
-use GTK::Compat::Value;
+use GLib::Value;
 
 use GTK::Compat::Roles::ListData;
 use GTK::Compat::Roles::Object;

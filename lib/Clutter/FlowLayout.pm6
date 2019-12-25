@@ -9,6 +9,7 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::FlowLayout;
 
+use GLib::Value;
 use Clutter::LayoutManager;
 
 my @attributes = <
@@ -127,10 +128,10 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
 
   # Type: gfloat
   method max-column-width is rw  is also<max_column_width> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('max-column-width', $gv)
         );
         $gv.float;
@@ -144,10 +145,10 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
 
   # Type: gfloat
   method max-row-height is rw  is also<max_row_height> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('max-row-height', $gv)
         );
         $gv.float;
@@ -161,10 +162,10 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
 
   # Type: gfloat
   method min-column-width is rw  is also<min_column_width> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('min-column-width', $gv)
         );
         $gv.float;
@@ -178,10 +179,10 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
 
   # Type: gfloat
   method min-row-height is rw  is also<min_row_height> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_FLOAT );
+    my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('min-row-height', $gv)
         );
         $gv.float;

@@ -10,8 +10,7 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::DeformEffect;
 
-use GTK::Compat::Value;
-
+use GLib::Value;
 use Clutter::OffscreenEffect;
 
 our subset DeformEffectAncestry is export of Mu
@@ -68,10 +67,10 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
 
   # Type: guint
   method x-tiles is rw  is also<x_tiles> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('x-tiles', $gv)
         );
         $gv.uint;
@@ -85,10 +84,10 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
 
   # Type: guint
   method y-tiles is rw  is also<y_tiles> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('y-tiles', $gv)
         );
         $gv.uint;

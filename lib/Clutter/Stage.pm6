@@ -6,15 +6,15 @@ use Cairo;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
-use Clutter::Roles::Signals::Stage;
-
 use Clutter::Raw::Boxed;
 use Clutter::Raw::Stage;
 
+use GTK::Raw::Utils;
+
+use GLib::Value;
 use Clutter::Actor;
+
+use Clutter::Roles::Signals::Stage;
 
 my @attributes = <
   accept-focus     accept_focus
@@ -105,7 +105,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method accept-focus is rw  is also<accept_focus> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('accept-focus', $gv);
@@ -124,7 +124,7 @@ class Clutter::Stage is Clutter::Actor {
   # method color is rw
   #   is DEPRECATED('the “background-color” property of ClutterActor')
   # {
-  #   my GTK::Compat::Value $gv .= new( G_TYPE_OBJECT );
+  #   my GLib::Value $gv .= new( G_TYPE_OBJECT );
   #   Proxy.new(
   #     FETCH => -> $ {
   #       self.prop_get('color', $gv);
@@ -139,7 +139,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method cursor-visible is rw  is also<cursor_visible> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('cursor-visible', $gv);
@@ -154,7 +154,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: ClutterFog
   method fog is rw is DEPRECATED {
-    my GTK::Compat::Value $gv .= new( Clutter::Boxed.fog_get_type );
+    my GLib::Value $gv .= new( Clutter::Boxed.fog_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('fog', $gv);
@@ -169,7 +169,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method fullscreen-set is rw  is also<fullscreen_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('fullscreen-set', $gv);
@@ -183,7 +183,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: ClutterActor
   method key-focus is rw  is also<key_focus> {
-    my GTK::Compat::Value $gv .= new( Clutter::Actor.get_type );
+    my GLib::Value $gv .= new( Clutter::Actor.get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('key-focus', $gv);
@@ -198,7 +198,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method no-clear-hint is rw  is also<no_clear_hint> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('no-clear-hint', $gv);
@@ -213,7 +213,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method offscreen is rw is DEPRECATED {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('offscreen', $gv);
@@ -228,7 +228,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: ClutterPerspective
   method perspective is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Boxed.perspective_get_type );
+    my GLib::Value $gv .= new( Clutter::Boxed.perspective_get_type );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('perspective', $gv);
@@ -243,7 +243,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gchar
   method title is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('title', $gv);
@@ -258,7 +258,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method use-alpha is rw  is also<use_alpha> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('use-alpha', $gv);
@@ -273,7 +273,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method use-fog is rw  is DEPRECATED is also<use_fog> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('use-fog', $gv);
@@ -288,7 +288,7 @@ class Clutter::Stage is Clutter::Actor {
 
   # Type: gboolean
   method user-resizable is rw  is also<user_resizable> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('user-resizable', $gv);

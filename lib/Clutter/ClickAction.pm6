@@ -7,8 +7,7 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::ClickAction;
 
-use GTK::Compat::Value;
-
+use GLib::Value;
 use Clutter::Action;
 
 use Clutter::Roles::Signals::ClickAction;
@@ -33,10 +32,10 @@ class Clutter::ClickAction is Clutter::Action {
 
   # Type: gboolean
   method held is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('held', $gv)
         );
         $gv.boolean;
@@ -49,10 +48,10 @@ class Clutter::ClickAction is Clutter::Action {
 
   # Type: gint
   method long-press-duration is rw  is also<long_press_duration> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('long-press-duration', $gv)
         );
         $gv.int;
@@ -66,10 +65,10 @@ class Clutter::ClickAction is Clutter::Action {
 
   # Type: gint
   method long-press-threshold is rw  is also<long_press_threshold> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('long-press-threshold', $gv)
         );
         $gv.int;
@@ -95,10 +94,10 @@ class Clutter::ClickAction is Clutter::Action {
 
   # Type: gboolean
   method pressed is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('pressed', $gv)
         );
         $gv.boolean;

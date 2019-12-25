@@ -6,6 +6,8 @@ use GTK::Compat::Types;
 use Clutter::Raw::Types;
 use Clutter::Raw::Interval;
 
+use GLib::Value;
+
 class Clutter::Interval {
   has ClutterInterval $!ci;
 
@@ -44,7 +46,7 @@ class Clutter::Interval {
     my gdouble $f = $factor;
     my $v = clutter_interval_compute_value($!ci, $f, $value);
     $v.defined ??
-      ( $raw ?? $v !! GTK::Compat::Value.new($v) )
+      ( $raw ?? $v !! GLib::Value.new($v) )
       !!
       GValue;
   }
@@ -73,7 +75,7 @@ class Clutter::Interval {
   method peek_final_value (:$raw = False) is also<peek-final-value> {
     my $v = clutter_interval_peek_final_value($!ci);
     $v.defined ??
-      ( $raw ?? $v !! GTK::Compat::Value.new($v) )
+      ( $raw ?? $v !! GLib::Value.new($v) )
       !!
       GValue;
   }
@@ -81,7 +83,7 @@ class Clutter::Interval {
   method peek_initial_value (:$raw = False) is also<peek-initial-value> {
     my $v = clutter_interval_peek_initial_value($!ci);
     $v.defined ??
-      ( $raw ?? $v !! GTK::Compat::Value.new($v) )
+      ( $raw ?? $v !! GLib::Value.new($v) )
       !!
       GValue;
   }

@@ -4,11 +4,11 @@ use NativeCall;
 
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
+use Clutter::Raw::InputDevice;
 
 use GTK::Raw::Utils;
 
-use Clutter::Raw::InputDevice;
-
+use GLib::Value;
 use Clutter::Actor;
 use Clutter::Stage;
 
@@ -16,20 +16,20 @@ use GTK::Roles::Properties;
 
 class Clutter::InputDevice {
   also does GTK::Roles::Properties;
-  
+
   has ClutterInputDevice $!cid;
-  
+
   submethod BUILD (:$device) {
     self!setObject( cast(GObject, $!cid = $device) )
   }
-  
+
   method Clutter::Raw::Types::ClutterInputDevice
   { $!cid }
-  
+
   method new (ClutterInputDevice $device) {
     self.bless(:$device);
   }
-  
+
   method enabled is rw {
     Proxy.new(
       FETCH => sub ($) {
@@ -41,13 +41,13 @@ class Clutter::InputDevice {
       }
     );
   }
-  
+
   # Type: ClutterBackend
   method backend is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Backend.get_type );
+    my GLib::Value $gv .= new( Clutter::Backend.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('backend', $gv)
         );
         Clutter::Backend.new($gv.object);
@@ -61,14 +61,14 @@ class Clutter::InputDevice {
 
   # Type: ClutterDeviceManager
   method device-manager is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::DeviceManager.get_type );
+    my GLib::Value $gv .= new( Clutter::DeviceManager.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('device-manager', $gv)
         );
-        ::('Clutter::DeviceManager').new( 
-          cast(ClutterDeviceManager, $gv.object) 
+        ::('Clutter::DeviceManager').new(
+          cast(ClutterDeviceManager, $gv.object)
         );
       },
       STORE => -> $, ClutterDeviceManager() $val is copy {
@@ -80,10 +80,10 @@ class Clutter::InputDevice {
 
   # Type: ClutterInputMode
   method device-mode is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('device-mode', $gv)
         );
         ClutterInputMode( $gv.uint )
@@ -97,10 +97,10 @@ class Clutter::InputDevice {
 
   # Type: ClutterInputDeviceType
   method device-type is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('device-type', $gv)
         );
         ClutterInputDeviceType( $gv.uint )
@@ -114,10 +114,10 @@ class Clutter::InputDevice {
 
   # Type: gboolean
   method has-cursor is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('has-cursor', $gv)
         );
         $gv.boolean;
@@ -131,10 +131,10 @@ class Clutter::InputDevice {
 
   # Type: gint
   method id is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('id', $gv)
         );
         $gv.int;
@@ -148,10 +148,10 @@ class Clutter::InputDevice {
 
   # Type: guint
   method n-axes is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('n-axes', $gv)
         );
         $gv.uint;
@@ -164,10 +164,10 @@ class Clutter::InputDevice {
 
   # Type: gchar
   method name is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('name', $gv)
         );
         $gv.string;
@@ -181,10 +181,10 @@ class Clutter::InputDevice {
 
   # Type: gchar
   method product-id is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('product-id', $gv)
         );
         $gv.string;
@@ -198,10 +198,10 @@ class Clutter::InputDevice {
 
   # Type: gchar
   method vendor-id is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('vendor-id', $gv)
         );
         $gv.string;
@@ -212,7 +212,7 @@ class Clutter::InputDevice {
       }
     );
   }
-  
+
   method get_associated_device {
     Clutter::InputDevice.new(
       clutter_input_device_get_associated_device($!cid)
@@ -230,8 +230,8 @@ class Clutter::InputDevice {
     $rc ?? $v !! Nil
   }
   multi method get_axis_value (
-    CArray[gdouble] $axes, 
-    Int() $axis, # ClutterInputAxis $axis, 
+    CArray[gdouble] $axes,
+    Int() $axis, # ClutterInputAxis $axis,
     Num() $value is rw
   ) {
     my guint $a = resolve-uint($axis);
@@ -242,7 +242,7 @@ class Clutter::InputDevice {
   }
 
   method get_coords (
-    ClutterEventSequence() $sequence, 
+    ClutterEventSequence() $sequence,
     ClutterPoint() $point
   ) {
     clutter_input_device_get_coords($!cid, $sequence, $point);
@@ -273,8 +273,8 @@ class Clutter::InputDevice {
   }
 
   method get_key (
-    Int() $index, 
-    Int() $keyval, 
+    Int() $index,
+    Int() $keyval,
     Int() $modifiers # ClutterModifierType $modifiers
   ) {
     my guint ($i, $k, $m) = resolve-int($index, $keyval, $modifiers);
@@ -306,7 +306,7 @@ class Clutter::InputDevice {
   }
 
   method get_slave_devices (:$raw = False) {
-    my $l = GTK::Compat::GList.new( 
+    my $l = GTK::Compat::GList.new(
       clutter_input_device_get_slave_devices($!cid)
     ) but GTK::Compat::Roles::ListData[ClutterInputDevice];
     $raw ??
@@ -336,7 +336,7 @@ class Clutter::InputDevice {
   }
 
   method sequence_grab (
-    ClutterEventSequence() $sequence, 
+    ClutterEventSequence() $sequence,
     ClutterActor() $actor
   ) {
     clutter_input_device_sequence_grab($!cid, $sequence, $actor);
@@ -347,8 +347,8 @@ class Clutter::InputDevice {
   }
 
   method set_key (
-    Int() $index, 
-    Int() $keyval, 
+    Int() $index,
+    Int() $keyval,
     Int() $modifiers # ClutterModifierType $modifiers
   ) {
     my guint ($i, $k, $m) = resolve-int($index, $keyval, $modifiers);
@@ -363,5 +363,5 @@ class Clutter::InputDevice {
     my gboolean $us = resolve-bool($update_stage);
     clutter_input_device_update_from_event($!cid, $event, $us);
   }
-  
+
 }

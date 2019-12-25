@@ -6,19 +6,20 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
+use GLib::Value;
 use Clutter::LayoutMeta;
 
 use GTK::Roles::Properties;
 
-# This is a made up object to accomodate for the differences between 
+# This is a made up object to accomodate for the differences between
 
-our subset GridLayoutMetaAncestry of Mu 
+our subset GridLayoutMetaAncestry of Mu
   where ClutterGridLayoutMeta | LayoutMetaAncestry;
 
 class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   has ClutterGridLayoutMeta $!cl-gridmeta;
   has GObject $!prop;
-  
+
   submethod BUILD (:$gridmetalayout) {
     given $gridmetalayout {
       when GridLayoutMetaAncestry {
@@ -27,7 +28,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
           when ClutterGridLayoutMeta {
             $to-parent = cast(ClutterLayoutMeta, $_);
             $_;
-          } 
+          }
           default {
             $to-parent = $_;
             cast(ClutterGridLayoutMeta, $_);
@@ -42,31 +43,31 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
       }
     }
   }
-    
+
   method new (GridLayoutMetaAncestry $gridmetalayout) {
     # No GTK::Roles::References
     # No destroy yet, so no upref logic.
     self.bless(:$gridmetalayout);
   }
-  
+
   method get_manager is also<get-manager> {
-    ::('Clutter::GridLayoutManager').new( 
+    ::('Clutter::GridLayoutManager').new(
       clutter_layout_meta_get_manager(self.LayoutMeta)
     );
   }
-  
+
   # ↓↓↓↓ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↓↓↓↓
   method prop_get(Str() $key, GValue() $v) {
     g_object_get_property($!prop, $key, $v);
   }
-  
+
   method prop_set(Str() $key, GValue() $v) {
     g_object_get_property($!prop, $key, $v);
   }
   # ↑↑↑↑ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↑↑↑↑
-  
+
   method left is rw {
-    my $gv = GTK::Compat::Value.new( G_TYPE_INT );
+    my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('left-attach', $gv);
@@ -78,9 +79,9 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
       }
     );
   }
-  
+
   method top is rw {
-    my $gv = GTK::Compat::Value.new( G_TYPE_INT );
+    my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('top-attach', $gv);
@@ -92,9 +93,9 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
       }
     );
   }
-  
+
   method width is rw {
-    my $gv = GTK::Compat::Value.new( G_TYPE_INT );
+    my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
         self.prop_get('width', $gv);
@@ -106,10 +107,10 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
       }
     );
   }
-  
+
   # cw: -YYY- Use $prop in future versions!
   method height is rw {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     my $prop = 'height';
     Proxy.new(
       FETCH => -> $ {
@@ -122,7 +123,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
       }
     );
   }
-  
+
 }
 
 # ↓↓↓↓ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↓↓↓↓

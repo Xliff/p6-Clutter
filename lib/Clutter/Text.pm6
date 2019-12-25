@@ -12,10 +12,10 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::Text;
 
+use GLib::Value;
 use Pango::AttrList;
 use Pango::FontDescription;
 use Pango::Layout;
-
 use Clutter::Actor;
 use Clutter::Color;
 use Clutter::TextBuffer;
@@ -425,10 +425,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: ClutterColor
   method color is rw  {
-    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
+    my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('color', $gv)
         );
         Clutter::Color.new( cast(ClutterColor, $gv.boxed) );
@@ -442,10 +442,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: ClutterColor
   method cursor-color is rw  is also<cursor_color> {
-    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
+    my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('cursor-color', $gv)
         );
         Clutter::Color.new( cast(ClutterColor, $gv.boxed) );
@@ -459,10 +459,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: gboolean
   method cursor-color-set is rw  is also<cursor_color_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('cursor-color-set', $gv)
         );
         $gv.boolean;
@@ -475,10 +475,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: gint
   method position is rw  is DEPRECATED<Clutter::Text.cursor-position> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('position', $gv)
         );
         $gv.int;
@@ -492,10 +492,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: gboolean
   method selected-text-color-set is rw  is also<selected_text_color_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('selected-text-color-set', $gv)
         );
         $gv.boolean;
@@ -508,10 +508,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: ClutterColor
   method selection-color is rw  is also<selection_color> {
-    my GTK::Compat::Value $gv .= new( Clutter::Color.get_type );
+    my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('selection-color', $gv)
         );
         Clutter::Color.new( $gv.boxed );
@@ -525,10 +525,10 @@ class Clutter::Text is Clutter::Actor {
 
   # Type: gboolean
   method selection-color-set is rw  is also<selection_color_set> {
-    my GTK::Compat::Value $gv .= new( G_TYPE_BOOLEAN );
+    my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('selection-color-set', $gv)
         );
         $gv.boolean;

@@ -10,6 +10,7 @@ use Clutter::Raw::KeyframeTransition;
 
 use GTK::Raw::Utils;
 
+use GLib::Value;
 use Clutter::PropertyTransition;
 
 use GTK::Compat::Roles::TypedBuffer;
@@ -26,7 +27,7 @@ our subset KeyframeTransitionAncestry of Mu
 
 class Clutter::KeyframeTransition is Clutter::PropertyTransition {
   has ClutterKeyframeTransition $!ckt;
-  
+
   submethod BUILD (:$keyframe-transition) {
     given $keyframe-transition {
       when KeyframeTransitionAncestry {
@@ -49,13 +50,13 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
       }
     }
   }
-      
+
   method new (Str() $property_name) {
     self.bless(
       keyframe-transition => clutter_keyframe_transition_new($property_name)
     );
   }
-  
+
   method setup (*%data) {
     for %data.keys -> $_ is copy {
       when @set-methods.any {
@@ -69,51 +70,51 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     self.Clutter::PropertyTransition::setup( |%data ) if %data.keys;
     self;
   }
- 
+
   method clear {
     clutter_keyframe_transition_clear($!ckt);
   }
-  
+
   # cw: Future enhancement... do we want to make this object an Iterator
   # so it can iterate over key-frames and return a tuple of:
   #   (key-frame, mode, ACTUAL value) -- return the GValue if :$gvalue.
 
   method get_key_frame (
-    Int() $index, 
-    Num() $key, 
-    Int() $mode, 
+    Int() $index,
+    Num() $key,
+    Int() $mode,
     GValue() $value
-  ) 
-    is also<get-key-frame> 
+  )
+    is also<get-key-frame>
   {
     my guint ($i, $m) = resolve-uint($index, $mode);
     my gdouble $k = $key;
     clutter_keyframe_transition_get_key_frame($!ckt, $i, $k, $m, $value);
   }
 
-  method get_n_key_frames 
+  method get_n_key_frames
     is also<
-      get-n-key-frames 
+      get-n-key-frames
       elems
-    > 
+    >
   {
     clutter_keyframe_transition_get_n_key_frames($!ckt);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
-    unstable_get_type( 
+    unstable_get_type(
       self.^name, &clutter_keyframe_transition_get_type, $n, $t
     );
   }
 
   method set_key_frame (
-    Int() $index, 
-    Num() $key, 
-    Int() $mode, 
+    Int() $index,
+    Num() $key,
+    Int() $mode,
     GValue() $value
-  ) 
-    is also<set-key-frame> 
+  )
+    is also<set-key-frame>
   {
     my guint ($i, $m) = resolve-uint($index, $mode);
     my gdouble $k = $key;
@@ -123,7 +124,7 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
   proto method set_key_frames (|)
     is also<set-key-frames>
   { * }
-  
+
   # cw: Why @f and $f? -- Because I CAN.
   multi method set_key_frames(*@frames where .all ~~ Cool) {
     my @f = @frames.map( *.Num );
@@ -135,17 +136,17 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     my @frames = @key_frames.map({ try .Num });
     die '@key_frames must only contain floating point values!'
       unless @frames.all ~~ Num;
-      
+
     my guint $nf = resolve-uint($n_key_frames);
     my $f = CArray[gdouble].new;
     $f[$_] = @frames[$_] for @frames.keys;
     clutter_keyframe_transition_set_key_frames($!ckt, $nf, $f);
   }
-  
-  proto method set_modes (|) 
+
+  proto method set_modes (|)
     is also<set-modes>
   { * }
-  
+
   multi method set_modes (*@modes where .all ~~ Cool) {
     my @m = @modes.map(*.Int);
     my $m = CArray[guint].new;
@@ -157,13 +158,13 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     clutter_keyframe_transition_set_modes($!ckt, $n_modes, $modes);
   }
 
-  proto method set_values (|) 
+  proto method set_values (|)
     is also<set-values>
   { * }
-  
+
   # GValue is a CStruct... must use a typed buffer!
   multi method set_values (
-    *@values where .all ~~ (GValue, GTK::Compat::Value).any
+    *@values where .all ~~ (GValue, GLib::Value).any
   ) {
     my @v = @values.map({ $_ !~~ GValue ?? .gvalue !! $_ });
     my $v = GTK::Compat::Roles::TypedBuffer[GValue].new(@v);

@@ -6,6 +6,8 @@ use NativeCall;
 use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
+use GLib::Value;
+
 use GTK::Roles::Properties;
 
 role Clutter::Roles::Settings {
@@ -28,7 +30,7 @@ role Clutter::Roles::Settings {
 
   # Type: ClutterBackend
   method backend is rw is DEPRECATED {
-    my GTK::Compat::Value $gv .= new( ::('Clutter::Backend').get-type );
+    my GLib::Value $gv .= new( ::('Clutter::Backend').get-type );
     Proxy.new(
       FETCH => -> $ {
         warn 'backend does not allow reading' if $DEBUG;
@@ -43,10 +45,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method dnd-drag-threshold is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('dnd-drag-threshold', $gv)
         );
         $gv.int;
@@ -60,10 +62,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method double-click-distance is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('double-click-distance', $gv)
         );
         $gv.int;
@@ -77,10 +79,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method double-click-time is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('double-click-time', $gv)
         );
         $gv.int;
@@ -94,10 +96,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method font-antialias is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-antialias', $gv)
         );
         $gv.int;
@@ -111,10 +113,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method font-dpi is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-dpi', $gv)
         );
         $gv.int;
@@ -128,10 +130,10 @@ role Clutter::Roles::Settings {
 
   # Type: gchar
   method font-hint-style is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-hint-style', $gv)
         );
         $gv.string;
@@ -145,10 +147,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method font-hinting is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-hinting', $gv)
         );
         $gv.int;
@@ -162,10 +164,10 @@ role Clutter::Roles::Settings {
 
   # Type: gchar
   method font-name is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-name', $gv)
         );
         $gv.string;
@@ -179,10 +181,10 @@ role Clutter::Roles::Settings {
 
   # Type: gchar
   method font-subpixel-order is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_STRING );
+    my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('font-subpixel-order', $gv)
         );
         $gv.string;
@@ -196,7 +198,7 @@ role Clutter::Roles::Settings {
 
   # Type: guint
   method fontconfig-timestamp is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
         warn 'fontconfig-timestamp does not allow reading' if $DEBUG;
@@ -211,10 +213,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method long-press-duration is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('long-press-duration', $gv)
         );
         $gv.int;
@@ -228,10 +230,10 @@ role Clutter::Roles::Settings {
 
   # Type: guint
   method password-hint-time is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_UINT );
+    my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('password-hint-time', $gv)
         );
         $gv.uint;
@@ -245,7 +247,7 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method unscaled-font-dpi is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
         warn 'unscaled-font-dpi does not allow reading' if $DEBUG;
@@ -260,10 +262,10 @@ role Clutter::Roles::Settings {
 
   # Type: gint
   method window-scaling-factor is rw  {
-    my GTK::Compat::Value $gv .= new( G_TYPE_INT );
+    my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
       FETCH => -> $ {
-        $gv = GTK::Compat::Value.new(
+        $gv = GLib::Value.new(
           self.prop_get('window-scaling-factor', $gv)
         );
         $gv.int;
