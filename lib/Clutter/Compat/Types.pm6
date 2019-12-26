@@ -300,6 +300,3 @@ our enum CoglPixelFormat is export (
 
   COGL_PIXEL_FORMAT_DEPTH_24_STENCIL_8 => (3 +| COGL_DEPTH_BIT +| COGL_STENCIL_BIT)
 );
-
-our subset CairoOrContext is export of Mu
-  where Cairo::cairo_t | Cairo::Context;
