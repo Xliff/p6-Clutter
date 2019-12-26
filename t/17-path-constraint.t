@@ -6,7 +6,7 @@ use v6.c;
 
 use Clutter::Raw::Types;
 
-use GTK::Compat::Timeout;
+use GLib::Timeout;
 use GTK::Compat::Value;
 
 use Clutter::Main;
@@ -105,7 +105,7 @@ sub MAIN {
   # Animator is not currently working, so equivalent code.
   # my $o = 0;
   # my $s = 1 / 30;
-  # GTK::Compat::Timeout.simple_timeout($s ** -1).act(
+  # GLib::Timeout.simple_timeout($s ** -1).act(
   #   -> @ ($t, $dt) {
   #     $constraint.offset = $o;
   #     $o += $s;
