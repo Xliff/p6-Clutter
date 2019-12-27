@@ -306,9 +306,9 @@ class Clutter::InputDevice {
   }
 
   method get_slave_devices (:$raw = False) {
-    my $l = GTK::Compat::GList.new(
+    my $l = GLib::GList.new(
       clutter_input_device_get_slave_devices($!cid)
-    ) but GTK::Compat::Roles::ListData[ClutterInputDevice];
+    ) but GLib::Roles::ListData[ClutterInputDevice];
     $raw ??
       $l.Array !! $l.Array.map({ Clutter::InputDevice.new($_) });
   }

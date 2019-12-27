@@ -12,7 +12,7 @@ use Clutter::Raw::Path;
 use GLib::GSList;
 use GLib::Value;
 
-use GTK::Compat::Roles::ListData;
+use GLib::Roles::ListData;
 use GTK::Compat::Roles::Object;
 
 class Clutter::Path {
@@ -158,7 +158,7 @@ class Clutter::Path {
     return $nl if     $glist;
 
     $nl = GLib::GSList.new($nl)
-      but GTK::Compat::Roles::ListData[ClutterPathNode];
+      but GLib::Roles::ListData[ClutterPathNode];
 
     $nl.Array;
   }

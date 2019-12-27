@@ -12,7 +12,7 @@ use GLib::GSList;
 use Clutter::InputDevice;
 
 use GTK::Compat::Roles::Object;
-use GTK::Compat::Roles::ListData;
+use GLib::Roles::ListData;
 
 use Clutter::Roles::Signals::DeviceManager;
 
@@ -95,7 +95,7 @@ class Clutter::DeviceManager {
     return $dl if     $glist;
 
     $dl = GLib::GList.new($dl)
-      but GTK::Compat::Roles::ListData[ClutterInputDevice];
+      but GLib::Roles::ListData[ClutterInputDevice];
 
     $raw ?? $dl.Array !! $dl.Array.map({ Clutter::InputDevice.new($_) });
   }
@@ -107,7 +107,7 @@ class Clutter::DeviceManager {
     return $dl if     $glist;
 
     $dl = GLib::GList.new($dl)
-      but GTK::Compat::Roles::ListData[ClutterInputDevice];
+      but GLib::Roles::ListData[ClutterInputDevice];
 
     $raw ?? $dl.Array !! $dl.Array.map({ Clutter::InputDevice.new($_) });
   }

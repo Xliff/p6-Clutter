@@ -1708,8 +1708,8 @@ class Clutter::Actor {
       children
     >
   {
-    my $l = GTK::Compat::GList.new( clutter_actor_get_children($!ca) )
-      but GTK::Compat::Roles::ListData[ClutterActor];
+    my $l = GLib::GList.new( clutter_actor_get_children($!ca) )
+      but GLib::Roles::ListData[ClutterActor];
     $raw ??
       $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
   }
@@ -2803,8 +2803,8 @@ class Clutter::Actor {
   }
 
   method get_actions (:$raw = False) is also<get-actions> {
-    my $l = GTK::Compat::GList.new( clutter_actor_get_actions($!ca) )
-      but GTK::Compat::Roles::ListData[ClutterAction];
+    my $l = GLib::GList.new( clutter_actor_get_actions($!ca) )
+      but GLib::Roles::ListData[ClutterAction];
     $raw ??
       $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
   }
@@ -2875,8 +2875,8 @@ class Clutter::Actor {
   }
 
   method get_constraints (:$raw = False) is also<get-constraints> {
-    my $l = GTK::Compat::GList.new( clutter_actor_get_constraints($!ca) )
-      but GTK::Compat::Roles::ListData[ClutterConstraint];
+    my $l = GLib::GList.new( clutter_actor_get_constraints($!ca) )
+      but GLib::Roles::ListData[ClutterConstraint];
     $raw ??
       $l.Array !! $l.Array.map({ Clutter::Constraint.new($_) });
   }
@@ -2941,8 +2941,8 @@ class Clutter::Actor {
   }
 
   method get_effects (:$raw) is also<get-effects> {
-    my $l = GTK::Compat::GList.new( clutter_actor_get_effects($!ca) )
-      but GTK::Compat::Roles::ListData[ClutterEffect];
+    my $l = GLib::GList.new( clutter_actor_get_effects($!ca) )
+      but GLib::Roles::ListData[ClutterEffect];
     $l.defined ??
       ( $raw ?? $l.Array !! $l.Array.map({ Clutter::Effect.new($_) }) )
       !!
