@@ -8,7 +8,7 @@ use Clutter::Raw::Types;
 
 use GTK::Raw::Utils;
 
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 
 use Clutter::ActorMeta;
 
@@ -16,7 +16,7 @@ our subset EffectAncestry of Mu is export
   where ClutterEffect | ClutterActorMeta;
 
 class Clutter::Effect is Clutter::ActorMeta {
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
 
   has ClutterEffect $!c-eff;
 

@@ -9,10 +9,10 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::TextBuffer;
 
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 
 class Clutter::TextBuffer {
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
   
   has ClutterTextBuffer $!ctb;
   

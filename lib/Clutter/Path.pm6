@@ -13,10 +13,10 @@ use GLib::GSList;
 use GLib::Value;
 
 use GLib::Roles::ListData;
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 
 class Clutter::Path {
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
 
   has ClutterPath $!cp is implementor;
 

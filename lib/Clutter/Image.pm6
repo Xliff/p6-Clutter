@@ -13,12 +13,12 @@ use GTK::Raw::Utils;
 
 use Clutter::Raw::Image;
 
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 
 use Clutter::Roles::Content;
 
 class Clutter::Image {
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
   also does Clutter::Roles::Content;
 
   has ClutterImage $!ci;

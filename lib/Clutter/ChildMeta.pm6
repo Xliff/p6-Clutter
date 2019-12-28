@@ -8,11 +8,11 @@ use Clutter::Raw::Types;
 
 use GTK::Roles::Data;
 use GTK::Roles::Protection;
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 
 class Clutter::ChildMeta {
   also does GTK::Roles::Protection;
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
   also does GTK::Roles::Data;
 
   has ClutterChildMeta $!ccmeta;

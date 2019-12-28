@@ -11,14 +11,14 @@ use GLib::GSList;
 
 use Clutter::InputDevice;
 
-use GTK::Compat::Roles::Object;
+use GLib::Roles::Object;
 use GLib::Roles::ListData;
 
 use Clutter::Roles::Signals::DeviceManager;
 
 
 class Clutter::DeviceManager {
-  also does GTK::Compat::Roles::Object;
+  also does GLib::Roles::Object;
   also does Clutter::Roles::Signals::DeviceManager;
 
   has ClutterDeviceManager $!cdm is implementor;
