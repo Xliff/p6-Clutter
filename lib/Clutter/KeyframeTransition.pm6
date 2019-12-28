@@ -13,7 +13,7 @@ use GTK::Raw::Utils;
 use GLib::Value;
 use Clutter::PropertyTransition;
 
-use GTK::Compat::Roles::TypedBuffer;
+use GLib::Roles::TypedBuffer;
 
 my @set-methods = <
   key_frame     key-frame
@@ -167,7 +167,7 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     *@values where .all ~~ (GValue, GLib::Value).any
   ) {
     my @v = @values.map({ $_ !~~ GValue ?? .gvalue !! $_ });
-    my $v = GTK::Compat::Roles::TypedBuffer[GValue].new(@v);
+    my $v = GLib::Roles::TypedBuffer[GValue].new(@v);
     samewith(@v.elems, $v.p);
   }
   multi method set_values(Int() $n_values, Pointer $vals) {
