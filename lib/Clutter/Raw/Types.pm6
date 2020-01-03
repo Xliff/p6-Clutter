@@ -6,7 +6,7 @@ use NativeCall;
 
 use GTK::Compat::Types;
 
-use GTK::Roles::Pointers;
+use GLib::Roles::Pointers;
 
 unit package Clutter::Raw::Types;
 
@@ -21,66 +21,66 @@ constant ClutterActorCreateChildFunc is export := Pointer;
 constant ClutterProgressFunc         is export := Pointer;
 constant ClutterTimelineProgressFunc is export := Pointer;
 
-class ClutterAction                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterActor                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterActorMeta                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterAlignConstraint          is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterAlpha                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterAnimatable               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBackend                  is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBinLayout                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBindConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBlurEffect               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBoxLayout                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterBrightnessContrastEffect is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterCanvas                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterChildMeta                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterConstraint               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterClickAction              is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterClone                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterContainer                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterContent                  is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterDragAction               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterDropAction               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterDeformEffect             is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterDesaturateEffect         is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterDeviceManager            is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterEffect                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterEventSequence            is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterFixedLayout              is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterFlowLayout               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterFog                      is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGeometry                 is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGestureAction            is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGroup                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGridLayout               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterGridLayoutMeta           is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterImage                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterInputDevice              is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterInterval                 is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterKeyframeTransition       is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterLayoutManager            is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterLayoutMeta               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterMargin                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterMatrix                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterOffscreenEffect          is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPageTurnEffect           is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPanAction                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPath                     is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPathConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPaintVolume              is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterPropertyTransition       is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterSettings                 is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterScript                   is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterScrollActor              is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterScriptable               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterSnapConstraint           is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterStage                    is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterTapAction                is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterText                     is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterTextBuffer               is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterTimeline                 is repr('CPointer') does GTK::Roles::Pointers is export { }
-class ClutterTransition               is repr('CPointer') does GTK::Roles::Pointers is export { }
+class ClutterAction                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterActor                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterActorMeta                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterAlignConstraint          is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterAlpha                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterAnimatable               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBackend                  is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBinLayout                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBindConstraint           is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBlurEffect               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBoxLayout                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterBrightnessContrastEffect is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterCanvas                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterChildMeta                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterConstraint               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterClickAction              is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterClone                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterContainer                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterContent                  is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterDragAction               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterDropAction               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterDeformEffect             is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterDesaturateEffect         is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterDeviceManager            is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterEffect                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterEventSequence            is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterFixedLayout              is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterFlowLayout               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterFog                      is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterGeometry                 is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterGestureAction            is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterGroup                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterGridLayout               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterGridLayoutMeta           is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterImage                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterInputDevice              is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterInterval                 is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterKeyframeTransition       is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterLayoutManager            is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterLayoutMeta               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterMargin                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterMatrix                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterOffscreenEffect          is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPageTurnEffect           is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPanAction                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPath                     is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPathConstraint           is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPaintVolume              is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterPropertyTransition       is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterSettings                 is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterScript                   is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterScrollActor              is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterScriptable               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterSnapConstraint           is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterStage                    is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterTapAction                is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterText                     is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterTextBuffer               is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterTimeline                 is repr('CPointer') does GLib::Roles::Pointers is export { }
+class ClutterTransition               is repr('CPointer') does GLib::Roles::Pointers is export { }
 
 our enum ClutterActorAlign is export <
   CLUTTER_ACTOR_ALIGN_FILL
@@ -522,14 +522,14 @@ our enum ClutterEventAction is export (
   CLUTTER_EVENT_STOP      => 1,
 );
 
-class ClutterColor is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterColor is repr('CStruct') is export does GLib::Roles::Pointers {
   has guint8 $.red   is rw;
   has guint8 $.green is rw;
   has guint8 $.blue  is rw;
   has guint8 $.alpha is rw;
 }
 
-class ClutterAnyEvent is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterAnyEvent is repr('CStruct') is export does GLib::Roles::Pointers {
   has guint        $.type  ;
   has guint32      $.time  ;
   has guint        $.flags ;  # ClutterEventFlags flags;
@@ -545,7 +545,7 @@ role ClutterEventMethods {
   method source { self.header.source }
 }
 
-class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint               $.modifier_state; # ClutterModifierType
@@ -555,7 +555,7 @@ class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does
   has ClutterInputDevice  $.device;
 }
 
-class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has gfloat              $.x;
@@ -567,7 +567,7 @@ class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods d
   has ClutterInputDevice  $.device;
 }
 
-class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
 
   has gfloat             $.x;
@@ -576,7 +576,7 @@ class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods
   has ClutterActor       $.related;
 }
 
-class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
 
   has gfloat             $.x;
@@ -586,7 +586,7 @@ class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods d
   has ClutterInputDevice $.device;
 }
 
-class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent    $.header;
 
   has gfloat             $.x;
@@ -599,14 +599,14 @@ class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods d
   has guint              $.finish_flags;   # ClutterScrollFinishFlags finish_flags;
 }
 
-class ClutterStageStateEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterStageStateEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint $.changed_mask; # ClutterStageState changed_mask;
   has guint $.new_state;    # ClutterStageState new_state;
 }
 
-class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent      $.header;
 
   has gfloat               $.x;
@@ -617,7 +617,7 @@ class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods do
   has ClutterInputDevice   $.device;
 }
 
-class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint           $.phase; # ClutterTouchpadGesturePhase phase;
@@ -629,7 +629,7 @@ class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat          $.scale;
 }
 
-class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMethods does GTK::Roles::Pointers {
+class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent $.header;
 
   has guint  $.phase; # ClutterTouchpadGesturePhase phase;
@@ -640,7 +640,7 @@ class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat $.dy;
 }
 
-class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GLib::Roles::Pointers {
   has guint                     $.type;
   has ClutterAnyEvent           $.any;
   has ClutterButtonEvent        $.button;
@@ -660,7 +660,7 @@ our subset ClutterEvents is export where
   ClutterCrossingEvent      | ClutterTouchEvent  | ClutterTouchpadPinchEvent |
   ClutterTouchpadSwipeEvent ;
 
-class ClutterPerspective is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterPerspective is repr('CStruct') is export does GLib::Roles::Pointers {
   has gfloat $.fovy;
   has gfloat $.aspect;
   has gfloat $.z_near;
@@ -717,7 +717,7 @@ our enum ClutterButtonPress is export (
 );
 
 # Opaque. ONLY to be used for initialization.
-class ClutterActorIter is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterActorIter is repr('CStruct') is export does GLib::Roles::Pointers {
   has gpointer $.dummy1;
   has gpointer $.dummy2;
   has gpointer $.dummy3;
@@ -725,7 +725,7 @@ class ClutterActorIter is repr('CStruct') is export does GTK::Roles::Pointers {
   has gpointer $.dummy5;
 }
 
-class ClutterPoint is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterPoint is repr('CStruct') is export does GLib::Roles::Pointers {
   has gfloat $.x is rw;
   has gfloat $.y is rw;
   
@@ -737,30 +737,30 @@ class ClutterPoint is repr('CStruct') is export does GTK::Roles::Pointers {
   
 }
 
-class ClutterSize is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterSize is repr('CStruct') is export does GLib::Roles::Pointers {
   has gfloat $.width  is rw;
   has gfloat $.height is rw;
 }
 
-class ClutterRect is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterRect is repr('CStruct') is export does GLib::Roles::Pointers {
   HAS ClutterPoint $.origin;
   HAS ClutterSize $.size;
 }
 
-class ClutterVertex is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterVertex is repr('CStruct') is export does GLib::Roles::Pointers {
   has gfloat $.x is rw;
   has gfloat $.y is rw;
   has gfloat $.z is rw;
 }
 
-class ClutterActorBox is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterActorBox is repr('CStruct') is export does GLib::Roles::Pointers {
   has gfloat $.x1 is rw;
   has gfloat $.y1 is rw;
   has gfloat $.x2 is rw;
   has gfloat $.y2 is rw;
 }
 
-class ClutterKnot is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterKnot is repr('CStruct') is export does GLib::Roles::Pointers {
   has gint $.x is rw;
   has gint $.y is rw;
 }
@@ -777,7 +777,7 @@ our enum ClutterPathNodeType is export (
   CLUTTER_PATH_REL_CURVE_TO => 34, # CLUTTER_PATH_CURVE_TO | CLUTTER_PATH_RELATIVE
 );
 
-class ClutterPathNode is repr('CStruct') is export does GTK::Roles::Pointers {
+class ClutterPathNode is repr('CStruct') is export does GLib::Roles::Pointers {
   has guint       $.type     is rw;     # ClutterPathNodeType type;
   has ClutterKnot $.point1;
   has ClutterKnot $.point2;
