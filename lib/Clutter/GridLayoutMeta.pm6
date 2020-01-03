@@ -45,7 +45,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   }
 
   method new (GridLayoutMetaAncestry $gridmetalayout) {
-    # No GTK::Roles::References
+    # No GLib::Roles::References
     # No destroy yet, so no upref logic.
     self.bless(:$gridmetalayout);
   }

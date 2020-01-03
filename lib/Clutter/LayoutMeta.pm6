@@ -46,7 +46,7 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
   { $!clmeta }
     
   method new (ClutterLayoutMeta $metalayout) {
-    # No GTK::Roles::References
+    # No GLib::Roles::References
     # No destroy yet, so no upref logic.
     self.bless(:$metalayout);
   }
