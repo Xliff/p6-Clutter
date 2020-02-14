@@ -23,7 +23,7 @@ class Clutter::PanAction is Clutter::GestureAction {
     self.setGestureAction( cast(ClutterGestureAction, $!cpa = $pan) );
   }
   
-  method Clutter::Raw::Types::ClutterPanAction
+  method Clutter::Raw::Definitions::ClutterPanAction
   { $!cpa }
 
   multi method new (ClutterPanAction $pan) {

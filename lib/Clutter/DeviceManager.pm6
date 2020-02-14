@@ -41,7 +41,7 @@ class Clutter::DeviceManager {
     $m ?? self.bless( manager => $m ) !! Nil;
   }
 
-  method Clutter::Raw::Types::ClutterDeviceManager
+  method Clutter::Raw::Definitions::ClutterDeviceManager
     is also<ClutterDeviceManager>
   { $!cdm }
 

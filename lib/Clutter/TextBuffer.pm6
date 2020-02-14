@@ -20,7 +20,7 @@ class Clutter::TextBuffer {
     self!setObject( cast(ClutterTextBuffer, $!ctb = $textbuffer) );
   }
   
-  method Clutter::Raw::Types::ClutterTextBuffer
+  method Clutter::Raw::Definitions::ClutterTextBuffer
     is also<ClutterTextBuffer>
   { $!ctb }
   

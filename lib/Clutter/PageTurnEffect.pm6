@@ -38,7 +38,7 @@ class Clutter::PageTurnEffect is Clutter::OffscreenEffect {
     }
   }
 
-  method Clutter::Raw::Types::PageTurnEffect
+  method Clutter::Raw::Definitions::PageTurnEffect
   { $!cpte }
 
   multi method new (ClutterPageTurnEffect $page-turn) {

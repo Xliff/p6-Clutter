@@ -47,7 +47,7 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
     self.setOffscreenEffect($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterDeformEffect
+  method Clutter::Raw::Definitions::ClutterDeformEffect
   { $!cde }
 
   method new (ClutterDeformEffect $deform) {

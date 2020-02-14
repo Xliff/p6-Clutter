@@ -23,7 +23,7 @@ class Clutter::ClutterBackend {
     self.setSettings( cast(ClutterSettings, $!cb = $backend) );
   }
   
-  method Clutter::Raw::Types::ClutterBackend 
+  method Clutter::Raw::Definitions::ClutterBackend 
   { $!cb }
   
   method get_default is also<get-default> {

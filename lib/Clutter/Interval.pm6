@@ -15,7 +15,7 @@ class Clutter::Interval {
     $!ci = $interval;
   }
 
-  method Clutter::Raw::Types::ClutterInterval
+  method Clutter::Raw::Definitions::ClutterInterval
     is also<ClutterInterval>
   { $!ci }
 

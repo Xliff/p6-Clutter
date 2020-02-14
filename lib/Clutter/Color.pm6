@@ -18,7 +18,7 @@ class Clutter::Color {
     $!cc = $color;
   }
 
-  method Clutter::Raw::Types::ClutterColor
+  method Clutter::Raw::Definitions::ClutterColor
     is also<ClutterColor>
   { $!cc }
 

@@ -40,7 +40,7 @@ class Clutter::Transition is Clutter::Timeline {
     self.setTimeline( cast(ClutterTimeline, $!ct = $transition) );
   }
 
-  method Clutter::Raw::Types::ClutterTransition
+  method Clutter::Raw::Definitions::ClutterTransition
     is also<ClutterTransition>
   { $!ct }
 

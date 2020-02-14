@@ -10,7 +10,7 @@ use Clutter::Raw::Animatable;
 role Clutter::Roles::Animatable {
   has ClutterAnimatable $!c-anim;
   
-  method Clutter::Raw::Types::Animatable 
+  method Clutter::Raw::Definitions::Animatable 
     is also<Animatable>
   { $!c-anim }
 

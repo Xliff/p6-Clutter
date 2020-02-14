@@ -24,7 +24,7 @@ class Clutter::DragAction is Clutter::Action {
     self.setAction( cast(ClutterAction, $!cda = $dragaction) );
   }
 
-  method Clutter::Raw::Types::ClutterDragAction
+  method Clutter::Raw::Definitions::ClutterDragAction
     is also<ClutterDragAction>
   { $!cda }
 

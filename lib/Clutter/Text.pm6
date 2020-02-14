@@ -114,7 +114,7 @@ class Clutter::Text is Clutter::Actor {
     }
   }
 
-  method Clutter::Raw::Types::ClutterText
+  method Clutter::Raw::Definitions::ClutterText
   { $!ct }
 
   multi method new (TextAncestry $text) {

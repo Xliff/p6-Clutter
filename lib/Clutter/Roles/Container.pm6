@@ -18,7 +18,7 @@ role Clutter::Roles::Container {
 
   has ClutterContainer $!c;
   
-  method Clutter::Raw::Types::ClutterContainer 
+  method Clutter::Raw::Definitions::ClutterContainer 
     is also<Container>
   { $!c }
 

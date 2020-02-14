@@ -28,7 +28,7 @@ class Clutter::Image {
     $!c-con = cast(ClutterContent, $!ci);  # Clutter::Roles::Content
   }
 
-  method Clutter::Raw::Types::ClutterImage
+  method Clutter::Raw::Definitions::ClutterImage
     is also<ClutterImage>
   { $!ci }
 

@@ -41,7 +41,7 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
     self.setChildMeta($to-parent);
   }
   
-  method Clutter::Raw::Types::ClutterLayoutMeta
+  method Clutter::Raw::Definitions::ClutterLayoutMeta
     is also<LayoutMeta>
   { $!clmeta }
     

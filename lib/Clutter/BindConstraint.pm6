@@ -18,7 +18,7 @@ class Clutter::BindConstraint is Clutter::Constraint {
     self.setConstraint( cast(ClutterConstraint, $!cb = $bindconstraint) );
   }
   
-  method Clutter::Raw::Types::ClutterBindConstraint
+  method Clutter::Raw::Definitions::ClutterBindConstraint
     is also<ClutterBindConstraint>
   { $!cb }
   

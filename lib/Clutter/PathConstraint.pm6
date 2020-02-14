@@ -39,7 +39,7 @@ class Clutter::PathConstraint is Clutter::Constraint {
     }
   }
   
-  method Clutter::Raw::Types::ClutterPathConstraint
+  method Clutter::Raw::Definitions::ClutterPathConstraint
     is also<ClutterPathConstraint>
   { $!cpc }
   

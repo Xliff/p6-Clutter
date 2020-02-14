@@ -17,7 +17,7 @@ class Clutter::ActorIter {
     $!cai = $iter;
   }
   
-  method Clutter::Raw::Types::ClutterActorIter
+  method Clutter::Raw::Definitions::ClutterActorIter
     is also<ClutterActorIter>
   { $!cai }
   

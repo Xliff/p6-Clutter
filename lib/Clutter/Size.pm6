@@ -17,7 +17,7 @@ class Clutter::Size {
     $!cs = $size;
   }
 
-  method Clutter::Raw::Types::ClutterSize
+  method Clutter::Raw::Definitions::ClutterSize
     is also<ClutterSize>
   { $!cs }
 

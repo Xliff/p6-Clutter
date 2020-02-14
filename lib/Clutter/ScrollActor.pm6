@@ -46,7 +46,7 @@ class Clutter::ScrollActor is Clutter::Actor {
     }
   }
 
-  method Clutter::Raw::Types::ClutterScrollActor
+  method Clutter::Raw::Definitions::ClutterScrollActor
     is also<ClutterScrollActor>
   { $!csa }
 

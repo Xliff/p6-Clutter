@@ -11,7 +11,7 @@ use Clutter::Raw::Scriptable;
 role Clutter::Roles::Scriptable {
   has ClutterScriptable $!cs;
   
-  method Clutter::Raw::Types::ClutterScriptable 
+  method Clutter::Raw::Definitions::ClutterScriptable 
     is also<Scriptable>
   { $!cs }
 

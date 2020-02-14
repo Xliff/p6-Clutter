@@ -21,7 +21,7 @@ class Clutter::SnapConstraint is Clutter::Constraint {
     self.setConstraint( cast(ClutterConstraint, $!csc = $snapconstraint) );
   }
 
-  method Clutter::Raw::Types::ClutterSnapConstraint
+  method Clutter::Raw::Definitions::ClutterSnapConstraint
     is also<ClutterSnapConstraint>
   { $!csc }
 

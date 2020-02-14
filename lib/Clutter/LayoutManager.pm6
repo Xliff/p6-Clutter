@@ -36,7 +36,7 @@ class Clutter::LayoutManager {
     self!setObject( cast(GObject, $!clm = $manager) ) if $manager;
   }
   
-  method Clutter::Raw::Types::ClutterLayoutManager 
+  method Clutter::Raw::Definitions::ClutterLayoutManager 
     is also<ClutterLayoutManager>
   { $!clm }
   

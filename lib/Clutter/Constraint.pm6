@@ -22,7 +22,7 @@ class Clutter::Constraint {
     self.ADD-PREFIX('Clutter::');
   }
 
-  method Clutter::Raw::Types::ClutterConstraint
+  method Clutter::Raw::Definitions::ClutterConstraint
     is also<ClutterConstraint>
   { $!c-con }
 

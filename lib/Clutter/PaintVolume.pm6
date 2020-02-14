@@ -16,7 +16,7 @@ class Clutter::PaintVolume {
     $!cpv = $paintvolume;
   }
   
-  method Clutter::Raw::Types::PaintVolume
+  method Clutter::Raw::Definitions::PaintVolume
     is also<ClutterPaintVolume>
   { $!cpv }
   

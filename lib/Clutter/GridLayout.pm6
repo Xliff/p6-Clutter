@@ -48,7 +48,7 @@ class Clutter::GridLayout is Clutter::LayoutManager {
     }
   }
 
-  method Clutter::Raw::Types::ClutterGridLayout
+  method Clutter::Raw::Definitions::ClutterGridLayout
     is also<ClutterGridLayout>
   { $!cgl }
 

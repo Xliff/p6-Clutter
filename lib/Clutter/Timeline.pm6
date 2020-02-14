@@ -47,7 +47,7 @@ class Clutter::Timeline {
     self!setObject( cast(GObject, $!ctime = $timeline) );
   }
 
-  method Clutter::Raw::Types::ClutterTimeline
+  method Clutter::Raw::Definitions::ClutterTimeline
     is also<ClutterTimeline>
   { $!ctime }
 

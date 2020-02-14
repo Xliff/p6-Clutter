@@ -45,7 +45,7 @@ class Clutter::OffscreenEffect is Clutter::Effect {
     self.setEffect($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterOffscreenEffect
+  method Clutter::Raw::Definitions::ClutterOffscreenEffect
   { $!coe }
 
   method create_texture (Num() $width, Num() $height) is also<create-texture> {

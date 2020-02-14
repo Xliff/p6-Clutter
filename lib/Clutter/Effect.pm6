@@ -20,7 +20,7 @@ class Clutter::Effect is Clutter::ActorMeta {
 
   has ClutterEffect $!c-eff;
 
-  method Clutter::Raw::Types::ClutterEffect
+  method Clutter::Raw::Definitions::ClutterEffect
     is also<ClutterEffect>
   { $!c-eff }
 

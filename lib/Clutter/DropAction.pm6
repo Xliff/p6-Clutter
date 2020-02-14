@@ -22,7 +22,7 @@ class Clutter::DropAction is Clutter::Action {
     self.setAction( cast(ClutterAction, $!cda = $dropaction) );
   }
 
-  method Clutter::Raw::Types::ClutterDropAction
+  method Clutter::Raw::Definitions::ClutterDropAction
     is also<ClutterDropAction>
   { * }
 

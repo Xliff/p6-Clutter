@@ -15,7 +15,7 @@ role Clutter::Roles::Settings {
 
   has ClutterSettings $!c-set;
 
-  method Clutter::Raw::Types::ClutterSettings
+  method Clutter::Raw::Definitions::ClutterSettings
     is also<Settings>
   { $!c-set }
 

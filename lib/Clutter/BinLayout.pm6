@@ -15,7 +15,7 @@ class Clutter::BinLayout is Clutter::LayoutManager {
     self.setLayoutManager( cast(ClutterLayoutManager, $!cbl = $binlayout) );
   }
   
-  method Clutter::Raw::Types::ClutterBinLayout
+  method Clutter::Raw::Definitions::ClutterBinLayout
     is also<ClutterBinLayout>
   { $!cbl }
   

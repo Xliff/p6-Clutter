@@ -26,7 +26,7 @@ class Clutter::Path {
     self.roleInit-Object;
   }
 
-  method Clutter::Raw::Types::ClutterPath
+  method Clutter::Raw::Definitions::ClutterPath
     is also<ClutterPath>
   { $!cp }
 

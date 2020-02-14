@@ -31,7 +31,7 @@ class Clutter::ActorMeta {
     self!setObject( cast(GObject, $!cam = $metaactor) );
   }
 
-  method Clutter::Raw::Types::ClutterActorMeta
+  method Clutter::Raw::Definitions::ClutterActorMeta
     is also<ClutterActorMeta>
   { $!cam }
 

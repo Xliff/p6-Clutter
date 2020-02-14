@@ -22,7 +22,7 @@ class Clutter::Event {
     $!ce = $event;
   }
 
-  method Clutter::Raw::Types::ClutterEvent
+  method Clutter::Raw::Definitions::ClutterEvent
   { $!ce }
 
   multi method new (ClutterEvents $event_pointer) {

@@ -25,7 +25,7 @@ class Clutter::ChildMeta {
     self!setObject( cast(GObject, $!data = ($!ccmeta = $childmeta).p ) );
   }
   
-  method Clutter::Raw::Types::ClutterChildMeta 
+  method Clutter::Raw::Definitions::ClutterChildMeta 
     is also<ChildMeta>
   { $!ccmeta }
 

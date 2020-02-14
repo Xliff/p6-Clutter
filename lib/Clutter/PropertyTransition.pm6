@@ -55,7 +55,7 @@ class Clutter::PropertyTransition is Clutter::Transition {
     self;
   }
 
-  method Clutter::Raw::Types::ClutterPropertyTransition
+  method Clutter::Raw::Definitions::ClutterPropertyTransition
     is also<ClutterPropertyTransition>
   { $!cpt }
 

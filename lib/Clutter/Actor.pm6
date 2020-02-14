@@ -191,7 +191,7 @@ class Clutter::Actor {
     self.setActor($actor) if $actor.defined;
   }
 
-  method Clutter::Raw::Types::ClutterActor
+  method Clutter::Raw::Definitions::ClutterActor
     is also<
       ClutterActor
       Actor

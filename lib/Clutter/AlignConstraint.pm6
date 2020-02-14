@@ -20,7 +20,7 @@ class Clutter::AlignConstraint is Clutter::Constraint {
     self.setConstraint( cast(ClutterConstraint, $!cac = $alignconstraint) );
   }
   
-  method Clutter::Raw::Types::CluttterAlignConstraint 
+  method Clutter::Raw::Definitions::CluttterAlignConstraint 
     is also<ClutterAlignConstraint>
   { $!cac }
   

@@ -52,7 +52,7 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     }
   }
 
-  method Clutter::Raw::Types::ClutterBoxLayout
+  method Clutter::Raw::Definitions::ClutterBoxLayout
   { $!cb }
 
   multi method new (BoxLayoutAncestry $boxlayout) {

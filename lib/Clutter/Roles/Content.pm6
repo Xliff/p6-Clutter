@@ -17,7 +17,7 @@ role Clutter::Roles::Content {
     $!c-con = $content;
   }
 
-  method Clutter::Raw::Types::ClutterContent
+  method Clutter::Raw::Definitions::ClutterContent
     is also<ClutterContent>
   { $!c-con }
 

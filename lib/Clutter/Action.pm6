@@ -21,7 +21,7 @@ class Clutter::Action is Clutter::ActorMeta {
     self.setAction($action) if $action.defined;
   }
 
-  method Clutter::Raw::Types::ClutterAction
+  method Clutter::Raw::Definitions::ClutterAction
     is also<ClutterAction>
   { $!c-act }
   

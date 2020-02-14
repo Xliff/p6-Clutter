@@ -74,7 +74,7 @@ class Clutter::Stage is Clutter::Actor {
     }
   }
 
-  method Clutter::Raw::Types::ClutterStage
+  method Clutter::Raw::Definitions::ClutterStage
     is also<ClutterStage>
   { $!cs }
 

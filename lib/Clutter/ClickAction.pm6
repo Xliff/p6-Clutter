@@ -22,7 +22,7 @@ class Clutter::ClickAction is Clutter::Action {
     self.setAction( cast(ClutterAction, $!cca = $clickaction) );
   }
 
-  method Clutter::Raw::Types::ClutterClickAction
+  method Clutter::Raw::Definitions::ClutterClickAction
     is also<ClutterClickAction>
   { $!cca }
 

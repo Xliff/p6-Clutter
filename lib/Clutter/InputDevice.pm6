@@ -23,7 +23,7 @@ class Clutter::InputDevice {
     self!setObject( cast(GObject, $!cid = $device) )
   }
 
-  method Clutter::Raw::Types::ClutterInputDevice
+  method Clutter::Raw::Definitions::ClutterInputDevice
   { $!cid }
 
   method new (ClutterInputDevice $device) {

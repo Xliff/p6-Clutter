@@ -36,7 +36,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
     self.setLayoutManager( cast(ClutterLayoutManager, $!cfl = $flowlayout) );
   }
 
-  method Clutter::Raw::Types::ClutterFlowLayout
+  method Clutter::Raw::Definitions::ClutterFlowLayout
     is also<ClutterFlowLayout>
   { $!cfl }
 

@@ -24,7 +24,7 @@ class Clutter::GestureAction is Clutter::Action {
     self.setAction( cast(ClutterAction, $!cga = $action) );
   }
   
-  method Clutter::Raw::Types::ClutterGestureAction
+  method Clutter::Raw::Definitions::ClutterGestureAction
     is also<ClutterGestureAction>
   { $!cga }
   
