@@ -31,7 +31,7 @@ sub clutter_color_darken (ClutterColor $color, ClutterColor $result)
   is export
 { * }
 
-sub clutter_color_equal (gconstpointer $v1, gconstpointer $v2)
+sub clutter_color_equal (ClutterColor $v1, ClutterColor $v2)
   returns uint32
   is native(clutter)
   is export
