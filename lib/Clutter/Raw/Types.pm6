@@ -30,6 +30,7 @@ need COGL::Compat::Types;
 need Clutter::Compat::Types;
 need Clutter::Raw::Definitions;
 need Clutter::Raw::Enums;
+need Clutter::Raw::Exceptions;
 need Clutter::Raw::Structs;
 need Clutter::Compat::Types;
 

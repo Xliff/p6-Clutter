@@ -4,6 +4,12 @@ COGL::Raw::Enums
 COGL::Raw::Exports
 COGL::Raw::Structs
 Cairo
+GIO::DBus::Raw::Types
+GIO::Raw::Definitions
+GIO::Raw::Enums
+GIO::Raw::Exports
+GIO::Raw::Structs
+GIO::Raw::Subs
 GLib::GSList
 GLib::Raw::Definitions
 GLib::Raw::Enums
@@ -37,6 +43,7 @@ Clutter::Raw::Definitions
 Clutter::Raw::Enums
 Clutter::Raw::Structs
 Clutter::Raw::Exports
+Clutter::Raw::Exceptions
 Clutter::Raw::Types
 Clutter::Raw::VariousTypes
 Clutter::Rect

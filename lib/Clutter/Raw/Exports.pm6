@@ -9,6 +9,7 @@ BEGIN {
     Clutter::Compat::Types
     Clutter::Raw::Definitions
     Clutter::Raw::Enums
+    Clutter::Raw::Exceptions
     Clutter::Raw::Structs
     Clutter::Compat::Types
   >;

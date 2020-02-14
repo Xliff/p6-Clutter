@@ -8,4 +8,5 @@ use GLib::Roles::Pointers;
 
 unit package Clutter::Compat::Types;
 
-class JsonNode     is repr('CPointer') is export does GLib::Roles::Pointers { }
+class AtkObject    is repr<CPointer> is export does GLib::Roles::Pointers { }
+class JsonNode     is repr<CPointer> is export does GLib::Roles::Pointers { }
