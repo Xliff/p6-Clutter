@@ -1,6 +1,6 @@
 use v6.c;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
 use GTK::Raw::Utils;

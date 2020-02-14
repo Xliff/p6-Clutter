@@ -7,8 +7,8 @@ use Cairo;
 use Pango::Context;
 use Pango::Layout;
 
-use GTK::Compat::Types;
-use GTK::Compat::Types;
+
+
 use Clutter::Raw::Types;
 
 use GTK::Raw::Utils;

@@ -3,7 +3,7 @@ use v6.c;
 use NativeCall;
 use Method::Also;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
 use GTK::Roles::Data;

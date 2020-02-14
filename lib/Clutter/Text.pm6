@@ -4,7 +4,7 @@ use Method::Also;
 
 use Cairo;
 
-use GTK::Compat::Types;
+
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
 

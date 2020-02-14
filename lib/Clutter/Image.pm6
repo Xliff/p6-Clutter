@@ -5,7 +5,7 @@ use NativeCall;
 
 use Cairo;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 use Clutter::Compat::Types;
 

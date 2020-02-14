@@ -1,4 +1,4 @@
-*.c
+*.pm6bak
 LastBuildResults
 LastBuildResults.*
 *.bak
@@ -15,4 +15,11 @@ t/004-large-items.t
 .idea/
 .precomp/
 dead/
+examples/
+*.ipynb
+jupyter.log
+c-helpers/time
+core
+*.imp-bak
+*.ref-bak
 *.old
