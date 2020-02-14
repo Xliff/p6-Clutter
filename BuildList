@@ -15,7 +15,6 @@ GLib::Roles::Object
 GLib::Roles::Pointers
 GLib::Roles::TypedBuffer
 GLib::Value
-GTK::Compat::Types
 GTK::Raw::ReturnedValue
 GTK::Raw::Types
 GTK::Raw::Utils
@@ -31,9 +30,9 @@ Pango::Layout
 Pango::Raw::Types
 Clutter::Compat::Types
 Clutter::Raw::Definitions
+Clutter::Raw::Enums
 Clutter::Raw::Structs
 Clutter::Raw::Exports
-Clutter::Raw::Enums
 Clutter::Raw::Types
 Clutter::Raw::VariousTypes
 Clutter::Rect

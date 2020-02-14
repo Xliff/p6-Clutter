@@ -1,9 +1,11 @@
 use v6.c;
 
 use NativeCall;
+use Method::Also;
 
 use GLib::Raw::Definitions;
 use Clutter::Raw::Definitions;
+use Clutter::Raw::Enums;
 
 unit package Clutter::Raw::Structs;
 
@@ -11,18 +13,63 @@ unit package Clutter::Raw::Structs;
 # to make these easier to use with a NON-native approach.
 
 class ClutterColor is repr('CStruct') is export does GLib::Roles::Pointers {
-  has guint8 $.red   is rw;
-  has guint8 $.green is rw;
-  has guint8 $.blue  is rw;
-  has guint8 $.alpha is rw;
+  has guint8 $!red  ;
+  has guint8 $!green;
+  has guint8 $!blue ;
+  has guint8 $!alpha;
+
+  method red is rw {
+    Proxy.new:
+      FETCH => -> $ { $!red },
+      STORE => -> $, Int() $r {
+        warn 'Red value clipped to 255' if $r > 255;
+        warn 'Red value clipped to 0'   if $r < 0;
+        $!red = $r > 255 ?? 255
+                         !! ($r < 0 ?? 0 !! $r)
+      };
+  }
+
+  method green is rw {
+    Proxy.new:
+      FETCH => -> $ { $!green },
+      STORE => -> $, Int() $g {
+        warn 'Green value clipped to 255' if $g > 255;
+        warn 'Green value clipped to 0'   if $g < 0;
+        $!green = $g > 255 ?? 255
+                           !! ($g < 0 ?? 0 !! $g)
+      };
+  }
+
+  method blue is rw {
+    Proxy.new:
+      FETCH => -> $ { $!blue },
+      STORE => -> $, Int() $b {
+        warn 'Blue value clipped to 255' if $b > 255;
+        warn 'Blue value clipped to 0'   if $b < 0;
+        $!blue = $b > 255 ?? 255
+                         !! ($b < 0 ?? 0 !! $b)
+      };
+  }
+
+  method alpha is rw {
+    Proxy.new:
+      FETCH => -> $ { $!alpha },
+      STORE => -> $, Int() $a {
+        warn 'Alpha value clipped to 255' if $a > 255;
+        warn 'Alpha value clipped to 0'   if $a < 0;
+        $!alpha = $a > 255 ?? 255
+                           !! ($a < 0 ?? 0 !! $a)
+      };
+  }
+
 }
 
 class ClutterAnyEvent is repr('CStruct') is export does GLib::Roles::Pointers {
-  has guint        $.type  ;
-  has guint32      $.time  ;
-  has guint        $.flags ;  # ClutterEventFlags flags;
-  has ClutterStage $.stage ;
-  has ClutterActor $.source;
+  has guint             $.type  ;
+  has guint32           $.time  ;
+  has ClutterEventFlags $.flags ;
+  has ClutterStage      $.stage ;
+  has ClutterActor      $.source;
 }
 
 role ClutterEventMethods {
@@ -32,6 +79,8 @@ role ClutterEventMethods {
   method stage  { self.header.stage  }
   method source { self.header.source }
 }
+
+# Why can't CStructs use delegation?
 
 class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
@@ -149,36 +198,91 @@ our subset ClutterEvents is export where
   ClutterTouchpadSwipeEvent ;
 
 class ClutterPerspective is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $.fovy;
-  has gfloat $.aspect;
-  has gfloat $.z_near;
-  has gfloat $.z_far;
+  has gfloat $!fovy;
+  has gfloat $!aspect;
+  has gfloat $!z_near;
+  has gfloat $!z_far;
+
+  method fovy is rw {
+    Proxy.new:
+      FETCH => -> $        { $!fovy },
+      STORE => -> Num() \f { $!fovy = f };
+  }
+
+  method aspect is rw {
+    Proxy.new:
+      FETCH => -> $        { $!aspect },
+      STORE => -> Num() \a { $!aspect = a };
+  }
+
+  method z_near is also<z-near> is rw {
+    Proxy.new:
+        FETCH => -> $        { $!z_near },
+        STORE => -> Num() \z { $!z_near = z };
+  }
+
+  method z_far is also<z-far> is rw {
+    Proxy.new:
+        FETCH => -> $        { $!z_far },
+        STORE => -> Num() \z { $!z_far = z };
+  }
+
 }
 
 # Opaque. ONLY to be used for initialization.
 class ClutterActorIter is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gpointer $.dummy1;
-  has gpointer $.dummy2;
-  has gpointer $.dummy3;
-  has gint     $.dummy4;
-  has gpointer $.dummy5;
+  has gpointer $!dummy1;
+  has gpointer $!dummy2;
+  has gpointer $!dummy3;
+  has gint     $!dummy4;
+  has gpointer $!dummy5;
 }
 
 class ClutterPoint is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $.x is rw;
-  has gfloat $.y is rw;
+  has gfloat $!x;
+  has gfloat $!y;
 
-  submethod BUILD (:$!x, :$!y) { }
+  submethod BUILD (Num() :$!x, Num() :$!y) { }
 
-  method new ($x, $y) {
+  multi method new ($x, $y) {
     self.bless(:$x, :$y);
+  }
+
+  method x is rw {
+    Proxy.new:
+        FETCH => -> $        { $!x },
+        STORE => -> Num() \x { $!x = x };
+  }
+
+  method y is rw {
+    Proxy.new:
+        FETCH => -> $        { $!y },
+        STORE => -> Num() \y { $!y = y };
   }
 
 }
 
 class ClutterSize is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $.width  is rw;
-  has gfloat $.height is rw;
+  has gfloat $!width;
+  has gfloat $!height;
+
+  submethod BUILD (Num() :$!width, Num() :$!height) { }
+
+  multi method new ($width, $height) {
+    self.bless(:$width, :$height);
+  }
+
+  method width is rw {
+    Proxy.new:
+        FETCH => -> $        { $!width },
+        STORE => -> Num() \w { $!width = w };
+  }
+
+  method height is rw {
+    Proxy.new:
+        FETCH => -> $        { $!height },
+        STORE => -> Num() \h { $!height = h };
+  }
 }
 
 class ClutterRect is repr('CStruct') is export does GLib::Roles::Pointers {
@@ -187,26 +291,117 @@ class ClutterRect is repr('CStruct') is export does GLib::Roles::Pointers {
 }
 
 class ClutterVertex is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $.x is rw;
-  has gfloat $.y is rw;
-  has gfloat $.z is rw;
+  has gfloat $!x;
+  has gfloat $!y;
+  has gfloat $!z;
+
+  submethod BUILD (Num() :$!x, Num() :$!y, Num() :$!z) { }
+
+  multi method new ($x, $y, $z) {
+    self.bless(:$x, :$y, :$z);
+  }
+
+  method x is rw {
+    Proxy.new:
+        FETCH => -> $        { $!x },
+        STORE => -> Num() \x { $!x = x };
+  }
+
+  method y is rw {
+    Proxy.new:
+        FETCH => -> $        { $!y },
+        STORE => -> Num() \y { $!y = y };
+  }
 }
 
 class ClutterActorBox is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $.x1 is rw;
-  has gfloat $.y1 is rw;
-  has gfloat $.x2 is rw;
-  has gfloat $.y2 is rw;
+  has gfloat $!x1;
+  has gfloat $!y1;
+  has gfloat $!x2;
+  has gfloat $!y2;
+
+  submethod BUILD (Num() :$!x1, Num() :$!y1, Num() :$!x2, Num() :$!y2) { }
+
+  multi method new ($x1, $y1, $x2, $y2) {
+    self.bless(:$x1, :$y1, :$x2, :$y2);
+  }
+
+  method x1 is rw {
+    Proxy.new:
+        FETCH => -> $        { $!x1 },
+        STORE => -> Num() \x { $!x1 = x };
+  }
+
+  method y1 is rw {
+    Proxy.new:
+        FETCH => -> $        { $!y1 },
+        STORE => -> Num() \y { $!y1 = y };
+  }
+
+  method x2 is rw {
+    Proxy.new:
+        FETCH => -> $        { $!x2 },
+        STORE => -> Num() \x { $!x2 = x };
+  }
+
+  method y2 is rw {
+    Proxy.new:
+        FETCH => -> $        { $!y2 },
+        STORE => -> Num() \y { $!y2 = y };
+  }
 }
 
 class ClutterKnot is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gint $.x is rw;
-  has gint $.y is rw;
+  has gint $!x;
+  has gint $!y;
+
+  submethod BUILD (Int() :$!x, Int() :$!y) { }
+
+  multi method new ($x, $y) {
+    self.bless(:$x, :$y);
+  }
+
+  method x is rw {
+    Proxy.new:
+        FETCH => -> $        { $!x },
+        STORE => -> Int() \x { $!x = x };
+  }
+
+  method y is rw {
+    Proxy.new:
+        FETCH => -> $        { $!y },
+        STORE => -> Int() \y { $!y = y };
+  }
 }
 
 class ClutterPathNode is repr('CStruct') is export does GLib::Roles::Pointers {
-  has guint       $.type     is rw;     # ClutterPathNodeType type;
-  has ClutterKnot $.point1;
-  has ClutterKnot $.point2;
-  has ClutterKnot $.point3;
+  has ClutterPathNodeType $!type;
+  has ClutterKnot         $!point1;
+  has ClutterKnot         $!point2;
+  has ClutterKnot         $!point3;
+
+  method type is rw {
+    Proxy.new:
+        FETCH => -> $        { $!type },
+        STORE => -> Int() \t { $!type = t };
+  }
+
+  method point1 is rw {
+    Proxy.new:
+        FETCH => -> $                { $!point1 },
+        STORE => -> ClutterKnot() \k { self.^attributes[1].set_value(self, k) };
+  }
+
+  method point2 is rw {
+    Proxy.new:
+        FETCH => -> $                { $!point2 },
+        STORE => -> ClutterKnot() \k { self.^attributes[2].set_value(self, k) };
+  }
+
+  method point3 is rw {
+    Proxy.new:
+        FETCH => -> $                { $!point3 },
+        STORE => -> ClutterKnot() \k { self.^attributes[3].set_value(self, k) };
+  }
+
 };
