@@ -21,8 +21,10 @@ role Clutter::Roles::Content {
     is also<ClutterContent>
   { $!c-con }
 
-  method role-new (ClutterContent $content) is also<role_new> {
-    self.bless(:$content);
+  method new_content_object (ClutterContent $content)
+    is also<new-content-object>
+  {
+    $content ?? self.bless(:$content) !! Nil;
   }
 
   method attached {
@@ -37,12 +39,19 @@ role Clutter::Roles::Content {
     is also<get-preferred-size>
   {
     my gfloat ($w, $h) = ($width, $height);
+
     clutter_content_get_preferred_size($!c-con, $width, $height);
   }
 
   method content_get_type is also<content-get-type> {
     state ($n, $t);
-    unstable_get_type('Clutter::Content', &clutter_content_get_type, $n, $t );
+
+    unstable_get_type(
+      'Clutter::Roles::Content',
+      &clutter_content_get_type,
+      $n,
+      $t
+    );
   }
 
   method invalidate {

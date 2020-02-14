@@ -13,11 +13,11 @@ GLib::Raw::Subs
 GLib::Roles::ListData
 GLib::Roles::Object
 GLib::Roles::Pointers
+GLib::Roles::Signals::Generic
 GLib::Roles::TypedBuffer
 GLib::Value
 GTK::Raw::ReturnedValue
 GTK::Raw::Types
-GTK::Roles::Data
 GTK::Roles::Properties
 GTK::Roles::Protection
 GTK::Roles::Signals::Generic
@@ -26,6 +26,11 @@ Pango::AttrList
 Pango::Context
 Pango::FontDescription
 Pango::Layout
+Pango::Raw::Definitions
+Pango::Raw::Enums
+Pango::Raw::Exports
+Pango::Raw::Structs
+Pango::Raw::Subs
 Pango::Raw::Types
 Clutter::Compat::Types
 Clutter::Raw::Definitions
