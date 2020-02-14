@@ -17,6 +17,12 @@ role Clutter::Roles::Scriptable {
     >
   { $!cs }
 
+  method roleInit-ClutterScriptable {
+    my \i = findProperImplementor(self.^attributes);
+
+    $!cs = cast( ClutterScriptable, i.get_value(self) );
+  }
+
   method setScriptable ($scriptable) {
     #self.IS-PROTECTED;
     $!cs = $scriptable;
@@ -33,7 +39,11 @@ role Clutter::Roles::Scriptable {
     );
   }
 
-  method scriptable_get_type is also<scriptable-get-type> {
+  method clutterscriptable_get_type is also<
+    clutterscriptable-get-type
+    scriptable_get_type
+    scriptable-get-type
+  > {
     state ($n, $t);
 
     unstable_get_type(
