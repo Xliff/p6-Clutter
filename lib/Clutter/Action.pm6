@@ -30,7 +30,7 @@ class Clutter::Action is Clutter::ActorMeta {
   }
 
   method setAction(ClutterAction $action) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self.setActorMeta( cast(ClutterActorMeta, $!c-act = $action) );
   }
 

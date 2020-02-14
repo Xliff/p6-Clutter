@@ -199,7 +199,7 @@ class Clutter::Actor {
   { $!ca }
 
   method setActor (ActorAncestry $actor) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     my ($c-anim, $c-container, $c-script);
     $!ca = do given $actor {
       when ClutterAnimatable { $c-anim = $_;      proceed; }

@@ -36,7 +36,7 @@ class Clutter::Transition is Clutter::Timeline {
   }
 
   method setTransition (ClutterTransition $transition) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self.setTimeline( cast(ClutterTimeline, $!ct = $transition) );
   }
 

@@ -24,7 +24,7 @@ role Clutter::Roles::Settings {
   }
 
   method setSettings(ClutterSettings $settings) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self!setObject( cast(GObject, $settings) );
   }
 

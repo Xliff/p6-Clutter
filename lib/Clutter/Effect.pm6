@@ -25,7 +25,7 @@ class Clutter::Effect is Clutter::ActorMeta {
   { $!c-eff }
 
   method setEffect(ClutterEffect $effect) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     say 'setEffect' if $DEBUG;
     given $effect {
       when EffectAncestry {

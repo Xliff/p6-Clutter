@@ -20,7 +20,7 @@ class Clutter::GestureAction is Clutter::Action {
   }
   
   method setGestureAction(ClutterGestureAction $action) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self.setAction( cast(ClutterAction, $!cga = $action) );
   }
   

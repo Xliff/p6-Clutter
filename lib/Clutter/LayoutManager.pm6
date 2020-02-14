@@ -32,7 +32,7 @@ class Clutter::LayoutManager {
   }
   
   method setLayoutManager($manager) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self!setObject( cast(GObject, $!clm = $manager) ) if $manager;
   }
   

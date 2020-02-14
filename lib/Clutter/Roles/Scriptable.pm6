@@ -16,7 +16,7 @@ role Clutter::Roles::Scriptable {
   { $!cs }
 
   method setScriptable ($scriptable) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     $!cs = $scriptable;
   }
 

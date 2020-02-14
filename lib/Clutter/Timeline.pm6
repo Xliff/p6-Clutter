@@ -43,7 +43,7 @@ class Clutter::Timeline {
   }
 
   method setTimeline (ClutterTimeline $timeline) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self!setObject( cast(GObject, $!ctime = $timeline) );
   }
 

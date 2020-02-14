@@ -25,7 +25,7 @@ role Clutter::Roles::Container {
   }
 
   method setContainer ($container) {
-    #self.IS-PROTECTED;
+    ##self.IS-PROTECTED;
     $!c = $container;
   }
 

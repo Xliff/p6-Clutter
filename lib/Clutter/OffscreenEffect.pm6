@@ -29,7 +29,7 @@ class Clutter::OffscreenEffect is Clutter::Effect {
   }
 
   method setOffscreenEffect(OffscreenEffectAncestry $offscreen) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     say 'setOffscreenEffect' if $DEBUG;
     my $to-parent;
     $!coe = do given $offscreen {

@@ -32,7 +32,7 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
   }
 
   method setupDeformEffect (DeformEffectAncestry $deform) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     my $to-parent;
     $!cde = do given $deform {
       when ClutterDeformEffect {

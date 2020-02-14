@@ -27,7 +27,7 @@ class Clutter::Constraint {
   { $!c-con }
 
   method setConstraint (ClutterConstraint $constraint) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self!setObject($!c-con = $constraint);
   }
 

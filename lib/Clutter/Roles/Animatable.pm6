@@ -22,7 +22,7 @@ role Clutter::Roles::Animatable {
   }
 
   method setAnimatable ($animatable) {
-    #self.IS-PROTECTED;
+    ##self.IS-PROTECTED;
     $!c-anim = $animatable;
   }
 

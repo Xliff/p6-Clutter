@@ -27,7 +27,7 @@ class Clutter::ActorMeta {
   }
 
   method setActorMeta (ClutterActorMeta $metaactor) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     self!setObject( cast(GObject, $!cam = $metaactor) );
   }
 
