@@ -11,7 +11,7 @@ use Pango::Layout;
 
 use Clutter::Raw::Types;
 
-use GTK::Raw::Utils;
+
 
 use Clutter::Raw::Actor;
 

@@ -9,7 +9,7 @@ use Clutter::Raw::Types;
 use Clutter::Raw::Boxed;
 use Clutter::Raw::Stage;
 
-use GTK::Raw::Utils;
+
 
 use GLib::Value;
 use Clutter::Actor;

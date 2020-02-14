@@ -6,7 +6,7 @@ use NativeCall;
 use Clutter::Raw::Types;
 use Clutter::Raw::InputDevice;
 
-use GTK::Raw::Utils;
+
 
 use GLib::Value;
 use Clutter::Actor;

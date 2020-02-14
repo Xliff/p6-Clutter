@@ -8,7 +8,7 @@ use Cairo;
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
 
-use GTK::Raw::Utils;
+
 
 use Clutter::Raw::Text;
 

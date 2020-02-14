@@ -6,7 +6,7 @@ use Method::Also;
 use Clutter::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Raw::Utils;
+
 
 use Clutter::Raw::DeformEffect;
 

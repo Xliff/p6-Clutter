@@ -9,7 +9,7 @@ use Cairo;
 use Clutter::Raw::Types;
 use Clutter::Compat::Types;
 
-use GTK::Raw::Utils;
+
 
 use Clutter::Raw::Image;
 
