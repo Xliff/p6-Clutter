@@ -3,29 +3,24 @@ use v6.c;
 use NativeCall;
 use Method::Also;
 
-
 use Clutter::Raw::Types;
 
-use GTK::Roles::Data;
-use GTK::Roles::Protection;
 use GLib::Roles::Object;
 
 class Clutter::ChildMeta {
-  also does GTK::Roles::Protection;
   also does GLib::Roles::Object;
-  also does GTK::Roles::Data;
 
   has ClutterChildMeta $!ccmeta;
 
   submethod BUILD {
-    self.ADD-PREFIX('Clutter::');
+    #self.ADD-PREFIX('Clutter::');
   }
 
   method setChildMeta (ClutterChildMeta $childmeta) {
-    self!setObject( cast(GObject, $!data = ($!ccmeta = $childmeta).p ) );
+    self!setObject( cast(GObject, $!ccmeta = $childmeta) );
   }
-  
-  method Clutter::Raw::Definitions::ClutterChildMeta 
+
+  method Clutter::Raw::Definitions::ClutterChildMeta
     is also<ChildMeta>
   { $!ccmeta }
 
