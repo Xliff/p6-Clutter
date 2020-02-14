@@ -3,6 +3,7 @@ use v6;
 use CompUnit::Util :re-export;
 
 use GLib::Raw::Exports;
+use Pango::Raw::Exports;
 use COGL::Raw::Exports;
 use Clutter::Raw::Exports;
 
@@ -12,6 +13,10 @@ need GLib::Raw::Definitions;
 need GLib::Raw::Enums;
 need GLib::Raw::Structs;
 need GLib::Raw::Subs;
+need Pango::Raw::Definitions;
+need Pango::Raw::Enums;
+need Pango::Raw::Structs;
+need Pango::Raw::Subs;
 need COGL::Raw::Definitions;
 need COGL::Raw::Enums;
 need COGL::Raw::Structs;
@@ -26,5 +31,6 @@ BEGIN {
   re-export($_) for
     |@glib-exports,
     |@cogl-exports,
+    |@pango-exports,
     |@clutter-exports;
 }
