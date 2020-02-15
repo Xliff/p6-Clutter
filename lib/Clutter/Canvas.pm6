@@ -3,10 +3,7 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
-
-
 
 use GLib::Value;
 
@@ -14,8 +11,8 @@ use GLib::Roles::Object;
 use Clutter::Roles::Signals::Canvas;
 use Clutter::Roles::Content;
 
-our subset CanvasAncestry is export
-  where ClutterCanvas | ClutterContent;
+our subset ClutterCanvasAncestry is export of Mu
+  where ClutterContent | ClutterCanvas | GObject;
 
 class Clutter::Canvas {
   also does GLib::Roles::Object;
@@ -26,18 +23,29 @@ class Clutter::Canvas {
 
   submethod BUILD (:$canvas) {
     given $canvas {
-      when CanvasAncestry {
+      my $to-parent;
+      when ClutterCanvasAncestry {
         $!cc = do {
           when ClutterCanvas {
+            $to-parent = cast(GObject, $_);
             $_;
           }
+
           when ClutterContent {
             $!c-con = $_;
+            $to-parent = cast(GObject, $_);
+            cast(ClutterCanvas, $_);
+          }
+
+          default {
+            $to-parent = $_;
             cast(ClutterCanvas, $_);
           }
         }
-        $!c-con //= cast(ClutterContent, $_); # Clutter::Roles::Content
-        self!setObject( cast(GObject, $!cc = $canvas) );
+        # Clutter::Roles::Content
+        $!c-con = cast(ClutterContent, $_) unless $!c-con;
+
+        self!setObject($to-parent);
       }
       when Clutter::Canvas {
       }
@@ -46,11 +54,13 @@ class Clutter::Canvas {
     }
   }
 
-  multi method new (CanvasAncestry $canvas) {
-    self.bless(:$canvas);
+  multi method new (ClutterCanvasAncestry $canvas) {
+    $canvas ?? self.bless(:$canvas) !! Nil;
   }
   multi method new {
-    self.bless( canvas => clutter_canvas_new() );
+    my $canvas = clutter_canvas_new();
+
+    $canvas ?? self.bless(:$canvas) !! Nil;
   }
 
   # Is originally:
@@ -65,7 +75,8 @@ class Clutter::Canvas {
         clutter_canvas_get_scale_factor($!cc);
       },
       STORE => sub ($, Int() $scale is copy) {
-        my gint $s = resolve-int($scale);
+        my gint $s = $scale;
+
         clutter_canvas_set_scale_factor($!cc, $s);
       }
     );
@@ -123,11 +134,13 @@ class Clutter::Canvas {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_canvas_get_type, $n, $t);
   }
 
   method set_size (Int() $width, Int() $height) is also<set-size> {
-    my gint ($w, $h) = resolve-int($width, $height);
+    my gint ($w, $h) = ($width, $height);
+
     so clutter_canvas_set_size($!cc, $w, $h);
   }
 
