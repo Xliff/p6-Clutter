@@ -9,7 +9,7 @@ use Clutter::Raw::Types;
 use GLib::Value;
 use Clutter::LayoutMeta;
 
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 
 # This is a made up object to accomodate for the differences between
 

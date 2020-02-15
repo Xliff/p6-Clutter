@@ -10,7 +10,7 @@ use Clutter::Raw::Types;
 
 use GLib::Value;
 
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 use Clutter::Roles::Signals::Canvas;
 use Clutter::Roles::Content;
 
@@ -18,7 +18,7 @@ our subset CanvasAncestry is export
   where ClutterCanvas | ClutterContent;
 
 class Clutter::Canvas {
-  also does GTK::Roles::Properties;
+  also does GLib::Roles::Object;
   also does Clutter::Roles::Content;
   also does Clutter::Roles::Signals::Canvas;
 

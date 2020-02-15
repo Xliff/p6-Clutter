@@ -2,7 +2,6 @@ use v6.c;
 
 use NativeCall;
 
-
 use Clutter::Raw::Types;
 
 unit package Clutter::Raw::VariousTypes;
@@ -59,8 +58,8 @@ sub clutter_actor_box_get_origin (ClutterActorBox $box, gfloat $x, gfloat $y)
 { * }
 
 sub clutter_actor_box_get_size (
-  ClutterActorBox $box, 
-  gfloat $width, 
+  ClutterActorBox $box,
+  gfloat $width,
   gfloat $height
 )
   is native(clutter)
@@ -92,10 +91,10 @@ sub clutter_actor_box_get_y (ClutterActorBox $box)
 { * }
 
 sub clutter_actor_box_init (
-  ClutterActorBox $box, 
-  gfloat $x_1, 
-  gfloat $y_1, 
-  gfloat $x_2, 
+  ClutterActorBox $box,
+  gfloat $x_1,
+  gfloat $y_1,
+  gfloat $x_2,
   gfloat $y_2
 )
   returns ClutterActorBox
@@ -104,10 +103,10 @@ sub clutter_actor_box_init (
 { * }
 
 sub clutter_actor_box_init_rect (
-  ClutterActorBox $box, 
-  gfloat $x, 
-  gfloat $y, 
-  gfloat $width, 
+  ClutterActorBox $box,
+  gfloat $x,
+  gfloat $y,
+  gfloat $width,
   gfloat $height
 )
   is native(clutter)
@@ -115,9 +114,9 @@ sub clutter_actor_box_init_rect (
 { * }
 
 sub clutter_actor_box_interpolate (
-  ClutterActorBox $initial, 
-  ClutterActorBox $final, 
-  gdouble $progress, 
+  ClutterActorBox $initial,
+  ClutterActorBox $final,
+  gdouble $progress,
   ClutterActorBox $result
 )
   is native(clutter)
@@ -136,8 +135,8 @@ sub clutter_actor_box_set_origin (ClutterActorBox $box, gfloat $x, gfloat $y)
 { * }
 
 sub clutter_actor_box_set_size (
-  ClutterActorBox $box, 
-  gfloat $width, 
+  ClutterActorBox $box,
+  gfloat $width,
   gfloat $height
 )
   is native(clutter)
@@ -145,8 +144,8 @@ sub clutter_actor_box_set_size (
 { * }
 
 sub clutter_actor_box_union (
-  ClutterActorBox $a, 
-  ClutterActorBox $b, 
+  ClutterActorBox $a,
+  ClutterActorBox $b,
   ClutterActorBox $result
 )
   is native(clutter)
@@ -160,7 +159,7 @@ sub clutter_geometry_get_type ()
 { * }
 
 sub clutter_geometry_intersects (
-  ClutterGeometry $geometry0, 
+  ClutterGeometry $geometry0,
   ClutterGeometry $geometry1
 )
   returns uint32
@@ -169,8 +168,8 @@ sub clutter_geometry_intersects (
 { * }
 
 sub clutter_geometry_union (
-  ClutterGeometry $geometry_a, 
-  ClutterGeometry $geometry_b, 
+  ClutterGeometry $geometry_a,
+  ClutterGeometry $geometry_b,
   ClutterGeometry $result
 )
   is native(clutter)
@@ -178,7 +177,7 @@ sub clutter_geometry_union (
 { * }
 
 sub clutter_interval_register_progress_func (
-  GType $value_type, 
+  GType $value_type,
   ClutterProgressFunc $func
 )
   is native(clutter)
@@ -284,7 +283,7 @@ sub clutter_paint_volume_get_height (ClutterPaintVolume $pv)
 { * }
 
 sub clutter_paint_volume_get_origin (
-  ClutterPaintVolume $pv, 
+  ClutterPaintVolume $pv,
   ClutterVertex $vertex
 )
   is native(clutter)
@@ -309,7 +308,7 @@ sub clutter_paint_volume_set_depth (ClutterPaintVolume $pv, gfloat $depth)
 { * }
 
 sub clutter_paint_volume_set_from_allocation (
-  ClutterPaintVolume $pv, 
+  ClutterPaintVolume $pv,
   ClutterActor $actor
 )
   returns uint32
@@ -323,7 +322,7 @@ sub clutter_paint_volume_set_height (ClutterPaintVolume $pv, gfloat $height)
 { * }
 
 sub clutter_paint_volume_set_origin (
-  ClutterPaintVolume $pv, 
+  ClutterPaintVolume $pv,
   ClutterVertex $origin
 )
   is native(clutter)
@@ -336,7 +335,7 @@ sub clutter_paint_volume_set_width (ClutterPaintVolume $pv, gfloat $width)
 { * }
 
 sub clutter_paint_volume_union (
-  ClutterPaintVolume $pv, 
+  ClutterPaintVolume $pv,
   ClutterPaintVolume $another_pv
 )
   is native(clutter)
@@ -344,7 +343,7 @@ sub clutter_paint_volume_union (
 { * }
 
 sub clutter_paint_volume_union_box (
-  ClutterPaintVolume $pv, 
+  ClutterPaintVolume $pv,
   ClutterActorBox $box
 )
   is native(clutter)
@@ -358,7 +357,7 @@ sub clutter_path_node_copy (ClutterPathNode $node)
 { * }
 
 sub clutter_path_node_equal (
-  ClutterPathNode $node_a, 
+  ClutterPathNode $node_a,
   ClutterPathNode $node_b
 )
   returns uint32
@@ -390,9 +389,9 @@ sub clutter_point_copy (ClutterPoint $point)
 { * }
 
 sub clutter_point_distance (
-  ClutterPoint $a, 
-  ClutterPoint $b, 
-  gfloat $x_distance, 
+  ClutterPoint $a,
+  ClutterPoint $b,
+  gfloat $x_distance,
   gfloat $y_distance
 )
   returns gfloat
@@ -505,10 +504,10 @@ sub clutter_rect_get_y (ClutterRect $rect)
 { * }
 
 sub clutter_rect_init (
-  ClutterRect $rect, 
-  gfloat $x, 
-  gfloat $y, 
-  gfloat $width, 
+  ClutterRect $rect,
+  gfloat $x,
+  gfloat $y,
+  gfloat $width,
   gfloat $height
 )
   returns ClutterRect
@@ -522,8 +521,8 @@ sub clutter_rect_inset (ClutterRect $rect, gfloat $d_x, gfloat $d_y)
 { * }
 
 sub clutter_rect_intersection (
-  ClutterRect $a, 
-  ClutterRect $b, 
+  ClutterRect $a,
+  ClutterRect $b,
   ClutterRect $res
 )
   returns uint32
@@ -618,9 +617,9 @@ sub clutter_vertex_get_type ()
 { * }
 
 sub clutter_vertex_init (
-  ClutterVertex $vertex, 
-  gfloat $x, 
-  gfloat $y, 
+  ClutterVertex $vertex,
+  gfloat $x,
+  gfloat $y,
   gfloat $z
 )
   returns ClutterVertex

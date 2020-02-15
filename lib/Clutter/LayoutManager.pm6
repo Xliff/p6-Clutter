@@ -13,14 +13,14 @@ use Clutter::Raw::LayoutManager;
 use Clutter::LayoutMeta;
 use Clutter::GridLayoutMeta;
 
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 use GTK::Roles::Protection;
 use GTK::Roles::Signals::Generic;
 
 # Object
 
 class Clutter::LayoutManager {
-  also does GTK::Roles::Properties;
+  also does GLib::Roles::Object;
   also does GTK::Roles::Protection;
   also does GTK::Roles::Signals::Generic;
   

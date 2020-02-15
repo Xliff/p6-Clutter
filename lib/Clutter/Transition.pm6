@@ -9,7 +9,7 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::Transition;
 
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 use GTK::Roles::Protection;
 
 use Clutter::Timeline;
@@ -26,7 +26,7 @@ my @set-methods = <
 >;
 
 class Clutter::Transition is Clutter::Timeline {
-  also does GTK::Roles::Properties;
+  also does GLib::Roles::Object;
   also does GTK::Roles::Protection;
 
   has ClutterTransition $!ct;

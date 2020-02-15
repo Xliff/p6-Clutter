@@ -12,10 +12,10 @@ use GLib::Value;
 use Clutter::Actor;
 use Clutter::Stage;
 
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 
 class Clutter::InputDevice {
-  also does GTK::Roles::Properties;
+  also does GLib::Roles::Object;
 
   has ClutterInputDevice $!cid;
 
