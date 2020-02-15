@@ -4,12 +4,9 @@ use Method::Also;
 
 use Cairo;
 
-
 use Clutter::Raw::Types;
 use Clutter::Raw::Boxed;
 use Clutter::Raw::Stage;
-
-
 
 use GLib::Value;
 use Clutter::Actor;
@@ -37,7 +34,7 @@ my @set_methods = <
   sync_delay              sync-delay
 >;
 
-our subset StageAncestry is export of Mu
+our subset ClutterStageAncestry is export of Mu
   where ClutterStage | ActorAncestry;
 
 class Clutter::Stage is Clutter::Actor {
@@ -53,22 +50,26 @@ class Clutter::Stage is Clutter::Actor {
 
   submethod BUILD (:$stage) {
     given $stage {
-      when StageAncestry {
+      when ClutterStageAncestry {
         my $to-parent;
         $!cs = do {
           when ClutterStage {
             $to-parent = cast(ClutterActor, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterStage, $_);
           }
+
         };
         self.setActor($to-parent);
       }
+
       when Clutter::Stage {
       }
+
       default {
       }
     }
@@ -78,11 +79,13 @@ class Clutter::Stage is Clutter::Actor {
     is also<ClutterStage>
   { $!cs }
 
-  multi method new (StageAncestry $stage) is default {
-    self.bless(:$stage);
+  multi method new (ClutterStageAncestry $stage) is default {
+    $stage ?? self.bless($stage) !! Nil;
   }
   multi method new {
-    self.bless( stage => clutter_stage_new() );
+    my $stage = clutter_stage_new();
+
+    $stage ?? self.bless($stage) !! Nil;
   }
 
   method setup(*%data) {
@@ -361,16 +364,21 @@ class Clutter::Stage is Clutter::Actor {
   )
     is also<get-actor-at-pos>
   {
-    my guint $pm = resolve-uint($pick_mode);
-    my gint ($xx, $yy) = resolve-int($x, $y);
+    my guint $pm = $pick_mode;
+    my gint ($xx, $yy) = $x, $y;
     my $a = clutter_stage_get_actor_at_pos($!cs, $pm, $xx, $yy);
-    $raw ?? $a !! Clutter::Actor.new($a);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil;
   }
 
   method get_minimum_size (Int() $width, Int() $height)
     is also<get-minimum-size>
   {
-    my guint ($w, $h) = resolve-uint($width, $height);
+    my guint ($w, $h) = ($width, $height);
+    
     clutter_stage_get_minimum_size($!cs, $width, $height);
   }
 
@@ -404,6 +412,7 @@ class Clutter::Stage is Clutter::Actor {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_stage_get_type, $n, $t );
   }
 
@@ -419,14 +428,16 @@ class Clutter::Stage is Clutter::Actor {
   )
     is also<read-pixels>
   {
-    my gint ($xx, $yy, $w, $h) = resolve-int($x, $y, $width, $height);
+    my gint ($xx, $yy, $w, $h) = ($x, $y, $width, $height);
+
     clutter_stage_read_pixels($!cs, $xx, $yy, $w, $h);
   }
 
   method set_minimum_size (Int() $width, Int() $height)
     is also<set-minimum-size>
   {
-    my guint ($w, $h) = resolve-uint($width, $height);
+    my guint ($w, $h) = ($width, $height);
+
     clutter_stage_set_minimum_size($!cs, $w, $h);
   }
 
@@ -439,7 +450,8 @@ class Clutter::Stage is Clutter::Actor {
   method set_sync_delay (Int() $sync_delay)
     is also<set-sync-delay>
   {
-    my gint $sd = resolve-int($sync_delay);
+    my gint $sd = $sync_delay;
+
     clutter_stage_set_sync_delay($!cs, $sd);
   }
 
