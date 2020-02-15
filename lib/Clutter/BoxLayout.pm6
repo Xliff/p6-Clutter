@@ -2,16 +2,12 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::BoxLayout;
 
 use Clutter::LayoutManager;
 
-our subset BoxLayoutAncestry is export
+our subset ClutterBoxLayoutAncestry is export of Mu
   where ClutterBoxLayout | ClutterLayoutManager;
 
 my @attributes = <
@@ -31,7 +27,7 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
 
   submethod BUILD (:$boxlayout) {
     given $boxlayout {
-      when BoxLayoutAncestry {
+      when ClutterBoxLayoutAncestry {
         my $to-parent;
         $!cb = do {
           when ClutterBoxLayout {
@@ -53,13 +49,16 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
   }
 
   method Clutter::Raw::Definitions::ClutterBoxLayout
+    is also<ClutterBoxLayout>
   { $!cb }
 
-  multi method new (BoxLayoutAncestry $boxlayout) {
-    self.bless(:$boxlayout);
+  multi method new (ClutterBoxLayoutAncestry $boxlayout) {
+    $boxlayout ?? self.bless(:$boxlayout) !! Nil
   }
   multi method new {
-    self.bless( boxlayout => clutter_box_layout_new() );
+    my $boxlayout = clutter_box_layout_new();
+
+    $boxlayout ?? self.bless(:$boxlayout) !! Nil
   }
 
   method setup(*%data) {
@@ -86,7 +85,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_easing_duration($!cb);
       },
       STORE => sub ($, Int() $msecs is copy) {
-        my guint $ms = resolve-uint($msecs);
+        my guint $ms = $msecs;
+
         clutter_box_layout_set_easing_duration($!cb, $ms);
       }
     );
@@ -99,7 +99,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_easing_mode($!cb);
       },
       STORE => sub ($, Int() $mode is copy) {
-        my gulong $m = resolve-ulong($mode);
+        my gulong $m = $mode;
+
         clutter_box_layout_set_easing_mode($!cb, $m);
       }
     );
@@ -111,7 +112,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         so clutter_box_layout_get_homogeneous($!cb);
       },
       STORE => sub ($, Int() $homogeneous is copy) {
-        my gboolean $h = resolve-bool($homogeneous);
+        my gboolean $h = $homogeneous.so.Int;
+
         clutter_box_layout_set_homogeneous($!cb, $h);
       }
     );
@@ -123,7 +125,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_orientation($!cb);
       },
       STORE => sub ($, Int() $orientation is copy) {
-        my guint $o = resolve-uint($orientation);
+        my guint $o = $orientation;
+
         clutter_box_layout_set_orientation($!cb, $o);
       }
     );
@@ -135,7 +138,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_pack_start($!cb);
       },
       STORE => sub ($, Int() $pack_start is copy) {
-        my gboolean $ps = resolve-bool($pack_start);
+        my gboolean $ps = $pack_start.so.Int;
+
         clutter_box_layout_set_pack_start($!cb, $ps);
       }
     );
@@ -147,7 +151,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_spacing($!cb);
       },
       STORE => sub ($, Int() $spacing is copy) {
-        my guint $s = resolve-uint($spacing);
+        my guint $s = $spacing;
+
         clutter_box_layout_set_spacing($!cb, $s);
       }
     );
@@ -159,7 +164,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
         clutter_box_layout_get_use_animations($!cb);
       },
       STORE => sub ($, Int() $animate is copy) {
-        my gboolean $a = resolve-bool($animate);
+        my gboolean $a = $animate.so.Int;
+
         clutter_box_layout_set_use_animations($!cb, $a);
       }
     );
@@ -173,12 +179,16 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     is DEPRECATED
     is also<get-alignment>
   {
-    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    my guint ($xa, $ya) = ($x_align, $y_align);
+
     clutter_box_layout_get_alignment($!cb, $actor, $xa, $ya);
   }
 
-  method get_expand (ClutterActor() $actor) is DEPRECATED is also<get-expand> {
-    clutter_box_layout_get_expand($!cb, $actor);
+  method get_expand (ClutterActor() $actor)
+    is DEPRECATED
+    is also<get-expand>
+  {
+    so clutter_box_layout_get_expand($!cb, $actor);
   }
 
   # DEPRECATED
@@ -188,6 +198,7 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_box_layout_get_type, $n, $t );
   }
 
@@ -201,8 +212,9 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
   )
     is DEPRECATED
   {
-    my gboolean ($e, $xf, $yf) = resolve-bool($expand, $x_fill, $y_fill);
-    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    my gboolean ($e, $xf, $yf) = ($expand, $x_fill, $y_fill).map( *.so.Int );
+    my guint ($xa, $ya) = ($x_align, $y_align);
+
     clutter_box_layout_pack($!cb, $actor, $e, $xf, $yf, $xa, $ya);
   }
 
@@ -214,7 +226,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     is DEPRECATED
     is also<set-alignment>
   {
-    my guint ($xa, $ya) = resolve-uint($x_align, $y_align);
+    my guint ($xa, $ya) = ($x_align, $y_align);
+
     clutter_box_layout_set_alignment($!cb, $actor, $xa, $ya);
   }
 
@@ -222,7 +235,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     is DEPRECATED
     is also<set-expand>
   {
-    my gboolean $e = resolve-bool($expand);
+    my gboolean $e = $expand.so.Int;
+
     clutter_box_layout_set_expand($!cb, $actor, $e);
   }
 
@@ -230,7 +244,8 @@ class Clutter::BoxLayout is Clutter::LayoutManager {
     is DEPRECATED
     is also<set-fill>
   {
-    my gboolean ($xf, $yf) = resolve-bool($x_fill, $y_fill);
+    my gboolean ($xf, $yf) = ($x_fill, $y_fill).map( *.so.Int );
+    
     clutter_box_layout_set_fill($!cb, $actor, $xf, $yf);
   }
 
