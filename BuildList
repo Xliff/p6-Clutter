@@ -11,6 +11,7 @@ GIO::Raw::Exports
 GIO::Raw::Structs
 GIO::Raw::Subs
 GLib::GSList
+GLib::Object::ParamSpec
 GLib::Raw::Definitions
 GLib::Raw::Enums
 GLib::Raw::Exports
@@ -23,9 +24,6 @@ GLib::Roles::Signals::Generic
 GLib::Roles::TypedBuffer
 GLib::Value
 GTK::Raw::ReturnedValue
-GTK::Raw::Types
-GTK::Roles::Protection
-GTK::Roles::Signals::Generic
 Method::Also
 Pango::AttrList
 Pango::Context

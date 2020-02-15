@@ -5,30 +5,44 @@ use Method::Also;
 use Clutter::Raw::Types;
 use Clutter::Raw::LayoutManager;
 
+use GLib::Object::ParamSpec;
 use Clutter::LayoutMeta;
 use Clutter::GridLayoutMeta;
 
 use GLib::Roles::Object;
-
 use GLib::Roles::Signals::Generic;
 
 # Object
 
+our subset LayoutManagerAncestry is export of Mu
+  where ClutterLayoutManager | GObject;
+
 class Clutter::LayoutManager {
   also does GLib::Roles::Object;
-  
   also does GLib::Roles::Signals::Generic;
 
   has ClutterLayoutManager $!clm;
 
   submethod BUILD (:$manager) {
-    self.ADD-PREFIX('Clutter::');
+    #self.ADD-PREFIX('Clutter::');
     self.setLayoutManager($manager) if $manager.defined;
   }
 
-  method setLayoutManager($manager) {
+  method setLayoutManager(LayoutManagerAncestry $_) {
     #self.IS-PROTECTED;
-    self!setObject( cast(GObject, $!clm = $manager) ) if $manager;
+    my $to-parent;
+    $!clm = do {
+      when ClutterLayoutManager {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterLayoutManager, $_);
+      }
+    }
+    self!setObject($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterLayoutManager
@@ -36,7 +50,7 @@ class Clutter::LayoutManager {
   { $!clm }
 
   method new (ClutterLayoutManager $manager) {
-    self.bless(:$manager);
+    $manager ?? self.bless(:$manager) !! Nil;
   }
 
   # Is originally:
@@ -46,11 +60,12 @@ class Clutter::LayoutManager {
   }
 
   method allocate (
-    ClutterContainer $container,
-    ClutterActorBox $allocation,
-    Int() $flags # ClutterAllocationFlags $flags
+    ClutterContainer() $container,
+    ClutterActorBox() $allocation,
+    Int() $flags
   ) {
-    my guint $f = resolve-uint($flags);
+    my ClutterAllocationFlags $f = $flags;
+
     clutter_layout_manager_allocate($!clm, $container, $allocation, $f);
   }
 
@@ -88,8 +103,15 @@ class Clutter::LayoutManager {
     );
   }
 
-  method find_child_property (Str() $name) is also<find-child-property> {
-    clutter_layout_manager_find_child_property($!clm, $name);
+  method find_child_property (Str() $name, :$raw = False)
+    is also<find-child-property>
+  {
+    my $ps = clutter_layout_manager_find_child_property($!clm, $name);
+
+    $ps ??
+      ( $raw ?? $ps !! GLib::Object::ParamSpec.new($ps) )
+      !!
+      Nil;
   }
 
   method get_child_meta (
@@ -101,41 +123,71 @@ class Clutter::LayoutManager {
     is also<get-child-meta>
   {
     my $cm = clutter_layout_manager_get_child_meta($!clm, $container, $actor);
-    $raw ?? $cm !! $grid ??
-      Clutter::GridLayoutMeta.new($cm) !!
-      Clutter::LayoutMeta.new($cm);
+
+    $cm ?? ($raw ?? $cm
+                !! ($grid ?? Clutter::GridLayoutMeta.new($cm)
+                          !! Clutter::LayoutMeta.new($cm) ) )
+        !! Nil;
   }
 
-  method get_preferred_height (
+  proto method get_preferred_height (|)
+    is also<get-preferred-height>
+  { * }
+
+  multi method get_preferred_height (
     ClutterContainer() $container,
     Num() $for_width,
-    Num() $min_height_p,
-    Num() $nat_height_p
-  )
-    is also<get-preferred-height>
-  {
-    my gfloat ($fw, $mh, $nh) = ($for_width, $min_height_p, $nat_height_p);
+  ) {
+    samewith($container, $for_width, $, $);
+  }
+  multi method get_preferred_height (
+    ClutterContainer() $container,
+    Num() $for_width,
+    $min_height_p is rw,
+    $nat_height_p is rw
+  ) {
+    my gfloat ($fw, $mh, $nh) = ($for_width, 0e0, 0e0);
+
     clutter_layout_manager_get_preferred_height(
-      $!clm, $container, $fw, $mh, $nh
+      $!clm,
+      $container,
+      $fw,
+      $mh,
+      $nh
     );
+    ($min_height_p, $nat_height_p) = ($mh, $nh);
   }
 
-  method get_preferred_width (
-    ClutterContainer() $container,
-    gfloat $for_height,
-    gfloat $min_width_p,
-    gfloat $nat_width_p
-  )
+  proto method get_preferred_width (|)
     is also<get-preferred-width>
-  {
-    my gfloat ($fh, $mw, $nw) = ($for_height, $min_width_p, $nat_width_p);
+  { * }
+
+  multi method get_preferred_width (
+    ClutterContainer() $container,
+    Num() $for_height
+  ) {
+    samewith($container, $for_height, $, $);
+  }
+  multi method get_preferred_width (
+    ClutterContainer() $container,
+    Num() $for_height,
+    $min_width_p is rw,
+    $nat_width_p is rw
+  ) {
+    my gfloat ($fh, $mw, $nw) = ($for_height, 0e0, 0e0);
+
     clutter_layout_manager_get_preferred_width(
-      $!clm, $container, $fh, $mw, $nw
+      $!clm,
+      $container,
+      $fh,
+      $mw,
+      $nw
     );
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_layout_manager_get_type, $n, $t );
   }
 
@@ -143,11 +195,20 @@ class Clutter::LayoutManager {
     clutter_layout_manager_layout_changed($!clm);
   }
 
-  method list_child_properties (guint $n_pspecs)
+  method list_child_properties (Int() $n_pspecs, :$raw = False)
     is also<list-child-properties>
   {
-    my guint $np = resolve-int($n_pspecs);
-    clutter_layout_manager_list_child_properties($!clm, $np);
+    my guint $np = $n_pspecs;
+
+    my $psa = CArrayToArray(
+      GParamSpec,
+      clutter_layout_manager_list_child_properties($!clm, $np)
+    );
+
+    $psa ??
+      ( $raw ?? $psa !! $psa.map({ GLib::Object::ParamSpec.new($_) }) )
+      !!
+      Nil;
   }
 
   method set_container (ClutterContainer() $container)
