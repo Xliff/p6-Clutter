@@ -23,7 +23,7 @@ my @set-methods = <
   step_progress           step-progress
 >;
 
-our subset TimelineAncestry is export of Mu
+our subset ClutterTimelineAncestry is export of Mu
   where ClutterTimeline | GObject;
 
 class Clutter::Timeline {
@@ -37,7 +37,7 @@ class Clutter::Timeline {
     self.setTimeline($timeline) if $timeline;
   }
 
-  method setTimeline (ClutterTimeline $_) {
+  method setTimeline (ClutterTimelineAncestry $_) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!ctime = do {
@@ -58,7 +58,10 @@ class Clutter::Timeline {
     is also<ClutterTimeline>
   { $!ctime }
 
-  method new (Int() $msecs) {
+  multi method new (ClutterTimelineAncestry $timeline) {
+    $timeline ?? self.bless($timeline) !! Nil;
+  }
+  multi method new (Int() $msecs) {
     my guint $ms = $msecs;
     my $timeline = clutter_timeline_new($ms);
 
