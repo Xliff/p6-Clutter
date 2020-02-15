@@ -9,11 +9,11 @@ use Clutter::Raw::Types;
 
 use Clutter::Raw::Backend;
 
-use GTK::Roles::Protection;
+
 use Clutter::Roles::Settings;
 
 class Clutter::ClutterBackend {
-  also does GTK::Roles::Protection;
+  
   also does Clutter::Roles::Settings;
   
   has ClutterBackend $!cb;

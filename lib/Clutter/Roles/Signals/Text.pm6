@@ -5,7 +5,7 @@ use NativeCall;
 
 use Clutter::Raw::Types;
 
-use GTK::Roles::Signals::Generic;
+use GLib::Roles::Signals::Generic;
 
 role Clutter::Roles::Signals::Text {
   has %!signals-ct;

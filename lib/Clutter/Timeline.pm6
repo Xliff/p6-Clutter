@@ -10,8 +10,8 @@ use Clutter::Raw::Types;
 use Clutter::Raw::Timeline;
 
 use GLib::Roles::Object;
-use GTK::Roles::Protection;
-use GTK::Roles::Signals::Generic;
+
+use GLib::Roles::Signals::Generic;
 
 my @attributes = <
   auto_reverse    auto-reverse
@@ -30,8 +30,8 @@ my @set-methods = <
 
 class Clutter::Timeline {
   also does GLib::Roles::Object;
-  also does GTK::Roles::Protection;
-  also does GTK::Roles::Signals::Generic;
+  
+  also does GLib::Roles::Signals::Generic;
 
   has ClutterTimeline $!ctime;
 

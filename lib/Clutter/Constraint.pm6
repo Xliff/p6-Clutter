@@ -7,14 +7,14 @@ use NativeCall;
 use Clutter::Raw::Types;
 
 use GLib::Roles::Object;
-use GTK::Roles::Protection;
+
 
 # Abstract.
 # GObject.
 
 class Clutter::Constraint {
   also does GLib::Roles::Object;
-  also does GTK::Roles::Protection;
+  
 
   has ClutterConstraint $!c-con;
 
