@@ -1,12 +1,11 @@
 use v6.c;
 
-use NativeCall;
+use Method::Also;
 
+use NativeCall;
 
 use Clutter::Raw::Types;
 use Clutter::Raw::InputDevice;
-
-
 
 use GLib::Value;
 use Clutter::Actor;
@@ -24,10 +23,11 @@ class Clutter::InputDevice {
   }
 
   method Clutter::Raw::Definitions::ClutterInputDevice
+    is also<ClutterInputDevice>
   { $!cid }
 
   method new (ClutterInputDevice $device) {
-    self.bless(:$device);
+    $device ?? self.bless(:$device) !! Nil;
   }
 
   method enabled is rw {
@@ -36,7 +36,8 @@ class Clutter::InputDevice {
         so clutter_input_device_get_enabled($!cid);
       },
       STORE => sub ($, Int() $enabled is copy) {
-        my gboolean $e = resolve-bool($enabled);
+        my gboolean $e = $enabled.so.Int;
+
         clutter_input_device_set_enabled($!cid, $e);
       }
     );
@@ -60,16 +61,19 @@ class Clutter::InputDevice {
   }
 
   # Type: ClutterDeviceManager
-  method device-manager is rw  {
+  method device-manager (:$raw = False) is rw  is also<device_manager> {
     my GLib::Value $gv .= new( Clutter::DeviceManager.get_type );
     Proxy.new(
       FETCH => -> $ {
         $gv = GLib::Value.new(
           self.prop_get('device-manager', $gv)
         );
-        ::('Clutter::DeviceManager').new(
-          cast(ClutterDeviceManager, $gv.object)
-        );
+
+        return Nil unless $gv.object;
+
+        my $d = cast(ClutterDeviceManager, $gv.object);
+
+        $raw ?? $d !! ::('Clutter::DeviceManager').new($d);
       },
       STORE => -> $, ClutterDeviceManager() $val is copy {
         $gv.object = $val;
@@ -79,14 +83,14 @@ class Clutter::InputDevice {
   }
 
   # Type: ClutterInputMode
-  method device-mode is rw  {
+  method device-mode is rw  is also<device_mode> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
         $gv = GLib::Value.new(
           self.prop_get('device-mode', $gv)
         );
-        ClutterInputMode( $gv.uint )
+        ClutterInputModeEnum( $gv.uint )
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -96,14 +100,14 @@ class Clutter::InputDevice {
   }
 
   # Type: ClutterInputDeviceType
-  method device-type is rw  {
+  method device-type is rw  is also<device_type> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
         $gv = GLib::Value.new(
           self.prop_get('device-type', $gv)
         );
-        ClutterInputDeviceType( $gv.uint )
+        ClutterInputDeviceTypeEnum( $gv.uint )
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -113,7 +117,7 @@ class Clutter::InputDevice {
   }
 
   # Type: gboolean
-  method has-cursor is rw  {
+  method has-cursor is rw  is also<has_cursor> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => -> $ {
@@ -147,7 +151,7 @@ class Clutter::InputDevice {
   }
 
   # Type: guint
-  method n-axes is rw  {
+  method n-axes is rw  is also<n_axes> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
       FETCH => -> $ {
@@ -157,7 +161,7 @@ class Clutter::InputDevice {
         $gv.uint;
       },
       STORE => -> $, Int() $val is copy {
-        warn "n-axes does not allow writing"
+        warn 'n-axes does not allow writing';
       }
     );
   }
@@ -180,7 +184,7 @@ class Clutter::InputDevice {
   }
 
   # Type: gchar
-  method product-id is rw  {
+  method product-id is rw  is also<product_id> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
@@ -197,7 +201,7 @@ class Clutter::InputDevice {
   }
 
   # Type: gchar
-  method vendor-id is rw  {
+  method vendor-id is rw  is also<vendor_id> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
       FETCH => -> $ {
@@ -213,29 +217,44 @@ class Clutter::InputDevice {
     );
   }
 
-  method get_associated_device {
-    Clutter::InputDevice.new(
-      clutter_input_device_get_associated_device($!cid)
-    );
+  method get_associated_device (:$raw = False)
+    is also<get-associated-device>
+  {
+    my $d = clutter_input_device_get_associated_device($!cid);
+
+    $d ??
+      ( $raw ?? $d !! Clutter::InputDevice.new($d) )
+      !!
+      Nil;
   }
 
-  method get_axis (Int() $index) {
-    my guint $i = resolve-uint($index);
-    ClutterInputAxis( clutter_input_device_get_axis($!cid, $i) );
+  method get_axis (Int() $index) is also<get-axis> {
+    my guint $i = $index;
+
+    ClutterInputAxisEnum( clutter_input_device_get_axis($!cid, $i) );
   }
 
-  multi method get_axis_value {
-    my $v = 0;
-    my $rc = samewith($v);
-    $rc ?? $v !! Nil
+  proto method get_axis_value (|)
+    is also<get-axis-value>
+  { * }
+
+  multi method get_axis_value (@axes, $axis) {
+    samewith( ArrayToCArray(gdouble, @axes), $axis );
+  }
+  multi method get_axis_value (CArray[gdouble] $axes, Int() $axis) {
+    my $v;
+    my $rc = samewith($axes, $axis, $v);
+
+    $rc ?? $v !! False
   }
   multi method get_axis_value (
     CArray[gdouble] $axes,
-    Int() $axis, # ClutterInputAxis $axis,
-    Num() $value is rw
+    Int() $axis,
+    $value is rw
   ) {
-    my guint $a = resolve-uint($axis);
-    my gdouble $v = $value;
+    my ClutterInputAxis $a = $axis;
+    my gdouble $v = 0e0;
+
     my $rc = so clutter_input_device_get_axis_value($!cid, $axes, $a, $v);
     $value = $v;
     $rc;
@@ -244,81 +263,112 @@ class Clutter::InputDevice {
   method get_coords (
     ClutterEventSequence() $sequence,
     ClutterPoint() $point
-  ) {
+  )
+    is also<get-coords>
+  {
     clutter_input_device_get_coords($!cid, $sequence, $point);
   }
 
-  method get_device_id {
+  method get_device_id is also<get-device-id> {
     clutter_input_device_get_device_id($!cid);
   }
 
-  method get_device_mode {
+  method get_device_mode is also<get-device-mode> {
     ClutterInputMode( clutter_input_device_get_device_mode($!cid) );
   }
 
-  method get_device_name {
+  method get_device_name is also<get-device-name> {
     clutter_input_device_get_device_name($!cid);
   }
 
-  method get_device_type {
-    ClutterInputDeviceType( clutter_input_device_get_device_type($!cid) );
+  method get_device_type is also<get-device-type> {
+    ClutterInputDeviceTypeEnum( clutter_input_device_get_device_type($!cid) );
   }
 
-  method get_grabbed_actor {
-    Clutter::Actor.new( clutter_input_device_get_grabbed_actor($!cid) );
+  method get_grabbed_actor (:$raw = False) is also<get-grabbed-actor> {
+    my $a = clutter_input_device_get_grabbed_actor($!cid);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil;
   }
 
-  method get_has_cursor {
+  method get_has_cursor is also<get-has-cursor> {
     so clutter_input_device_get_has_cursor($!cid);
   }
 
-  method get_key (
+  proto method get_key (|)
+      is also<get-key>
+  { * }
+
+  multi method get_key (Int() $index) {
+    samewith($index, $, $);
+  }
+  multi method get_key (
     Int() $index,
-    Int() $keyval,
-    Int() $modifiers # ClutterModifierType $modifiers
+    $keyval    is rw,
+    $modifiers is rw # ClutterModifierType $modifiers
   ) {
-    my guint ($i, $k, $m) = resolve-int($index, $keyval, $modifiers);
+    my guint ($i, $k, $m) = ($index, 0, 0);
+
     clutter_input_device_get_key($!cid, $i, $k, $m);
+    ($keyval, $modifiers) = ( $k, ClutterModifierTypeEnum($m) )
   }
 
-  method get_modifier_state {
-    clutter_input_device_get_modifier_state($!cid);
+  method get_modifier_state is also<get-modifier-state> {
+    ClutterModifierTypeEnum( clutter_input_device_get_modifier_state($!cid) );
   }
 
-  method get_n_axes {
+  method get_n_axes is also<get-n-axes> {
     clutter_input_device_get_n_axes($!cid);
   }
 
-  method get_n_keys {
+  method get_n_keys is also<get-n-keys> {
     clutter_input_device_get_n_keys($!cid);
   }
 
-  method get_pointer_actor {
-    Clutter::Actor.new( clutter_input_device_get_pointer_actor($!cid) );
+  method get_pointer_actor (:$raw = False) is also<get-pointer-actor> {
+    my $a = clutter_input_device_get_pointer_actor($!cid);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil
   }
 
-  method get_pointer_stage {
-    Clutter::Stage.new( clutter_input_device_get_pointer_stage($!cid) );
+  method get_pointer_stage (:$raw = False) is also<get-pointer-stage> {
+    my $s = clutter_input_device_get_pointer_stage($!cid);
+
+    $s ??
+      ( $raw ?? $s !! Clutter::Stage.new($s) )
+      !!
+      Nil;
   }
 
-  method get_product_id {
+  method get_product_id is also<get-product-id> {
     clutter_input_device_get_product_id($!cid);
   }
 
-  method get_slave_devices (:$raw = False) {
-    my $l = GLib::GList.new(
-      clutter_input_device_get_slave_devices($!cid)
-    ) but GLib::Roles::ListData[ClutterInputDevice];
-    $raw ??
-      $l.Array !! $l.Array.map({ Clutter::InputDevice.new($_) });
+  method get_slave_devices (:$glist = False, :$raw = False)
+    is also<get-slave-devices>
+  {
+    my $l = clutter_input_device_get_slave_devices($!cid);
+
+    return Nil unless $l;
+    return $l  if $glist;
+
+    $l = GLib::GList.new($l) but GLib::Roles::ListData[ClutterInputDevice];
+    $raw ?? $l.Array !! $l.Array.map({ Clutter::InputDevice.new($_) });
   }
 
-  method get_type {
+  method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_input_device_get_type, $n, $t )
   }
 
-  method get_vendor_id {
+  method get_vendor_id is also<get-vendor-id> {
     clutter_input_device_get_vendor_id($!cid);
   }
 
@@ -326,23 +376,38 @@ class Clutter::InputDevice {
     clutter_input_device_grab($!cid, $actor);
   }
 
-  method keycode_to_evdev (Int() $hardware_keycode, Int() $evdev_keycode) {
-    my guint ($hk, $ek) = resolve-uint($hardware_keycode, $evdev_keycode);
-    clutter_input_device_keycode_to_evdev($!cid, $hk, $ek);
+  proto method keycode_to_evdev (|)
+    is also<keycode-to-evdev>
+  { * }
+
+  multi method keycode_to_evdev (Int() $hardware_keycode) {
+    my $ekc;
+    my $rv = samewith($hardware_keycode, $ekc);
+
+    $rv ?? $ekc !! False;
+  }
+  multi method keycode_to_evdev (Int() $hardware_keycode, $evdev_keycode is rw) {
+    my guint ($hk, $ek) = ($hardware_keycode, 0);
+
+    my $rv = clutter_input_device_keycode_to_evdev($!cid, $hk, $ek);
+    $evdev_keycode = $ek;
+    $rv
   }
 
-  method sequence_get_grabbed_actor (ClutterEventSequence() $sequence) {
+  method sequence_get_grabbed_actor (ClutterEventSequence() $sequence) is also<sequence-get-grabbed-actor> {
     clutter_input_device_sequence_get_grabbed_actor($!cid, $sequence);
   }
 
   method sequence_grab (
     ClutterEventSequence() $sequence,
     ClutterActor() $actor
-  ) {
+  )
+    is also<sequence-grab>
+  {
     clutter_input_device_sequence_grab($!cid, $sequence, $actor);
   }
 
-  method sequence_ungrab (ClutterEventSequence() $sequence) {
+  method sequence_ungrab (ClutterEventSequence() $sequence) is also<sequence-ungrab> {
     clutter_input_device_sequence_ungrab($!cid, $sequence);
   }
 
@@ -350,8 +415,11 @@ class Clutter::InputDevice {
     Int() $index,
     Int() $keyval,
     Int() $modifiers # ClutterModifierType $modifiers
-  ) {
-    my guint ($i, $k, $m) = resolve-int($index, $keyval, $modifiers);
+  )
+    is also<set-key>
+  {
+    my guint ($i, $k, $m) = ($index, $keyval, $modifiers);
+
     clutter_input_device_set_key($!cid, $i, $k, $m);
   }
 
@@ -359,8 +427,11 @@ class Clutter::InputDevice {
     clutter_input_device_ungrab($!cid);
   }
 
-  method update_from_event (ClutterEvent() $event, Int() $update_stage) {
-    my gboolean $us = resolve-bool($update_stage);
+  method update_from_event (ClutterEvent() $event, Int() $update_stage)
+    is also<update-from-event>
+  {
+    my gboolean $us = $update_stage.so.Int;
+
     clutter_input_device_update_from_event($!cid, $event, $us);
   }
 
