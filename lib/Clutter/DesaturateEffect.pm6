@@ -1,15 +1,13 @@
 use v6.c;
 
 use Method::Also;
-
 use NativeCall;
-
 
 use Clutter::Raw::Types;
 
 use Clutter::OffscreenEffect;
 
-our subset DesaturateEffectAncestry is export of Mu
+our subset ClutterDesaturateEffectAncestry is export of Mu
   where ClutterDesaturateEffect | OffscreenEffectAncestry;
 
 class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
@@ -18,13 +16,14 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
   submethod BUILD (:$desaturate) {
     say "{$desaturate}";
     given $desaturate {
-      when DesaturateEffectAncestry {
+      when ClutterDesaturateEffectAncestry {
         my $to-parent;
         $!cde = do {
           when ClutterDesaturateEffect {
             $to-parent = cast(ClutterOffscreenEffect, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterDesaturateEffect, $_);
@@ -34,6 +33,7 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
       }
       when Clutter::DesaturateEffect {
       }
+
       default {
         # Proposal!
         #throw X::GTK::UnknownType($_).new
@@ -43,9 +43,14 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
     }
   }
 
-  method new (Num() $factor) {
+  multi method new (ClutterDesaturateEffectAncestry $desaturate) {
+    $desaturate ?? self.bless(:$desaturate) !! Nil;
+  }
+  multi method new (Num() $factor) {
     my gdouble $f = $factor;
-    self.bless( desaturate => clutter_desaturate_effect_new($f) );
+    my $desaturate = clutter_desaturate_effect_new($f);
+
+    $desaturate ?? self.bless(:$desaturate) !! Nil;
   }
 
   method factor is rw {
@@ -55,6 +60,7 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
       },
       STORE => sub ($, Num() $factor is copy) {
         my gdouble $f = $factor;
+
         clutter_desaturate_effect_set_factor($!cde, $f);
       }
     );
@@ -62,6 +68,7 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_desaturate_effect_get_type, $n, $t )
   }
 
