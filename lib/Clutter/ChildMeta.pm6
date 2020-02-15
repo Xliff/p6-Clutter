@@ -24,26 +24,37 @@ class Clutter::ChildMeta {
     is also<ChildMeta>
   { $!ccmeta }
 
-  method get_actor
+  method get_actor (:$raw = False)
     is also<
       get-actor
       actor
     >
   {
-    ::('Clutter::Actor').new( clutter_child_meta_get_actor($!ccmeta) );
+    my $a = clutter_child_meta_get_actor($!ccmeta);
+
+    $a ??
+      ( $raw ?? $a !! ::('Clutter::Actor').new($a) )
+      !!
+      Nil
   }
 
-  method get_container
+  method get_container (:$raw = False)
     is also<
       get-container
       container
     >
   {
-    ::('Clutter::Container').new( clutter_child_meta_get_container($!ccmeta) );
+    my $c = clutter_child_meta_get_container($!ccmeta);
+
+    $c ??
+      ( $raw ?? $c !! ::('Clutter::Container').new($c) )
+      !!
+      Nil
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_child_meta_get_type, $n, $t );
   }
 
