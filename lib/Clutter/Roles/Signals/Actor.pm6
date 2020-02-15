@@ -5,7 +5,7 @@ use NativeCall;
 
 use Clutter::Raw::Types;
 
-use GTK::Raw::ReturnedValue;
+use GLib::Raw::ReturnedValue;
 
 use GLib::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Generic;
