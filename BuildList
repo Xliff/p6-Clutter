@@ -15,6 +15,7 @@ GLib::Object::ParamSpec
 GLib::Raw::Definitions
 GLib::Raw::Enums
 GLib::Raw::Exports
+GLib::Raw::ReturnedValue
 GLib::Raw::Structs
 GLib::Raw::Subs
 GLib::Roles::ListData
@@ -23,7 +24,6 @@ GLib::Roles::Pointers
 GLib::Roles::Signals::Generic
 GLib::Roles::TypedBuffer
 GLib::Value
-GTK::Raw::ReturnedValue
 Method::Also
 Pango::AttrList
 Pango::Context
