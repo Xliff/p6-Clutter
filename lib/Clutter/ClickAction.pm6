@@ -2,9 +2,7 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
 use Clutter::Raw::ClickAction;
 
 use GLib::Value;
@@ -12,22 +10,41 @@ use Clutter::Action;
 
 use Clutter::Roles::Signals::ClickAction;
 
+our subset ClutterClickActionAncestry is export of Mu
+  where ClutterClickAction | ClutterActionAncestry;
+
 class Clutter::ClickAction is Clutter::Action {
   also does Clutter::Roles::Signals::ClickAction;
 
   has ClutterClickAction $!cca;
 
-  # Needs ancestry logic
   submethod BUILD (:$clickaction) {
-    self.setAction( cast(ClutterAction, $!cca = $clickaction) );
+    my $to-parent;
+    $!cca = do given $clickaction {
+      when ClutterClickAction {
+        $to-parent = cast(ClutterAction, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterClickAction, $_);
+      }
+    }
+    self.setAction($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterClickAction
     is also<ClutterClickAction>
   { $!cca }
 
-  method new {
-    self.bless( clickaction => clutter_click_action_new() );
+  multi method new (ClutterClickActionAncestry $clickaction) {
+    $clickaction ?? self.bless(:$clickaction) !! Nil;
+  }
+  multi method new {
+    my $clickaction = clutter_click_action_new();
+
+    $clickaction ?? self.bless(:$clickaction) !! Nil;
   }
 
   # Type: gboolean
@@ -122,11 +139,11 @@ class Clutter::ClickAction is Clutter::Action {
   { * }
 
   multi method get_coords is also<coords> {
-    my ($px, $py) = (0, 0);
-    samewith($px, $py);
+    samewith($, $);
   }
-  multi method get_coords (Num() $press_x is rw, Num() $press_y is rw) {
-    my gfloat ($px, $py) = ($press_x, $press_y);
+  multi method get_coords ($press_x is rw, $press_y is rw) {
+    my gfloat ($px, $py) = 0e0 xx 2;
+
     clutter_click_action_get_coords($!cca, $px, $py);
     ($press_x, $press_y) = ($px, $py);
   }
@@ -142,6 +159,7 @@ class Clutter::ClickAction is Clutter::Action {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_click_action_get_type, $n, $t );
   }
 
