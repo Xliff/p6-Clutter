@@ -2,18 +2,13 @@ use v6.c;
 
 use Method::Also;
 
-
-use Clutter::Compat::Types;
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::DeformEffect;
 
 use GLib::Value;
 use Clutter::OffscreenEffect;
 
-our subset DeformEffectAncestry is export of Mu
+our subset ClutterDeformEffectAncestry is export of Mu
   where ClutterDeformEffect | OffscreenEffectAncestry;
 
 class Clutter::DeformEffect is Clutter::OffscreenEffect {
@@ -21,17 +16,13 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
 
   submethod BUILD (:$deform) {
     given $deform {
-      when DeformEffectAncestry {
-        self.setupDeformEffect($deform);
-      }
-      when Clutter::DeformEffect {
-      }
-      default {
-      }
+      when ClutterDeformEffectAncestry { self.setupDeformEffect($deform) }
+      when Clutter::DeformEffect       { }
+      default                          { }
     }
   }
 
-  method setupDeformEffect (DeformEffectAncestry $deform) {
+  method setupDeformEffect (ClutterDeformEffectAncestry $deform) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!cde = do given $deform {
@@ -39,19 +30,22 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
         $to-parent = cast(ClutterOffscreenEffect, $_);
         $_;
       }
+
       default {
         $to-parent = $_;
         cast(ClutterOffscreenEffect, $_);
       }
+
     }
     self.setOffscreenEffect($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterDeformEffect
+    is also<ClutterDeformEffect>
   { $!cde }
 
   method new (ClutterDeformEffect $deform) {
-    self.bless(:$deform);
+    $deform ?? self.bless(:$deform) !! Nil;
   }
 
   method back_material is rw is also<back-material> {
@@ -99,13 +93,23 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
     );
   }
 
-  method get_n_tiles (Int() $x_tiles, Int() $y_tiles) is also<get-n-tiles> {
-    my guint ($xt, $yt) = resolve-uint($x_tiles, $y_tiles);
+  proto method get_n_tiles (|)
+    is also<get-n-tiles>
+  { * }
+
+  multi method get_n_tiles {
+    samewith($, $);
+  }
+  multi method get_n_tiles ($x_tiles is rw, $y_tiles is rw) {
+    my guint ($xt, $yt) = (0, 0);
+
     clutter_deform_effect_get_n_tiles($!cde, $xt, $yt);
+    ($x_tiles, $y_tiles) = ($xt, $yt);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_deform_effect_get_type, $n, $t );
   }
 
@@ -114,7 +118,8 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
   }
 
   method set_n_tiles (Int() $x_tiles, Int() $y_tiles) is also<set-n-tiles> {
-    my guint ($xt, $yt) = resolve-uint($x_tiles, $y_tiles);
+    my guint ($xt, $yt) = ($x_tiles, $y_tiles);
+
     clutter_deform_effect_set_n_tiles($!cde, $xt, $yt);
   }
 
