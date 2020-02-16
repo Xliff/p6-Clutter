@@ -3,7 +3,6 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
 
 use Clutter::Action;
@@ -11,7 +10,7 @@ use Clutter::Action;
 use Clutter::Roles::Signals::DropAction;
 
 our subset DropActionAncestry is export of Mu
-  where ClutterDropAction | ActionAncestry;
+  where ClutterDropAction | ClutterActionAncestry;
 
 class Clutter::DropAction is Clutter::Action {
   also does Clutter::Roles::Signals::DropAction;
@@ -19,7 +18,19 @@ class Clutter::DropAction is Clutter::Action {
   has ClutterDropAction $!cda;
 
   submethod BUILD (:$dropaction) {
-    self.setAction( cast(ClutterAction, $!cda = $dropaction) );
+    my $to-parent;
+    $!cda = do given $dropaction {
+      when ClutterDropAction {
+        $to-parent = cast(ClutterAction, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterDropAction, $_);
+      }
+    }
+    self.setAction($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterDropAction
@@ -27,10 +38,12 @@ class Clutter::DropAction is Clutter::Action {
   { * }
 
   multi method new (DropActionAncestry $dropaction) {
-    self.bless(:$dropaction);
+    $dropaction ?? self.bless(:$dropaction) !! Nil;
   }
   multi method new {
-    self.bless( dropaction => clutter_drop_action_new() );
+    my $dropaction = clutter_drop_action_new();
+    
+    $dropaction ?? self.bless(:$dropaction) !! Nil;
   }
 
   # Is originally:
