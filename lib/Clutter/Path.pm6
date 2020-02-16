@@ -4,9 +4,7 @@ use Method::Also;
 
 use Cairo;
 
-
 use Clutter::Raw::Types;
-
 use Clutter::Raw::Path;
 
 use GLib::GSList;
@@ -141,7 +139,12 @@ class Clutter::Path {
     clutter_path_get_length($!cp);
   }
 
-  method get_n_nodes is also<get-n-nodes> {
+  method get_n_nodes
+    is also<
+      get-n-nodes
+      elems
+    >
+  {
     clutter_path_get_n_nodes($!cp);
   }
 
