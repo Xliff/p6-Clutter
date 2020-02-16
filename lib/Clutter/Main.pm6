@@ -3,28 +3,28 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::Main;
 
+use GLib::Roles::StaticClass;
+
 class Clutter::Main {
-  
+  also does GLib::Roles::StaticClass;
+
   method base_init is also<base-init> {
     clutter_base_init();
   }
 
-  method check_version (Int() $major, Int() $minor, Int() $micro) 
-    is also<check-version> 
+  method check_version (Int() $major, Int() $minor, Int() $micro)
+    is also<check-version>
   {
-    my guint ($mj, $mn, $mc) = resolve-uint($major, $minor, $micro);
+    my guint ($mj, $mn, $mc) = ($major, $minor, $micro);
+
     clutter_check_version($major, $minor, $micro);
   }
 
-  method check_windowing_backend (Str() $backend_type) 
-    is also<check-windowing-backend> 
+  method check_windowing_backend (Str() $backend_type)
+    is also<check-windowing-backend>
   {
     clutter_check_windowing_backend($backend_type);
   }
@@ -88,22 +88,22 @@ class Clutter::Main {
   }
 
   method init_with_args (
-    CArray[gint] $argc, 
-    CArray[Str] $argv, 
-    Str $parameter_string, 
-    GOptionEntry() $entries, 
-    Str() $translation_domain, 
+    CArray[gint] $argc,
+    CArray[Str] $argv,
+    Str() $parameter_string,
+    GOptionEntry() $entries,
+    Str() $translation_domain,
     CArray[Pointer[GError]] $error = gerror()
-  ) 
-    is also<init-with-args> 
+  )
+    is also<init-with-args>
   {
     clear_error;
     my $rc = clutter_init_with_args(
-      $argc, 
-      $argv, 
-      $parameter_string, 
-      $entries, 
-      $translation_domain, 
+      $argc,
+      $argv,
+      $parameter_string,
+      $entries,
+      $translation_domain,
       $error
     );
     set_error($error);
