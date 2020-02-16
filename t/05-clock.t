@@ -5,7 +5,6 @@ use v6.c;
 
 use Cairo;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
 use Clutter::Actor;
@@ -39,12 +38,14 @@ sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
   $ct.line_cap = CAIRO_LINE_CAP_ROUND;
   $ct.line_width = 0.1;
   Clutter::Cairo.set_source_color($ct, $CLUTTER_COLOR_Black);
+  say "B: {  $CLUTTER_COLOR_Black."$_"() }" for <red green blue alpha>;
   $ct.translate(0.5, 0.5);
   $ct.arc(0, 0, 0.4, 0, π * 2);
   $ct.stroke;
 
   # Seconds
   my $color = Clutter::Color.new_from_color($CLUTTER_COLOR_White);
+  say "W: {  $color."$_"() }" for <red green blue alpha>;
   $color.alpha = 128;
   Clutter::Cairo.set_source_color($ct, $color);
   $ct.move_to(0, 0);
@@ -52,6 +53,7 @@ sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
   $ct.fill;
   # Minute
   $color = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkChameleon);
+  say "DC: { $color."$_"() }" for <red green blue alpha>;
   $color.alpha = 196;
   Clutter::Cairo.set_source_color($ct, $color);
   $ct.move_to(0, 0);

@@ -18,6 +18,12 @@ class ClutterColor is repr('CStruct') is export does GLib::Roles::Pointers {
   has guint8 $!blue ;
   has guint8 $!alpha;
 
+  submethod BUILD (:$!red, :$!green, :$!blue, :$!alpha) { }
+
+  multi method new ($red, $green, $blue, $alpha) {
+    self.bless(:$red, :$green, :$blue, :$alpha);
+  }
+
   method red is rw {
     Proxy.new:
       FETCH => -> $ { $!red },
