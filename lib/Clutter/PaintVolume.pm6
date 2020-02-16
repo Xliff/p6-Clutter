@@ -2,26 +2,33 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
 use Clutter::Raw::VariousTypes;
 
 # Boxed
 
 class Clutter::PaintVolume {
   has ClutterPaintVolume $!cpv;
-  
+
   submethod BUILD (:$paintvolume) {
     $!cpv = $paintvolume;
   }
-  
+
   method Clutter::Raw::Definitions::PaintVolume
     is also<ClutterPaintVolume>
   { $!cpv }
-  
-  method copy {
-    clutter_paint_volume_copy($!cpv);
+
+  method new (ClutterPaintVolume $paintvolume) {
+    $paintvolume ?? self.bless(:$paintvolume) !! Nil;
+  }
+
+  method copy (:$raw = False) {
+    my $pv = clutter_paint_volume_copy($!cpv);
+
+    $pv ??
+      ( $raw ?? $pv !! Clutter::PaintVolume.new($pv) )
+      !!
+      Nil;
   }
 
   method free {
@@ -42,6 +49,7 @@ class Clutter::PaintVolume {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_paint_volume_get_type, $n, $t );
   }
 
@@ -51,17 +59,19 @@ class Clutter::PaintVolume {
 
   method set_depth (Num() $depth) is also<set-depth> {
     my gfloat $d = $depth;
+
     clutter_paint_volume_set_depth($!cpv, $d);
   }
 
-  method set_from_allocation (ClutterActor() $actor) 
-    is also<set-from-allocation> 
+  method set_from_allocation (ClutterActor() $actor)
+    is also<set-from-allocation>
   {
     clutter_paint_volume_set_from_allocation($!cpv, $actor);
   }
 
   method set_height (Num() $height) is also<set-height> {
     my gfloat $h = $height;
+
     clutter_paint_volume_set_height($!cpv, $h);
   }
 
@@ -71,6 +81,7 @@ class Clutter::PaintVolume {
 
   method set_width (Num() $width) is also<set-width> {
     my gfloat $w = $width;
+
     clutter_paint_volume_set_width($!cpv, $w);
   }
 
