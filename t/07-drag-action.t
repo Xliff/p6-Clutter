@@ -15,15 +15,17 @@ use Clutter::Point;
 use Clutter::Stage;
 
 # For gv_<Type> helpers.
-use GTK::Compat::Value;
+use GLib::Value;
 
 use Clutter::Main;
 
 my %globals;
 
 sub on_enter($a, $e, $ud, $r) {
+  CATCH { default { .message.say } }
+
   my $t = $a.get_transition('curl');
-  unless $t.defined {
+  unless $t {
     $t = Clutter::PropertyTransition.new('@effects.curl.period');
     $t.duration = 250;
     $a.add_transition('curl', $t);
@@ -36,6 +38,8 @@ sub on_enter($a, $e, $ud, $r) {
 }
 
 sub on_leave ($a, $e, $ud, $r) {
+  CATCH { default { .message.say } }
+
   my $t = $a.get_transition('curl');
   unless $t.defined {
     $t = Clutter::PropertyTransition.new('@effects.curl.period');
@@ -51,6 +55,7 @@ sub on_leave ($a, $e, $ud, $r) {
 
 sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
   CATCH { default { .message.say } }
+
   my $dh;
   my $actor = Clutter::Actor.new($a);
   if $m +& CLUTTER_SHIFT_MASK  {
@@ -130,8 +135,8 @@ sub MAIN (
   my $action = Clutter::DragAction.new;
   $action.set-drag-threshold($x-threshold, $y-threshold);
   $action.drag-axis = $axis;
-  $action.drag-begin.tap(-> *@a { CATCH { default { .message.say } }; say 'odb'; on-drag-begin(|@a) });
-  $action.drag-end.tap(  -> *@a { on-drag-end(|@a) });
+  $action.drag-begin.tap(-> *@a { on-drag-begin(|@a) });
+  $action.drag-end.tap(  -> *@a { on-drag-end(|@a)   });
 
   my $handle = Clutter::Actor.new;
   $handle.setup(
