@@ -2,33 +2,28 @@ use v6.c;
 
 use Method::Also;
 
-
-use Clutter::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Raw::OffscreenEffect;
 
 use Clutter::Effect;
 
-our subset OffscreenEffectAncestry is export of Mu
-  where ClutterOffscreenEffect | EffectAncestry;
+our subset ClutterOffscreenEffectAncestry is export of Mu
+  where ClutterOffscreenEffect | ClutterEffectAncestry;
 
 class Clutter::OffscreenEffect is Clutter::Effect {
   has ClutterOffscreenEffect $!coe;
 
-  submethod BUILD (:$offscreen) {
-    given $offscreen {
-      when OffscreenEffectAncestry {
-        self.setOffscreenEffect($offscreen);
-      }
-      when Clutter::OffscreenEffect {
-      }
-      default {
-      }
-    }
-  }
+  # ABSTRACT!
+  #
+  # submethod BUILD (:$offscreen) {
+  #   given $offscreen {
+  #     when    OffscreenEffectAncestry  { self.setOffscreenEffect($offscreen) }
+  #     when    Clutter::OffscreenEffect { }
+  #     default                          { }
+  #   }
+  # }
 
-  method setOffscreenEffect(OffscreenEffectAncestry $offscreen) {
+  method setOffscreenEffect(ClutterOffscreenEffectAncestry $offscreen) {
     #self.IS-PROTECTED;
     say 'setOffscreenEffect' if $DEBUG;
     my $to-parent;
@@ -37,6 +32,7 @@ class Clutter::OffscreenEffect is Clutter::Effect {
         $to-parent = cast(ClutterEffect, $_);
         $_;
       }
+
       default {
         $to-parent = $_;
         cast(ClutterOffscreenEffect, $_)
@@ -46,10 +42,12 @@ class Clutter::OffscreenEffect is Clutter::Effect {
   }
 
   method Clutter::Raw::Definitions::ClutterOffscreenEffect
+    is also<ClutterOffscreenEffect>
   { $!coe }
 
   method create_texture (Num() $width, Num() $height) is also<create-texture> {
     my gfloat ($w, $h) = ($width, $height);
+
     clutter_offscreen_effect_create_texture($!coe, $width, $height);
   }
 
@@ -72,6 +70,7 @@ class Clutter::OffscreenEffect is Clutter::Effect {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_offscreen_effect_get_type, $n, $t );
   }
 
