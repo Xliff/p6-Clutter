@@ -3,11 +3,9 @@ use v6.c;
 # Find the original implementation here:
 # https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/basic-actor.c
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Compat::Signal;
-
+use GLib::Signal;
 use Clutter::Actor;
 use Clutter::AlignConstraint;
 use Clutter::BoxLayout;
@@ -53,7 +51,7 @@ sub on_transition_stopped ($a, $n, $f) {
   $a.set_rotation_angle(CLUTTER_Y_AXIS, 0);
   $a.restore_easing_state;
 
-  GTK::Compat::Signal.disconnect_by_func(
+  GLib::Signal.disconnect_by_func(
     $a,
     set_func_pointer(
       &on_transition_stopped,
@@ -68,7 +66,7 @@ sub animation_rotation ($a, $e) {
   $a.set_rotation_angle(CLUTTER_Y_AXIS, 360);
   $a.restore_easing_state;
 
-  GTK::Compat::Signal.connect(
+  GLib::Signal.connect(
     $a, 'transition-stopped::rotation-angle-y',
     -> *@a {
       CATCH { default { .message.say } }
