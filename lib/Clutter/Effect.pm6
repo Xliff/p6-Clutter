@@ -3,17 +3,14 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
-
-
-
-use GLib::Roles::Object;
 
 use Clutter::ActorMeta;
 
-our subset EffectAncestry of Mu is export
-  where ClutterEffect | ClutterActorMeta;
+use GLib::Roles::Object;
+
+our subset ClutterEffectAncestry of Mu is export
+  where ClutterEffect | ClutterActorMetaAncestry;
 
 class Clutter::Effect is Clutter::ActorMeta {
   also does GLib::Roles::Object;
@@ -27,14 +24,15 @@ class Clutter::Effect is Clutter::ActorMeta {
   method setEffect(ClutterEffect $effect) {
     #self.IS-PROTECTED;
     say 'setEffect' if $DEBUG;
+    my $to-parent;
     given $effect {
-      when EffectAncestry {
-        my $to-parent;
+      when ClutterEffectAncestry {
         $!c-eff = do {
           when ClutterEffect {
             $to-parent = cast(ClutterActorMeta, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterEffect, $_);
@@ -42,10 +40,10 @@ class Clutter::Effect is Clutter::ActorMeta {
         }
         self.setActorMeta($to-parent);
       }
-      
+
       when Clutter::Effect {
       }
-      
+
       default {
       }
     }
