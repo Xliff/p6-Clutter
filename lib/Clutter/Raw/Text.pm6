@@ -71,7 +71,11 @@ sub clutter_text_get_layout (ClutterText $self)
   is export
 { * }
 
-sub clutter_text_get_layout_offsets (ClutterText $self, gint $x, gint $y)
+sub clutter_text_get_layout_offsets (
+  ClutterText $self,
+  gint $x is rw,
+  gint $y is rw
+)
   is native(clutter)
   is export
 { * }
@@ -138,9 +142,9 @@ sub clutter_text_new_with_text (Str $font_name, Str $text)
 sub clutter_text_position_to_coords (
   ClutterText $self,
   gint $position,
-  gfloat $x,
-  gfloat $y,
-  gfloat $line_height
+  gfloat $x           is rw,
+  gfloat $y           is rw,
+  gfloat $line_height is rw
 )
   returns uint32
   is native(clutter)
