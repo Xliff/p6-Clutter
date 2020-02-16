@@ -103,7 +103,7 @@ sub add-drag-object($t) {
     return;
   }
 
-  %globals<drag>.upref;
+  %globals<drag>.ref;
   if $parent.defined &&
      $parent.ClutterActor.p != %globals<stage>.ClutterActor.p
   {
@@ -119,17 +119,18 @@ sub add-drag-object($t) {
   $t.easing-mode = CLUTTER_LINEAR;
   $t.opacity = 255;
   $t.restore-easing-state;
-  %globals<drag>.downref;
+  %globals<drag>.unref;
 }
 
 sub on-target-over ($act, $a, $io) {
   CATCH { default { .message.say } }
+
+  my $actor = Clutter::Actor.new($a);
   my $fo = $io ?? 128 !! 64;
-  my $t = $act.get-actor;
-  $t.save-easing-state;
-  $t.easing-mode = CLUTTER_LINEAR;
-  $t.opacity = $fo;
-  $t.restore-easing-state;
+  $actor.save-easing-state;
+  $actor.easing-mode = CLUTTER_LINEAR;
+  $actor.opacity = $fo;
+  $actor.restore-easing-state;
 }
 
 sub on-target-drop($act, $a, $ex, $ey, $ud) {
