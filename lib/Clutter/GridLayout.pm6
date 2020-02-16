@@ -2,16 +2,12 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::GridLayout;
 
 use Clutter::LayoutManager;
 
-our subset GridLayoutAncestry is export
+our subset ClutterGridLayoutAncestry is export
   where ClutterGridLayout | ClutterLayoutManager;
 
 my @attributes = <
@@ -27,7 +23,7 @@ class Clutter::GridLayout is Clutter::LayoutManager {
 
   submethod BUILD (:$gridlayout) {
     given $gridlayout {
-      when GridLayoutAncestry {
+      when ClutterGridLayoutAncestry {
         my $to-parent;
         $!cgl = do {
           when ClutterGridLayout {
@@ -52,11 +48,13 @@ class Clutter::GridLayout is Clutter::LayoutManager {
     is also<ClutterGridLayout>
   { $!cgl }
 
-  multi method new (GridLayoutAncestry $gridlayout) {
-    self.bless(:$gridlayout);
+  multi method new (ClutterGridLayoutAncestry $gridlayout) {
+    $gridlayout ?? self.bless(:$gridlayout) !! Nil;
   }
   multi method new {
-    self.bless( gridlayout => clutter_grid_layout_new() );
+    my $gridlayout = clutter_grid_layout_new();
+
+    $gridlayout ?? self.bless(:$gridlayout) !! Nil;
   }
 
   method setup(*%data) {
@@ -77,7 +75,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
         so clutter_grid_layout_get_column_homogeneous($!cgl);
       },
       STORE => sub ($, Int() $homogeneous is copy) {
-        my gboolean $h = resolve-bool($homogeneous);
+        my gboolean $h = $homogeneous.so.Int;
+
         clutter_grid_layout_set_column_homogeneous($!cgl, $h);
       }
     );
@@ -89,7 +88,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
         clutter_grid_layout_get_column_spacing($!cgl);
       },
       STORE => sub ($, Int() $spacing is copy) {
-        my guint $s = resolve-uint($spacing);
+        my guint $s = $spacing;
+
         clutter_grid_layout_set_column_spacing($!cgl, $s);
       }
     );
@@ -101,7 +101,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
         ClutterOrientation( clutter_grid_layout_get_orientation($!cgl) );
       },
       STORE => sub ($, Int() $orientation is copy) {
-        my guint $o = resolve-uint($orientation);
+        my guint $o = $orientation;
+
         clutter_grid_layout_set_orientation($!cgl, $o);
       }
     );
@@ -113,7 +114,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
         so clutter_grid_layout_get_row_homogeneous($!cgl);
       },
       STORE => sub ($, Int() $homogeneous is copy) {
-        my gboolean $h = resolve-bool($homogeneous);
+        my gboolean $h = $homogeneous.so.Int;
+
         clutter_grid_layout_set_row_homogeneous($!cgl, $h);
       }
     );
@@ -125,7 +127,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
         clutter_grid_layout_get_row_spacing($!cgl);
       },
       STORE => sub ($, Int() $spacing is copy) {
-        my guint $s = resolve-uint($spacing);
+        my guint $s = $spacing;
+
         clutter_grid_layout_set_row_spacing($!cgl, $s);
       }
     );
@@ -138,7 +141,8 @@ class Clutter::GridLayout is Clutter::LayoutManager {
     Int() $width  = 1,
     Int() $height = 1
   ) {
-    my gint ($l, $t, $w, $h) = resolve-int($left, $top, $width, $height);
+    my gint ($l, $t, $w, $h) = ($left, $top, $width, $height);
+
     clutter_grid_layout_attach($!cgl, $child, $l, $t, $w, $h);
   }
 
@@ -151,8 +155,9 @@ class Clutter::GridLayout is Clutter::LayoutManager {
   )
     is also<attach-next-to>
   {
-    my guint $s = resolve-uint($side);
-    my gint ($w, $h) = resolve-int($width, $height);
+    my guint $s = $side;
+    my gint ($w, $h) = ($width, $height);
+
     clutter_grid_layout_attach_next_to($!cgl, $child, $sib, $s, $w, $h);
   }
 
@@ -167,17 +172,20 @@ class Clutter::GridLayout is Clutter::LayoutManager {
   }
 
   method get_child_at (Int() $left, Int() $top) is also<get-child-at> {
-    my gint ($l, $t)= resolve-int($left, $top);
+    my gint ($l, $t)= ($left, $top);
+
     clutter_grid_layout_get_child_at($!cgl, $l, $t);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_grid_layout_get_type, $n, $t );
   }
 
   method insert_column (Int() $position) is also<insert-column> {
-    my gint $p = resolve-int($position);
+    my gint $p = $position;
+
     clutter_grid_layout_insert_column($!cgl, $position);
   }
 
@@ -187,12 +195,14 @@ class Clutter::GridLayout is Clutter::LayoutManager {
   )
     is also<insert-next-to>
   {
-    my guint $s = resolve-uint($side);
+    my guint $s = $side;
+
     clutter_grid_layout_insert_next_to($!cgl, $sibling, $s);
   }
 
   method insert_row (Int() $position) is also<insert-row> {
-    my gint $p = resolve-int($position);
+    my gint $p = $position;
+    
     clutter_grid_layout_insert_row($!cgl, $p);
   }
 
