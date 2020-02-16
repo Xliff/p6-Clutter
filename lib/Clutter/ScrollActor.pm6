@@ -2,16 +2,12 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::ScrollActor;
 
 use Clutter::Actor;
 
-our subset ScrollActorAncestry is export of Mu
+our subset ClutterScrollActorAncestry is export of Mu
   where ClutterScrollActor | ActorAncestry;
 
 class Clutter::ScrollActor is Clutter::Actor {
@@ -25,13 +21,14 @@ class Clutter::ScrollActor is Clutter::Actor {
 
   submethod BUILD (:$scroll) {
     given $scroll {
-      when ScrollActorAncestry {
+      when ClutterScrollActorAncestry {
         my $to-parent;
         $!csa = do {
-          when ScrollActorAncestry {
+          when ClutterScrollActor {
             $to-parent = cast(ClutterActor, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterScrollActor, $_);
@@ -39,8 +36,10 @@ class Clutter::ScrollActor is Clutter::Actor {
         }
         self.setActor($to-parent);
       }
+
       when Clutter::ScrollActor {
       }
+
       default {
       }
     }
@@ -50,8 +49,13 @@ class Clutter::ScrollActor is Clutter::Actor {
     is also<ClutterScrollActor>
   { $!csa }
 
-  method new {
-    self.bless( scroll => clutter_scroll_actor_new() );
+  multi method new (ClutterScrollActorAncestry $scroll) {
+    $scroll ?? self.bless(:$scroll) !! Nil;
+  }
+  multi method new {
+    my $scroll = clutter_scroll_actor_new();
+
+    $scroll ?? self.bless(:$scroll) !! Nil;
   }
 
   method setup(*%data) {
@@ -69,10 +73,11 @@ class Clutter::ScrollActor is Clutter::Actor {
   method scroll_mode is rw is also<scroll-mode> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterScrollMode( clutter_scroll_actor_get_scroll_mode($!csa) );
+        ClutterScrollModeEnum( clutter_scroll_actor_get_scroll_mode($!csa) );
       },
       STORE => sub ($, Int() $mode is copy) {
-        my guint $m = resolve-uint($mode);
+        my guint $m = $mode;
+
         clutter_scroll_actor_set_scroll_mode($!csa, $m);
       }
     );
@@ -80,6 +85,7 @@ class Clutter::ScrollActor is Clutter::Actor {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_scroll_actor_get_type, $n, $t );
   }
 
