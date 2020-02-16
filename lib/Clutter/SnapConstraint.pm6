@@ -2,40 +2,64 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
-
-
-
 use Clutter::Raw::SnapConstraint;
 
 use GLib::Value;
 use Clutter::Actor;
 use Clutter::Constraint;
 
+our subset ClutterSnapConstraintAncestry is export of Mu
+  where ClutterSnapConstraint | ClutterConstraintAncestry;
+
 class Clutter::SnapConstraint is Clutter::Constraint {
   has ClutterSnapConstraint $!csc;
 
   # Needs ancestry logic
   submethod BUILD (:$snapconstraint) {
-    self.setConstraint( cast(ClutterConstraint, $!csc = $snapconstraint) );
+    given $snapconstraint {
+      when ClutterSnapConstraintAncestry {
+        my $to-parent;
+        $!csc = do {
+          when ClutterSnapConstraint {
+            $to-parent = cast(ClutterConstraint, $_);
+            $_;
+          }
+
+          default {
+            $to-parent = $_;
+            cast(ClutterSnapConstraint, $_);
+          }
+        }
+        self.setConstraint($to-parent);
+      }
+
+      when Clutter::SnapConstraint {
+      }
+
+      default {
+      }
+    }
   }
 
   method Clutter::Raw::Definitions::ClutterSnapConstraint
     is also<ClutterSnapConstraint>
   { $!csc }
 
-  method new (
+  multi method new (ClutterSnapConstraintAncestry $snapconstraint) {
+    $snapconstraint ?? self.bless(:$snapconstraint) !! Nil;
+  }
+  multi method new (
     ClutterActor() $source,
     Int() $from_edge,   # ClutterSnapEdge $from_edge,
     Int() $to_edge,     # ClutterSnapEdge $to_edge
     Num() $offset
   ) {
     my gfloat $o = $offset;
-    my guint ($fe, $te) = resolve-uint($from_edge, $to_edge);
-    self.bless(
-      snapconstraint => clutter_snap_constraint_new($source, $fe, $te, $o)
-    );
+    my guint ($fe, $te) = ($from_edge, $to_edge);
+    my $snapconstraint = clutter_snap_constraint_new($source, $fe, $te, $o);
+
+    $snapconstraint ?? self.bless(:$snapconstraint) !! Nil;
   }
 
   method offset is rw {
@@ -45,15 +69,21 @@ class Clutter::SnapConstraint is Clutter::Constraint {
       },
       STORE => sub ($, Num() $offset is copy) {
         my gfloat $o = $offset;
+
         clutter_snap_constraint_set_offset($!csc, $o);
       }
     );
   }
 
-  method source is rw {
+  method source (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Actor.new( clutter_snap_constraint_get_source($!csc) );
+        my $sa = clutter_snap_constraint_get_source($!csc);
+
+        $sa ??
+          ( $raw ?? $sa !! Clutter::Actor.new($sa) )
+          !!
+          ClutterActor;
       },
       STORE => sub ($, ClutterActor() $source is copy) {
         clutter_snap_constraint_set_source($!csc, $source);
@@ -69,7 +99,7 @@ class Clutter::SnapConstraint is Clutter::Constraint {
         $gv = GLib::Value.new(
           self.prop_get('from-edge', $gv)
         );
-        ClutterSnapEdge( $gv.uint );
+        ClutterSnapEdgeEnum( $gv.uint );
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -86,7 +116,7 @@ class Clutter::SnapConstraint is Clutter::Constraint {
         $gv = GLib::Value.new(
           self.prop_get('to-edge', $gv)
         );
-        ClutterSnapEdge( $gv.uint );
+        ClutterSnapEdgeEnum( $gv.uint );
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -102,12 +132,14 @@ class Clutter::SnapConstraint is Clutter::Constraint {
   )
     is also<get-edges>
   {
-    my guint ($fe, $te) = resolve-uint($from_edge, $to_edge);
+    my guint ($fe, $te) = ($from_edge, $to_edge);
+
     clutter_snap_constraint_get_edges($!csc, $fe, $te);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_snap_constraint_get_type, $n, $t );
   }
 
@@ -117,7 +149,8 @@ class Clutter::SnapConstraint is Clutter::Constraint {
   )
     is also<set-edges>
   {
-    my guint ($fe, $te) = resolve-uint($from_edge, $to_edge);
+    my guint ($fe, $te) = ($from_edge, $to_edge);
+
     clutter_snap_constraint_set_edges($!csc, $fe, $te);
   }
 
