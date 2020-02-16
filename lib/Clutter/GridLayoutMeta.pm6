@@ -1,8 +1,6 @@
 use v6.c;
 
 use Method::Also;
-use NativeCall;
-
 
 use Clutter::Raw::Types;
 
@@ -11,60 +9,57 @@ use Clutter::LayoutMeta;
 
 use GLib::Roles::Object;
 
-# This is a made up object to accomodate for the differences between
+# This is a made up object to accomodate for the top, left, width and height
+# attributes that are not supported in ClutterLayoutMeta.
+#
+# Note that this may no longer be necessary with the GLib-separation and the
+# enhanced GLib::Roles::Object. This should be tested at a later date.
+# cw - 2020-02-15
 
-our subset GridLayoutMetaAncestry of Mu
-  where ClutterGridLayoutMeta | LayoutMetaAncestry;
+our subset ClutterGridLayoutMetaAncestry of Mu
+  where ClutterGridLayoutMeta | ClutterLayoutMetaAncestry;
 
 class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   has ClutterGridLayoutMeta $!cl-gridmeta;
-  has GObject $!prop;
 
   submethod BUILD (:$gridmetalayout) {
     given $gridmetalayout {
-      when GridLayoutMetaAncestry {
+      when ClutterGridLayoutMetaAncestry {
         my $to-parent;
         $!cl-gridmeta = do {
           when ClutterGridLayoutMeta {
             $to-parent = cast(ClutterLayoutMeta, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterGridLayoutMeta, $_);
           }
-        };
-        $!prop = cast(GObject, $_);
+        }
         self.setLayoutMeta($to-parent);
       }
+
       when Clutter::GridLayoutMeta {
       }
+
       default {
       }
     }
   }
 
-  method new (GridLayoutMetaAncestry $gridmetalayout) {
-    # No GLib::Roles::References
-    # No destroy yet, so no upref logic.
-    self.bless(:$gridmetalayout);
+  method new (GridLayoutMetaAncestry $gridlayoutmeta) {
+    $gridlayoutmeta ?? self.bless(:$gridlayoutmeta) !! Nil
   }
 
-  method get_manager is also<get-manager> {
-    ::('Clutter::GridLayoutManager').new(
-      clutter_layout_meta_get_manager(self.LayoutMeta)
-    );
-  }
+  method get_manager (:$raw = False) is also<get-manager> {
+    my $glm = clutter_layout_meta_get_manager(self.LayoutMeta);
 
-  # ↓↓↓↓ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↓↓↓↓
-  method prop_get(Str() $key, GValue() $v) {
-    g_object_get_property($!prop, $key, $v);
+    $glm ??
+      ( $raw ?? $glm !! ::('Clutter::GridLayoutManager').new($glm) )
+      !!
+      Nil;
   }
-
-  method prop_set(Str() $key, GValue() $v) {
-    g_object_get_property($!prop, $key, $v);
-  }
-  # ↑↑↑↑ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↑↑↑↑
 
   method left is rw {
     my $gv = GLib::Value.new( G_TYPE_INT );
@@ -125,23 +120,3 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   }
 
 }
-
-# ↓↓↓↓ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↓↓↓↓
-sub g_object_set_property (
-  GObject $object,
-  Str $property_name,
-  GValue $value
-)
-  is native(gobject)
-  is export
-{ * }
-
-sub g_object_get_property (
-  GObject $object,
-  Str $property_name,
-  GValue $value
-)
-  is native(gobject)
-  is export
-{ * }
-# ↑↑↑↑ MECHANISM MUST BE MOVED BACK INTO GTK PROPER! ↑↑↑↑
