@@ -3,9 +3,7 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
-
 use Clutter::Raw::VariousTypes;
 
 # Boxed
@@ -22,16 +20,20 @@ class Clutter::Size {
   { $!cs }
 
   multi method new (ClutterSize $size) {
-    self.bless( :$size );
+    $size ?? self.bless( :$size ) !! Nil;
   }
   multi method new (Num() $width, Num() $height) {
     self.init($width, $height);
   }
 
   multi method init (Num() $width, Num() $height) {
-    self.bless(
-      size => Clutter::Size.init( Clutter::Size.alloc, $width, $height)
-    );
+    my $size = Clutter::Size.alloc;
+
+    die 'Could not allocate ClutterSize!' unless $size;
+
+    Clutter::Size.init($size, $width, $height);
+
+    self.bless(:$size);
   }
   multi method init (
     Clutter::Size:U:
@@ -48,8 +50,13 @@ class Clutter::Size {
     clutter_size_alloc();
   }
 
-  method copy {
-    Clutter::Size.new( clutter_size_copy($!cs) );
+  method copy (:$raw = False) {
+    my $c = clutter_size_copy($!cs);
+
+    $c ??
+      ( $raw ?? $c !! Clutter::Size.new($c) )
+      !!
+      Nil;
   }
 
   method equals (ClutterSize() $b) {
@@ -66,6 +73,7 @@ class Clutter::Size {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_size_get_type, $n, $t );
   }
 
