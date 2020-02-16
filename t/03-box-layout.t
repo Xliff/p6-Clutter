@@ -3,12 +3,12 @@ use v6.c;
 # Find the original implementation here:
 # https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/box-layout.c
 
-use GTK::Compat::Types;
+
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
 use Clutter::Raw::Keysyms;
 
-use GTK::Compat::Signal;
+use GLib::Signal;
 
 use Clutter::Actor;
 use Clutter::ActorIter;
@@ -93,7 +93,7 @@ sub add_actor($b, $p) {
   $rect.add_child($text);
 
   $rect.button-release-event.tap(-> *@a { button_release_cb(|@a) });
-  GTK::Compat::Signal.connect($rect, "notify::$_", -> *@a {
+  GLib::Signal.connect($rect, "notify::$_", -> *@a {
     &changed_cb(|@a[0,1], $text)
   }) for <x-expand y-expand x-align y-align>;
 
