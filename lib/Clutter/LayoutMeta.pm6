@@ -3,36 +3,32 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
 
 use Clutter::ChildMeta;
 
-our subset LayoutMetaAncestry of Mu
-  where ClutterLayoutMeta | ClutterChildMeta;
+our subset ClutterLayoutMetaAncestry of Mu
+  where ClutterLayoutMeta | ClutterChildMetaAncestry;
 
 class Clutter::LayoutMeta is Clutter::ChildMeta {
   has ClutterLayoutMeta $!clmeta;
-  
-  submethod BUILD (:$metalayout) {
-    given $metalayout {
-      when LayoutMetaAncestry {
-        self.setLayoutMeta($metalayout);
-      }
-      when Clutter::LayoutMeta {
-      }
-      default {
-      } 
+
+  submethod BUILD (:$layoutmeta) {
+    given $layoutmeta {
+      when    ClutterLayoutMetaAncestry { self.setLayoutMeta($_) }
+      when    Clutter::LayoutMeta       { }
+      default                           { }
     }
   }
-  
-  method setLayoutMeta(LayoutMetaAncestry $_) {
+
+  method setLayoutMeta(ClutterLayoutMetaAncestry $_) {
     my $to-parent;
     $!clmeta = do {
       when ClutterLayoutMeta {
         $to-parent = cast(ClutterChildMeta, $_);
         $_;
-      } 
+      }
+
       default {
         $to-parent = $_;
         cast(ClutterLayoutMeta, $_);
@@ -40,25 +36,32 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
     };
     self.setChildMeta($to-parent);
   }
-  
+
   method Clutter::Raw::Definitions::ClutterLayoutMeta
-    is also<LayoutMeta>
+    is also<
+      LayoutMeta
+      ClutterLayoutMeta
+    >
   { $!clmeta }
-    
-  method new (ClutterLayoutMeta $metalayout) {
+
+  method new (ClutterLayoutMetaAncestry $layoutmeta) {
     # No GLib::Roles::References
     # No destroy yet, so no upref logic.
-    self.bless(:$metalayout);
+    $layoutmeta ?? self.bless(:$layoutmeta) !! Nil
   }
-  
-  method get_manager is also<get-manager> {
-    ::('Clutter::LayoutManager').new( 
-      clutter_layout_meta_get_manager($!clmeta)
-    );
+
+  method get_manager (:$raw = False) is also<get-manager> {
+    my $m = clutter_layout_meta_get_manager($!clmeta);
+
+    $m ??
+      ( $raw ?? $m !!::('Clutter::LayoutManager').new($m) )
+      !!
+      Nil;
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_layout_meta_get_type, $n, $t );
   }
 
