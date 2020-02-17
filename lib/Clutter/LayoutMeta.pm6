@@ -23,6 +23,7 @@ class Clutter::LayoutMeta is Clutter::ChildMeta {
 
   method setLayoutMeta(ClutterLayoutMetaAncestry $_) {
     my $to-parent;
+
     $!clmeta = do {
       when ClutterLayoutMeta {
         $to-parent = cast(ClutterChildMeta, $_);
