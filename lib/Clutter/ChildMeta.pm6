@@ -7,17 +7,32 @@ use Clutter::Raw::Types;
 
 use GLib::Roles::Object;
 
+our subset ClutterChildMetaAncestry is export of Mu
+  where ClutterChildMeta | GObject;
+
 class Clutter::ChildMeta {
   also does GLib::Roles::Object;
 
   has ClutterChildMeta $!ccmeta;
 
-  submethod BUILD {
-    #self.ADD-PREFIX('Clutter::');
-  }
+  # submethod BUILD {
+  #   #self.ADD-PREFIX('Clutter::');
+  # }
 
-  method setChildMeta (ClutterChildMeta $childmeta) {
-    self!setObject( cast(GObject, $!ccmeta = $childmeta) );
+  method setChildMeta (ClutterChildMetaAncestry $_) {
+    my $to-parent;
+    $!ccmeta = do {
+      when ClutterChildMeta {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterChildMeta, $_);
+      }
+    }
+    self!setObject($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterChildMeta
