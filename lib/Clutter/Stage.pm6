@@ -35,7 +35,7 @@ my @set_methods = <
 >;
 
 our subset ClutterStageAncestry is export of Mu
-  where ClutterStage | ActorAncestry;
+  where ClutterStage | ClutterActorAncestry;
 
 class Clutter::Stage is Clutter::Actor {
   also does Clutter::Roles::Signals::Stage;
@@ -80,12 +80,12 @@ class Clutter::Stage is Clutter::Actor {
   { $!cs }
 
   multi method new (ClutterStageAncestry $stage) is default {
-    $stage ?? self.bless($stage) !! Nil;
+    $stage ?? self.bless(:$stage) !! Nil;
   }
   multi method new {
     my $stage = clutter_stage_new();
 
-    $stage ?? self.bless($stage) !! Nil;
+    $stage ?? self.bless(:$stage) !! Nil;
   }
 
   method setup(*%data) {
@@ -378,7 +378,7 @@ class Clutter::Stage is Clutter::Actor {
     is also<get-minimum-size>
   {
     my guint ($w, $h) = ($width, $height);
-    
+
     clutter_stage_get_minimum_size($!cs, $width, $height);
   }
 
