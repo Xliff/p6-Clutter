@@ -16,7 +16,7 @@ class Clutter::Point {
     $!cp = $point;
   }
 
-  method Clutter::Raw::Definitions::ClutterPoint
+  method Clutter::Raw::Structs::ClutterPoint
     is also<ClutterPoint>
   { $!cp }
 
