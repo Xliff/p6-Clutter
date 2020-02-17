@@ -1,4 +1,5 @@
 COGL::Compat::Types
+COGL::Context
 COGL::Raw::Definitions
 COGL::Raw::Enums
 COGL::Raw::Exports
@@ -22,6 +23,7 @@ GLib::Roles::ListData
 GLib::Roles::Object
 GLib::Roles::Pointers
 GLib::Roles::Signals::Generic
+GLib::Roles::StaticClass
 GLib::Roles::TypedBuffer
 GLib::Value
 Method::Also
