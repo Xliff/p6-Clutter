@@ -61,12 +61,19 @@ class Clutter::PropertyTransition is Clutter::Transition {
   { $!cpt }
 
   multi method new (ClutterPropertyTransitionAncestry $propertytransition) {
-    $propertytransition ?? self.bless($propertytransition) !! Nil;
+    $propertytransition ?? self.bless(:$propertytransition) !! Nil;
   }
-  multi method new (Str() $property_name) {
+  multi method new ($property_name is copy) {
+    my $coercible = $property_name.^lookup('Str');
+
+    die '$property_name must be a Str-compatible value'
+      unless $property_name ~~ Str || $coercible;
+
+    $property_name .= Str if $coercible;
+
     my $propertytransition = clutter_property_transition_new($property_name);
 
-    $propertytransition ?? self.bless($propertytransition) !! Nil;
+    $propertytransition ?? self.bless(:$propertytransition) !! Nil;
   }
 
   method property_name is rw {
