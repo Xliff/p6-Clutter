@@ -14,7 +14,7 @@ use GLib::Roles::Signals::Generic;
 
 # Object
 
-our subset LayoutManagerAncestry is export of Mu
+our subset ClutterLayoutManagerAncestry is export of Mu
   where ClutterLayoutManager | GObject;
 
 class Clutter::LayoutManager {
@@ -28,7 +28,7 @@ class Clutter::LayoutManager {
     self.setLayoutManager($manager) if $manager.defined;
   }
 
-  method setLayoutManager(LayoutManagerAncestry $_) {
+  method setLayoutManager(ClutterLayoutManagerAncestry $_) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!clm = do {
@@ -49,7 +49,7 @@ class Clutter::LayoutManager {
     is also<ClutterLayoutManager>
   { $!clm }
 
-  method new (ClutterLayoutManager $manager) {
+  method new (ClutterLayoutManagerAncestry $manager) {
     $manager ?? self.bless(:$manager) !! Nil;
   }
 
@@ -125,8 +125,8 @@ class Clutter::LayoutManager {
     my $cm = clutter_layout_manager_get_child_meta($!clm, $container, $actor);
 
     $cm ?? ($raw ?? $cm
-                !! ($grid ?? Clutter::GridLayoutMeta.new($cm)
-                          !! Clutter::LayoutMeta.new($cm) ) )
+                 !! ($grid ?? Clutter::GridLayoutMeta.new($cm)
+                           !! Clutter::LayoutMeta.new($cm) ) )
         !! Nil;
   }
 
