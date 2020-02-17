@@ -6,7 +6,7 @@ use v6.c;
 use Cairo;
 
 use Pango::Raw::Types;
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
 use Clutter::Actor;
@@ -25,7 +25,7 @@ Middle click to jump
 Right click to change the easing mode
 TEXT
 
-my @modes = ClutterAnimationMode.enums.pairs.sort( *.value ).map({
+my @modes = ClutterAnimationModeEnum.enums.pairs.sort( *.value ).map({
   my $k = .key;
   $k = $k.split('_')[1..*-1].map( *.lc.tc ).join();
   $k.substr-rw(0,1).lc ~ $k.substr(1) => .value
