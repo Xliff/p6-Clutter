@@ -8,7 +8,7 @@ use Clutter::Raw::ScrollActor;
 use Clutter::Actor;
 
 our subset ClutterScrollActorAncestry is export of Mu
-  where ClutterScrollActor | ActorAncestry;
+  where ClutterScrollActor | ClutterActorAncestry;
 
 class Clutter::ScrollActor is Clutter::Actor {
   has ClutterScrollActor $!csa;
