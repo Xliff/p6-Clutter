@@ -51,6 +51,21 @@ class Clutter::GridLayout is Clutter::LayoutManager {
   multi method new (ClutterGridLayoutAncestry $gridlayout) {
     $gridlayout ?? self.bless(:$gridlayout) !! Nil;
   }
+  multi method new ($gridlayout is copy) {
+    my $c1 = $gridlayout.^lookup('ClutterLayoutManager');
+    my $c2 = $gridlayout.^lookup('GObject');
+
+    die "\$gridlayout is a { $gridlayout.^name }, not a ClutterLayoutManager {
+      '' }or a GObject-compatible, value!"
+    unless $c1 || $c2;
+
+    $gridlayout = do given $gridlayout {
+      when $c1 { .ClutterLayoutManager }
+      when $c2 { .GObject }
+    }
+
+    samewith($gridlayout);
+  }
   multi method new {
     my $gridlayout = clutter_grid_layout_new();
 
@@ -98,7 +113,7 @@ class Clutter::GridLayout is Clutter::LayoutManager {
   method orientation is rw {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterOrientation( clutter_grid_layout_get_orientation($!cgl) );
+        ClutterOrientationEnum( clutter_grid_layout_get_orientation($!cgl) );
       },
       STORE => sub ($, Int() $orientation is copy) {
         my guint $o = $orientation;
@@ -202,7 +217,7 @@ class Clutter::GridLayout is Clutter::LayoutManager {
 
   method insert_row (Int() $position) is also<insert-row> {
     my gint $p = $position;
-    
+
     clutter_grid_layout_insert_row($!cgl, $p);
   }
 
