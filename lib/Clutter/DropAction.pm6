@@ -42,7 +42,7 @@ class Clutter::DropAction is Clutter::Action {
   }
   multi method new {
     my $dropaction = clutter_drop_action_new();
-    
+
     $dropaction ?? self.bless(:$dropaction) !! Nil;
   }
 
@@ -78,6 +78,7 @@ class Clutter::DropAction is Clutter::Action {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_drop_action_get_type, $n, $t );
   }
 
