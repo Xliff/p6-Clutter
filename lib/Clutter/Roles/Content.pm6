@@ -21,7 +21,13 @@ role Clutter::Roles::Content {
     is also<ClutterContent>
   { $!c-con }
 
-  method new_content_object (ClutterContent $content)
+  method roleInit-ClutterContent {
+    my \i = findProperImplementor(self.^attributes);
+
+    $!c-con = cast( ClutterContent, i.get_value(self) );
+  }
+
+  method new_cluttercontent_obj (ClutterContent $content)
     is also<new-content-object>
   {
     $content ?? self.bless(:$content) !! Nil;
