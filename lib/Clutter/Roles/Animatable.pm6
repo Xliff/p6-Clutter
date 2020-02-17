@@ -21,8 +21,11 @@ role Clutter::Roles::Animatable {
     $!c-anim = cast( ClutterAnimatable, i.get_value(self) );
   }
 
-  method setAnimatable ($animatable) {
+  method setAnimatable ($animatable is copy) {
     ##self.IS-PROTECTED;
+    $animatable = cast(ClutterAnimatable, $animatable)
+      unless $animatable ~~ ClutterAnimatable;
+
     $!c-anim = $animatable;
   }
 
