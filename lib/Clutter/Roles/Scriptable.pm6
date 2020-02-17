@@ -23,8 +23,11 @@ role Clutter::Roles::Scriptable {
     $!cs = cast( ClutterScriptable, i.get_value(self) );
   }
 
-  method setScriptable ($scriptable) {
+  method setScriptable ($scriptable is copy) {
     #self.IS-PROTECTED;
+    $scriptable = cast(ClutterScriptable, $scriptable)
+      unless $scriptable ~~ ClutterScriptable;
+      
     $!cs = $scriptable;
   }
 
