@@ -3,12 +3,11 @@ use v6.c;
 use Method::Also;
 
 use Clutter::Raw::Types;
-
 use Clutter::Raw::ActorMeta;
 
 use GLib::Roles::Object;
 
-our subset MetaActorAncestry is export of Mu
+our subset ClutterActorMetaAncestry is export of Mu
   where ClutterActorMeta | GObject;
 
 class Clutter::ActorMeta {
@@ -21,7 +20,7 @@ class Clutter::ActorMeta {
     self.setActorMeta(:$metaactor) if $metaactor.defined;
   }
 
-  method setActorMeta (MetaActorAncestry $_) {
+  method setActorMeta (ClutterActorMetaAncestry $_) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!cam = do {
@@ -42,7 +41,7 @@ class Clutter::ActorMeta {
     is also<ClutterActorMeta>
   { $!cam }
 
-  method new (MetaActorAncestry $metaactor) {
+  method new (ClutterActorMetaAncestry $metaactor) {
     $metaactor ?? self.bless(:$metaactor) !! Nil;
   }
 
