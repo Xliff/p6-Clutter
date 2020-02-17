@@ -15,9 +15,9 @@ role Clutter::Roles::Settings {
 
   has ClutterSettings $!c-set;
 
-  submethod BUILD (:$settings) {
-    $!c-set = $settings;
-  }
+  # submethod BUILD (:$settings) {
+  #   $!c-set = $settings;
+  # }
 
   method Clutter::Raw::Definitions::ClutterSettings
     is also<
