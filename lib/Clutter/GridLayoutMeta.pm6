@@ -22,8 +22,8 @@ our subset ClutterGridLayoutMetaAncestry of Mu
 class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   has ClutterGridLayoutMeta $!cl-gridmeta;
 
-  submethod BUILD (:$gridmetalayout) {
-    given $gridmetalayout {
+  submethod BUILD (:$gridlayoutmeta) {
+    given $gridlayoutmeta {
       when ClutterGridLayoutMetaAncestry {
         my $to-parent;
         $!cl-gridmeta = do {
@@ -48,7 +48,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
     }
   }
 
-  method new (GridLayoutMetaAncestry $gridlayoutmeta) {
+  method new (ClutterGridLayoutMetaAncestry $gridlayoutmeta) {
     $gridlayoutmeta ?? self.bless(:$gridlayoutmeta) !! Nil
   }
 
