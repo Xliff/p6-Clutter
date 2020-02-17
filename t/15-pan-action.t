@@ -1,12 +1,10 @@
 use v6.c;
 
-use GTK::Compat::Types;
-
 use Clutter::Compat::Types;
 use Clutter::Raw::Types;
 use Clutter::Raw::Keysyms;
 
-use GTK::Compat::Pixbuf;
+use GDK::Pixbuf;
 
 use Clutter::Actor;
 use Clutter::AlignConstraint;
@@ -25,11 +23,12 @@ sub create-content-actor {
   my $file = 'redhand.png';
   $file = "t/{$file}" unless $file.IO.e;
   die "Cannot find image file '{$file}'" unless $file.IO.e;
-  
-  my $pixbuf = GTK::Compat::Pixbuf.new_from_file($file);
+
+  my $pixbuf = GDK::Pixbuf.new_from_file($file);
   (my $image = Clutter::Image.new).set-data(
     $pixbuf.pixels,
-    $pixbuf.has-alpha ?? COGL_PIXEL_FORMAT_RGBA_8888 !! COGL_PIXEL_FORMAT_RGB_888,
+    $pixbuf.has-alpha ?? COGL_PIXEL_FORMAT_RGBA_8888
+                      !! COGL_PIXEL_FORMAT_RGB_888,
     $pixbuf.width,
     $pixbuf.height,
     $pixbuf.rowstride
@@ -48,14 +47,14 @@ sub create-content-actor {
 sub on-pan ($a, $s, $ii, $ud, $r) {
   CATCH { default { .message.say } }
   my ($e, $dx, $dy);
-  
+
   if $ii {
     ($dx, $dy) = $a.get-interpolated-delta;
   } else {
     ($dx, $dy) = $a.get-motion-delta(0);
     $e = $a.get-last-event(0);
   }
-   
+
   say "[{ do if    $e.defined.not                  { 'INTERPOLATED' }
              elsif $e.type == CLUTTER_MOTION       { 'MOTION'       }
              elsif $e.type == CLUTTER_TOUCH_UPDATE {'TOUCH_UPDATE'  }
@@ -67,7 +66,7 @@ sub on-pan ($a, $s, $ii, $ud, $r) {
 sub create-scroll-actor ($s) {
   (my $pa = Clutter::PanAction.new).interpolate = True;
   $pa.pan.tap(-> *@a { on-pan(|@a) });
-  
+
   Clutter::Actor.new.setup(
     name             => 'scroll',
     child            => create-content-actor,
@@ -90,11 +89,11 @@ sub on-key-press ($s, $e, $ud, $r) {
   }
   $r.r = CLUTTER_EVENT_STOP;
 }
-  
+
 sub on-label-clicked($l, $e, $scroll, $r) {
   CATCH { default { .message.say } }
-  my $action = Clutter::PanAction.new( 
-    cast( ClutterPanAction, $scroll.get-action('pan', :raw) ) 
+  my $action = Clutter::PanAction.new(
+    $scroll.get-action('pan', :raw)
   );
   $action.pan-axis = do given $l.text {
     when 'X AXIS' { CLUTTER_PAN_X_AXIS    }
@@ -119,14 +118,14 @@ sub add-label($t, $b, $s) {
 
 sub MAIN {
   exit(1) unless Clutter::Main.init == CLUTTER_INIT_SUCCESS;
-  
+
   (my $stage = Clutter::Stage.new.setup(
     name           => 'Pan Action',
     user-resizable => True,
   )).show-actor;
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.key-press-event.tap(-> *@a { on-key-press(|@a) });
-  
+
   my $scroll = create-scroll-actor($stage);
   my $layout = Clutter::BoxLayout.new;
   $layout.orientation = CLUTTER_ORIENTATION_VERTICAL;
@@ -134,7 +133,7 @@ sub MAIN {
     position => (12, 12),
     layout-manager => $layout
   );
-  
+
   my $info1 = Clutter::Text.new-with-text(
     Str, 'Press <space> to reset the image position.'
   );
@@ -144,7 +143,6 @@ sub MAIN {
   $box.add-child($_) for $info1, $info2;
   add-label($_, $box, $scroll) for 'NONE', 'X AXIS', 'Y AXIS', 'AUTO';
   $stage.add-child($_) for $scroll, $box;
-  
+
   Clutter::Main.run;
 }
-  
