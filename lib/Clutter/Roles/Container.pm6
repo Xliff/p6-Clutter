@@ -24,8 +24,11 @@ role Clutter::Roles::Container {
     $!c = cast( ClutterContainer, i.get_value(self) );
   }
 
-  method setContainer ($container) {
+  method setContainer ($container is copy) {
     ##self.IS-PROTECTED;
+    $container = cast(ClutterContainer, $container)
+      unless $container ~~ ClutterContainer;
+      
     $!c = $container;
   }
 
