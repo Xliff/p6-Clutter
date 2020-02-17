@@ -157,7 +157,7 @@ my @add_methods = <
 #   - Tricky part is getting the right list of attributes. They MUST have both
 #     getters and setters to be considered. This could be a fun chore.
 
-our subset ActorAncestry is export of Mu
+our subset ClutterActorAncestry is export of Mu
   where ClutterAnimatable | ClutterContainer | ClutterScriptable |
         ClutterActor      | GObject;
 
@@ -190,7 +190,7 @@ class Clutter::Actor {
     >
   { $!ca }
 
-  method setActor (ActorAncestry $actor) {
+  method setActor (ClutterActorAncestry $actor) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!ca = do given $actor {
@@ -220,7 +220,7 @@ class Clutter::Actor {
     self.setScriptable($actor) unless $!cs;      # Clutter::Roles::Scriptable
   }
 
-  multi method new (ActorAncestry $actor) {
+  multi method new (ClutterActorAncestry $actor) {
     $actor ?? self.bless(:$actor) !! Nil;
   }
   multi method new {
@@ -575,7 +575,7 @@ class Clutter::Actor {
         ClutterActorAlignEnum( clutter_actor_get_x_align($!ca) );
       },
       STORE => sub ($, Int() $x_align is copy) {
-        my guint $xa = $x_align;
+        my ClutterActorAlign $xa = $x_align;
 
         clutter_actor_set_x_align($!ca, $xa);
       }
@@ -614,7 +614,7 @@ class Clutter::Actor {
         ClutterActorAlignEnum( clutter_actor_get_y_align($!ca) );
       },
       STORE => sub ($, Int() $y_align is copy) {
-        my guint $ya = $y_align;
+        my ClutterActorAlign $ya = $y_align;
 
         clutter_actor_set_y_align($!ca, $ya);
       }
@@ -1844,7 +1844,9 @@ class Clutter::Actor {
   }
 
   method get_content is also<get-content> {
-    Clutter::Roles::Content.role-new( clutter_actor_get_content($!ca) );
+    Clutter::Roles::Content.new_cluttercontent_obj(
+      clutter_actor_get_content($!ca)
+    );
   }
 
   method get_content_box (ClutterActorBox() $box) is also<get-content-box>
@@ -2646,12 +2648,14 @@ class Clutter::Actor {
   }
 
   method set_content_scaling_filters (
-    ClutterScalingFilter() $min_filter,
-    ClutterScalingFilter() $mag_filter
+    Int() $min_filter,
+    Int() $mag_filter
   )
     is also<set-content-scaling-filters>
   {
-    clutter_actor_set_content_scaling_filters($!ca, $min_filter, $mag_filter);
+    my ClutterScalingFilter ($mnf, $mgf) = ($min_filter, $mag_filter);
+
+    clutter_actor_set_content_scaling_filters($!ca, $mnf, $mgf);
   }
 
   method set_easing_delay (Int() $msecs) is also<set-easing-delay> {
@@ -2774,7 +2778,14 @@ class Clutter::Actor {
     clutter_actor_set_pivot_point_z($!ca, $pz);
   }
 
-  method set_position (Num() $x, Num() $y) is also<set-position> {
+  proto method set_position (|)
+    is also<set-position>
+  { * }
+
+  multi method set_position (ClutterPoint() $p) {
+    samewith($p.x, $p.y);
+  }
+  multi method set_position (Num() $x, Num() $y)  {
     my gfloat ($xx, $yy) = ($x, $y);
 
     clutter_actor_set_position($!ca, $xx, $yy);
@@ -2922,7 +2933,7 @@ class Clutter::Actor {
   { * }
 
   multi method transform_stage_point (Num() $x, Num() $y) {
-    samewith($x, $y, $x, $y);
+    samewith($x, $y, $, $);
   }
   multi method transform_stage_point (
     Num() $x,
@@ -3190,9 +3201,4 @@ class Clutter::Actor {
     clutter_actor_remove_effect_by_name($!ca, $name);
   }
 
-}
-
-INIT {
-  #say 'setting debug';
-  $DEBUG = %*ENV<P6_GTK_DEBUG>;
 }
