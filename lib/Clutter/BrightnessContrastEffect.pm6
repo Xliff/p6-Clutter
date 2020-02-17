@@ -10,7 +10,7 @@ use Clutter::Raw::BrightnessContrastEffect;
 use Clutter::OffscreenEffect;
 
 our subset ClutterBrightnessContrastAncestry of Mu
-  where ClutterBrightnessContrastEffect | OffscreenEffectAncestry;
+  where ClutterBrightnessContrastEffect | ClutterOffscreenEffectAncestry;
 
 class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
   has ClutterBrightnessContrastEffect $!cbc;
@@ -44,7 +44,7 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
 
   multi method new {
     my $bceffect = clutter_brightness_contrast_effect_new();
-    
+
     $bceffect ?? self.bless(:$bceffect) !! Nil;
   }
 
@@ -52,6 +52,7 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
     is also<get-brightness>
   {
     my gfloat ($r, $g, $b) = ($red, $green, $blue);
+
     clutter_brightness_contrast_effect_get_brightness($!cbc, $r, $g, $b);
   }
 
@@ -59,11 +60,13 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
     is also<get-contrast>
   {
     my gfloat ($r, $g, $b) = ($red, $green, $blue);
+
     clutter_brightness_contrast_effect_get_contrast($!cbc, $r, $g, $b);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type(
       self.^name, &clutter_brightness_contrast_effect_get_type, $n, $t
     );
@@ -71,6 +74,7 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
 
   method set_brightness (Num() $brightness) is also<set-brightness> {
     my gfloat $b = $brightness;
+
     clutter_brightness_contrast_effect_set_brightness($!cbc, $b);
   }
 
@@ -78,11 +82,13 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
     is also<set-brightness-full>
   {
     my gfloat ($r, $g, $b) = ($red, $green, $blue);
+
     clutter_brightness_contrast_effect_set_brightness_full($!cbc, $r, $g, $b);
   }
 
   method set_contrast (Num() $contrast) is also<set-contrast> {
     my gfloat $c = $contrast;
+
     clutter_brightness_contrast_effect_set_contrast($!cbc, $c);
   }
 
@@ -90,6 +96,7 @@ class Clutter::BrightnessContrastEffect is Clutter::OffscreenEffect {
     is also<set-contrast-full>
   {
     my gfloat ($r, $g, $b) = ($red, $green, $blue);
+
     clutter_brightness_contrast_effect_set_contrast_full($!cbc, $r, $g, $b);
   }
 
