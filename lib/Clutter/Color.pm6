@@ -17,7 +17,7 @@ class Clutter::Color {
     $!cc = $color;
   }
 
-  method Clutter::Raw::Definitions::ClutterColor
+  method Clutter::Raw::Structs::ClutterColor
     is also<ClutterColor>
   { $!cc }
 
@@ -118,6 +118,11 @@ DIE
     $static .= Int;
     my guint $s = $static;
     my $color = clutter_color_get_static($s);
+
+    if $DEBUG {
+      say "S-{ ClutterStaticColorEnum( $static ) } - {$_}: { $color."$_"() }"
+        for <red green blue alpha>;
+    }
 
     $color ?? self.bless(:$color) !! Nil;
   }
@@ -356,52 +361,96 @@ DIE
 
 our %static-color is export;
 
+our $CLUTTER_COLOR_White           is export;
+our $CLUTTER_COLOR_Black           is export;
+our $CLUTTER_COLOR_Red             is export;
+our $CLUTTER_COLOR_DarkRed         is export;
+our $CLUTTER_COLOR_Green           is export;
+our $CLUTTER_COLOR_DarkGreen       is export;
+our $CLUTTER_COLOR_Blue            is export;
+our $CLUTTER_COLOR_DarkBlue        is export;
+our $CLUTTER_COLOR_Cyan            is export;
+our $CLUTTER_COLOR_DarkCyan        is export;
+our $CLUTTER_COLOR_Magenta         is export;
+our $CLUTTER_COLOR_DarkMagenta     is export;
+our $CLUTTER_COLOR_Yellow          is export;
+our $CLUTTER_COLOR_DarkYellow      is export;
+our $CLUTTER_COLOR_Gray            is export;
+our $CLUTTER_COLOR_DarkGray        is export;
+our $CLUTTER_COLOR_LightGray       is export;
+our $CLUTTER_COLOR_Butter          is export;
+our $CLUTTER_COLOR_LightButter     is export;
+our $CLUTTER_COLOR_DarkButter      is export;
+our $CLUTTER_COLOR_Orange          is export;
+our $CLUTTER_COLOR_LightOrange     is export;
+our $CLUTTER_COLOR_DarkOrange      is export;
+our $CLUTTER_COLOR_Chocolate       is export;
+our $CLUTTER_COLOR_LightChocolate  is export;
+our $CLUTTER_COLOR_DarkChocolate   is export;
+our $CLUTTER_COLOR_Chameleon       is export;
+our $CLUTTER_COLOR_LightChameleon  is export;
+our $CLUTTER_COLOR_DarkChameleon   is export;
+our $CLUTTER_COLOR_SkyBlue         is export;
+our $CLUTTER_COLOR_LightSkyBlue    is export;
+our $CLUTTER_COLOR_DarkSkyBlue     is export;
+our $CLUTTER_COLOR_Plum            is export;
+our $CLUTTER_COLOR_LightPlum       is export;
+our $CLUTTER_COLOR_DarkPlum        is export;
+our $CLUTTER_COLOR_ScarletRed      is export;
+our $CLUTTER_COLOR_LightScarletRed is export;
+our $CLUTTER_COLOR_DarkScarletRed  is export;
+our $CLUTTER_COLOR_Aluminium1      is export;
+our $CLUTTER_COLOR_Aluminium2      is export;
+our $CLUTTER_COLOR_Aluminium3      is export;
+our $CLUTTER_COLOR_Aluminium4      is export;
+our $CLUTTER_COLOR_Aluminium5      is export;
+our $CLUTTER_COLOR_Aluminium6      is export;
+our $CLUTTER_COLOR_Transparent     is export;
+
 INIT {
-
-   our $CLUTTER_COLOR_White           is export = Clutter::Color.get_static(CLUTTER_COLOR_WHITE);
-   our $CLUTTER_COLOR_Black           is export = Clutter::Color.get_static(CLUTTER_COLOR_BLACK);
-   our $CLUTTER_COLOR_Red             is export = Clutter::Color.get_static(CLUTTER_COLOR_RED);
-   our $CLUTTER_COLOR_DarkRed         is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_RED);
-   our $CLUTTER_COLOR_Green           is export = Clutter::Color.get_static(CLUTTER_COLOR_GREEN);
-   our $CLUTTER_COLOR_DarkGreen       is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_GREEN);
-   our $CLUTTER_COLOR_Blue            is export = Clutter::Color.get_static(CLUTTER_COLOR_BLUE);
-   our $CLUTTER_COLOR_DarkBlue        is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_BLUE);
-   our $CLUTTER_COLOR_Cyan            is export = Clutter::Color.get_static(CLUTTER_COLOR_CYAN);
-   our $CLUTTER_COLOR_DarkCyan        is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_CYAN);
-   our $CLUTTER_COLOR_Magenta         is export = Clutter::Color.get_static(CLUTTER_COLOR_MAGENTA);
-   our $CLUTTER_COLOR_DarkMagenta     is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_MAGENTA);
-   our $CLUTTER_COLOR_Yellow          is export = Clutter::Color.get_static(CLUTTER_COLOR_YELLOW);
-   our $CLUTTER_COLOR_DarkYellow      is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_YELLOW);
-   our $CLUTTER_COLOR_Gray            is export = Clutter::Color.get_static(CLUTTER_COLOR_GRAY);
-   our $CLUTTER_COLOR_DarkGray        is export = Clutter::Color.get_static(CLUTTER_COLOR_DARK_GRAY);
-   our $CLUTTER_COLOR_LightGray       is export = Clutter::Color.get_static(CLUTTER_COLOR_LIGHT_GRAY);
-   our $CLUTTER_COLOR_Butter          is export = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER);
-   our $CLUTTER_COLOR_LightButter     is export = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER_LIGHT);
-   our $CLUTTER_COLOR_DarkButter      is export = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER_DARK);
-   our $CLUTTER_COLOR_Orange          is export = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE);
-   our $CLUTTER_COLOR_LightOrange     is export = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE_LIGHT);
-   our $CLUTTER_COLOR_DarkOrange      is export = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE_DARK);
-   our $CLUTTER_COLOR_Chocolate       is export = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE);
-   our $CLUTTER_COLOR_LightChocolate  is export = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE_LIGHT);
-   our $CLUTTER_COLOR_DarkChocolate   is export = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE_DARK);
-   our $CLUTTER_COLOR_Chameleon       is export = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON);
-   our $CLUTTER_COLOR_LightChameleon  is export = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON_LIGHT);
-   our $CLUTTER_COLOR_DarkChameleon   is export = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON_DARK);
-   our $CLUTTER_COLOR_SkyBlue         is export = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE);
-   our $CLUTTER_COLOR_LightSkyBlue    is export = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE_LIGHT);
-   our $CLUTTER_COLOR_DarkSkyBlue     is export = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE_DARK);
-   our $CLUTTER_COLOR_Plum            is export = Clutter::Color.get_static(CLUTTER_COLOR_PLUM);
-   our $CLUTTER_COLOR_LightPlum       is export = Clutter::Color.get_static(CLUTTER_COLOR_PLUM_LIGHT);
-   our $CLUTTER_COLOR_DarkPlum        is export = Clutter::Color.get_static(CLUTTER_COLOR_PLUM_DARK);
-   our $CLUTTER_COLOR_ScarletRed      is export = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED);
-   our $CLUTTER_COLOR_LightScarletRed is export = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED_LIGHT);
-   our $CLUTTER_COLOR_DarkScarletRed  is export = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED_DARK);
-   our $CLUTTER_COLOR_Aluminium1      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_1);
-   our $CLUTTER_COLOR_Aluminium2      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_2);
-   our $CLUTTER_COLOR_Aluminium3      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_3);
-   our $CLUTTER_COLOR_Aluminium4      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_4);
-   our $CLUTTER_COLOR_Aluminium5      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_5);
-   our $CLUTTER_COLOR_Aluminium6      is export = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_6);
-   our $CLUTTER_COLOR_Transparent     is export = Clutter::Color.get_static(CLUTTER_COLOR_TRANSPARENT);
-
+  $CLUTTER_COLOR_White            = Clutter::Color.get_static(CLUTTER_COLOR_WHITE);
+  $CLUTTER_COLOR_Black            = Clutter::Color.get_static(CLUTTER_COLOR_BLACK);
+  $CLUTTER_COLOR_Red              = Clutter::Color.get_static(CLUTTER_COLOR_RED);
+  $CLUTTER_COLOR_DarkRed          = Clutter::Color.get_static(CLUTTER_COLOR_DARK_RED);
+  $CLUTTER_COLOR_Green            = Clutter::Color.get_static(CLUTTER_COLOR_GREEN);
+  $CLUTTER_COLOR_DarkGreen        = Clutter::Color.get_static(CLUTTER_COLOR_DARK_GREEN);
+  $CLUTTER_COLOR_Blue             = Clutter::Color.get_static(CLUTTER_COLOR_BLUE);
+  $CLUTTER_COLOR_DarkBlue         = Clutter::Color.get_static(CLUTTER_COLOR_DARK_BLUE);
+  $CLUTTER_COLOR_Cyan             = Clutter::Color.get_static(CLUTTER_COLOR_CYAN);
+  $CLUTTER_COLOR_DarkCyan         = Clutter::Color.get_static(CLUTTER_COLOR_DARK_CYAN);
+  $CLUTTER_COLOR_Magenta          = Clutter::Color.get_static(CLUTTER_COLOR_MAGENTA);
+  $CLUTTER_COLOR_DarkMagenta      = Clutter::Color.get_static(CLUTTER_COLOR_DARK_MAGENTA);
+  $CLUTTER_COLOR_Yellow           = Clutter::Color.get_static(CLUTTER_COLOR_YELLOW);
+  $CLUTTER_COLOR_DarkYellow       = Clutter::Color.get_static(CLUTTER_COLOR_DARK_YELLOW);
+  $CLUTTER_COLOR_Gray             = Clutter::Color.get_static(CLUTTER_COLOR_GRAY);
+  $CLUTTER_COLOR_DarkGray         = Clutter::Color.get_static(CLUTTER_COLOR_DARK_GRAY);
+  $CLUTTER_COLOR_LightGray        = Clutter::Color.get_static(CLUTTER_COLOR_LIGHT_GRAY);
+  $CLUTTER_COLOR_Butter           = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER);
+  $CLUTTER_COLOR_LightButter      = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER_LIGHT);
+  $CLUTTER_COLOR_DarkButter       = Clutter::Color.get_static(CLUTTER_COLOR_BUTTER_DARK);
+  $CLUTTER_COLOR_Orange           = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE);
+  $CLUTTER_COLOR_LightOrange      = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE_LIGHT);
+  $CLUTTER_COLOR_DarkOrange       = Clutter::Color.get_static(CLUTTER_COLOR_ORANGE_DARK);
+  $CLUTTER_COLOR_Chocolate        = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE);
+  $CLUTTER_COLOR_LightChocolate   = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE_LIGHT);
+  $CLUTTER_COLOR_DarkChocolate    = Clutter::Color.get_static(CLUTTER_COLOR_CHOCOLATE_DARK);
+  $CLUTTER_COLOR_Chameleon        = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON);
+  $CLUTTER_COLOR_LightChameleon   = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON_LIGHT);
+  $CLUTTER_COLOR_DarkChameleon    = Clutter::Color.get_static(CLUTTER_COLOR_CHAMELEON_DARK);
+  $CLUTTER_COLOR_SkyBlue          = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE);
+  $CLUTTER_COLOR_LightSkyBlue     = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE_LIGHT);
+  $CLUTTER_COLOR_DarkSkyBlue      = Clutter::Color.get_static(CLUTTER_COLOR_SKY_BLUE_DARK);
+  $CLUTTER_COLOR_Plum             = Clutter::Color.get_static(CLUTTER_COLOR_PLUM);
+  $CLUTTER_COLOR_LightPlum        = Clutter::Color.get_static(CLUTTER_COLOR_PLUM_LIGHT);
+  $CLUTTER_COLOR_DarkPlum         = Clutter::Color.get_static(CLUTTER_COLOR_PLUM_DARK);
+  $CLUTTER_COLOR_ScarletRed       = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED);
+  $CLUTTER_COLOR_LightScarletRed  = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED_LIGHT);
+  $CLUTTER_COLOR_DarkScarletRed   = Clutter::Color.get_static(CLUTTER_COLOR_SCARLET_RED_DARK);
+  $CLUTTER_COLOR_Aluminium1       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_1);
+  $CLUTTER_COLOR_Aluminium2       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_2);
+  $CLUTTER_COLOR_Aluminium3       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_3);
+  $CLUTTER_COLOR_Aluminium4       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_4);
+  $CLUTTER_COLOR_Aluminium5       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_5);
+  $CLUTTER_COLOR_Aluminium6       = Clutter::Color.get_static(CLUTTER_COLOR_ALUMINIUM_6);
+  $CLUTTER_COLOR_Transparent      = Clutter::Color.get_static(CLUTTER_COLOR_TRANSPARENT);
 }
