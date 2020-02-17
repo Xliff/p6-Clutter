@@ -33,7 +33,7 @@ class Clutter::ActorIter {
   # }
 
   multi method new (ClutterActorIter $iter) {
-    self.bless(:$iter);
+    $iter ?? self.bless(:$iter) !! Nil;
   }
   multi method new (ClutterActor() $root) {
     my $iter = ClutterActorIter.new;
