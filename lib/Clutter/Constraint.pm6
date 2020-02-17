@@ -4,8 +4,8 @@ use Method::Also;
 use NativeCall;
 
 use Clutter::Raw::Types;
-use GLib::Roles::Object;
 
+use GLib::Roles::Object;
 
 # Abstract.
 # GObject.
@@ -45,6 +45,7 @@ class Clutter::Constraint {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_constraint_get_type, $n, $t );
   }
 }
