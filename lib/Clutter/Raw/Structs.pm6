@@ -211,26 +211,26 @@ class ClutterPerspective is repr('CStruct') is export does GLib::Roles::Pointers
 
   method fovy is rw {
     Proxy.new:
-      FETCH => -> $        { $!fovy },
-      STORE => -> Num() \f { $!fovy = f };
+      FETCH => -> $           { $!fovy },
+      STORE => -> $, Num() \f { $!fovy = f };
   }
 
   method aspect is rw {
     Proxy.new:
-      FETCH => -> $        { $!aspect },
-      STORE => -> Num() \a { $!aspect = a };
+      FETCH => -> $           { $!aspect },
+      STORE => -> $, Num() \a { $!aspect = a };
   }
 
   method z_near is also<z-near> is rw {
     Proxy.new:
-        FETCH => -> $        { $!z_near },
-        STORE => -> Num() \z { $!z_near = z };
+        FETCH => -> $           { $!z_near },
+        STORE => -> $, Num() \z { $!z_near = z };
   }
 
   method z_far is also<z-far> is rw {
     Proxy.new:
-        FETCH => -> $        { $!z_far },
-        STORE => -> Num() \z { $!z_far = z };
+        FETCH => -> $           { $!z_far },
+        STORE => -> $, Num() \z { $!z_far = z };
   }
 
 }
@@ -257,13 +257,13 @@ class ClutterPoint is repr('CStruct') is export does GLib::Roles::Pointers {
   method x is rw {
     Proxy.new:
         FETCH => -> $        { $!x },
-        STORE => -> Num() \x { $!x = x };
+        STORE => -> $, Num() \x { $!x = x };
   }
 
   method y is rw {
     Proxy.new:
         FETCH => -> $        { $!y },
-        STORE => -> Num() \y { $!y = y };
+        STORE => -> $, Num() \y { $!y = y };
   }
 
 }
@@ -280,14 +280,14 @@ class ClutterSize is repr('CStruct') is export does GLib::Roles::Pointers {
 
   method width is rw {
     Proxy.new:
-        FETCH => -> $        { $!width },
-        STORE => -> Num() \w { $!width = w };
+        FETCH => -> $           { $!width },
+        STORE => -> $, Num() \w { $!width = w };
   }
 
   method height is rw {
     Proxy.new:
-        FETCH => -> $        { $!height },
-        STORE => -> Num() \h { $!height = h };
+        FETCH => -> $           { $!height },
+        STORE => -> $, Num() \h { $!height = h };
   }
 }
 
@@ -309,14 +309,14 @@ class ClutterVertex is repr('CStruct') is export does GLib::Roles::Pointers {
 
   method x is rw {
     Proxy.new:
-        FETCH => -> $        { $!x },
-        STORE => -> Num() \x { $!x = x };
+        FETCH => -> $           { $!x },
+        STORE => -> $, Num() \x { $!x = x };
   }
 
   method y is rw {
     Proxy.new:
-        FETCH => -> $        { $!y },
-        STORE => -> Num() \y { $!y = y };
+        FETCH => -> $           { $!y },
+        STORE => -> $, Num() \y { $!y = y };
   }
 }
 
@@ -334,26 +334,26 @@ class ClutterActorBox is repr('CStruct') is export does GLib::Roles::Pointers {
 
   method x1 is rw {
     Proxy.new:
-        FETCH => -> $        { $!x1 },
-        STORE => -> Num() \x { $!x1 = x };
+        FETCH => -> $           { $!x1 },
+        STORE => -> $, Num() \x { $!x1 = x };
   }
 
   method y1 is rw {
     Proxy.new:
-        FETCH => -> $        { $!y1 },
-        STORE => -> Num() \y { $!y1 = y };
+        FETCH => -> $           { $!y1 },
+        STORE => -> $, Num() \y { $!y1 = y };
   }
 
   method x2 is rw {
     Proxy.new:
-        FETCH => -> $        { $!x2 },
-        STORE => -> Num() \x { $!x2 = x };
+        FETCH => -> $           { $!x2 },
+        STORE => -> $, Num() \x { $!x2 = x };
   }
 
   method y2 is rw {
     Proxy.new:
-        FETCH => -> $        { $!y2 },
-        STORE => -> Num() \y { $!y2 = y };
+        FETCH => -> $           { $!y2 },
+        STORE => -> $, Num() \y { $!y2 = y };
   }
 }
 
@@ -369,14 +369,14 @@ class ClutterKnot is repr('CStruct') is export does GLib::Roles::Pointers {
 
   method x is rw {
     Proxy.new:
-        FETCH => -> $        { $!x },
-        STORE => -> Int() \x { $!x = x };
+        FETCH => -> $           { $!x },
+        STORE => -> $, Int() \x { $!x = x };
   }
 
   method y is rw {
     Proxy.new:
-        FETCH => -> $        { $!y },
-        STORE => -> Int() \y { $!y = y };
+        FETCH => -> $           { $!y },
+        STORE => -> $, Int() \y { $!y = y };
   }
 }
 
@@ -386,28 +386,30 @@ class ClutterPathNode is repr('CStruct') is export does GLib::Roles::Pointers {
   has ClutterKnot         $!point2;
   has ClutterKnot         $!point3;
 
+  my constant CK := ClutterKnot;
+
   method type is rw {
     Proxy.new:
-        FETCH => -> $        { $!type },
-        STORE => -> Int() \t { $!type = t };
+        FETCH => -> $           { $!type },
+        STORE => -> $, Int() \t { $!type = t };
   }
 
   method point1 is rw {
     Proxy.new:
-        FETCH => -> $                { $!point1 },
-        STORE => -> ClutterKnot() \k { self.^attributes[1].set_value(self, k) };
+        FETCH => -> $          { $!point1 },
+        STORE => -> $, CK() \k { self.^attributes[1].set_value(self, k) };
   }
 
   method point2 is rw {
     Proxy.new:
-        FETCH => -> $                { $!point2 },
-        STORE => -> ClutterKnot() \k { self.^attributes[2].set_value(self, k) };
+        FETCH => -> $          { $!point2 },
+        STORE => -> $, CK() \k { self.^attributes[2].set_value(self, k) };
   }
 
   method point3 is rw {
     Proxy.new:
-        FETCH => -> $                { $!point3 },
-        STORE => -> ClutterKnot() \k { self.^attributes[3].set_value(self, k) };
+        FETCH => -> $          { $!point3 },
+        STORE => -> $, CK() \k { self.^attributes[3].set_value(self, k) };
   }
 
 };
