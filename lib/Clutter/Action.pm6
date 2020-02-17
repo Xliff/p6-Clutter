@@ -10,8 +10,8 @@ use Clutter::Raw::Types;
 
 use Clutter::ActorMeta;
 
-our subset ActionAncestry is export of Mu
-  where ClutterAction | MetaActorAncestry;
+our subset ClutterActionAncestry is export of Mu
+  where ClutterAction | ClutterActorMetaAncestry;
 
 class Clutter::Action is Clutter::ActorMeta {
   has ClutterAction $!c-act is implementor;
@@ -24,11 +24,7 @@ class Clutter::Action is Clutter::ActorMeta {
     is also<ClutterAction>
   { $!c-act }
 
-  method new (ClutterAction $action) {
-    $action ?? self.bless(:$action) !! Nil;
-  }
-
-  method setAction(ActionAncestry $_) {
+  method setAction(ClutterActionAncestry $_) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!c-act = do {
@@ -43,6 +39,10 @@ class Clutter::Action is Clutter::ActorMeta {
       }
     }
     self.setActorMeta($to-parent);
+  }
+
+  method new (ClutterActionAncestry $action) {
+    $action ?? self.bless(:$action) !! Nil;
   }
 
   method get_type is also<get-type> {
