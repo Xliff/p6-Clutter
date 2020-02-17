@@ -1,11 +1,11 @@
 use v6.c;
 
 use Pango::Raw::Types;
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 use Clutter::Raw::Keysyms;
 
-use GTK::Compat::Signal;
+use GLib::Signal;
 
 use Clutter::Actor;
 use Clutter::BinLayout;
@@ -35,10 +35,10 @@ INSTRUCT
 
 sub on-button-release($a, $e, $d, $r) {
   CATCH { default { .message.say } }
-  
+
+  $r.r = 1;
   my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
 
-  $r.r = True;
   given Clutter::Event.new($e) {
     when .button == CLUTTER_BUTTON_PRIMARY {
       if  .has-shift-modifier { $xe .= not            }
@@ -59,13 +59,12 @@ sub get-align-name ($a) {
 
 sub on-changed ($a, $p, $label) {
   CATCH { default { .message.say } }
-  
-  my ($box, %ma) = ($a.parent);
-  my $m = %globals<grid-layout>.get-child-meta($box, $a); 
-  my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
-  #my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height) «//» 0 xx 4;
-  my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height);
 
+  my $box = $a.parent;
+  my ($xa, $ya, $xe, $ye) = ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
+  my $m = %globals<grid-layout>.get-child-meta($box, $a);
+
+  my ($l, $t, $w, $h) = ($m.left, $m.top, $m.width, $m.height);
   $label.text = qq:to/TEXT/.chomp;
     attach: { $l }, { $t }
     span:   { $w }, { $h }
@@ -76,36 +75,43 @@ sub on-changed ($a, $p, $label) {
 
 sub add-actor ($box, $l, $t, $w, $h) {
   CATCH { default { .message.say } }
-  
+
   my $color = Clutter::Color.new-from-hls(360 * rand, 0.5, 0.5);
   $color.alpha = 255;
 
   my $layout = Clutter::BinLayout.new(
     CLUTTER_BIN_ALIGNMENT_CENTER, CLUTTER_BIN_ALIGNMENT_CENTER
   );
-  my $a = %globals<expand> ?? 
+  my $a = %globals<expand> ??
     CLUTTER_ACTOR_ALIGN_FILL !! CLUTTER_ACTOR_ALIGN_CENTER;
   my $rect = Clutter::Actor.new.setup(
     layout-manager   => $layout,
     background-color => $color,
     reactive         => True,
-    size             => %globals<random-size> ?? (40...80).pick xx 2 !! (60, 60),
+    size             => %globals<random-size>  ?? (40...80).pick xx 2
+                                               !! (60, 60),
     expand           => %globals<expand>,
-    x-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $a,
-    y-align          => %globals<random-align> ?? ClutterActorAlign.pick !! $a,
+    x-align          => %globals<random-align> ?? ClutterActorAlignEnum.pick
+                                               !! $a,
+    y-align          => %globals<random-align> ?? ClutterActorAlignEnum.pick
+                                               !! $a,
   );
-  my $text = Clutter::Text.new-with-text("Sans 8px", Str);
+  my $text = Clutter::Text.new-with-text("Sans 8px", Str).setup(
+    color => $CLUTTER_COLOR_Black
+  );
   $text.line-alignment = PANGO_ALIGN_CENTER;
   $rect.add-child($text);
 
   $rect.button-release-event.tap(-> *@a { on-button-release(|@a) });
 
   # This is through GTK!! -- The first parameter is a pointer, not an object!
-  GTK::Compat::Signal.connect($rect, "notify::$_", -> *@a {
+  GLib::Signal.connect($rect, "notify::$_", -> *@a {
     CATCH { default { .message.say } }
-    my @b = ($rect, @a[1], $text); on-changed(|@b)
-  }) for <x-expand y-expand x-align y-align>;
 
+    my @b = ($rect, @a[1], $text);
+    on-changed(|@b)
+  }) for <x-expand y-expand x-align y-align>;
+  #
   # Reusing $layout.
   %globals<box-layout> ?? $box.add-child($rect) !!
                           %globals<grid-layout>.attach($rect, $l, $t, $w, $h);
@@ -114,18 +120,16 @@ sub add-actor ($box, $l, $t, $w, $h) {
 
 sub on-key-release ($s, $e, $b, $r) {
   CATCH { default { .message.say } }
-  
-  #my $box = Clutter::Actor.new( cast(ClutterActor, $b) );
-  my $l = Clutter::GridLayout.new($b.get-layout-manager.ClutterLayoutManager);
+
+  my $l = Clutter::GridLayout.new($b.get-layout-manager);
 
   $r.r = 1;
   given Clutter::Event.new($e).key-symbol {
-
     when CLUTTER_KEY_c { $l.column-homogeneous = $l.column-homogeneous.not }
     when CLUTTER_KEY_r { $l.row-homogeneous    = $l.row-homogeneous.not    }
 
     when CLUTTER_KEY_s { (my $s = $l.column-spacing + 1)++;
-                         $l.column-spacing = 
+                         $l.column-spacing =
                          $l.row-spacing    = $s <= 12 ?? $s !! 0           }
 
     when CLUTTER_KEY_q { Clutter::Main.quit }
@@ -194,10 +198,11 @@ sub MAIN (
   );
 
   $stage.destroy.tap({ Clutter::Main.quit });
-  $stage.key-release-event.tap(-> *@a { 
+  $stage.key-release-event.tap(-> *@a {
     CATCH { default { .message.say } }
-    my @b = (@a[0], @a[1], $box, @a[3]); 
-    on-key-release(|@b) 
+
+    my @b = (@a[0], @a[1], $box, @a[3]);
+    on-key-release(|@b)
   });
   $stage.show-actor;
 
