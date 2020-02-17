@@ -2,7 +2,6 @@ use v6.c;
 
 use Method::Also;
 
-
 use Clutter::Raw::Types;
 use Clutter::Raw::Transition;
 
