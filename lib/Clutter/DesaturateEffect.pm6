@@ -8,13 +8,12 @@ use Clutter::Raw::Types;
 use Clutter::OffscreenEffect;
 
 our subset ClutterDesaturateEffectAncestry is export of Mu
-  where ClutterDesaturateEffect | OffscreenEffectAncestry;
+  where ClutterDesaturateEffect | ClutterOffscreenEffectAncestry;
 
 class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
   has ClutterDesaturateEffect $!cde;
 
   submethod BUILD (:$desaturate) {
-    say "{$desaturate}";
     given $desaturate {
       when ClutterDesaturateEffectAncestry {
         my $to-parent;
@@ -31,12 +30,13 @@ class Clutter::DesaturateEffect is Clutter::OffscreenEffect {
         }
         self.setOffscreenEffect($to-parent);
       }
+
       when Clutter::DesaturateEffect {
       }
 
       default {
         # Proposal!
-        #throw X::GTK::UnknownType($_).new
+        #throw X::GLib::UnknownType($_).new
         # Which basically does:
         die "Unknown type { .^name } passed to Clutter::DesaturateEffect.BUILD!"
       }
