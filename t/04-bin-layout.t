@@ -120,8 +120,8 @@ sub MAIN {
 
   my $stage = Clutter::Stage.new;
   $stage.setup(
-     title => 'BinLayout',
-     size  => (640, 480),
+     title            => 'BinLayout',
+     size             => (640, 480),
      background-color => $CLUTTER_COLOR_Aluminium2,
   );
   $stage.destroy.tap({ Clutter::Main.quit });
@@ -133,11 +133,15 @@ sub MAIN {
 
   my $box = Clutter::Actor.new;
   $box.setup(
-    name => 'box',
+    name           => 'box',
     layout-manager => $layout,
-    constraint => Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.50),
-    position => Clutter::Point.new(320, 240),
-    reactive => True,
+    constraint     => Clutter::AlignConstraint.new(
+                        $stage,
+                        CLUTTER_ALIGN_BOTH,
+                        0.50
+                      ),
+    position       => Clutter::Point.new(320, 240),
+    reactive       => True,
   );
   $stage.add-child($box);
 
