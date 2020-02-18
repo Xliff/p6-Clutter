@@ -30,6 +30,7 @@ class ClutterAnimatable               is repr<CPointer> does GLib::Roles::Pointe
 class ClutterBackend                  is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBinLayout                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBindConstraint           is repr<CPointer> does GLib::Roles::Pointers is export { }
+class ClutterBindingPool              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBlurEffect               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBoxLayout                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBrightnessContrastEffect is repr<CPointer> does GLib::Roles::Pointers is export { }
