@@ -81,3 +81,4 @@ class ClutterText                     is repr<CPointer> does GLib::Roles::Pointe
 class ClutterTextBuffer               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterTimeline                 is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterTransition               is repr<CPointer> does GLib::Roles::Pointers is export { }
+class ClutterTransitionGroup          is repr<CPointer> does GLib::Roles::Pointers is export { }
