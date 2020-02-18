@@ -454,6 +454,10 @@ class Clutter::Actor {
 
       default { die "Unknown attribute '{ $_ }'" }
     }
+    # Role attribute and set methods should be respected, somehow. Think
+    # about a proper mechanism to do that. Bonus points for maintaining
+    # abstraction!
+    
     self;
   }
 
