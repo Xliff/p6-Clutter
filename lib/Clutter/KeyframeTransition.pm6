@@ -4,7 +4,7 @@ use Method::Also;
 use NativeCall;
 
 use Clutter::Raw::Types;
-use Clutter::Raw::KeyframeTransition;\
+use Clutter::Raw::KeyframeTransition;
 
 use GLib::Value;
 use Clutter::PropertyTransition;
@@ -19,7 +19,7 @@ my @set-methods = <
 >;
 
 our subset ClutterKeyframeTransitionAncestry of Mu
-  where ClutterKeyframeTransition | PropertyTransitionAncestry;
+  where ClutterKeyframeTransition | ClutterPropertyTransitionAncestry;
 
 class Clutter::KeyframeTransition is Clutter::PropertyTransition {
   has ClutterKeyframeTransition $!ckt;
@@ -158,8 +158,15 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
 
     samewith( $n_key_frames, ArrayToCArray(gdouble, @key_frames) );
   }
-  multi method set_key_frames(Int() $n_key_frames, CArray[gdouble] $key_frames) {
-    clutter_keyframe_transition_set_key_frames($n_key_frames, $key_frames);
+  multi method set_key_frames(
+    Int() $n_key_frames,
+    CArray[gdouble] $key_frames
+  ) {
+    clutter_keyframe_transition_set_key_frames(
+      $!ckt,
+      $n_key_frames,
+      $key_frames
+    );
   }
 
   proto method set_modes (|)
