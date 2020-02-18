@@ -7,8 +7,6 @@ use Clutter::Raw::Transition;
 
 use Clutter::Timeline;
 
-use GLib::Roles::Object;
-
 my @attributes = <
   animatable
   interval
@@ -24,8 +22,6 @@ subset ClutterTransitionAncestry is export of Mu
   where ClutterTransition | ClutterTimelineAncestry;
 
 class Clutter::Transition is Clutter::Timeline {
-  also does GLib::Roles::Object;
-
   has ClutterTransition $!ct;
 
   submethod BUILD (:$transition) {
@@ -78,6 +74,7 @@ class Clutter::Transition is Clutter::Timeline {
         %data<from>:delete;
 
       }
+
       when 'to' {
         say "Tr to = { %data<to>.value }" if $DEBUG;
         self.set-to-value( %data<to> );
