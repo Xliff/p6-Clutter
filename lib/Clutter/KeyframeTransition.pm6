@@ -176,7 +176,7 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
   multi method set_modes (*@modes) {
     samewith(@modes.elems, @modes);
   }
-  multi method set_modes(Int() $n_modes, @modes) {
+  multi method set_modes(Int() $n_modes, @modes is copy) {
     @modes = @modes.map({
       my $coercible = .^lookup('Int');
 
