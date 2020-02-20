@@ -8,7 +8,7 @@ use Pango::Raw::Exports;
 use COGL::Raw::Exports;
 use Clutter::Raw::Exports;
 
-unit package GLib::Raw::Types;
+unit package Clutter::Raw::Types;
 
 need GLib::Raw::Definitions;
 need GLib::Raw::Enums;
