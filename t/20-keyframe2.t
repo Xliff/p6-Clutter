@@ -1,5 +1,9 @@
 use v6.c;
 
+# Raku port of:
+# https://gitlab.gnome.org/GNOME/mutter/blob/3.31.2/clutter/tests/interactive/test-animator.c
+# Note the use of ClutterKeyframeTransition in lieu of the deprecated ClutterAnimator
+
 use Clutter::Raw::Types;
 
 use GLib::Timeout;

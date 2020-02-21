@@ -18,9 +18,9 @@ class Clutter::Constraint {
 
   has ClutterConstraint $!c-con;
 
-  submethod BUILD {
-    #self.ADD-PREFIX('Clutter::');
-  }
+  # submethod BUILD {
+  #   #self.ADD-PREFIX('Clutter::');
+  # }
 
   method Clutter::Raw::Definitions::ClutterConstraint
     is also<ClutterConstraint>

@@ -180,7 +180,7 @@ class Clutter::Actor {
 
   submethod BUILD (:$actor) {
     #self.ADD-PREFIX('Clutter::');
-    self.setActor($actor) if $actor.defined;
+    self.setActor($actor) if $actor;
   }
 
   method Clutter::Raw::Definitions::ClutterActor
@@ -457,7 +457,7 @@ class Clutter::Actor {
     # Role attribute and set methods should be respected, somehow. Think
     # about a proper mechanism to do that. Bonus points for maintaining
     # abstraction!
-    
+
     self;
   }
 
