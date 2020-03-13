@@ -47,7 +47,7 @@ class Clutter::InputDevice {
   method backend is rw  {
     my GLib::Value $gv .= new( Clutter::Backend.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('backend', $gv)
         );
@@ -64,7 +64,7 @@ class Clutter::InputDevice {
   method device-manager (:$raw = False) is rw  is also<device_manager> {
     my GLib::Value $gv .= new( Clutter::DeviceManager.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('device-manager', $gv)
         );
@@ -86,7 +86,7 @@ class Clutter::InputDevice {
   method device-mode is rw  is also<device_mode> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('device-mode', $gv)
         );
@@ -103,7 +103,7 @@ class Clutter::InputDevice {
   method device-type is rw  is also<device_type> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('device-type', $gv)
         );
@@ -120,7 +120,7 @@ class Clutter::InputDevice {
   method has-cursor is rw  is also<has_cursor> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('has-cursor', $gv)
         );
@@ -137,7 +137,7 @@ class Clutter::InputDevice {
   method id is rw  {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('id', $gv)
         );
@@ -154,7 +154,7 @@ class Clutter::InputDevice {
   method n-axes is rw  is also<n_axes> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('n-axes', $gv)
         );
@@ -170,7 +170,7 @@ class Clutter::InputDevice {
   method name is rw  {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('name', $gv)
         );
@@ -187,7 +187,7 @@ class Clutter::InputDevice {
   method product-id is rw  is also<product_id> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('product-id', $gv)
         );
@@ -204,7 +204,7 @@ class Clutter::InputDevice {
   method vendor-id is rw  is also<vendor_id> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('vendor-id', $gv)
         );

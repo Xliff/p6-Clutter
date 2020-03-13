@@ -110,7 +110,7 @@ class Clutter::Stage is Clutter::Actor {
   method accept-focus is rw  is also<accept_focus> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('accept-focus', $gv);
         $gv.boolean;
       },
@@ -129,7 +129,7 @@ class Clutter::Stage is Clutter::Actor {
   # {
   #   my GLib::Value $gv .= new( G_TYPE_OBJECT );
   #   Proxy.new(
-  #     FETCH => -> $ {
+  #     FETCH => sub ($) {
   #       self.prop_get('color', $gv);
   #       cast(ClutterColor, $gv.object);
   #     },
@@ -144,7 +144,7 @@ class Clutter::Stage is Clutter::Actor {
   method cursor-visible is rw  is also<cursor_visible> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('cursor-visible', $gv);
         $gv.boolean;
       },
@@ -159,7 +159,7 @@ class Clutter::Stage is Clutter::Actor {
   method fog is rw is DEPRECATED {
     my GLib::Value $gv .= new( Clutter::Boxed.fog_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fog', $gv);
         cast(ClutterFog, $gv.boxed);
       },
@@ -174,7 +174,7 @@ class Clutter::Stage is Clutter::Actor {
   method fullscreen-set is rw  is also<fullscreen_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fullscreen-set', $gv);
         $gv.boolean;
       },
@@ -188,7 +188,7 @@ class Clutter::Stage is Clutter::Actor {
   method key-focus is rw  is also<key_focus> {
     my GLib::Value $gv .= new( Clutter::Actor.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('key-focus', $gv);
         Clutter::Actor.new( cast(ClutterActor, $gv.object) )
       },
@@ -203,7 +203,7 @@ class Clutter::Stage is Clutter::Actor {
   method no-clear-hint is rw  is also<no_clear_hint> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('no-clear-hint', $gv);
         $gv.boolean;
       },
@@ -218,7 +218,7 @@ class Clutter::Stage is Clutter::Actor {
   method offscreen is rw is DEPRECATED {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('offscreen', $gv);
         $gv.boolean;
       },
@@ -233,7 +233,7 @@ class Clutter::Stage is Clutter::Actor {
   method perspective is rw  {
     my GLib::Value $gv .= new( Clutter::Boxed.perspective_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('perspective', $gv);
         cast(ClutterPerspective, $gv.boxed);
       },
@@ -248,7 +248,7 @@ class Clutter::Stage is Clutter::Actor {
   method title is rw  {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('title', $gv);
         $gv.string;
       },
@@ -263,7 +263,7 @@ class Clutter::Stage is Clutter::Actor {
   method use-alpha is rw  is also<use_alpha> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('use-alpha', $gv);
         $gv.boolean;
       },
@@ -278,7 +278,7 @@ class Clutter::Stage is Clutter::Actor {
   method use-fog is rw  is DEPRECATED is also<use_fog> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('use-fog', $gv);
         $gv.boolean;
       },
@@ -293,7 +293,7 @@ class Clutter::Stage is Clutter::Actor {
   method user-resizable is rw  is also<user_resizable> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('user-resizable', $gv);
         $gv.boolean;
       },

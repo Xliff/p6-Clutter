@@ -95,7 +95,7 @@ class Clutter::SnapConstraint is Clutter::Constraint {
   method from-edge is rw  {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('from-edge', $gv)
         );
@@ -112,7 +112,7 @@ class Clutter::SnapConstraint is Clutter::Constraint {
   method to-edge is rw  {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('to-edge', $gv)
         );

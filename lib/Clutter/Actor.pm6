@@ -655,7 +655,7 @@ class Clutter::Actor {
   method actions is rw  {
     my GLib::Value $gv .= new( Clutter::Action.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn "'actions' does not allow reading" if $DEBUG;
         0;
       },
@@ -670,7 +670,7 @@ class Clutter::Actor {
   method allocation (:$raw = False) is rw  {
     my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('allocation', $gv);
 
         return Nil unless $gv.boxed;
@@ -688,7 +688,7 @@ class Clutter::Actor {
   method anchor-gravity is rw is also<anchor_gravity> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-gravity', $gv);
         ClutterGravityEnum( $gv.enum );
       },
@@ -704,7 +704,7 @@ class Clutter::Actor {
   method anchor-x is rw is also<anchor_x> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-x', $gv);
         $gv.float;
       },
@@ -720,7 +720,7 @@ class Clutter::Actor {
   method anchor-y is rw is also<anchor_y> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-y', $gv);
         $gv.float;
       },
@@ -734,7 +734,7 @@ class Clutter::Actor {
 
   method background-color is rw is also<background_color> {
     Proxy.new:
-      FETCH => -> $       { self.get-background-color      },
+      FETCH => sub ($)       { self.get-background-color      },
       STORE => -> $, \val { self.set-background-color(val) };
   }
 
@@ -742,7 +742,7 @@ class Clutter::Actor {
   method background-color-set is rw is also<background_color_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('background-color-set', $gv);
         $gv.boolean;
       },
@@ -756,7 +756,7 @@ class Clutter::Actor {
   method child-transform is rw is also<child_transform> {
     my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('child-transform', $gv);
 
         return Nil unless $gv.pointer;
@@ -774,7 +774,7 @@ class Clutter::Actor {
   method child-transform-set is rw is also<child_transform_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('child-transform-set', $gv);
         $gv.boolean;
       },
@@ -788,7 +788,7 @@ class Clutter::Actor {
   # method clip is rw  is DEPRECATED( “clip-rect” ) {
   #   my GLib::Value $gv .= new( -type- );
   #   Proxy.new(
-  #     FETCH => -> $ {
+  #     FETCH => sub ($) {
   #       $gv = GLib::Value.new(
   #         self.prop_get('clip', $gv)
   #       );
@@ -805,7 +805,7 @@ class Clutter::Actor {
   method clip-rect is rw is also<clip_rect> {
     my GLib::Value $gv .= new( Clutter::Rect.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('clip-rect', $gv);
         cast(ClutterRect, $gv.boxed);
       },
@@ -819,7 +819,7 @@ class Clutter::Actor {
   # Type: gboolean
   method clip-to-allocation is rw is also<clip_to_allocation> {
     Proxy.new:
-      FETCH => -> $             { self.get-clip-to-allocation },
+      FETCH => sub ($)             { self.get-clip-to-allocation },
       STORE => -> $, Int() \val { self.set-clip-to-allocation(val) };
   }
 
@@ -828,7 +828,7 @@ class Clutter::Actor {
   # method constraint is rw  {
   #   my GLib::Value $gv .= new( Clutter::Constraint.get_type );
   #   Proxy.new(
-  #     FETCH => -> $ {
+  #     FETCH => sub ($) {
   #       warn "'constraints' does not allow reading" if $DEBUG;
   #       0;
   #     },
@@ -842,7 +842,7 @@ class Clutter::Actor {
   # Type: ClutterContent
   method content is rw  {
     Proxy.new:
-      FETCH => -> $                        { self.get_content },
+      FETCH => sub ($)                        { self.get_content },
       STORE => -> $, ClutterContent() \val { self.set_content(val) };
   }
 
@@ -850,7 +850,7 @@ class Clutter::Actor {
   method content-box (:$raw = False) is rw is also<content_box> {
     my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('content-box', $gv);
 
         return Nil unless $gv.boxed;
@@ -867,14 +867,14 @@ class Clutter::Actor {
   # Type: ClutterContentGravity
   method content-gravity is rw is also<content_gravity> {
     Proxy.new:
-      FETCH => -> $             { self.get-content-gravity },
+      FETCH => sub ($)             { self.get-content-gravity },
       STORE => -> $, Int() \val { self.set-content-gravity(val) };
   }
 
   # Type: ClutterContentRepeat
   method content-repeat is rw is also<content_repeat> {
     Proxy.new:
-      FETCH => -> $             { self.get-content-repeat },
+      FETCH => sub ($)             { self.get-content-repeat },
       STORE => -> $, Int() \val { self.set-content-repeat(val) };
   }
 
@@ -882,7 +882,7 @@ class Clutter::Actor {
   method depth is rw is DEPRECATED( 'z-position' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('depth', $gv);
         $gv.float;
       },
@@ -895,19 +895,19 @@ class Clutter::Actor {
 
   method easing_delay is rw is also<easing-delay> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-delay },
+      FETCH => sub ($)             { self.get-easing-delay },
       STORE => -> $, Int() \val { self.set-easing-delay(val) };
   }
 
   method easing-duration is rw is also<easing_duration> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-duration },
+      FETCH => sub ($)             { self.get-easing-duration },
       STORE => -> $, Int() \val { self.set-easing-duration(val) };
   }
 
   method easing-mode is rw is also<easing_mode> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-mode },
+      FETCH => sub ($)             { self.get-easing-mode },
       STORE => -> $, Int() \val { self.set-easing-mode(val) };
   }
 
@@ -915,7 +915,7 @@ class Clutter::Actor {
   method effect is rw  {
     my GLib::Value $gv .= new( Clutter::Effect.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn "'effect' does not allow reading" if $DEBUG;
         0;
       },
@@ -929,7 +929,7 @@ class Clutter::Actor {
   # Type: gboolean
   method fixed-position-set is rw is also<fixed_position_set> {
     Proxy.new:
-      FETCH => -> $             { self.get-fixed-position-set };
+      FETCH => sub ($)             { self.get-fixed-position-set };
       STORE => -> $, Int() \val { self.set-fixed-position-set(val) };
   }
 
@@ -937,7 +937,7 @@ class Clutter::Actor {
   method fixed-x is rw is also<fixed_x> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fixed-x', $gv);
         $gv.float;
       },
@@ -952,7 +952,7 @@ class Clutter::Actor {
   method fixed-y is rw is also<fixed_y> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fixed-y', $gv);
         $gv.float;
       },
@@ -966,14 +966,14 @@ class Clutter::Actor {
   # Type: gfloat
   method height is rw {
     Proxy.new:
-      FETCH => -> $             { self.get-height },
+      FETCH => sub ($)             { self.get-height },
       STORE => -> $, Num() \val { self.set-height(val) };
   }
 
   # Type: ClutterLayoutManager
   method layout-manager (:$raw = False) is rw is also<layout_manager> {
     Proxy.new:
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.get-layout-manager(:$raw);
       },
       STORE => -> $, ClutterLayoutManager() \val {
@@ -985,7 +985,7 @@ class Clutter::Actor {
   method magnification-filter is rw is also<magification_filter> {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('magnification-filter', $gv);
         ClutterScalingFilterEnum( $gv.enum );
       },
@@ -1000,7 +1000,7 @@ class Clutter::Actor {
   method mapped is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('mapped', $gv);
         $gv.boolean;
       },
@@ -1012,7 +1012,7 @@ class Clutter::Actor {
 
   method margins is rw {
     Proxy.new:
-      FETCH => -> $ {
+      FETCH => sub ($) {
         (
           self.margin-top,
           self.margin-left,
@@ -1034,28 +1034,28 @@ class Clutter::Actor {
   # Type: gfloat
   method margin-bottom is rw is also<margin_bottom> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-bottom },
+      FETCH => sub ($)             { self.get-margin-bottom },
       STORE => -> $, Num() \val { self.set-margin-bottom(val) };
   }
 
   # Type: gfloat
   method margin-left is rw is also<margin_left> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-left },
+      FETCH => sub ($)             { self.get-margin-left },
       STORE => -> $, Num() \val { self.set-margin-left(val) };
   }
 
   # Type: gfloat
   method margin-right is rw is also<margin_right> {
   Proxy.new:
-    FETCH => -> $             { self.get-margin-right },
+    FETCH => sub ($)             { self.get-margin-right },
     STORE => -> $, Num() \val { self.set-margin-right(val) };
   }
 
   # Type: gfloat
   method margin-top is rw is also<margin_top> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-top },
+      FETCH => sub ($)             { self.get-margin-top },
       STORE => -> $, Num() \val { self.set-margin-top(val) };
   }
 
@@ -1063,7 +1063,7 @@ class Clutter::Actor {
   method min-height is rw is also<min_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-height', $gv);
         $gv.float;
       },
@@ -1078,7 +1078,7 @@ class Clutter::Actor {
   method min-height-set is rw is also<min_height_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-height-set', $gv);
         $gv.boolean;
       },
@@ -1093,7 +1093,7 @@ class Clutter::Actor {
   method min-width is rw is also<min_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-width', $gv);
         $gv.float;
       },
@@ -1108,7 +1108,7 @@ class Clutter::Actor {
   method min-width-set is rw is also<min_width_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-width-set', $gv);
         $gv.boolean;
       },
@@ -1123,7 +1123,7 @@ class Clutter::Actor {
   method minification-filter is rw is also<minification_filter> {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('minification-filter', $gv);
         ClutterScalingFilterEnum( $gv.enum );
       },
@@ -1137,7 +1137,7 @@ class Clutter::Actor {
   # Type: gchar
   method name is rw  {
     Proxy.new:
-      FETCH => -> $             { self.get-name },
+      FETCH => sub ($)             { self.get-name },
       STORE => -> $, Str() $val { self.set-name($val) };
   }
 
@@ -1145,7 +1145,7 @@ class Clutter::Actor {
   method natural-height is rw is also<natural_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-height', $gv);
         $gv.float;
       },
@@ -1160,7 +1160,7 @@ class Clutter::Actor {
   method natural-height-set is rw is also<natural_height_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-height-set', $gv);
         $gv.boolean;
       },
@@ -1175,7 +1175,7 @@ class Clutter::Actor {
   method natural-width is rw is also<natural_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-width', $gv);
         $gv.float;
       },
@@ -1190,7 +1190,7 @@ class Clutter::Actor {
   method natural-width-set is rw is also<natural_width_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-width-set', $gv);
         $gv.boolean;
       },
@@ -1204,7 +1204,7 @@ class Clutter::Actor {
   # Type: ClutterOffscreenRedirect
   method offscreen-redirect is rw is also<offscreen_redirect> {
     Proxy.new:
-      FETCH => -> $             { self.get-offscreen-redirect },
+      FETCH => sub ($)             { self.get-offscreen-redirect },
       STORE => -> $, Num() \val { self.set-offscreen-redirect(val) };
   }
 
@@ -1212,7 +1212,7 @@ class Clutter::Actor {
   method pivot-point is rw is also<pivot_point> {
     my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('pivot-point', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
@@ -1227,7 +1227,7 @@ class Clutter::Actor {
   method position is rw  {
     my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('position', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
@@ -1242,7 +1242,7 @@ class Clutter::Actor {
   method realized is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('realized', $gv);
         $gv.boolean;
       },
@@ -1256,7 +1256,7 @@ class Clutter::Actor {
   method rotation-angle-x is rw is also<rotation_angle_x> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-x', $gv);
         $gv.double;
       },
@@ -1271,7 +1271,7 @@ class Clutter::Actor {
   method rotation-angle-y is rw is also<rotation_angle_y> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-y', $gv);
         $gv.double;
       },
@@ -1286,7 +1286,7 @@ class Clutter::Actor {
   method rotation-angle-z is rw is also<rotation_angle_z> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-z', $gv);
         $gv.double;
       },
@@ -1303,7 +1303,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-x', $gv);
 
         return Nil unless $gv.boxed;
@@ -1325,7 +1325,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-y', $gv);
 
         return Nil unless $gv.boxed;
@@ -1347,7 +1347,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-z', $gv);
 
         return Nil unless $gv.boxed;
@@ -1369,7 +1369,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-z-gravity', $gv);
         ClutterGravityEnum( $gv.enum );
       },
@@ -1386,7 +1386,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-center-x', $gv);
         $gv.float;
       },
@@ -1403,7 +1403,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-center-y', $gv);
         $gv.float;
       },
@@ -1420,7 +1420,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-gravity', $gv);
         ClutterGravity( $gv.enum );
       },
@@ -1435,7 +1435,7 @@ class Clutter::Actor {
   method scale-x is rw is also<scale_x> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-x', $gv);
         $gv.double;
       },
@@ -1450,7 +1450,7 @@ class Clutter::Actor {
   method scale-y is rw is also<scale_y> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-y', $gv);
         $gv.double;
       },
@@ -1465,7 +1465,7 @@ class Clutter::Actor {
   method show-on-set-parent is rw is also<show_on_set_parent> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('show-on-set-parent', $gv);
         $gv.boolean;
       },
@@ -1480,7 +1480,7 @@ class Clutter::Actor {
   method size (:$raw = False) is rw  {
     my GLib::Value $gv .= new( Clutter::Size.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('size', $gv);
 
         return Nil unless $gv.boxed;
@@ -1500,7 +1500,7 @@ class Clutter::Actor {
   method transform is rw  {
     my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('transform', $gv);
         cast(ClutterMatrix, $gv.pointer);
       },
@@ -1515,7 +1515,7 @@ class Clutter::Actor {
   method transform-set is rw is also<transform_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('transform-set', $gv);
         $gv.boolean;
       },
@@ -1529,7 +1529,7 @@ class Clutter::Actor {
   method translation-x is rw is also<translation_x> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-x', $gv);
         $gv.float;
       },
@@ -1544,7 +1544,7 @@ class Clutter::Actor {
   method translation-y is rw is also<translation_y> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-y', $gv);
         $gv.float;
       },
@@ -1559,7 +1559,7 @@ class Clutter::Actor {
   method translation-z is rw is also<translation_z> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-z', $gv);
         $gv.float;
       },
@@ -1574,7 +1574,7 @@ class Clutter::Actor {
   method visible is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('visible', $gv);
         $gv.boolean;
       },

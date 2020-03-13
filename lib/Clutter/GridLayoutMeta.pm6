@@ -64,7 +64,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   method left is rw {
     my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('left-attach', $gv);
         $gv.int;
       },
@@ -78,7 +78,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   method top is rw {
     my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('top-attach', $gv);
         $gv.int;
       },
@@ -92,7 +92,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
   method width is rw {
     my $gv = GLib::Value.new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('width', $gv);
         $gv.int;
       },
@@ -108,7 +108,7 @@ class Clutter::GridLayoutMeta is Clutter::LayoutMeta {
     my GLib::Value $gv .= new( G_TYPE_INT );
     my $prop = 'height';
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get($prop, $gv);
         $gv.int;
       },

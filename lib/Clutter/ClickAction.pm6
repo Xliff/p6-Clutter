@@ -51,7 +51,7 @@ class Clutter::ClickAction is Clutter::Action {
   method held is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('held', $gv)
         );
@@ -67,7 +67,7 @@ class Clutter::ClickAction is Clutter::Action {
   method long-press-duration is rw  is also<long_press_duration> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('long-press-duration', $gv)
         );
@@ -84,7 +84,7 @@ class Clutter::ClickAction is Clutter::Action {
   method long-press-threshold is rw  is also<long_press_threshold> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('long-press-threshold', $gv)
         );
@@ -113,7 +113,7 @@ class Clutter::ClickAction is Clutter::Action {
   method pressed is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('pressed', $gv)
         );

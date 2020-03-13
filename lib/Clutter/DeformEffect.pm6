@@ -63,7 +63,7 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
   method x-tiles is rw  is also<x_tiles> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('x-tiles', $gv)
         );
@@ -80,7 +80,7 @@ class Clutter::DeformEffect is Clutter::OffscreenEffect {
   method y-tiles is rw  is also<y_tiles> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('y-tiles', $gv)
         );

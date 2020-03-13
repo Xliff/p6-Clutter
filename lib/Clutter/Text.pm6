@@ -182,7 +182,7 @@ class Clutter::Text is Clutter::Actor {
 
   method activatable is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_activatable($!ct);
       },
       STORE => sub ($, Int() $activatable is copy) {
@@ -195,7 +195,7 @@ class Clutter::Text is Clutter::Actor {
 
   method attributes (:$raw = False) is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         my $pal = clutter_text_get_attributes($!ct);
 
         $pal ??
@@ -211,7 +211,7 @@ class Clutter::Text is Clutter::Actor {
 
   method buffer (:$raw = False) is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         my $tb = clutter_text_get_buffer($!ct);
 
         $tb ??
@@ -227,7 +227,7 @@ class Clutter::Text is Clutter::Actor {
 
   method cursor_position is rw is also<cursor-position> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_cursor_position($!ct);
       },
       STORE => sub ($, Int() $position is copy) {
@@ -240,7 +240,7 @@ class Clutter::Text is Clutter::Actor {
 
   method cursor_size is rw is also<cursor-size> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_cursor_size($!ct);
       },
       STORE => sub ($, Int() $size is copy) {
@@ -253,7 +253,7 @@ class Clutter::Text is Clutter::Actor {
 
   method cursor_visible is rw is also<cursor-visible> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_cursor_visible($!ct);
       },
       STORE => sub ($, Int() $cursor_visible is copy) {
@@ -266,7 +266,7 @@ class Clutter::Text is Clutter::Actor {
 
   method editable is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_editable($!ct);
       },
       STORE => sub ($, Int() $editable is copy) {
@@ -279,7 +279,7 @@ class Clutter::Text is Clutter::Actor {
 
   method ellipsize is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         PangoEllipsizeModeEnum( clutter_text_get_ellipsize($!ct) );
       },
       STORE => sub ($, Int() $mode is copy) {
@@ -292,7 +292,7 @@ class Clutter::Text is Clutter::Actor {
 
   method font_description (:$raw = False) is rw is also<font-description> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         my $fd = clutter_text_get_font_description($!ct);
 
         $fd ??
@@ -308,7 +308,7 @@ class Clutter::Text is Clutter::Actor {
 
   method font_name is rw is also<font-name> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_font_name($!ct);
       },
       STORE => sub ($, Str() $font_name is copy) {
@@ -319,7 +319,7 @@ class Clutter::Text is Clutter::Actor {
 
   method justify is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_justify($!ct);
       },
       STORE => sub ($, Int() $justify is copy) {
@@ -332,7 +332,7 @@ class Clutter::Text is Clutter::Actor {
 
   method line_alignment is rw is also<line-alignment> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         PangoAlignmentEnum( clutter_text_get_line_alignment($!ct) );
       },
       STORE => sub ($, Int() $alignment is copy) {
@@ -345,7 +345,7 @@ class Clutter::Text is Clutter::Actor {
 
   method line_wrap is rw is also<line-wrap> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_line_wrap($!ct);
       },
       STORE => sub ($, Int() $line_wrap is copy) {
@@ -358,7 +358,7 @@ class Clutter::Text is Clutter::Actor {
 
   method line_wrap_mode is rw is also<line-wrap-mode> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         PangoWrapModeEnum( clutter_text_get_line_wrap_mode($!ct) );
       },
       STORE => sub ($, Int() $wrap_mode is copy) {
@@ -371,7 +371,7 @@ class Clutter::Text is Clutter::Actor {
 
   method max_length is rw is also<max-length> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_max_length($!ct);
       },
       STORE => sub ($, Int() $max is copy) {
@@ -384,7 +384,7 @@ class Clutter::Text is Clutter::Actor {
 
   method password_char is rw is also<password-char> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_password_char($!ct);
       },
       STORE => sub ($, Int() $wc is copy) {
@@ -397,7 +397,7 @@ class Clutter::Text is Clutter::Actor {
 
   method selectable is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_selectable($!ct);
       },
       STORE => sub ($, Int() $selectable is copy) {
@@ -410,7 +410,7 @@ class Clutter::Text is Clutter::Actor {
 
   method selection_bound is rw is also<selection-bound> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_selection_bound($!ct);
       },
       STORE => sub ($, Int() $selection_bound is copy) {
@@ -423,7 +423,7 @@ class Clutter::Text is Clutter::Actor {
 
   method single_line_mode is rw is also<single-line-mode> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_single_line_mode($!ct);
       },
       STORE => sub ($, $single_line is copy) {
@@ -436,7 +436,7 @@ class Clutter::Text is Clutter::Actor {
 
   method text is rw {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         clutter_text_get_text($!ct);
       },
       STORE => sub ($, Str() $text is copy) {
@@ -447,7 +447,7 @@ class Clutter::Text is Clutter::Actor {
 
   method use_markup is rw is also<use-markup> {
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         so clutter_text_get_use_markup($!ct);
       },
       STORE => sub ($, Int() $setting is copy) {
@@ -462,7 +462,7 @@ class Clutter::Text is Clutter::Actor {
   method color (:$raw = False) is rw  {
     my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('color', $gv)
         );
@@ -484,7 +484,7 @@ class Clutter::Text is Clutter::Actor {
   method cursor-color (:$raw = False) is rw  is also<cursor_color> {
     my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('cursor-color', $gv)
         );
@@ -506,7 +506,7 @@ class Clutter::Text is Clutter::Actor {
   method cursor-color-set is rw  is also<cursor_color_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('cursor-color-set', $gv)
         );
@@ -522,7 +522,7 @@ class Clutter::Text is Clutter::Actor {
   method position is rw  is DEPRECATED<Clutter::Text.cursor-position> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('position', $gv)
         );
@@ -539,7 +539,7 @@ class Clutter::Text is Clutter::Actor {
   method selected-text-color-set is rw  is also<selected_text_color_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('selected-text-color-set', $gv)
         );
@@ -555,7 +555,7 @@ class Clutter::Text is Clutter::Actor {
   method selection-color (:$raw = False) is rw  is also<selection_color> {
     my GLib::Value $gv .= new( Clutter::Color.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('selection-color', $gv)
         );
@@ -577,7 +577,7 @@ class Clutter::Text is Clutter::Actor {
   method selection-color-set is rw  is also<selection_color_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('selection-color-set', $gv)
         );

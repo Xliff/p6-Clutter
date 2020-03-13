@@ -150,7 +150,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method max-column-width is rw  is also<max_column_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('max-column-width', $gv)
         );
@@ -167,7 +167,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method max-row-height is rw  is also<max_row_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('max-row-height', $gv)
         );
@@ -184,7 +184,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method min-column-width is rw  is also<min_column_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('min-column-width', $gv)
         );
@@ -201,7 +201,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method min-row-height is rw  is also<min_row_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('min-row-height', $gv)
         );

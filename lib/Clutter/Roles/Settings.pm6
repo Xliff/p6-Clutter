@@ -47,7 +47,7 @@ role Clutter::Roles::Settings {
   method backend is rw is DEPRECATED {
     my GLib::Value $gv .= new( ::('Clutter::Backend').get-type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn 'backend does not allow reading' if $DEBUG;
         0;
       },
@@ -62,7 +62,7 @@ role Clutter::Roles::Settings {
   method dnd-drag-threshold is rw  is also<dnd_drag_threshold> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('dnd-drag-threshold', $gv)
         );
@@ -79,7 +79,7 @@ role Clutter::Roles::Settings {
   method double-click-distance is rw  is also<double_click_distance> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('double-click-distance', $gv)
         );
@@ -96,7 +96,7 @@ role Clutter::Roles::Settings {
   method double-click-time is rw  is also<double_click_time> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('double-click-time', $gv)
         );
@@ -113,7 +113,7 @@ role Clutter::Roles::Settings {
   method font-antialias is rw  is also<font_antialias> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-antialias', $gv)
         );
@@ -130,7 +130,7 @@ role Clutter::Roles::Settings {
   method font-dpi is rw  is also<font_dpi> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-dpi', $gv)
         );
@@ -147,7 +147,7 @@ role Clutter::Roles::Settings {
   method font-hint-style is rw  is also<font_hint_style> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-hint-style', $gv)
         );
@@ -164,7 +164,7 @@ role Clutter::Roles::Settings {
   method font-hinting is rw  is also<font_hinting> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-hinting', $gv)
         );
@@ -181,7 +181,7 @@ role Clutter::Roles::Settings {
   method font-name is rw  is also<font_name> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-name', $gv)
         );
@@ -198,7 +198,7 @@ role Clutter::Roles::Settings {
   method font-subpixel-order is rw  is also<font_subpixel_order> {
     my GLib::Value $gv .= new( G_TYPE_STRING );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('font-subpixel-order', $gv)
         );
@@ -215,7 +215,7 @@ role Clutter::Roles::Settings {
   method fontconfig-timestamp is rw  is also<fontconfig_timestamp> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn 'fontconfig-timestamp does not allow reading' if $DEBUG;
         0;
       },
@@ -230,7 +230,7 @@ role Clutter::Roles::Settings {
   method long-press-duration is rw  is also<long_press_duration> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('long-press-duration', $gv)
         );
@@ -247,7 +247,7 @@ role Clutter::Roles::Settings {
   method password-hint-time is rw  is also<password_hint_time> {
     my GLib::Value $gv .= new( G_TYPE_UINT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('password-hint-time', $gv)
         );
@@ -264,7 +264,7 @@ role Clutter::Roles::Settings {
   method unscaled-font-dpi is rw  is also<unscaled_font_dpi> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn 'unscaled-font-dpi does not allow reading' if $DEBUG;
         0;
       },
@@ -279,7 +279,7 @@ role Clutter::Roles::Settings {
   method window-scaling-factor is rw  is also<window_scaling_factor> {
     my GLib::Value $gv .= new( G_TYPE_INT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('window-scaling-factor', $gv)
         );
