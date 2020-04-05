@@ -9,7 +9,7 @@ use GLib::Value;
 use Clutter::OffscreenEffect;
 
 our subset ClutterDeformEffectAncestry is export of Mu
-  where ClutterDeformEffect | OffscreenEffectAncestry;
+  where ClutterDeformEffect | ClutterOffscreenEffectAncestry;
 
 class Clutter::DeformEffect is Clutter::OffscreenEffect {
   has ClutterDeformEffect $!cde;
