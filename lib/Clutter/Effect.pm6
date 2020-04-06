@@ -3,38 +3,36 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
-use GLib::Roles::Object;
 
 use Clutter::ActorMeta;
 
-our subset EffectAncestry of Mu is export
-  where ClutterEffect | ClutterActorMeta;
+use GLib::Roles::Object;
+
+our subset ClutterEffectAncestry of Mu is export
+  where ClutterEffect | ClutterActorMetaAncestry;
 
 class Clutter::Effect is Clutter::ActorMeta {
   also does GLib::Roles::Object;
 
   has ClutterEffect $!c-eff;
 
-  method Clutter::Raw::Types::ClutterEffect
+  method Clutter::Raw::Definitions::ClutterEffect
     is also<ClutterEffect>
   { $!c-eff }
 
   method setEffect(ClutterEffect $effect) {
-    self.IS-PROTECTED;
+    #self.IS-PROTECTED;
     say 'setEffect' if $DEBUG;
+    my $to-parent;
     given $effect {
-      when EffectAncestry {
-        my $to-parent;
+      when ClutterEffectAncestry {
         $!c-eff = do {
           when ClutterEffect {
             $to-parent = cast(ClutterActorMeta, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterEffect, $_);
@@ -42,10 +40,10 @@ class Clutter::Effect is Clutter::ActorMeta {
         }
         self.setActorMeta($to-parent);
       }
-      
+
       when Clutter::Effect {
       }
-      
+
       default {
       }
     }
@@ -57,6 +55,7 @@ class Clutter::Effect is Clutter::ActorMeta {
 
   method get_type is also<get-type> {
     state ($n, $t);
+    
     unstable_get_type( self.^name, &clutter_effect_get_type, $n, $t );
   }
 

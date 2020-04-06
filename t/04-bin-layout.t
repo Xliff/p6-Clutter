@@ -8,8 +8,8 @@ use Cairo;
 use Clutter::Raw::Types;
 use Clutter::Compat::Types;
 
-use GTK::Compat::Pixbuf;
-use GTK::Compat::Signal;
+use GLib::Signal;
+use GDK::Pixbuf;
 
 use Clutter::AlignConstraint;
 use Clutter::BinLayout;
@@ -100,7 +100,7 @@ sub on-emblem-clicked($box) {
 sub on_emblem_long_press($emblem, $e, $s, $b, $r) {
   CATCH { default { .message.say } }
   $r.r = 1;
-  given ClutterLongPressState($s) {
+  given ClutterLongPressStateEnum($s) {
     when CLUTTER_LONG_PRESS_QUERY    {
       say '*** long press: query    ***';
       $r.r = $is_expanded.Int;
@@ -112,7 +112,7 @@ sub on_emblem_long_press($emblem, $e, $s, $b, $r) {
 
 sub redraw_canvas ($c, $a) {
   CATCH { default { .message.say } }
-  $c.set_size($a.width, $a.height);
+  # $c.set_size($a.width, $a.height);
 }
 
 sub MAIN {
@@ -120,8 +120,8 @@ sub MAIN {
 
   my $stage = Clutter::Stage.new;
   $stage.setup(
-     title => 'BinLayout',
-     size  => (640, 480),
+     title            => 'BinLayout',
+     size             => (640, 480),
      background-color => $CLUTTER_COLOR_Aluminium2,
   );
   $stage.destroy.tap({ Clutter::Main.quit });
@@ -133,11 +133,15 @@ sub MAIN {
 
   my $box = Clutter::Actor.new;
   $box.setup(
-    name => 'box',
+    name           => 'box',
     layout-manager => $layout,
-    constraint => Clutter::AlignConstraint.new($stage, CLUTTER_ALIGN_BOTH, 0.50),
-    position => Clutter::Point.new(320, 240),
-    reactive => True,
+    constraint     => Clutter::AlignConstraint.new(
+                        $stage,
+                        CLUTTER_ALIGN_BOTH,
+                        0.50
+                      ),
+    position       => Clutter::Point.new(320, 240),
+    reactive       => True,
   );
   $stage.add-child($box);
 
@@ -159,7 +163,7 @@ sub MAIN {
   my $file = 'redhand.png';
   $file = "t/{$file}" unless $file.IO.e;
   die "Cannot find pixbuf file '{$file}'" unless $file.IO.e;
-  my $pixbuf = GTK::Compat::Pixbuf.new_from_file($file);
+  my $pixbuf = GDK::Pixbuf.new_from_file($file);
   my $image = Clutter::Image.new;
   $image.set-data(
     $pixbuf.pixels,

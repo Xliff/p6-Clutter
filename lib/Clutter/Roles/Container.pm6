@@ -2,28 +2,33 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Container;
 
-use Clutter::Roles::Signals::Container;
-
 use Clutter::ChildMeta;
+
+use Clutter::Roles::Signals::Container;
 
 role Clutter::Roles::Container {
   also does Clutter::Roles::Signals::Container;
 
   has ClutterContainer $!c;
-  
-  method Clutter::Raw::Types::ClutterContainer 
+
+  method Clutter::Raw::Definitions::ClutterContainer
     is also<Container>
   { $!c }
 
-  method setContainer ($container) {
-    self.IS-PROTECTED;
+  method roleInit-ClutterContainer {
+    my \i = findProperImplementor(self.^attributes);
+
+    $!c = cast( ClutterContainer, i.get_value(self) );
+  }
+
+  method setContainer ($container is copy) {
+    ##self.IS-PROTECTED;
+    $container = cast(ClutterContainer, $container)
+      unless $container ~~ ClutterContainer;
+      
     $!c = $container;
   }
 
@@ -90,27 +95,38 @@ role Clutter::Roles::Container {
   # {
   #   Clutter::ChildMeta.new( clutter_container_create_child_meta($!c, $actor) );
   # }
-  # 
+  #
   # method destroy_child_meta (ClutterActor() $actor)
   #   is also<destroy-child-meta>
   # {
   #   clutter_container_destroy_child_meta($!c, $actor);
   # }
 
-  method find_child_by_name (Str() $child_name)
+  method find_child_by_name (Str() $child_name, :$raw = False)
     is also<find-child-by-name>
   {
-    clutter_container_find_child_by_name($!c, $child_name);
+    my $a = clutter_container_find_child_by_name($!c, $child_name);
+
+    $a ??
+      ( $raw ?? $a !! ::('Clutter::Actor').new($a) )
+      !!
+      Nil;
   }
 
-  method get_child_meta (ClutterActor() $actor)
+  method get_child_meta (ClutterActor() $actor, :$raw = False)
     is also<get-child-meta>
   {
-    Clutter::ChildMeta.new( clutter_container_get_child_meta($!c, $actor) );
+    my $cm = clutter_container_get_child_meta($!c, $actor);
+
+    $cm ??
+      ( $raw ?? $cm !! Clutter::ChildMeta.new($cm) )
+      !!
+      Nil;
   }
 
   method container_get_type is also<container-get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_container_get_type, $n, $t);
   }
 

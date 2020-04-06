@@ -2,23 +2,13 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Main;
 
+use GLib::Roles::StaticClass;
+
 class Clutter::Threads {
-
-  method new (|) {
-    warn qq:to/DIE/.chomp;
-Class Clutter::Threads is not instantiable. Please use the type object when{ ''
-}calling methods.
-DIE
-
-    Clutter::Threads;
-  }
+  also does GLib::Roles::StaticClass;
 
   method add_idle (
     &func,
@@ -48,7 +38,8 @@ DIE
     gpointer $data         = gpointer,
     GDestroyNotify $notify = gpointer
   ) {
-    my gint $p = resolve-int($priority);
+    my gint $p = $priority;
+
     clutter_threads_add_idle_full($priority, &func, $data, $notify);
   }
 
@@ -70,7 +61,8 @@ DIE
   )
     is also<add-repaint-func-full>
   {
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_threads_add_repaint_func_full($f, &func, $data, $notify);
   }
 
@@ -81,7 +73,8 @@ DIE
   )
     is also<add-timeout>
   {
-    my guint $i = resolve-uint($interval);
+    my guint $i = $interval;
+
     clutter_threads_add_timeout($i, &func, $data);
   }
 
@@ -106,15 +99,17 @@ DIE
     gpointer $data         = gpointer,
     GDestroyNotify $notify = gpointer
   ) {
-    my gint $p = resolve-int($priority);
-    my guint $i = resolve-uint($interval);
+    my gint $p = $priority;
+    my guint $i = $interval;
+
     clutter_threads_add_timeout_full($p, $i, &func, $data, $notify);
   }
 
   method remove_repaint_func (Int() $handle_id)
     is also<remove-repaint-func>
   {
-    my guint $h = resolve-uint($handle_id);
+    my guint $h = $handle_id;
+
     clutter_threads_remove_repaint_func($h);
   }
 

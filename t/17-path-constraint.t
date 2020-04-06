@@ -7,9 +7,7 @@ use v6.c;
 use Clutter::Raw::Types;
 
 use GLib::Timeout;
-use GTK::Compat::Value;
-
-use Clutter::Main;
+use GLib::Value;
 
 use Clutter::Actor;
 use Clutter::Color;
@@ -18,6 +16,8 @@ use Clutter::PathConstraint;
 use Clutter::PropertyTransition;
 use Clutter::Stage;
 
+use Clutter::Main;
+
 constant STAGE_SIDE = 400;
 
 my $stage-color = Clutter::Color.new(0x33, 0x33, 0x55, 0xff);
@@ -25,9 +25,9 @@ my $red-color = Clutter::Color.new(0xff, 0, 0, 0xff);
 
 sub build_circular_path($cx, $cy, $r) {
   constant κ = 4 * (2.sqrt - 1) / 3;
-  
+
   my $path = Clutter::Path.new;
-  
+
   given $path {
     .add-move-to($cx + $r, $cy);
     .add-curve-to(
@@ -38,7 +38,7 @@ sub build_circular_path($cx, $cy, $r) {
     .add-curve-to(
       $cx - $r * κ, $cy + $r,
       $cy - $r,     $cy + $r * κ,
-      $cx - $r,     $cy 
+      $cx - $r,     $cy
     );
     .add-curve-to(
       $cx - $r,     $cy - $r * κ,
@@ -57,15 +57,15 @@ sub build_circular_path($cx, $cy, $r) {
 
 sub MAIN {
   exit(1) unless Clutter::Main.init == CLUTTER_INIT_SUCCESS;
-  
+
   my $path = build_circular_path(STAGE_SIDE / 2, STAGE_SIDE / 2, STAGE_SIDE / 4);
   my $constraint = Clutter::PathConstraint.new($path, 0);
-  
+
   my $stage = Clutter::Stage.new.setup(
     size             => STAGE_SIDE xx 2,
     background-color => $stage-color
   );
-  
+
   my $rectangle = Clutter::Actor.new.setup(
     size                  => (STAGE_SIDE / 8) xx 2,
     background-color      => $CLUTTER_COLOR_Red,
@@ -73,20 +73,20 @@ sub MAIN {
     constraint-with-name  => [ 'Path', $constraint ],
   );
   $stage.add-child($rectangle);
-  
-  # Keyframe creation should have a helper function where things can 
+
+  # Keyframe creation should have a helper function where things can
   # be simplified. Propose two variants to the below:
-  #   .set-modevalues -> Takes an array of tuples: 
+  #   .set-modevalues -> Takes an array of tuples:
   #      (Transition = CLUTTER_LINEAR, GValue)
   #   Keyframes are then set equally between the number of tuples.
-  # 
+  #
   #   .set-values -> Takes an array of GValues and a mode (defaults to CLUTTER_LINEAR).
-  #   As with set-modevalues, keyframes are split equally with MODE applied to 
-  #   ALL keyframes. 
-  #   
+  #   As with set-modevalues, keyframes are split equally with MODE applied to
+  #   ALL keyframes.
+  #
   #   Method resolution would be .set-values -> .set-modevalues
   #
-  # Keyframe usage is still vague, but achieved matching results using 
+  # Keyframe usage is still vague, but achieved matching results using
   # a PropertyTransition.
   my $animator = Clutter::PropertyTransition.new('@constraints.Path.offset').setup(
     duration     => 4000,
@@ -114,7 +114,7 @@ sub MAIN {
   #     $o = 0 if $o < 0;
   #   }
   # );
-  
+
   $stage.key-press-event.tap(-> *@a {
     say "S: { $animator.is-playing }";
     $animator.start unless $animator.is-playing;
@@ -122,6 +122,6 @@ sub MAIN {
   });
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.show-actor;
-  
+
   Clutter::Main.run;
 }

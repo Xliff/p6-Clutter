@@ -4,9 +4,7 @@ use Method::Also;
 
 use Cairo;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Raw::Path;
 
 use GLib::GSList;
@@ -26,7 +24,7 @@ class Clutter::Path {
     self.roleInit-Object;
   }
 
-  method Clutter::Raw::Types::ClutterPath
+  method Clutter::Raw::Definitions::ClutterPath
     is also<ClutterPath>
   { $!cp }
 
@@ -141,7 +139,12 @@ class Clutter::Path {
     clutter_path_get_length($!cp);
   }
 
-  method get_n_nodes is also<get-n-nodes> {
+  method get_n_nodes
+    is also<
+      get-n-nodes
+      elems
+    >
+  {
     clutter_path_get_n_nodes($!cp);
   }
 

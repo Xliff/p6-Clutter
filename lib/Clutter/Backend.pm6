@@ -4,32 +4,40 @@ use Method::Also;
 
 use Cairo;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Raw::Backend;
 
-use GTK::Roles::Protection;
+use COGL::Context;
+
 use Clutter::Roles::Settings;
 
+our subset ClutterBackendAncestry is export of Mu
+  where ClutterSettings | ClutterBackend;
+
 class Clutter::ClutterBackend {
-  also does GTK::Roles::Protection;
   also does Clutter::Roles::Settings;
-  
+
   has ClutterBackend $!cb;
-  
+
   submethod BUILD (:$backend) {
-    self.ADD-PREFIX('Clutter::');
+    #self.ADD-PREFIX('Clutter::');
     self.setSettings( cast(ClutterSettings, $!cb = $backend) );
   }
-  
-  method Clutter::Raw::Types::ClutterBackend 
+
+  method Clutter::Raw::Definitions::ClutterBackend
+    is also<ClutterBackend>
   { $!cb }
-  
-  method get_default is also<get-default> {
-    self.bless( backend => clutter_get_default_backend() );
+
+  method new (ClutterBackendAncestry $backend) {
+    $backend ?? self.bless(:$backend) !! Nil;
   }
-  
+
+  method get_default is also<get-default> {
+    my $backend = clutter_get_default_backend();
+
+    $backend ?? self.bless(:$backend) !! Nil;
+  }
+
   # Is originally:
   # ClutterBackend, gpointer --> void
   method font-changed is also<font_changed> {
@@ -47,7 +55,7 @@ class Clutter::ClutterBackend {
   method settings-changed is also<settings_changed> {
     self.connect($!cb, 'settings-changed');
   }
-  
+
   method font_options is rw is also<font-options> {
     Proxy.new(
       FETCH => sub ($) {
@@ -60,34 +68,40 @@ class Clutter::ClutterBackend {
   }
 
   # STATIC
-  method set_windowing_backend (Str() $backend) 
-    is also<set-windowing-backend> 
+  method set_windowing_backend (Str() $backend)
+    is also<set-windowing-backend>
   {
     clutter_set_windowing_backend($backend);
   }
 
-  method get_cogl_context 
+  method get_cogl_context (:$raw = False)
     is also<
       get-cogl-context
       cogl_context
       cogl-context
-    > 
+    >
   {
-    clutter_backend_get_cogl_context($!cb);
+    my $c = clutter_backend_get_cogl_context($!cb);
+
+    $c ??
+      ( $raw ?? $c !! COGL::Context.new($c) )
+      !!
+      Nil
   }
 
-  method get_resolution 
+  method get_resolution
     is also<
       get-resolution
       resolution
-    > 
+    >
   {
     clutter_backend_get_resolution($!cb);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+    
     unstable_get_type( self.^name, &clutter_backend_get_type, $n, $t );
   }
-  
+
 }

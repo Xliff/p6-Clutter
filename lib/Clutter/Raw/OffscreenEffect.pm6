@@ -2,7 +2,7 @@ use v6.c;
 
 use NativeCall;
 
-use GTK::Compat::Types;
+
 use Clutter::Compat::Types;
 use Clutter::Raw::Types;
 

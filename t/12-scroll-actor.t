@@ -1,12 +1,7 @@
 use v6.c;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Keysyms;
 use Clutter::Raw::Types;
-
-use GTK::Roles::Pointers;
-use GTK::Roles::Properties;
-use GLib::Roles::Object;
 
 use Clutter::Actor;
 use Clutter::AlignConstraint;
@@ -14,29 +9,30 @@ use Clutter::BindConstraint;
 use Clutter::BoxLayout;
 use Clutter::Color;
 use Clutter::Event;
+use Clutter::Main;
 use Clutter::ScrollActor;
 use Clutter::Stage;
 use Clutter::Text;
 
-use Clutter::Main;
+use GLib::Roles::Pointers;
+use GLib::Roles::Object;
 
 my %data;
 our subset ObjectOrPointer of Mu where * ~~ (
   GLib::Roles::Object,
-  GTK::Roles::Pointers,
-  GTK::Roles::Properties
+  GLib::Roles::Pointers,
 ).any;
 
 sub get-data (ObjectOrPointer $i is copy, $k) {
-  return unless $i.defined;
-  $i .= GObject
-    if $i ~~ (GLib::Roles::Object, GTK::Roles::Properties).any;
+  return unless $i;
+
+  $i .= GObject if $i ~~ GLib::Roles::Object;
   %data{+$i.p}{$k};
 }
 sub set-data (ObjectOrPointer $i is copy, $k, $v) {
-  return unless $i.defined;
-  $i .= GObject
-    if $i ~~ (GLib::Roles::Object, GTK::Roles::Properties).any;
+  return unless $i;
+
+  $i .= GObject if $i ~~ GLib::Roles::Object;
   %data{+$i.p}{$k} = $v;
 }
 
@@ -44,13 +40,12 @@ my @options = 'Option ' «~» (1..11);
 
 sub select-item-at-index ($s, $i is copy) {
   CATCH { default { .message.say } }
-  my $menu = $s.first-child;
 
+  my $menu = $s.first-child;
   my $old-selected = get-data($s, 'selected-item');
   if $old-selected.defined {
-    # MUST cast to prevent an ambiguity.
     my $item = Clutter::Text.new(
-      cast( ClutterText, $menu.get-child-at-index($old-selected, :raw) )
+      $menu.get-child-at-index($old-selected, :raw)
     );
     $item.color = $CLUTTER_COLOR_White;
   }
@@ -59,9 +54,10 @@ sub select-item-at-index ($s, $i is copy) {
   $i = 0               if $i >= $menu.elems;
 
   my $p = Clutter::Point.new;
-  # MUST cast to prevent an ambiguity.
   my $item = Clutter::Text.new(
-    cast( ClutterText, $menu.get-child-at-index($i, :raw) )
+    $menu.get-child-at-index($i, :raw)
+  ).setup(
+    color => $CLUTTER_COLOR_LightSkyBlue
   );
   ($p.x, $p.y) = $item.get-position;
 
@@ -69,7 +65,6 @@ sub select-item-at-index ($s, $i is copy) {
   $s.scroll-to-point($p);
   $s.restore-easing-state;
 
-  $item.color = $CLUTTER_COLOR_LightSkyBlue;
   set-data($s, 'selected-item', $i);
 }
 

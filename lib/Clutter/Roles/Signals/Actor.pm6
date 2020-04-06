@@ -2,12 +2,12 @@ use v6.c;
 
 use NativeCall;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
-use GTK::Raw::ReturnedValue;
+use GLib::Raw::ReturnedValue;
 
-use GTK::Roles::Signals::Generic;
+use GLib::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Generic;
 
 role Clutter::Roles::Signals::Actor {

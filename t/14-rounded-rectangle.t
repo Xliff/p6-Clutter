@@ -3,7 +3,7 @@ use v6.c;
 use Cairo;
 
 # For gv_* helpers.
-use GTK::Compat::Value;
+use GLib::Value;
 
 use Clutter::Raw::Types;
 

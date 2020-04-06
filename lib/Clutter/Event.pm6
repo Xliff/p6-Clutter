@@ -2,11 +2,7 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Event;
 
 # Boxed
@@ -22,18 +18,26 @@ class Clutter::Event {
     $!ce = $event;
   }
 
-  method Clutter::Raw::Types::ClutterEvent
+  method Clutter::Raw::Definitions::ClutterEvent
+    is also<ClutterEvent>
   { $!ce }
 
+  # Singular event
   multi method new (ClutterEvents $event_pointer) {
-    self.bless( event => cast(ClutterEvent, $event_pointer) );
+    my $event = cast(ClutterEvent, $event_pointer);
+
+    $event ?? self.bless(:$event) !! Nil;
   }
+  # Union of all event types
   multi method new (ClutterEvent $event) {
-    self.bless(:$event);
+    $event ?? self.bless(:$event) !! Nil;
   }
+  # Generic constructor, singular.
   multi method new (Int() $type) {
-    my guint $t = resolve-uint($type);
-    self.bless( event => clutter_event_new($t) );
+    my guint $t = $type;
+    my $event = clutter_event_new($t);
+
+    $event ?? self.bless(:$event) !! Nil;
   }
 
   method button is rw {
@@ -41,8 +45,10 @@ class Clutter::Event {
       FETCH => sub ($) {
         clutter_event_get_button($!ce);
       },
-      STORE => sub ($, $button is copy) {
-        clutter_event_set_button($!ce, $button);
+      STORE => sub ($, Int() $button is copy) {
+        my guint $b = $button;
+
+        clutter_event_set_button($!ce, $b);
       }
     );
   }
@@ -52,10 +58,10 @@ class Clutter::Event {
       FETCH => sub ($) {
         my $d = clutter_event_get_device($!ce);
 
-        $d.defined ??
+        $d ??
           ( $raw ?? $d !! Clutter::InputDevice.new($d) )
           !!
-          ClutterInputDevice;
+          Nil;
       },
       STORE => sub ($, ClutterInputDevice() $device is copy) {
         clutter_event_set_device($!ce, $device);
@@ -66,10 +72,11 @@ class Clutter::Event {
   method flags is rw {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterEventFlags( clutter_event_get_flags($!ce) );
+        ClutterEventFlagsEnum( clutter_event_get_flags($!ce) );
       },
       STORE => sub ($, Int() $flags is copy) {
-        my guint $f = resolve-uint($flags);
+        my ClutterEventFlags $f = $flags;
+
         clutter_event_set_flags($!ce, $f);
       }
     );
@@ -81,7 +88,9 @@ class Clutter::Event {
         clutter_event_get_key_code($!ce);
       },
       STORE => sub ($, $key_code is copy) {
-        clutter_event_set_key_code($!ce, $key_code);
+        my guint16 $k = $key_code;
+
+        clutter_event_set_key_code($!ce, $k);
       }
     );
   }
@@ -91,8 +100,10 @@ class Clutter::Event {
       FETCH => sub ($) {
         clutter_event_get_key_symbol($!ce);
       },
-      STORE => sub ($, $key_sym is copy) {
-        clutter_event_set_key_symbol($!ce, $key_sym);
+      STORE => sub ($, Int() $key_sym is copy) {
+        my guint $k = $key_sym;
+
+        clutter_event_set_key_symbol($!ce, $k);
       }
     );
   }
@@ -102,8 +113,10 @@ class Clutter::Event {
       FETCH => sub ($) {
         clutter_event_get_key_unicode($!ce);
       },
-      STORE => sub ($, $key_unicode is copy) {
-        clutter_event_set_key_unicode($!ce, $key_unicode);
+      STORE => sub ($, Int() $key_unicode is copy) {
+        my gunichar $k = $key_unicode;
+
+        clutter_event_set_key_unicode($!ce, $k);
       }
     );
   }
@@ -112,10 +125,11 @@ class Clutter::Event {
     Proxy.new(
       FETCH => sub ($) {
         my $a = clutter_event_get_related($!ce);
-        $a.defined ??
+
+        $a ??
           ( $raw ?? $a !! Clutter::Actor.new($a) )
           !!
-          ClutterActor;
+          Nil;
       },
       STORE => sub ($, ClutterActor() $actor is copy) {
         clutter_event_set_related($!ce, $actor);
@@ -126,10 +140,11 @@ class Clutter::Event {
   method scroll_direction is rw is also<scroll-direction> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterScrollDirection( clutter_event_get_scroll_direction($!ce) );
+        ClutterScrollDirectionEnum( clutter_event_get_scroll_direction($!ce) );
       },
       STORE => sub ($, Int() $direction is copy) {
-        my guint $d = resolve-uint($direction);
+        my guint $d = $direction;
+
         clutter_event_set_scroll_direction($!ce, $d);
       }
     );
@@ -139,10 +154,11 @@ class Clutter::Event {
     Proxy.new(
       FETCH => sub ($) {
         my $a = clutter_event_get_source($!ce);
-        $a.defined ??
+
+        $a ??
           ( $raw ?? $a !! Clutter::Actor.new($a) )
           !!
-          ClutterActor
+          Nil;
       },
       STORE => sub ($, ClutterActor() $actor is copy) {
         clutter_event_set_source($!ce, $actor);
@@ -154,10 +170,11 @@ class Clutter::Event {
     Proxy.new(
       FETCH => sub ($) {
         my $sd = clutter_event_get_source_device($!ce);
-        $sd.defined ??
+
+        $sd ??
           ( $raw ?? $sd !! Clutter::InputDevice.new($sd) )
           !!
-          ClutterInputDevice;
+          Nil;
       },
       STORE => sub ($, ClutterInputDevice() $device is copy) {
         clutter_event_set_source_device($!ce, $device);
@@ -170,10 +187,10 @@ class Clutter::Event {
       FETCH => sub ($) {
         my $s = clutter_event_get_stage($!ce);
 
-        $s.defined ??
+        $s ??
           ( $raw ?? $s !! Clutter::Stage.new($s) )
           !!
-          ClutterStage;
+          Nil;
       },
       STORE => sub ($, ClutterStage() $stage is copy) {
         clutter_event_set_stage($!ce, $stage);
@@ -184,10 +201,11 @@ class Clutter::Event {
   method state is rw {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterModifierType( clutter_event_get_state($!ce) );
+        ClutterModifierTypeEnum( clutter_event_get_state($!ce) );
       },
       STORE => sub ($, Int() $state is copy) {
-        my guint $s = resolve-uint($state);
+        my guint $s = $state;
+
         clutter_event_set_state($!ce, $s);
       }
     );
@@ -199,7 +217,8 @@ class Clutter::Event {
         clutter_event_get_time($!ce);
       },
       STORE => sub ($, Int() $time is copy) {
-        my guint $t = resolve-uint($time);
+        my guint $t = $time;
+
         clutter_event_set_time($!ce, $t);
       }
     );
@@ -223,7 +242,7 @@ class Clutter::Event {
       get_pending
     >
   {
-    clutter_events_pending();
+    so clutter_events_pending();
   }
 
   method get_current_event (Clutter::Event:U: :$raw = False)
@@ -236,10 +255,10 @@ class Clutter::Event {
   {
     my $e = clutter_get_current_event();
 
-    $e.defined ??
+    $e ??
       ( $raw ?? $e !! Clutter::Event.new($e) )
       !!
-      ClutterEvent;
+      Nil;
   }
 
   method get_current_event_time (Clutter::Event:U:)
@@ -252,8 +271,13 @@ class Clutter::Event {
     clutter_get_current_event_time();
   }
 
-  method copy {
-    Clutter::Event.new( clutter_event_copy($!ce) );
+  method copy (:$raw = False) {
+    my $ec = clutter_event_copy($!ce);
+
+    $ec ??
+      ( $raw ?? $ec !! Clutter::Event.new($ec) )
+      !!
+      Nil;
   }
 
   method !free {
@@ -263,10 +287,10 @@ class Clutter::Event {
   method get (Clutter::Event:U: :$raw = False) {
     my $e = clutter_event_get();
 
-    $e.defined ??
+    $e ??
       ( $raw ?? $e !! Clutter::Event.new($e) )
       !!
-      ClutterEvent;
+      Nil;
   }
 
   method get_angle (ClutterEvent() $target) is also<get-angle> {
@@ -278,18 +302,14 @@ class Clutter::Event {
   { * }
 
   multi method get_axes is also<axes> {
-    my $na = 0;
-    samewith($na);
+    samewith($);
   }
   multi method get_axes (Int() $n_axes is rw) {
     my guint $na = 0;
     my $ar = clutter_event_get_axes($!ce, $na);
     $n_axes = $na;
 
-    my @a;
-    @a[$_] = $ar[$_] for ^$na;
-    @a.unshift: $na;
-    @a;
+    CArrayToArray($ar, $n_axes);
   }
 
   method get_click_count
@@ -308,11 +328,11 @@ class Clutter::Event {
 
   multi method get_coords is also<coords> {
     # Ensure coercion does not occur.
-    my ($x, $y) = (0e0, 0e0);
-    samewith($x, $y);
+    samewith($, $);
   }
-  multi method get_coords (Num() $x is rw, Num() $y is rw) {
-    my gfloat ($xx, $yy) = ($x, $y);
+  multi method get_coords ($x is rw, $y is rw) {
+    my gfloat ($xx, $yy) = 0e0 xx 2;
+
     clutter_event_get_coords($!ce, $xx, $yy);
     ($x, $y) = ($xx, $yy);
   }
@@ -334,7 +354,7 @@ class Clutter::Event {
       device-type
     >
   {
-    ClutterInputDeviceType( clutter_event_get_device_type($!ce) );
+    ClutterInputDeviceTypeEnum( clutter_event_get_device_type($!ce) );
   }
 
   method get_distance (ClutterEvent() $target) is also<get-distance> {
@@ -351,10 +371,16 @@ class Clutter::Event {
     clutter_event_get_event_sequence($!ce);
   }
 
-  method get_gesture_motion_delta (Num() $dx is rw, Num() $dy is rw)
+  proto method get_gesture_motion_delta (|)
     is also<get-gesture-motion-delta>
-  {
-    my gdouble ($ddx, $ddy) = ($dx, $dy);
+  { * }
+
+  multi method get_gesture_motion_delta {
+    samewith($, $);
+  }
+  multi method get_gesture_motion_delta ($dx is rw, $dy is rw) {
+    my gdouble ($ddx, $ddy) = 0e0 xx 2;
+
     clutter_event_get_gesture_motion_delta($!ce, $ddx, $ddy);
     ($dx, $dy) = ($ddx, $ddy);
   }
@@ -366,7 +392,7 @@ class Clutter::Event {
       gesture-phase
     >
   {
-    clutter_event_get_gesture_phase($!ce);
+    ClutterTouchpadGesturePhaseEnum( clutter_event_get_gesture_phase($!ce) );
   }
 
   method get_gesture_pinch_angle_delta
@@ -385,7 +411,19 @@ class Clutter::Event {
     clutter_event_get_gesture_swipe_finger_count($!ce);
   }
 
-  method get_position (ClutterPoint() $position) is also<get-position> {
+  proto method get_position (|)
+    is also<get-position>
+  { * }
+
+  multi method get_position {
+    my $p = ClutterPoint.new;
+
+    die 'Could not allocate ClutterPoint!' unless $p;
+
+    samewith($p);
+    $p;
+  }
+  multi method get_position (ClutterPoint() $position) {
     clutter_event_get_position($!ce, $position);
   }
 
@@ -399,11 +437,11 @@ class Clutter::Event {
       scroll-delta
     >
   {
-    my ($dx, $dy) = (0, 0);
-    samewith($dx, $dy);
+    samewith($, $);
   }
-  multi method get_scroll_delta (Num() $dx is rw, Num() $dy is rw) {
-    my gdouble ($ddx, $ddy) = ($dx, $dy);
+  multi method get_scroll_delta ($dx is rw, $dy is rw) {
+    my gdouble ($ddx, $ddy) = 0e0 xx 2;
+
     clutter_event_get_scroll_delta($!ce, $ddx, $ddy);
     ($dx, $dy) = ($ddx, $ddy);
   }
@@ -413,15 +451,7 @@ class Clutter::Event {
   { * }
 
   multi method get_state_full {
-    my ($btn, $base, $lat, $lck, $eff) = 0 xx 5;
-    samewith($btn, $base, $lat, $lck, $eff);
-    (
-      ClutterModifierType($btn),
-      ClutterModifierType($base),
-      ClutterModifierType($lat),
-      ClutterModifierType($lck),
-      ClutterModifierType($eff)
-    );
+    samewith($, $, $, $, $);
   }
   multi method get_state_full (
     Int() $button_state    is rw, # ClutterModifierType
@@ -430,13 +460,8 @@ class Clutter::Event {
     Int() $locked_state    is rw, # ClutterModifierType
     Int() $effective_state is rw  # ClutterModifierType
   ) {
-    my guint ($btn, $base, $lat, $lck, $eff) = resolve-uint(
-      $button_state,
-      $base_state,
-      $latched_state,
-      $locked_state,
-      $effective_state
-    );
+    my guint ($btn, $base, $lat, $lck, $eff) = 0 xx 5;
+
     clutter_event_get_state_full($!ce, $btn, $base, $lat, $lck, $eff);
     (
       $button_state,
@@ -444,11 +469,18 @@ class Clutter::Event {
       $latched_state,
       $locked_state,
       $effective_state
-    ) = ($btn, $base, $lat, $lck, $eff);
+    ) = (
+      ClutterModifierType($btn),
+      ClutterModifierType($base),
+      ClutterModifierType($lat),
+      ClutterModifierType($lck),
+      ClutterModifierType($eff)
+    );
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_event_get_type, $n, $t );
   }
 
@@ -467,10 +499,10 @@ class Clutter::Event {
   method peek (Clutter::Event:U: :$raw = False) {
     my $e = clutter_event_peek();
 
-    $e.defined ??
+    $e ??
       ( $raw ?? $e !! Clutter::Event.new($e) )
       !!
-      ClutterEvent;
+      Nil;
   }
 
   method put (Clutter::Event:U: ClutterEvent() $event) {
@@ -482,16 +514,20 @@ class Clutter::Event {
   }
 
   method sequence_get_type is also<sequence-get-type> {
-    clutter_event_sequence_get_type();
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &clutter_event_sequence_get_type, $n, $t );
   }
 
   method set_coords (Num() $x, Num() $y) is also<set-coords> {
     my gfloat ($xx, $yy) = ($x, $y);
+
     clutter_event_set_coords($!ce, $xx, $yy);
   }
 
   method set_scroll_delta (Num() $dx, Num() $dy) is also<set-scroll-delta> {
     my gdouble ($ddx, $ddy) = ($dx, $dy);
+
     clutter_event_set_scroll_delta($!ce, $ddx, $ddy);
   }
 
@@ -504,7 +540,7 @@ class Clutter::Event {
       event-type
     >
   {
-    ClutterEventType( clutter_event_type($!ce) );
+    ClutterEventTypeEnum( clutter_event_type($!ce) );
   }
 
 }

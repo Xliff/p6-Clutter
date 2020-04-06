@@ -4,9 +4,9 @@ use NativeCall;
 
 use Clutter::Compat::Types;
 
-use GTK::Raw::ReturnedValue;
+use GLib::Raw::ReturnedValue;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
 role Clutter::Roles::Signals::Canvas {

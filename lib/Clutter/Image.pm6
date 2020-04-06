@@ -5,35 +5,63 @@ use NativeCall;
 
 use Cairo;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-use Clutter::Compat::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Image;
 
 use GLib::Roles::Object;
-
 use Clutter::Roles::Content;
+
+our subset ClutterImageAncestry is export of Mu
+  where ClutterContent | ClutterImage | GObject;
 
 class Clutter::Image {
   also does GLib::Roles::Object;
   also does Clutter::Roles::Content;
 
-  has ClutterImage $!ci;
+  has ClutterImage $!ci is implementor;
 
   submethod BUILD (:$image) {
-    self!setObject( cast(GObject, $!ci = $image) );
-    $!c-con = cast(ClutterContent, $!ci);  # Clutter::Roles::Content
+    given $image {
+      when    ClutterImageAncestry { self.setImage($_) }
+      when    Clutter::Image       { }
+      default                      { }
+    }
   }
 
-  method Clutter::Raw::Types::ClutterImage
+  method setImage (ClutterImageAncestry $_) {
+    my $to-parent;
+    $!ci = do {
+      when ClutterImage {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      when ClutterContent {
+        $!c-con = $_;
+        $to-parent = cast(GObject, $_);
+        cast(ClutterImage, $_);
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterImage, $_);
+      }
+    }
+    self!setObject($to-parent);
+    self.roleInit-ClutterContent unless $!c-con;
+  }
+
+  method Clutter::Raw::Definitions::ClutterImage
     is also<ClutterImage>
   { $!ci }
 
-  method new {
-    self.bless( image => clutter_image_new() );
+  multi method new (ClutterImageAncestry $image) {
+    $image ?? self.bless(:$image) !! Nil;
+  }
+  multi method new {
+    my $image = clutter_image_new();
+
+    $image ?? self.bless(:$image) !! Nil;
   }
 
   method error_quark is also<error-quark> {
@@ -47,6 +75,7 @@ class Clutter::Image {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_image_get_type, $n, $t );
   }
 
@@ -55,19 +84,21 @@ class Clutter::Image {
     Int() $pixel_format,
     cairo_rectangle_int_t $rect,
     Int() $row_stride,
-    CArray[Pointer[GError]] $error = gerror()
+    CArray[Pointer[GError]] $error = gerror
   )
     is also<set-area>
   {
     clear_error;
-    my guint ($pf, $rs) = resolve-uint($pixel_format, $row_stride);
-    my $rc = clutter_image_set_area($!ci, $data, $pf, $rect, $rs, $error);
+    my CoglPixelFormat $pf = $pixel_format;
+    my guint $rs = $row_stride;
+
+    my $rv = so clutter_image_set_area($!ci, $data, $pf, $rect, $rs, $error);
     set_error($error);
-    so $rc;
+    $rv;
   }
 
   method set_bytes (
-    GBytes $data,
+    GBytes() $data,
     Int() $pixel_format,
     Int() $width,
     Int() $height,
@@ -76,12 +107,13 @@ class Clutter::Image {
   )
     is also<set-bytes>
   {
-    my guint ($w, $h, $r) = resolve-uint($width, $height, $row_stride);
-    my guint $pf = resolve-uint($pixel_format);
+    my guint ($w, $h, $r) = ($width, $height, $row_stride);
+    my CoglPixelFormat $pf = $pixel_format;
+
     clear_error;
-    my $rc = clutter_image_set_bytes($!ci, $data, $pf, $w, $h, $r, $error);
+    my $rv = so clutter_image_set_bytes($!ci, $data, $pf, $w, $h, $r, $error);
     set_error($error);
-    so $rc;
+    $rv;
   }
 
   method set_data (
@@ -94,14 +126,15 @@ class Clutter::Image {
   )
     is also<set-data>
   {
-    my guint ($w, $h, $r) = resolve-uint($width, $height, $row_stride);
-    my guint $pf = resolve-uint($pixel_format);
+    my guint ($w, $h, $r) = $width, $height, $row_stride;
+    my CoglPixelFormat $pf = $pixel_format;
+
     clear_error;
-    my $rc = clutter_image_set_data(
+    my $rv = so clutter_image_set_data(
       $!ci, $data, $pf, $w, $h, $r, $error
     );
     set_error($error);
-    so $rc;
+    $rv
   }
 
 }

@@ -2,41 +2,47 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::ActorMeta;
 
 use GLib::Roles::Object;
-use GTK::Roles::Protection;
 
-our subset MetaActorAncestry is export of Mu
-  where ClutterActorMeta;
+our subset ClutterActorMetaAncestry is export of Mu
+  where ClutterActorMeta | GObject;
 
 class Clutter::ActorMeta {
   also does GLib::Roles::Object;
-  also does GTK::Roles::Protection;
 
-  has ClutterActorMeta $!cam;
+  has ClutterActorMeta $!cam is implementor;
 
   submethod BUILD (:$metaactor) {
-    self.ADD-PREFIX('Clutter::');
+    #self.ADD-PREFIX('Clutter::');
     self.setActorMeta(:$metaactor) if $metaactor.defined;
   }
 
-  method setActorMeta (ClutterActorMeta $metaactor) {
-    self.IS-PROTECTED;
-    self!setObject( cast(GObject, $!cam = $metaactor) );
+  method setActorMeta (ClutterActorMetaAncestry $_) {
+    #self.IS-PROTECTED;
+    my $to-parent;
+    $!cam = do {
+      when ClutterActorMeta {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterActorMeta, $_);
+      }
+    }
+    self!setObject($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterActorMeta
+  method Clutter::Raw::Definitions::ClutterActorMeta
     is also<ClutterActorMeta>
   { $!cam }
 
-  method new (ClutterActorMeta $metaactor) {
-    self.bless(:$metaactor);
+  method new (ClutterActorMetaAncestry $metaactor) {
+    $metaactor ?? self.bless(:$metaactor) !! Nil;
   }
 
   method enabled is rw {
@@ -45,7 +51,8 @@ class Clutter::ActorMeta {
         so clutter_actor_meta_get_enabled($!cam);
       },
       STORE => sub ($, Int() $is_enabled is copy) {
-        my gboolean $ie = resolve-bool($is_enabled);
+        my gboolean $ie = $is_enabled.so.Int;
+
         clutter_actor_meta_set_enabled($!cam, $ie);
       }
     );
@@ -62,17 +69,23 @@ class Clutter::ActorMeta {
     );
   }
 
-  method get_actor
+  method get_actor (:$raw = False)
     is also<
       get-actor
       actor
     >
   {
-    ::('Clutter::Actor').new( clutter_actor_meta_get_actor($!cam) );
+    my $a = clutter_actor_meta_get_actor($!cam);
+
+    $a ??
+      ( $raw ?? $a !! ::('Clutter::Actor').new($a) )
+      !!
+      Nil;
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_actor_meta_get_type, $n, $t );
   }
 

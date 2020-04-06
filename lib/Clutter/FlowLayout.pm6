@@ -2,11 +2,7 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::FlowLayout;
 
 use GLib::Value;
@@ -29,23 +25,40 @@ my @set-methods = <
   row_height          row-height
 >;
 
+our subset ClutterFlowLayoutAncestry is export of Mu
+  where ClutterFlowLayout | ClutterLayoutManagerAncestry;
+
 class Clutter::FlowLayout is Clutter::LayoutManager {
   has ClutterFlowLayout $!cfl;
 
   submethod BUILD (:$flowlayout) {
-    self.setLayoutManager( cast(ClutterLayoutManager, $!cfl = $flowlayout) );
+    my $to-parent;
+    $!cfl = do given $flowlayout {
+      when ClutterFlowLayout {
+        $to-parent = cast(ClutterLayoutManager, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterFlowLayout, $_);
+      }
+    }
+    self.setLayoutManager($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterFlowLayout
+  method Clutter::Raw::Definitions::ClutterFlowLayout
     is also<ClutterFlowLayout>
   { $!cfl }
 
-  multi method new (ClutterFlowLayout $flowlayout) {
-    self.bless(:$flowlayout);
+  multi method new (ClutterFlowLayoutAncestry $flowlayout) {
+    $flowlayout ?? self.bless(:$flowlayout) !! Nil;
   }
   multi method new (Int() $orientation) {
-    my guint $o = resolve-uint($orientation);
-    self.bless( flowlayout => clutter_flow_layout_new($o) );
+    my guint $o = $orientation;
+    my $flowlayout = clutter_flow_layout_new($o);
+
+    $flowlayout ?? self.bless(:$flowlayout) !! Nil;
   }
 
   method setup(*%data) {
@@ -73,6 +86,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
       },
       STORE => sub ($, Num() $spacing is copy) {
         my gfloat $cs = $spacing;
+
         clutter_flow_layout_set_column_spacing($!cfl, $cs);
       }
     );
@@ -84,7 +98,8 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
         so clutter_flow_layout_get_homogeneous($!cfl);
       },
       STORE => sub ($, Int() $homogeneous is copy) {
-        my gboolean $h = resolve-bool($homogeneous);
+        my gboolean $h = $homogeneous.so.Int;
+
         clutter_flow_layout_set_homogeneous($!cfl, $h);
       }
     );
@@ -93,10 +108,13 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method orientation is rw {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterFlowOrientation( clutter_flow_layout_get_orientation($!cfl) );
+        ClutterFlowOrientationEnum(
+          clutter_flow_layout_get_orientation($!cfl)
+        );
       },
       STORE => sub ($, Int() $orientation is copy) {
-        my guint $o = resolve-uint($orientation);
+        my guint $o = $orientation;
+
         clutter_flow_layout_set_orientation($!cfl, $o);
       }
     );
@@ -109,6 +127,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
       },
       STORE => sub ($, Num() $spacing is copy) {
         my gfloat $s = $spacing;
+
         clutter_flow_layout_set_row_spacing($!cfl, $s);
       }
     );
@@ -120,7 +139,8 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
         so clutter_flow_layout_get_snap_to_grid($!cfl);
       },
       STORE => sub ($, Int() $snap_to_grid is copy) {
-        my gboolean $s = resolve-bool($snap_to_grid);
+        my gboolean $s = $snap_to_grid.so.Int;
+
         clutter_flow_layout_set_snap_to_grid($!cfl, $s);
       }
     );
@@ -130,7 +150,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method max-column-width is rw  is also<max_column_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('max-column-width', $gv)
         );
@@ -147,7 +167,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method max-row-height is rw  is also<max_row_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('max-row-height', $gv)
         );
@@ -164,7 +184,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method min-column-width is rw  is also<min_column_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('min-column-width', $gv)
         );
@@ -181,7 +201,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   method min-row-height is rw  is also<min_row_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         $gv = GLib::Value.new(
           self.prop_get('min-row-height', $gv)
         );
@@ -203,15 +223,11 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   { * }
 
   multi method get_column_width {
-    my ($mnw, $mxw) = (0, 0);
-    samewith($mnw, $mxw);
+    samewith($, $);
   }
   multi method get_column_width ($min_width is rw, $max_width is rw) {
-    for ($min_width, $max_width) {
-      die "{ .VAR.name } must be Num-compatible!" unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($mnw, $mxw) = ($min_width, $max_width);
+    my gfloat ($mnw, $mxw) = 0e0 xx 2;
+
     clutter_flow_layout_get_column_width($!cfl, $mnw, $mxw);
     ($min_width, $max_width) = ($mnw, $mxw);
   }
@@ -225,21 +241,18 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
   { * }
 
   multi method get_row_height {
-    my ($mnh, $mxh) = (0, 0);
-    samewith($mnh, $mxh);
+    samewith($, $);
   }
   multi method get_row_height ($min_height is rw, $max_height is rw) {
-    for ($min_height, $max_height) {
-      die "{ .VAR.name } must be Num-compatible!" unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($mnh, $mxh) = ($min_height, $max_height);
+    my gfloat ($mnh, $mxh) = 0e0 xx 2;
+
     clutter_flow_layout_get_row_height($!cfl, $mnh, $mxh);
     ($min_height, $max_height) = ($mnh, $mxh);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, clutter_flow_layout_get_type, $n, $t );
   }
 
@@ -247,6 +260,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
     is also<set-column-width>
   {
     my gfloat ($mnw, $mxw) = ($min_width, $max_width);
+
     clutter_flow_layout_set_column_width($!cfl, $mnw, $mxw);
   }
 
@@ -254,6 +268,7 @@ class Clutter::FlowLayout is Clutter::LayoutManager {
     is also<set-row-height>
   {
     my gfloat ($mnh, $mxh) = ($min_height, $max_height);
+    
     clutter_flow_layout_set_row_height($!cfl, $mnh, $mxh);
   }
 

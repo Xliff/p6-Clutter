@@ -2,12 +2,12 @@ use v6.c;
 
 use NativeCall;
 
-use GTK::Compat::Types;
+
 use Clutter::Raw::Types;
 
 use Clutter::Actor;
 
-our subset CloneAncestry of Mu
+our subset ClutterCloneAncestry of Mu
   where ClutterClone | ClutterActor;
 
 class Clutter::Clone is Clutter::Actor {
@@ -21,13 +21,14 @@ class Clutter::Clone is Clutter::Actor {
 
   submethod BUILD (:$clone) {
     given $clone {
-      when CloneAncestry {
+      when ClutterCloneAncestry {
         my $to-parent;
         $!cc = do {
           when ClutterClone {
             $to-parent = cast(ClutterActor, $_);
             $_;
           }
+
           default {
             $to-parent = $_;
             cast(ClutterClone, $_);
@@ -35,25 +36,33 @@ class Clutter::Clone is Clutter::Actor {
         }
         self.setActor($to-parent);
       }
+
       when Clutter::Clone {
       }
+
       default {
       }
     }
   }
 
-  multi method new (ClutterClone $clone) {
-    self.bless(:$clone);
+  multi method new (ClutterCloneAncestry $clone) {
+    $clone ?? self.bless(:$clone) !! Nil;
   }
   multi method new (ClutterActor() $source) {
-    self.bless( clone => clutter_clone_new($source) );
+    my $clone = clutter_clone_new($source);
+
+    $clone ?? self.bless(:$clone) !! Nil;
   }
 
-  method source(:$raw) is rw {
+  method source(:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
         my $a = clutter_clone_get_source($!cc);
-        $raw ?? $a !! Clutter::Actor.new($a);
+
+        $a ??
+          ( $raw ?? $a !! Clutter::Actor.new($a) )
+          !!
+          Nil
       },
       STORE => sub ($, ClutterActor() $source is copy) {
         clutter_clone_set_source($!cc, $source);
@@ -63,6 +72,7 @@ class Clutter::Clone is Clutter::Actor {
 
   method get_type {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_clone_get_type, $n, $t );
   }
 

@@ -6,7 +6,7 @@ use v6.c;
 use Clutter::Raw::Types;
 use Clutter::Compat::Types;
 
-use GTK::Compat::Pixbuf;
+use GDK::Pixbuf;
 
 use Clutter::Actor;
 use Clutter::AlignConstraint;
@@ -43,7 +43,7 @@ sub on_tap ($act, $a, $l) {
   my $gpair = @gravities[$cur_gravity];
 
   $actor.save_easing_state;
-  $actor.content_gravity = ClutterContentGravity.enums.Hash{$gpair.key};
+  $actor.content_gravity = ClutterContentGravityEnum.enums.Hash{$gpair.key};
   $actor.restore_easing_state;
 
   $l.text = "Constant gravity: { $gpair.value }";
@@ -65,7 +65,7 @@ sub MAIN {
   my $image_file = 'redhand.png';
   $image_file = "t/{$image_file}" unless $image_file.IO.e;
   die "Cannot find image file '{ $image_file }'" unless $image_file.IO.e;
-  my $pixbuf = GTK::Compat::Pixbuf.new_from_file($image_file);
+  my $pixbuf = GDK::Pixbuf.new_from_file($image_file);
   my $image = Clutter::Image.new;
   $image.set_data(
     $pixbuf.pixels,
@@ -81,7 +81,7 @@ sub MAIN {
     CLUTTER_SCALING_FILTER_TRILINEAR,
     CLUTTER_SCALING_FILTER_LINEAR
   );
-  $stage.content_gravity = ClutterContentGravity.enums.Hash{$grav.key};
+  $stage.content_gravity = ClutterContentGravityEnum.enums.Hash{$grav.key};
   $stage.content = $image;
 
   my $text = Clutter::Text.new;

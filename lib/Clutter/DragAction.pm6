@@ -2,17 +2,16 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::DragAction;
 
 use Clutter::Action;
 use Clutter::Actor;
 
 use Clutter::Roles::Signals::DragAction;
+
+our subset ClutterDragActionAncestry is export of Mu
+  where ClutterDragAction | ClutterActionAncestry;
 
 class Clutter::DragAction is Clutter::Action {
   also does Clutter::Roles::Signals::DragAction;
@@ -21,34 +20,56 @@ class Clutter::DragAction is Clutter::Action {
 
   # Needs ancestry logic
   submethod BUILD (:$dragaction) {
-    self.setAction( cast(ClutterAction, $!cda = $dragaction) );
+    my $to-parent;
+    $!cda = do given $dragaction {
+      when ClutterDragAction {
+        $to-parent = cast(ClutterAction, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterDragAction, $_);
+      }
+    }
+    self.setAction($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterDragAction
+  method Clutter::Raw::Definitions::ClutterDragAction
     is also<ClutterDragAction>
   { $!cda }
 
-  method new {
-    self.bless( dragaction => clutter_drag_action_new() );
+  multi method new (ClutterDragActionAncestry $dragaction) {
+    $dragaction ?? self.bless(:$dragaction) !! Nil;
+  }
+  multi method new {
+    my $dragaction = clutter_drag_action_new();
+
+    $dragaction ?? self.bless(:$dragaction) !! Nil;
   }
 
   method drag_axis is rw is also<drag-axis> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterDragAxis( clutter_drag_action_get_drag_axis($!cda) );
+        ClutterDragAxisEnum( clutter_drag_action_get_drag_axis($!cda) );
       },
       STORE => sub ($, Int() $axis is copy) {
-        my guint $a = resolve-uint($axis);
+        my guint $a = $axis;
+
         clutter_drag_action_set_drag_axis($!cda, $a);
       }
     );
   }
 
-  method drag_handle is rw is also<drag-handle> {
+  method drag_handle (:$raw = False) is rw is also<drag-handle> {
     Proxy.new(
       FETCH => sub ($) {
         my $dh = clutter_drag_action_get_drag_handle($!cda);
-        $dh.defined ?? Clutter::Actor.new($dh) !! Nil;
+
+        $dh ??
+          ( $raw ?? $dh !! Clutter::Actor.new($dh) )
+          !!
+          Nil
       },
       STORE => sub ($, ClutterActor() $handle is copy) {
         clutter_drag_action_set_drag_handle($!cda, $handle);
@@ -91,17 +112,14 @@ class Clutter::DragAction is Clutter::Action {
   { * }
 
   multi method get_drag_threshold {
-    my ($xt, $yt) = (0, 0);
-    samewith($xt, $yt);
+    samewith($, $);
   }
   multi method get_drag_threshold (
     $x_threshold is rw,
     $y_threshold is rw
   ) {
-    for $x_threshold, $y_threshold {
-      $_ .= Int if .^can('Int').elems;
-    }
-    my gint ($xt, $yt) = resolve-int($x_threshold, $y_threshold);
+    my gint ($xt, $yt) = 0 xx 2;
+
     clutter_drag_action_get_drag_threshold($!cda, $xt, $yt);
     ($x_threshold, $y_threshold) = ($xt, $yt);
   }
@@ -111,14 +129,11 @@ class Clutter::DragAction is Clutter::Action {
   { * }
 
   multi method get_motion_coords {
-    my ($mx, $my) = (0, 0);
-    samewith($mx, $my);
+    samewith($, $);
   }
   multi method get_motion_coords ($motion_x is rw, $motion_y is rw) {
-    for $motion_x, $motion_y {
-      $_ .= Num if .^can('Num').elems;
-    }
-    my gfloat ($mx, $my) = ($motion_x, $motion_y);
+    my gfloat ($mx, $my) = 0e0 xx 2;
+
     clutter_drag_action_get_motion_coords($!cda, $mx, $my);
     ($motion_x, $motion_y) = ($mx, $my);
   }
@@ -128,17 +143,18 @@ class Clutter::DragAction is Clutter::Action {
   { * }
 
   multi method get_press_coords {
-    my ($px, $py) = (0, 0);
-    samewith($px, $py);
+    samewith($, $);
   }
   multi method get_press_coords ($press_x is rw, $press_y is rw) {
-    my gfloat ($px, $py) = ($press_x, $press_y);
+    my gfloat ($px, $py) = 0e0 xx 2;
+
     clutter_drag_action_get_press_coords($!cda, $px, $py);
     ($press_x, $press_y) = ($px, $py)
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_drag_action_get_type, $n, $t );
   }
 
@@ -149,7 +165,8 @@ class Clutter::DragAction is Clutter::Action {
   method set_drag_threshold (Int() $x_threshold, Int() $y_threshold)
     is also<set-drag-threshold>
   {
-    my gint ($xt, $yt) = resolve-int($x_threshold, $y_threshold);
+    my gint ($xt, $yt) = ($x_threshold, $y_threshold);
+
     clutter_drag_action_set_drag_threshold($!cda, $xt, $yt);
   }
 

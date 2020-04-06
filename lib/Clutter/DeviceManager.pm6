@@ -2,20 +2,15 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Raw::DeviceManager;
 
 use GLib::GSList;
-
 use Clutter::InputDevice;
 
 use GLib::Roles::Object;
 use GLib::Roles::ListData;
-
 use Clutter::Roles::Signals::DeviceManager;
-
 
 class Clutter::DeviceManager {
   also does GLib::Roles::Object;
@@ -30,18 +25,16 @@ class Clutter::DeviceManager {
   }
 
   method new (ClutterDeviceManager $manager) {
-    return unless $manager;
-
-    self.bless( :$manager );
+    $manager ?? self.bless( :$manager ) !! Nil
   }
 
   method get_default is also<get-default> {
-    my $m = clutter_device_manager_get_default();
+    my $manager = clutter_device_manager_get_default();
 
-    $m ?? self.bless( manager => $m ) !! Nil;
+    $manager ?? self.bless( :$manager ) !! Nil
   }
 
-  method Clutter::Raw::Types::ClutterDeviceManager
+  method Clutter::Raw::Definitions::ClutterDeviceManager
     is also<ClutterDeviceManager>
   { $!cdm }
 

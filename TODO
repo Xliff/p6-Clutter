@@ -1,8 +1,14 @@
-- Insure proper defineness checks are made whenever the :$raw option is used,
++ Insure proper defineness checks are made whenever the :$raw option is used,
   and that :$raw defaults to False! A proper defineness check looks like this
   when specifying the return value:
-  
+
     $a.defined ??
       ( $raw ?? $a !! Clutter::Actor.new($a) )
       !!
       ClutterActor;
+
+- Simplify the interface for ::KeyframeTransition. Consider a "set-frames" key
+  (which should NOT interfere with "frames") that will take either a raw list,
+  or a list of tuples (just always flatten the result and insure (* % 3 == 0),
+  and send the right arguments to the right calls, (ala key-frames, modes and
+  values)

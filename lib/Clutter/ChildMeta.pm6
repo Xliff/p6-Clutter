@@ -3,52 +3,73 @@ use v6.c;
 use NativeCall;
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
 
-use GTK::Roles::Data;
-use GTK::Roles::Protection;
 use GLib::Roles::Object;
 
+our subset ClutterChildMetaAncestry is export of Mu
+  where ClutterChildMeta | GObject;
+
 class Clutter::ChildMeta {
-  also does GTK::Roles::Protection;
   also does GLib::Roles::Object;
-  also does GTK::Roles::Data;
 
   has ClutterChildMeta $!ccmeta;
 
-  submethod BUILD {
-    self.ADD-PREFIX('Clutter::');
+  # submethod BUILD {
+  #   #self.ADD-PREFIX('Clutter::');
+  # }
+
+  method setChildMeta (ClutterChildMetaAncestry $_) {
+    my $to-parent;
+    $!ccmeta = do {
+      when ClutterChildMeta {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterChildMeta, $_);
+      }
+    }
+    self!setObject($to-parent);
   }
 
-  method setChildMeta (ClutterChildMeta $childmeta) {
-    self!setObject( cast(GObject, $!data = ($!ccmeta = $childmeta).p ) );
-  }
-  
-  method Clutter::Raw::Types::ClutterChildMeta 
+  method Clutter::Raw::Definitions::ClutterChildMeta
     is also<ChildMeta>
   { $!ccmeta }
 
-  method get_actor
+  method get_actor (:$raw = False)
     is also<
       get-actor
       actor
     >
   {
-    ::('Clutter::Actor').new( clutter_child_meta_get_actor($!ccmeta) );
+    my $a = clutter_child_meta_get_actor($!ccmeta);
+
+    $a ??
+      ( $raw ?? $a !! ::('Clutter::Actor').new($a) )
+      !!
+      Nil
   }
 
-  method get_container
+  method get_container (:$raw = False)
     is also<
       get-container
       container
     >
   {
-    ::('Clutter::Container').new( clutter_child_meta_get_container($!ccmeta) );
+    my $c = clutter_child_meta_get_container($!ccmeta);
+
+    $c ??
+      ( $raw ?? $c !! ::('Clutter::Container').new($c) )
+      !!
+      Nil
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_child_meta_get_type, $n, $t );
   }
 

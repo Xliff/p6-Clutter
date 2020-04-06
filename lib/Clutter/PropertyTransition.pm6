@@ -3,12 +3,10 @@ use v6.c;
 use NativeCall;
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Transition;
 
-our subset PropertyTransitionAncestry of Mu
+our subset ClutterPropertyTransitionAncestry of Mu
   where ClutterPropertyTransition | ClutterTransition;
 
 class Clutter::PropertyTransition is Clutter::Transition {
@@ -17,28 +15,31 @@ class Clutter::PropertyTransition is Clutter::Transition {
   # REALLY needs ancestry logic!
   submethod BUILD (:$propertytransition) {
     given $propertytransition {
-      when PropertyTransitionAncestry {
+      when ClutterPropertyTransitionAncestry {
         self.setPropertyTransition($propertytransition);
       }
+
       when Clutter::PropertyTransition {
       }
+
       default {
       }
     }
   }
-  
-  method setPropertyTransition(PropertyTransitionAncestry $_) {
+
+  method setPropertyTransition(ClutterPropertyTransitionAncestry $_) {
     my $to-parent;
     $!cpt = do {
       when ClutterPropertyTransition {
         $to-parent = cast(ClutterTransition, $_);
         $_;
       }
+
       default {
         $to-parent = $_;
         cast(ClutterPropertyTransition, $_);
       }
-    };  
+    };
     self.setTransition($to-parent);
   }
 
@@ -55,14 +56,24 @@ class Clutter::PropertyTransition is Clutter::Transition {
     self;
   }
 
-  method Clutter::Raw::Types::ClutterPropertyTransition
+  method Clutter::Raw::Definitions::ClutterPropertyTransition
     is also<ClutterPropertyTransition>
   { $!cpt }
 
-  method new (Str() $property_name) {
-    self.bless(
-      propertytransition => clutter_property_transition_new($property_name)
-    );
+  multi method new (ClutterPropertyTransitionAncestry $propertytransition) {
+    $propertytransition ?? self.bless(:$propertytransition) !! Nil;
+  }
+  multi method new ($property_name is copy) {
+    my $coercible = $property_name.^lookup('Str');
+
+    die '$property_name must be a Str-compatible value'
+      unless $property_name ~~ Str || $coercible;
+
+    $property_name .= Str if $coercible;
+
+    my $propertytransition = clutter_property_transition_new($property_name);
+
+    $propertytransition ?? self.bless(:$propertytransition) !! Nil;
   }
 
   method property_name is rw {
@@ -77,7 +88,14 @@ class Clutter::PropertyTransition is Clutter::Transition {
   }
 
   method get_type is also<get-type> {
-    clutter_property_transition_get_type();
+    state ($n, $t);
+
+    unstable_get_type(
+      self.^name,
+      &clutter_property_transition_get_type,
+      $n,
+      $t
+    );
   }
 
 }

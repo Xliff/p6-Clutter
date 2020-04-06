@@ -2,7 +2,6 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
 use Clutter::Compat::Types;
 
@@ -10,13 +9,25 @@ use Clutter::Raw::Scriptable;
 
 role Clutter::Roles::Scriptable {
   has ClutterScriptable $!cs;
-  
-  method Clutter::Raw::Types::ClutterScriptable 
-    is also<Scriptable>
+
+  method Clutter::Raw::Definitions::ClutterScriptable
+    is also<
+      Scriptable
+      ClutterScriptable
+    >
   { $!cs }
 
-  method setScriptable ($scriptable) {
-    self.IS-PROTECTED;
+  method roleInit-ClutterScriptable {
+    my \i = findProperImplementor(self.^attributes);
+
+    $!cs = cast( ClutterScriptable, i.get_value(self) );
+  }
+
+  method setScriptable ($scriptable is copy) {
+    #self.IS-PROTECTED;
+    $scriptable = cast(ClutterScriptable, $scriptable)
+      unless $scriptable ~~ ClutterScriptable;
+      
     $!cs = $scriptable;
   }
 
@@ -31,10 +42,15 @@ role Clutter::Roles::Scriptable {
     );
   }
 
-  method scriptable_get_type is also<scriptable-get-type> {
+  method clutterscriptable_get_type is also<
+    clutterscriptable-get-type
+    scriptable_get_type
+    scriptable-get-type
+  > {
     state ($n, $t);
-    unstable_get_type( 
-      'Clutter::Roles, Scriptable', &clutter_scriptable_get_type, $n, $t
+
+    unstable_get_type(
+      'Clutter::Roles::Scriptable', &clutter_scriptable_get_type, $n, $t
     );
   }
 

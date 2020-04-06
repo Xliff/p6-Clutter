@@ -2,37 +2,61 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::PanAction;
 
 use Clutter::GestureAction;
 
 use Clutter::Roles::Signals::PanAction;
 
+our subset ClutterPanActionAncestry is export of Mu
+  where ClutterPanAction | ClutterGestureActionAncestry;
+
 class Clutter::PanAction is Clutter::GestureAction {
   also does Clutter::Roles::Signals::PanAction;
-  
+
   has ClutterPanAction $!cpa;
-  
+
   # Needs ancestry logic
   submethod BUILD (:$pan) {
-    self.setGestureAction( cast(ClutterGestureAction, $!cpa = $pan) );
+    given $pan {
+      when ClutterPanActionAncestry {
+        my $to-parent;
+        $!cpa = do {
+          when ClutterPanAction {
+            $to-parent = cast(ClutterGestureAction, $_);
+            $_;
+          }
+
+          default {
+            $to-parent = $_;
+            cast(ClutterPanAction, $_);
+          }
+        }
+        self.setGestureAction($to-parent);
+      }
+
+      when Clutter::PanAction {
+      }
+
+      default {
+      }
+    }
   }
-  
-  method Clutter::Raw::Types::ClutterPanAction
+
+  method Clutter::Raw::Definitions::ClutterPanAction
+    is also<ClutterPanAction>
   { $!cpa }
 
-  multi method new (ClutterPanAction $pan) {
-    self.bless(:$pan);
+  multi method new (ClutterPanActionAncestry $pan) {
+    $pan ?? self.bless(:$pan) !! Nil;
   }
   multi method new {
-    self.bless( pan => clutter_pan_action_new() );
+    my $pan = clutter_pan_action_new();
+
+    $pan ?? self.bless(:$pan) !! Nil;
   }
-  
+
   method acceleration_factor is rw is also<acceleration-factor> {
     Proxy.new(
       FETCH => sub ($) {
@@ -40,6 +64,7 @@ class Clutter::PanAction is Clutter::GestureAction {
       },
       STORE => sub ($, Num() $factor is copy) {
         my gdouble $f = $factor;
+
         clutter_pan_action_set_acceleration_factor($!cpa, $f);
       }
     );
@@ -52,6 +77,7 @@ class Clutter::PanAction is Clutter::GestureAction {
       },
       STORE => sub ($, Num() $rate is copy) {
         my gdouble $r = $rate;
+
         clutter_pan_action_set_deceleration($!cpa, $r);
       }
     );
@@ -63,7 +89,8 @@ class Clutter::PanAction is Clutter::GestureAction {
         so clutter_pan_action_get_interpolate($!cpa);
       },
       STORE => sub ($, Int() $should_interpolate is copy) {
-        my gboolean $s = resolve-bool($should_interpolate);
+        my gboolean $s = $should_interpolate.so.Int;
+
         clutter_pan_action_set_interpolate($!cpa, $s);
       }
     );
@@ -72,15 +99,16 @@ class Clutter::PanAction is Clutter::GestureAction {
   method pan_axis is rw is also<pan-axis> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterPanAxis( clutter_pan_action_get_pan_axis($!cpa) );
+        ClutterPanAxisEnum( clutter_pan_action_get_pan_axis($!cpa) );
       },
       STORE => sub ($, Int() $axis is copy) {
-        my guint $a = resolve-uint($axis);
+        my guint $a = $axis;
+
         clutter_pan_action_set_pan_axis($!cpa, $a);
       }
     );
   }
-  
+
   # Is originally:
   # ClutterPanAction, ClutterActor, gboolean, gpointer --> gboolean
   method pan {
@@ -92,117 +120,102 @@ class Clutter::PanAction is Clutter::GestureAction {
   method pan-stopped is also<pan_stopped> {
     self.connect-actor($!cpa, 'pan-stopped');
   }
-  
+
   proto method get_constrained_motion_delta (|)
-    is also<get-constrained-motion-delta> 
+    is also<get-constrained-motion-delta>
   { * }
-  
+
   multi method get_constrained_motion_delta (Int() $point) {
-    my ($dx, $dy) = (0, 0);
-    samewith($dx, $dy);
+    samewith($, $);
   }
   multi method get_constrained_motion_delta (
-    Int() $point, 
-    $delta_x is rw, 
+    Int() $point,
+    $delta_x is rw,
     $delta_y is rw
   ) {
-    die '$delta_x must be Num-compatible' unless $delta_x.^can('Num').elems;
-    die '$delta_y must be Num-compatible' unless $delta_y.^can('Num').elems;
-    $_ .= Num for $delta_x, $delta_y;
-    my guint $p = resolve-uint($point);
-    my gfloat ($dx, $dy) = ($delta_x, $delta_y);
+    my guint $p = $point;
+    my gfloat ($dx, $dy) = 0e0 xx 2;
+
     clutter_pan_action_get_constrained_motion_delta($!cpa, $p, $dx, $dy);
     ($delta_x, $delta_y) = ($dx, $dy);
   }
 
   proto method get_interpolated_coords (|)
-    is also<get-interpolated-coords> 
+    is also<get-interpolated-coords>
   { * }
-  
+
   multi method get_interpolated_coords {
-    my ($ix, $iy) = (0, 0);
-    samewith($ix, $iy);
+    samewith($, $);
   }
   multi method get_interpolated_coords (
-    $interp_x is rw, 
-    $interp_y is rw  
+    $interp_x is rw,
+    $interp_y is rw
   ) {
-    die '$interp_x must be Num-compatible' unless $interp_x.^can('Num').elems;
-    die '$interp_y must be Num-compatible' unless $interp_y.^can('Num').elems;
-    my gfloat ($ix, $iy) = ($interp_x, $interp_y);
+    my gfloat ($ix, $iy) = 0e0 xx 2;
+
     clutter_pan_action_get_interpolated_coords($!cpa, $ix, $iy);
     ($interp_x, $interp_y) = ($ix, $iy);
   }
-  
+
   proto method get_interpolated_delta (|)
-    is also<get-interpolated-delta> 
+    is also<get-interpolated-delta>
   { * }
-  
+
   multi method get_interpolated_delta {
-    my ($dx, $dy) = (0, 0);
-    samewith($dx, $dy);
+    samewith($, $);
   }
   multi method get_interpolated_delta (
-    $delta_x is rw, 
+    $delta_x is rw,
     $delta_y is rw
   ) {
-    die '$delta_x must be Num-compatible' unless $delta_x.^can('Num').elems;
-    die '$delta_y must be Num-compatible' unless $delta_y.^can('Num').elems;
-    $_ .= Num for $delta_x, $delta_y;
-    my gfloat ($dx, $dy) = ($delta_x, $delta_y);
+    my gfloat ($dx, $dy) = 0e0 xx 2;
+
     clutter_pan_action_get_interpolated_delta($!cpa, $dx, $dy);
     ($delta_x, $delta_y) = ($dx, $dy);
   }
 
   proto method get_motion_coords (|)
-    is also<get-motion-coords> 
+    is also<get-motion-coords>
   { * }
-  
+
   multi method get_motion_coords (Int() $point) {
-    my ($mx, $my) = (0, 0);
-    samewith($point, $mx, $my);
+    samewith($point, $, $);
   }
   multi method get_motion_coords (
-    Int() $point, 
-    Num() $motion_x is rw, 
+    Int() $point,
+    Num() $motion_x is rw,
     Num() $motion_y is rw
   ) {
-    die '$motion_x must be Num-compatible' unless $motion_x.^can('Num').elems;
-    die '$motion_y must be Num-compatible' unless $motion_y.^can('Num').elems;
-    $_ .= Num for $motion_x, $motion_y;
-    my guint $p = resolve-uint($point);
-    my gfloat ($mx, $my) = ($motion_x, $motion_y);
+    my guint $p = $point;
+    my gfloat ($mx, $my) = 0e0 xx 2;
+
     clutter_pan_action_get_motion_coords($!cpa, $p, $mx, $my);
     ($motion_x, $motion_y) = ($mx, $my);
   }
 
   proto method get_motion_delta (|)
-    is also<get-motion-delta> 
+    is also<get-motion-delta>
   { * }
-  
+
   multi method get_motion_delta (Int() $point) {
-    my ($dx, $dy) = (0, 0);
-    samewith($point, $dx, $dy);
+    samewith($point, $, $);
   }
   multi method get_motion_delta (
-    Int() $point, 
-    $delta_x is rw, 
+    Int() $point,
+    $delta_x is rw,
     $delta_y is rw
   ) {
-    die '$delta_x must be Num-compatible' unless $delta_x.^can('Num').elems;
-    die '$delta_y must be Num-compatible' unless $delta_y.^can('Num').elems;
-    $_ .= Num for $delta_x, $delta_y;
-    my guint $p = resolve-uint($point);
-    my gfloat ($dx, $dy) = ($delta_x, $delta_y);
+    my guint $p = $point;
+    my gfloat ($dx, $dy) = 0e0 xx 2;
+
     clutter_pan_action_get_motion_delta($!cpa, $p, $dx, $dy);
     ($delta_x, $delta_y) = ($dx, $dy);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_pan_action_get_type, $n, $t );
   }
 
 }
-
-  

@@ -2,15 +2,8 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Transition;
-
-use GTK::Roles::Properties;
-use GTK::Roles::Protection;
 
 use Clutter::Timeline;
 
@@ -25,27 +18,39 @@ my @set-methods = <
   to_value              to-value
 >;
 
-class Clutter::Transition is Clutter::Timeline {
-  also does GTK::Roles::Properties;
-  also does GTK::Roles::Protection;
+subset ClutterTransitionAncestry is export of Mu
+  where ClutterTransition | ClutterTimelineAncestry;
 
+class Clutter::Transition is Clutter::Timeline {
   has ClutterTransition $!ct;
 
   submethod BUILD (:$transition) {
     self.setTransition($transition) if $transition.defined;
   }
 
-  method setTransition (ClutterTransition $transition) {
-    self.IS-PROTECTED;
-    self.setTimeline( cast(ClutterTimeline, $!ct = $transition) );
+  method setTransition (ClutterTransitionAncestry $_) {
+    #self.IS-PROTECTED;
+    my $to-parent;
+    $!ct = do {
+      when ClutterTransition {
+        $to-parent = cast(ClutterTimeline, $_);
+        $_;
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterTimeline, $_);
+      }
+    }
+    self.setTimeline($to-parent);
   }
 
-  method Clutter::Raw::Types::ClutterTransition
+  method Clutter::Raw::Definitions::ClutterTransition
     is also<ClutterTransition>
   { $!ct }
 
-  method new (ClutterTransition $transition) {
-    self.bless(:$transition);
+  method new (ClutterTransitionAncestry $transition) {
+    $transition ?? self.bless(:$transition) !! Nil;
   }
 
   method setup (*%data) {
@@ -69,6 +74,7 @@ class Clutter::Transition is Clutter::Timeline {
         %data<from>:delete;
 
       }
+
       when 'to' {
         say "Tr to = { %data<to>.value }" if $DEBUG;
         self.set-to-value( %data<to> );
@@ -80,10 +86,15 @@ class Clutter::Transition is Clutter::Timeline {
     self;
   }
 
-  method animatable is rw {
+  method animatable (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Animatable.new( clutter_transition_get_animatable($!ct) );
+        my $a = clutter_transition_get_animatable($!ct);
+
+        $a ??
+          ( $raw ?? $a !! Clutter::Animatable.new($a) )
+          !!
+          Nil;
       },
       STORE => sub ($, ClutterAnimatable() $animatable is copy) {
         clutter_transition_set_animatable($!ct, $animatable);
@@ -91,10 +102,15 @@ class Clutter::Transition is Clutter::Timeline {
     );
   }
 
-  method interval is rw {
+  method interval (:$raw = False) is rw {
     Proxy.new(
       FETCH => sub ($) {
-        Clutter::Interval.new( clutter_transition_get_interval($!ct) );
+        my $i = clutter_transition_get_interval($!ct);
+
+        $i ??
+          ( $raw ?? $i !! Clutter::Interval.new($i) )
+          !!
+          Nil;
       },
       STORE => sub ($, ClutterInterval() $interval is copy) {
         clutter_transition_set_interval($!ct, $interval);
@@ -108,7 +124,8 @@ class Clutter::Transition is Clutter::Timeline {
         so clutter_transition_get_remove_on_complete($!ct);
       },
       STORE => sub ($, Int() $remove_complete is copy) {
-        my gboolean $rc = resolve-bool($remove_complete);
+        my gboolean $rc = $remove_complete.so.Int;
+
         clutter_transition_set_remove_on_complete($!ct, $rc);
       }
     );
@@ -116,6 +133,7 @@ class Clutter::Transition is Clutter::Timeline {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_transition_get_type, $n, $t );
   }
 

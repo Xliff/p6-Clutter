@@ -2,9 +2,7 @@ use v6.c;
 
 use Method::Also;
 
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
 use Clutter::Raw::VariousTypes;
 
 # Boxed
@@ -18,21 +16,31 @@ class Clutter::Point {
     $!cp = $point;
   }
 
-  method Clutter::Raw::Types::ClutterPoint
+  method Clutter::Raw::Structs::ClutterPoint
     is also<ClutterPoint>
   { $!cp }
 
+  multi method new (ClutterPoint $point) {
+    $point ?? self.bless(:$point) !! Nil;
+  }
   multi method new (Num() $x = 0, Num() $y = 0) is also<init> {
     my gfloat ($xx, $yy) = ($x, $y);
-    self.bless( point => clutter_point_init(Clutter::Point.alloc, $xx, $yy) );
+    my $point = clutter_point_init(Clutter::Point.alloc, $xx, $yy);
+
+    $point ?? self.bless(:$point) !! Nil;
   }
 
   method alloc {
     clutter_point_alloc();
   }
 
-  method copy {
-    Clutter::Point.new( clutter_point_copy($!cp) );
+  method copy (:$raw = False) {
+    my $c = clutter_point_copy($!cp);
+
+    $c ??
+      ( $raw ?? $c !! Clutter::Point.new($c) )
+      !!
+      Nil;
   }
 
   multi method distance (ClutterPoint() $b, Num() $xdist, Num() $ydist) {
@@ -46,11 +54,12 @@ class Clutter::Point {
     Num() $y_distance
   ) {
     my gfloat ($xd, $yd) = ($x_distance, $y_distance);
+
     clutter_point_distance($a, $b, $x_distance, $y_distance);
   }
 
   method equals (ClutterPoint $b) {
-    clutter_point_equals($!cp, $b);
+    so clutter_point_equals($!cp, $b);
   }
 
   method free (Clutter::Point:U: ClutterPoint $f) {
@@ -65,6 +74,7 @@ class Clutter::Point {
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_point_get_type, $n, $t );
   }
 

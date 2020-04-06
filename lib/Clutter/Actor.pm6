@@ -4,17 +4,11 @@ use Method::Also;
 
 use Cairo;
 
-use Pango::Context;
-use Pango::Layout;
-
-use GTK::Compat::Types;
-use GTK::Compat::Types;
 use Clutter::Raw::Types;
-
-use GTK::Raw::Utils;
-
 use Clutter::Raw::Actor;
 
+use Pango::Context;
+use Pango::Layout;
 use GLib::Value;
 
 use Clutter::Action;
@@ -30,14 +24,13 @@ use Clutter::Size;
 use Clutter::Transition;
 use Clutter::Vertex;
 
-use GTK::Roles::Data;
-use GTK::Roles::Protection;
-use GTK::Roles::Properties;
+use GLib::Roles::Object;
 
 use Clutter::Roles::Animatable;
 use Clutter::Roles::Container;
 use Clutter::Roles::Content;
 use Clutter::Roles::Scriptable;
+use GLib::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Actor;
 use Clutter::Roles::Signals::Generic;
 
@@ -150,7 +143,7 @@ my @add_methods = <
   effect
   effect-by-name          effect-by-name
   effect_with_name        effect-with-name
-  
+
   actions_by_name         actions-by-name
   actions_with_name       actions-with-name
   constraints_by_name     constraints-by-name
@@ -161,17 +154,16 @@ my @add_methods = <
 
 # The above arrays CAN be populated within a BEGIN block, but that will be
 # for a later date. Predefined values is currently the path of least resistance:
-#   - Tricky part is getting the right list of attributes. They MUST have both 
+#   - Tricky part is getting the right list of attributes. They MUST have both
 #     getters and setters to be considered. This could be a fun chore.
 
-our subset ActorAncestry is export of Mu
-  where ClutterAnimatable | ClutterContainer | ClutterScriptable | ClutterActor;
+our subset ClutterActorAncestry is export of Mu
+  where ClutterAnimatable | ClutterContainer | ClutterScriptable |
+        ClutterActor      | GObject;
 
 class Clutter::Actor {
-  also does GTK::Roles::Data;
-  also does GTK::Roles::Protection;
-  also does GTK::Roles::Properties;
-  also does GTK::Roles::Signals::Generic;
+  also does GLib::Roles::Object;
+  also does GLib::Roles::Signals::Generic;
   also does Clutter::Roles::Animatable;
   also does Clutter::Roles::Container;
   also does Clutter::Roles::Scriptable;
@@ -187,44 +179,54 @@ class Clutter::Actor {
   }
 
   submethod BUILD (:$actor) {
-    self.ADD-PREFIX('Clutter::');
-    self.setActor($actor) if $actor.defined;
+    #self.ADD-PREFIX('Clutter::');
+    self.setActor($actor) if $actor;
   }
 
-  method Clutter::Raw::Types::ClutterActor
+  method Clutter::Raw::Definitions::ClutterActor
     is also<
-      ClutterActor
       Actor
+      ClutterActor
     >
   { $!ca }
 
-  method setActor (ActorAncestry $actor) {
-    self.IS-PROTECTED;
-    my ($c-anim, $c-container, $c-script);
+  method setActor (ClutterActorAncestry $actor) {
+    #self.IS-PROTECTED;
+    my $to-parent;
     $!ca = do given $actor {
-      when ClutterAnimatable { $c-anim = $_;      proceed; }
-      when ClutterScriptable { $c-script = $_;    proceed; }
-      when ClutterContainer  { $c-container = $_; proceed; }
+      when ClutterActor      {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      when ClutterAnimatable { $!c-anim = $_; proceed; }
+      when ClutterScriptable { $!cs     = $_; proceed; }
+      when ClutterContainer  { $!c      = $_; proceed; }
 
       when ClutterAnimatable | ClutterContainer | ClutterScriptable {
+        $to-parent = cast(GObject, $_);
         cast(ClutterActor, $_);
       }
 
-      default { $_ }
+      default {
+        $to-parent = $_;
+        cast(ClutterActor, $_);
+      }
     }
 
-    $!data = $!ca.p;                                                     # GTK::Roles::Data
-    self!setObject( cast(GObject, $!ca) );                               # GTK::Roles::Properties (GObject)
-    self.setAnimatable( $c-anim      // cast(ClutterAnimatable, $!ca) ); # Clutter::Roles::Animatable
-    self.setContainer(  $c-container // cast(ClutterContainer,  $!ca) ); # Clutter::Roles::Container
-    self.setScriptable( $c-script    // cast(ClutterScriptable, $!ca) ); # Clutter::Roles::Scriptable
+    self!setObject($to-parent);
+    self.setAnimatable($actor) unless $!c-anim;  # Clutter::Roles::Animatable
+    self.setContainer($actor)  unless $!c;       # Clutter::Roles::Container
+    self.setScriptable($actor) unless $!cs;      # Clutter::Roles::Scriptable
   }
 
-  multi method new (ClutterActor $actor) {
-    self.bless(:$actor);
+  multi method new (ClutterActorAncestry $actor) {
+    $actor ?? self.bless(:$actor) !! Nil;
   }
   multi method new {
-    self.bless( actor => clutter_actor_new() );
+    my $actor = clutter_actor_new();
+
+    $actor ?? self.bless(:$actor) !! Nil;
   }
 
   # Is originally:
@@ -389,10 +391,10 @@ class Clutter::Actor {
     die "'{ $name }' value must be a Clutter::Point-compatible object or a 2-element list'"
       unless [||](
         so %data{$name} ~~ (Clutter::Point, ClutterPoint).any,
-        %data{$name}.^can('elems')
+        %data{$name}.^lookup('elems')
       );
-    if %data{$name}.^can('elems') {
-      self."set-{$name}"(|%data{$name});
+    if %data{$name}.^lookup('elems') {
+      self."set-{$name}"( |%data{$name} );
     } else {
       self.$name() = %data{$name};
     }
@@ -452,6 +454,10 @@ class Clutter::Actor {
 
       default { die "Unknown attribute '{ $_ }'" }
     }
+    # Role attribute and set methods should be respected, somehow. Think
+    # about a proper mechanism to do that. Bonus points for maintaining
+    # abstraction!
+
     self;
   }
 
@@ -461,7 +467,8 @@ class Clutter::Actor {
         clutter_actor_get_opacity($!ca);
       },
       STORE => sub ($, Int() $opacity is copy) {
-        my guint8 $o = resolve-uint8($opacity);
+        my guint8 $o = $opacity;
+
         clutter_actor_set_opacity($!ca, $o);
       }
     );
@@ -473,7 +480,8 @@ class Clutter::Actor {
         clutter_actor_get_opacity_override($!ca);
       },
       STORE => sub ($, Int() $opacity is copy) {
-        my gint $o = resolve-int($opacity);
+        my gint $o = $opacity;
+
         clutter_actor_set_opacity_override($!ca, $o);
       }
     );
@@ -496,7 +504,8 @@ class Clutter::Actor {
         so clutter_actor_get_reactive($!ca);
       },
       STORE => sub ($, Int() $reactive is copy) {
-        my gboolean $r = resolve-bool($reactive);
+        my gboolean $r = $reactive.so.Int;
+
         clutter_actor_set_reactive($!ca, $r);
       }
     );
@@ -505,10 +514,11 @@ class Clutter::Actor {
   method request_mode is rw is also<request-mode> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterRequestMode( clutter_actor_get_request_mode($!ca) );
+        ClutterRequestModeEnum( clutter_actor_get_request_mode($!ca) );
       },
       STORE => sub ($, Int() $mode is copy) {
-        my guint $m = resolve-uint($mode);
+        my guint $m = $mode;
+
         clutter_actor_set_request_mode($!ca, $m);
       }
     );
@@ -528,10 +538,10 @@ class Clutter::Actor {
   method text_direction is rw is also<text-direction> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterTextDirection( clutter_actor_get_text_direction($!ca) );
+        ClutterTextDirectionEnum( clutter_actor_get_text_direction($!ca) );
       },
       STORE => sub ($, Int() $text_dir is copy) {
-        my guint $d = resolve-uint($text_dir);
+        my guint $d = $text_dir;
         clutter_actor_set_text_direction($!ca, $d);
       }
     );
@@ -544,6 +554,7 @@ class Clutter::Actor {
       },
       STORE => sub ($, Num() $width is copy) {
         my gfloat $w = $width;
+
         clutter_actor_set_width($!ca, $w);
       }
     );
@@ -556,6 +567,7 @@ class Clutter::Actor {
       },
       STORE => sub ($, Num() $x is copy) {
         my gfloat $xx = $x;
+
         clutter_actor_set_x($!ca, $xx);
       }
     );
@@ -564,10 +576,11 @@ class Clutter::Actor {
   method x-align is rw is also<x_align> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterActorAlign( clutter_actor_get_x_align($!ca) );
+        ClutterActorAlignEnum( clutter_actor_get_x_align($!ca) );
       },
       STORE => sub ($, Int() $x_align is copy) {
-        my guint $xa = resolve-uint($x_align);
+        my ClutterActorAlign $xa = $x_align;
+
         clutter_actor_set_x_align($!ca, $xa);
       }
     );
@@ -579,7 +592,8 @@ class Clutter::Actor {
         so clutter_actor_get_x_expand($!ca);
       },
       STORE => sub ($, Int() $expand is copy) {
-        my gboolean $e = resolve-bool($expand);
+        my gboolean $e = $expand.so.Int;
+
         clutter_actor_set_x_expand($!ca, $expand);
       }
     );
@@ -592,6 +606,7 @@ class Clutter::Actor {
       },
       STORE => sub ($, Num() $y is copy) {
         my gfloat $yy = $y;
+
         clutter_actor_set_y($!ca, $yy);
       }
     );
@@ -600,10 +615,11 @@ class Clutter::Actor {
   method y-align is rw is also<y_align> {
     Proxy.new(
       FETCH => sub ($) {
-        ClutterActorAlign( clutter_actor_get_y_align($!ca) );
+        ClutterActorAlignEnum( clutter_actor_get_y_align($!ca) );
       },
       STORE => sub ($, Int() $y_align is copy) {
-        my guint $ya = resolve-uint($y_align);
+        my ClutterActorAlign $ya = $y_align;
+
         clutter_actor_set_y_align($!ca, $ya);
       }
     );
@@ -615,7 +631,8 @@ class Clutter::Actor {
         so clutter_actor_get_y_expand($!ca);
       },
       STORE => sub ($, Int() $expand is copy) {
-        my gboolean $e = resolve-bool($expand);
+        my gboolean $e = $expand.so.Int;
+
         clutter_actor_set_y_expand($!ca, $expand);
       }
     );
@@ -628,6 +645,7 @@ class Clutter::Actor {
       },
       STORE => sub ($, Num() $z_position is copy) {
         my gfloat $z = $z_position;
+
         clutter_actor_set_z_position($!ca, $z_position);
       }
     );
@@ -637,7 +655,7 @@ class Clutter::Actor {
   method actions is rw  {
     my GLib::Value $gv .= new( Clutter::Action.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn "'actions' does not allow reading" if $DEBUG;
         0;
       },
@@ -649,12 +667,16 @@ class Clutter::Actor {
   }
 
   # Type: ClutterActorBox
-  method allocation is rw  {
+  method allocation (:$raw = False) is rw  {
     my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('allocation', $gv);
-        cast(ClutterActorBox, $gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $ab = cast(ClutterActorBox, $gv.boxed);
+        $raw ?? $ab !! Clutter::ActorBox.new($ab);
       },
       STORE => -> $, $val is copy {
         warn "'allocation' does not allow writing"
@@ -666,12 +688,13 @@ class Clutter::Actor {
   method anchor-gravity is rw is also<anchor_gravity> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-gravity', $gv);
-        ClutterGravity( $gv.enum );
+        ClutterGravityEnum( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
         $gv.guint = $val;
+
         self.prop_set('anchor-gravity', $gv);
       }
     );
@@ -681,12 +704,13 @@ class Clutter::Actor {
   method anchor-x is rw is also<anchor_x> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-x', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
         $gv.float = $val;
+
         self.prop_set('anchor-x', $gv);
       }
     );
@@ -696,12 +720,13 @@ class Clutter::Actor {
   method anchor-y is rw is also<anchor_y> is DEPRECATED( 'pivot-point' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('anchor-y', $gv);
         $gv.float;
       },
       STORE => -> $, Num() $val is copy {
         $gv.float = $val;
+
         self.prop_set('anchor-y', $gv);
       }
     );
@@ -709,7 +734,7 @@ class Clutter::Actor {
 
   method background-color is rw is also<background_color> {
     Proxy.new:
-      FETCH => -> $       { self.get-background-color      },
+      FETCH => sub ($)       { self.get-background-color      },
       STORE => -> $, \val { self.set-background-color(val) };
   }
 
@@ -717,7 +742,7 @@ class Clutter::Actor {
   method background-color-set is rw is also<background_color_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('background-color-set', $gv);
         $gv.boolean;
       },
@@ -731,9 +756,12 @@ class Clutter::Actor {
   method child-transform is rw is also<child_transform> {
     my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('child-transform', $gv);
-        cast(ClutterMatrix, $gv.pointer)
+
+        return Nil unless $gv.pointer;
+
+        cast(ClutterMatrix, $gv.pointer);
       },
       STORE => -> $, ClutterMatrix() $val is copy {
         $gv.pointer = $val;
@@ -746,7 +774,7 @@ class Clutter::Actor {
   method child-transform-set is rw is also<child_transform_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('child-transform-set', $gv);
         $gv.boolean;
       },
@@ -760,7 +788,7 @@ class Clutter::Actor {
   # method clip is rw  is DEPRECATED( “clip-rect” ) {
   #   my GLib::Value $gv .= new( -type- );
   #   Proxy.new(
-  #     FETCH => -> $ {
+  #     FETCH => sub ($) {
   #       $gv = GLib::Value.new(
   #         self.prop_get('clip', $gv)
   #       );
@@ -777,11 +805,11 @@ class Clutter::Actor {
   method clip-rect is rw is also<clip_rect> {
     my GLib::Value $gv .= new( Clutter::Rect.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('clip-rect', $gv);
         cast(ClutterRect, $gv.boxed);
       },
-      STORE => -> $, ClutterRect $val is copy {
+      STORE => -> $, ClutterRect() $val is copy {
         $gv.boxed = $val;
         self.prop_set('clip-rect', $gv);
       }
@@ -791,7 +819,7 @@ class Clutter::Actor {
   # Type: gboolean
   method clip-to-allocation is rw is also<clip_to_allocation> {
     Proxy.new:
-      FETCH => -> $             { self.get-clip-to-allocation },
+      FETCH => sub ($)             { self.get-clip-to-allocation },
       STORE => -> $, Int() \val { self.set-clip-to-allocation(val) };
   }
 
@@ -800,7 +828,7 @@ class Clutter::Actor {
   # method constraint is rw  {
   #   my GLib::Value $gv .= new( Clutter::Constraint.get_type );
   #   Proxy.new(
-  #     FETCH => -> $ {
+  #     FETCH => sub ($) {
   #       warn "'constraints' does not allow reading" if $DEBUG;
   #       0;
   #     },
@@ -814,17 +842,21 @@ class Clutter::Actor {
   # Type: ClutterContent
   method content is rw  {
     Proxy.new:
-      FETCH => -> $                        { self.get_content },
+      FETCH => sub ($)                        { self.get_content },
       STORE => -> $, ClutterContent() \val { self.set_content(val) };
   }
 
   # Type: ClutterActorBox
-  method content-box is rw is also<content_box> {
+  method content-box (:$raw = False) is rw is also<content_box> {
     my GLib::Value $gv .= new( Clutter::ActorBox.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('content-box', $gv);
-        cast(ClutterActorBox, $gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $ab = cast(ClutterActorBox, $gv.boxed);
+        $raw ?? $ab !! Clutter::ActorBox.new($ab);
       },
       STORE => -> $, $val is copy {
         warn "'content-box' does not allow writing";
@@ -835,22 +867,22 @@ class Clutter::Actor {
   # Type: ClutterContentGravity
   method content-gravity is rw is also<content_gravity> {
     Proxy.new:
-      FETCH => -> $             { self.get-content-gravity },
+      FETCH => sub ($)             { self.get-content-gravity },
       STORE => -> $, Int() \val { self.set-content-gravity(val) };
   }
 
   # Type: ClutterContentRepeat
   method content-repeat is rw is also<content_repeat> {
     Proxy.new:
-      FETCH => -> $             { self.get-content-repeat },
+      FETCH => sub ($)             { self.get-content-repeat },
       STORE => -> $, Int() \val { self.set-content-repeat(val) };
   }
 
   # Type: gfloat
-  method depth is rw is DEPRECATED( “z-position” ) {
+  method depth is rw is DEPRECATED( 'z-position' ) {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('depth', $gv);
         $gv.float;
       },
@@ -863,19 +895,19 @@ class Clutter::Actor {
 
   method easing_delay is rw is also<easing-delay> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-delay },
+      FETCH => sub ($)             { self.get-easing-delay },
       STORE => -> $, Int() \val { self.set-easing-delay(val) };
   }
 
   method easing-duration is rw is also<easing_duration> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-duration },
+      FETCH => sub ($)             { self.get-easing-duration },
       STORE => -> $, Int() \val { self.set-easing-duration(val) };
   }
 
   method easing-mode is rw is also<easing_mode> {
     Proxy.new:
-      FETCH => -> $             { self.get-easing-mode },
+      FETCH => sub ($)             { self.get-easing-mode },
       STORE => -> $, Int() \val { self.set-easing-mode(val) };
   }
 
@@ -883,7 +915,7 @@ class Clutter::Actor {
   method effect is rw  {
     my GLib::Value $gv .= new( Clutter::Effect.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         warn "'effect' does not allow reading" if $DEBUG;
         0;
       },
@@ -897,7 +929,7 @@ class Clutter::Actor {
   # Type: gboolean
   method fixed-position-set is rw is also<fixed_position_set> {
     Proxy.new:
-      FETCH => -> $             { self.get-fixed-position-set };
+      FETCH => sub ($)             { self.get-fixed-position-set };
       STORE => -> $, Int() \val { self.set-fixed-position-set(val) };
   }
 
@@ -905,7 +937,7 @@ class Clutter::Actor {
   method fixed-x is rw is also<fixed_x> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fixed-x', $gv);
         $gv.float;
       },
@@ -920,7 +952,7 @@ class Clutter::Actor {
   method fixed-y is rw is also<fixed_y> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('fixed-y', $gv);
         $gv.float;
       },
@@ -934,15 +966,15 @@ class Clutter::Actor {
   # Type: gfloat
   method height is rw {
     Proxy.new:
-      FETCH => -> $             { self.get-height },
+      FETCH => sub ($)             { self.get-height },
       STORE => -> $, Num() \val { self.set-height(val) };
   }
 
   # Type: ClutterLayoutManager
-  method layout-manager is rw is also<layout_manager> {
+  method layout-manager (:$raw = False) is rw is also<layout_manager> {
     Proxy.new:
-      FETCH => -> $ {
-        self.get-layout-manager
+      FETCH => sub ($) {
+        self.get-layout-manager(:$raw);
       },
       STORE => -> $, ClutterLayoutManager() \val {
         self.set-layout-manager(val)
@@ -953,9 +985,9 @@ class Clutter::Actor {
   method magnification-filter is rw is also<magification_filter> {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('magnification-filter', $gv);
-        ClutterScalingFilter( $gv.enum );
+        ClutterScalingFilterEnum( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -968,7 +1000,7 @@ class Clutter::Actor {
   method mapped is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('mapped', $gv);
         $gv.boolean;
       },
@@ -980,7 +1012,7 @@ class Clutter::Actor {
 
   method margins is rw {
     Proxy.new:
-      FETCH => -> $ {
+      FETCH => sub ($) {
         (
           self.margin-top,
           self.margin-left,
@@ -1002,28 +1034,28 @@ class Clutter::Actor {
   # Type: gfloat
   method margin-bottom is rw is also<margin_bottom> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-bottom },
+      FETCH => sub ($)             { self.get-margin-bottom },
       STORE => -> $, Num() \val { self.set-margin-bottom(val) };
   }
 
   # Type: gfloat
   method margin-left is rw is also<margin_left> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-left },
+      FETCH => sub ($)             { self.get-margin-left },
       STORE => -> $, Num() \val { self.set-margin-left(val) };
   }
 
   # Type: gfloat
   method margin-right is rw is also<margin_right> {
   Proxy.new:
-    FETCH => -> $             { self.get-margin-right },
+    FETCH => sub ($)             { self.get-margin-right },
     STORE => -> $, Num() \val { self.set-margin-right(val) };
   }
 
   # Type: gfloat
   method margin-top is rw is also<margin_top> {
     Proxy.new:
-      FETCH => -> $             { self.get-margin-top },
+      FETCH => sub ($)             { self.get-margin-top },
       STORE => -> $, Num() \val { self.set-margin-top(val) };
   }
 
@@ -1031,7 +1063,7 @@ class Clutter::Actor {
   method min-height is rw is also<min_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-height', $gv);
         $gv.float;
       },
@@ -1046,7 +1078,7 @@ class Clutter::Actor {
   method min-height-set is rw is also<min_height_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-height-set', $gv);
         $gv.boolean;
       },
@@ -1061,7 +1093,7 @@ class Clutter::Actor {
   method min-width is rw is also<min_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-width', $gv);
         $gv.float;
       },
@@ -1076,7 +1108,7 @@ class Clutter::Actor {
   method min-width-set is rw is also<min_width_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('min-width-set', $gv);
         $gv.boolean;
       },
@@ -1091,9 +1123,9 @@ class Clutter::Actor {
   method minification-filter is rw is also<minification_filter> {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.scaling_filter_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('minification-filter', $gv);
-        ClutterScalingFilter( $gv.enum );
+        ClutterScalingFilterEnum( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -1105,7 +1137,7 @@ class Clutter::Actor {
   # Type: gchar
   method name is rw  {
     Proxy.new:
-      FETCH => -> $             { self.get-name },
+      FETCH => sub ($)             { self.get-name },
       STORE => -> $, Str() $val { self.set-name($val) };
   }
 
@@ -1113,7 +1145,7 @@ class Clutter::Actor {
   method natural-height is rw is also<natural_height> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-height', $gv);
         $gv.float;
       },
@@ -1128,7 +1160,7 @@ class Clutter::Actor {
   method natural-height-set is rw is also<natural_height_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-height-set', $gv);
         $gv.boolean;
       },
@@ -1143,7 +1175,7 @@ class Clutter::Actor {
   method natural-width is rw is also<natural_width> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-width', $gv);
         $gv.float;
       },
@@ -1158,7 +1190,7 @@ class Clutter::Actor {
   method natural-width-set is rw is also<natural_width_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('natural-width-set', $gv);
         $gv.boolean;
       },
@@ -1172,7 +1204,7 @@ class Clutter::Actor {
   # Type: ClutterOffscreenRedirect
   method offscreen-redirect is rw is also<offscreen_redirect> {
     Proxy.new:
-      FETCH => -> $             { self.get-offscreen-redirect },
+      FETCH => sub ($)             { self.get-offscreen-redirect },
       STORE => -> $, Num() \val { self.set-offscreen-redirect(val) };
   }
 
@@ -1180,11 +1212,11 @@ class Clutter::Actor {
   method pivot-point is rw is also<pivot_point> {
     my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('pivot-point', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
-      STORE => -> $, ClutterPoint $val is copy {
+      STORE => -> $, ClutterPoint() $val is copy {
         $gv.boxed = $val;
         self.prop_set('pivot-point', $gv);
       }
@@ -1195,7 +1227,7 @@ class Clutter::Actor {
   method position is rw  {
     my GLib::Value $gv .= new( Clutter::Point.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('position', $gv);
         cast(ClutterPoint, $gv.boxed);
       },
@@ -1210,7 +1242,7 @@ class Clutter::Actor {
   method realized is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('realized', $gv);
         $gv.boolean;
       },
@@ -1224,7 +1256,7 @@ class Clutter::Actor {
   method rotation-angle-x is rw is also<rotation_angle_x> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-x', $gv);
         $gv.double;
       },
@@ -1239,7 +1271,7 @@ class Clutter::Actor {
   method rotation-angle-y is rw is also<rotation_angle_y> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-y', $gv);
         $gv.double;
       },
@@ -1254,7 +1286,7 @@ class Clutter::Actor {
   method rotation-angle-z is rw is also<rotation_angle_z> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-angle-z', $gv);
         $gv.double;
       },
@@ -1266,14 +1298,19 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-x is rw is also<rotation_center_x>
+  method rotation-center-x (:$raw = False) is rw is also<rotation_center_x>
     is DEPRECATED( 'pivot-point' )
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-x', $gv);
-        Clutter::Vertex.new($gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $v = cast(ClutterVertex, $gv.boxed);
+
+        $raw ?? $v !! Clutter::Vertex.new($v);
       },
       STORE => -> $, ClutterVertex() $val is copy {
         $gv.boxed = $val;
@@ -1283,14 +1320,19 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-y is rw is also<rotation_center_y>
+  method rotation-center-y (:$raw = False) is rw is also<rotation_center_y>
     is DEPRECATED( 'pivot-point' )
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-y', $gv);
-        Clutter::Vertex.new($gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $v = cast(ClutterVertex, $gv.boxed);
+
+        $raw ?? $v !! Clutter::Vertex.new($v);
       },
       STORE => -> $, ClutterVertex() $val is copy {
         $gv.boxed = $val;
@@ -1300,14 +1342,19 @@ class Clutter::Actor {
   }
 
   # Type: ClutterVertex
-  method rotation-center-z is rw is also<rotation_center_z>
+  method rotation-center-z (:$raw = False) is rw is also<rotation_center_z>
     is DEPRECATED( 'pivot-point' )
   {
     my GLib::Value $gv .= new( Clutter::Vertex.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-z', $gv);
-        Clutter::Vertex.new($gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $v = cast(ClutterVertex, $gv.boxed);
+
+        $raw ?? $v !! Clutter::Vertex.new($v);
       },
       STORE => -> $, ClutterVertex() $val is copy {
         $gv.boxed = $val;
@@ -1322,9 +1369,9 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('rotation-center-z-gravity', $gv);
-        ClutterGravity( $gv.enum );
+        ClutterGravityEnum( $gv.enum );
       },
       STORE => -> $, Int() $val is copy {
         $gv.uint = $val;
@@ -1339,7 +1386,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-center-x', $gv);
         $gv.float;
       },
@@ -1356,7 +1403,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-center-y', $gv);
         $gv.float;
       },
@@ -1373,7 +1420,7 @@ class Clutter::Actor {
   {
     my GLib::Value $gv .= new( Clutter::Raw::Enums.gravity_get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-gravity', $gv);
         ClutterGravity( $gv.enum );
       },
@@ -1388,7 +1435,7 @@ class Clutter::Actor {
   method scale-x is rw is also<scale_x> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-x', $gv);
         $gv.double;
       },
@@ -1403,7 +1450,7 @@ class Clutter::Actor {
   method scale-y is rw is also<scale_y> {
     my GLib::Value $gv .= new( G_TYPE_DOUBLE );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('scale-y', $gv);
         $gv.double;
       },
@@ -1418,7 +1465,7 @@ class Clutter::Actor {
   method show-on-set-parent is rw is also<show_on_set_parent> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('show-on-set-parent', $gv);
         $gv.boolean;
       },
@@ -1430,12 +1477,17 @@ class Clutter::Actor {
   }
 
   # Type: ClutterSize
-  method size is rw  {
+  method size (:$raw = False) is rw  {
     my GLib::Value $gv .= new( Clutter::Size.get_type );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('size', $gv);
-        Clutter::Size.new($gv.boxed);
+
+        return Nil unless $gv.boxed;
+
+        my $s = cast(ClutterSize, $gv.boxed);
+
+        $raw ?? $s !! Clutter::Size.new($s);
       },
       STORE => -> $, ClutterSize() $val is copy {
         $gv.boxed = $val;
@@ -1448,7 +1500,7 @@ class Clutter::Actor {
   method transform is rw  {
     my GLib::Value $gv .= new( G_TYPE_POINTER );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('transform', $gv);
         cast(ClutterMatrix, $gv.pointer);
       },
@@ -1463,7 +1515,7 @@ class Clutter::Actor {
   method transform-set is rw is also<transform_set> {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('transform-set', $gv);
         $gv.boolean;
       },
@@ -1477,7 +1529,7 @@ class Clutter::Actor {
   method translation-x is rw is also<translation_x> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-x', $gv);
         $gv.float;
       },
@@ -1492,7 +1544,7 @@ class Clutter::Actor {
   method translation-y is rw is also<translation_y> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-y', $gv);
         $gv.float;
       },
@@ -1507,7 +1559,7 @@ class Clutter::Actor {
   method translation-z is rw is also<translation_z> {
     my GLib::Value $gv .= new( G_TYPE_FLOAT );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('translation-z', $gv);
         $gv.float;
       },
@@ -1522,7 +1574,7 @@ class Clutter::Actor {
   method visible is rw  {
     my GLib::Value $gv .= new( G_TYPE_BOOLEAN );
     Proxy.new(
-      FETCH => -> $ {
+      FETCH => sub ($) {
         self.prop_get('visible', $gv);
         $gv.boolean;
       },
@@ -1547,7 +1599,8 @@ class Clutter::Actor {
     ClutterActorBox() $box,
     Int() $flags # ClutterAllocationFlags $flags
   ) {
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_actor_allocate($!ca, $box, $f);
   }
 
@@ -1562,8 +1615,9 @@ class Clutter::Actor {
     is also<allocate-align-fill>
   {
     my gdouble ($xa, $ya) = ($x_align, $y_align);
-    my gboolean ($xf, $yf) = resolve-bool($x_fill, $y_fill);
-    my guint $f = resolve-uint($flags);
+    my gboolean ($xf, $yf) = ($x_fill, $y_fill).map( *.so.Int);
+    my guint $f = $flags;
+
     clutter_actor_allocate_align_fill($!ca, $box, $xa, $ya, $xf, $yf, $f);
     ;
   }
@@ -1579,7 +1633,8 @@ class Clutter::Actor {
   {
     my gfloat ($xx, $yy, $aw, $ah)
       = ($x, $y, $available_width, $available_height);
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_actor_allocate_available_size($!ca, $xx, $yy, $aw, $ah, $f);
   }
 
@@ -1588,7 +1643,8 @@ class Clutter::Actor {
   )
     is also<allocate-preferred-size>
   {
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_actor_allocate_preferred_size($!ca, $f);
   }
 
@@ -1641,12 +1697,24 @@ class Clutter::Actor {
     clutter_actor_continue_paint($!ca);
   }
 
-  method create_pango_context is also<create-pango-context> {
-    Pango::Context.new( clutter_actor_create_pango_context($!ca) );
+  method create_pango_context (:$raw = False) is also<create-pango-context> {
+    my $pc = clutter_actor_create_pango_context($!ca);
+
+    $pc ??
+      ( $raw ?? $pc !! Pango::Context.new($pc) )
+      !!
+      Nil;
   }
 
-  method create_pango_layout (Str() $text) is also<create-pango-layout> {
-    Pango::Layout.new( clutter_actor_create_pango_layout($!ca, $text) );
+  method create_pango_layout (Str() $text, :$raw = False)
+    is also<create-pango-layout>
+  {
+    my $pl = clutter_actor_create_pango_layout($!ca, $text);
+
+    $pl ??
+      ( $raw ?? $pl !! Pango::Layout.new($pl) )
+      !!
+      Nil;
   }
 
   method destroy_actor is also<destroy-actor> {
@@ -1658,7 +1726,8 @@ class Clutter::Actor {
   }
 
   method emit-event (ClutterEvent() $event, Int() $capture) {
-    my gboolean $c = resolve-bool($capture);
+    my gboolean $c = $capture.so.Int;
+
     clutter_actor_event($!ca, $event, $capture);
   }
 
@@ -1676,42 +1745,81 @@ class Clutter::Actor {
     is also<get-background-color>
   { * }
 
-  multi method get_background_color {
-    my $cc = ClutterColor.new;
-    samewith($cc);
+  multi method get_background_color (:$raw = False) {
+    samewith($, :$raw);
   }
-  multi method get_background_color (ClutterColor() $color) {
+  multi method get_background_color ($color is copy, :$raw = False) {
+    $color //= ClutterColor.new;
+
+    die 'Cannot allocate ClutterColor!' unless $color;
+
+    my $compatible = $color ~~ ClutterColor;
+    my $coercible  = $color.^lookup('ClutterColor');
+    my $oldcolor   = $coercible ?? $color !! Nil;
+
+    die '$color must be a ClutterColor compatible values'
+      unless $compatible || $coercible;
+
+    $color .= ClutterColor if $coercible;
+
     clutter_actor_get_background_color($!ca, $color);
-    $color;
+
+    $raw ?? $color !! ( $oldcolor ?? $oldcolor !! Clutter::Color.new($color) )
   }
 
   method get_child_at_index (Int() $index, :$raw = False)
     is also<get-child-at-index>
   {
-    my gint $i = resolve-int($index);
+    my gint $i = $index;
     my $a = clutter_actor_get_child_at_index($!ca, $index);
-    $a.defined ??
-      $raw ?? $a !! Clutter::Actor.new($a)
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
       !!
       Nil;
   }
 
-  method get_child_transform (ClutterMatrix() $transform)
+  proto method get_child_transform (|)
     is also<get-child-transform>
-  {
+  { * }
+
+  multi method get_child_transform (:$raw = False) {
+    samewith($);
+  }
+  multi method get_child_transform ($transform is copy, :$raw = False) {
+    $transform //= ClutterMatrix.new;
+
+    die 'Cannot allocate ClutterMatrix!' unless $transform;
+
+    my $compatible   = $transform ~~ ClutterMatrix;
+    my $coercible    = $transform.^lookup('ClutterMatrix');
+    my $oldtransform = $coercible ?? $transform !! Nil;
+
+    die '$color must be a ClutterColor compatible values'
+      unless $compatible || $coercible;
+
+    $transform .= ClutterMatrix if $coercible;
+
     clutter_actor_get_child_transform($!ca, $transform);
+
+    $raw ?? $transform
+         !! ( $oldtransform ?? $oldtransform
+                            !! Clutter::Matrix.new($transform) );
   }
 
-  method get_children (:$raw = False)
+  method get_children (:$glist = False, :$raw = False)
     is also<
       get-children
       children
     >
   {
-    my $l = GLib::GList.new( clutter_actor_get_children($!ca) )
-      but GLib::Roles::ListData[ClutterActor];
-    $raw ??
-      $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
+    my $l = clutter_actor_get_children($!ca);
+
+    return Nil unless $l;
+    return $l  if $glist;
+
+    $l = GLib::GList.new($l) but GLib::Roles::ListData[ClutterActor];
+    $raw ?? $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
   }
 
   proto method get_clip (|)
@@ -1719,8 +1827,7 @@ class Clutter::Actor {
   { * }
 
   multi method get_clip {
-    my ($xo, $yo, $w, $h) = 0 xx 4;
-    samewith($xo, $yo, $w, $h);
+    samewith($, $, $, $);
   }
   multi method get_clip (
     $xoff   is rw,
@@ -1728,12 +1835,8 @@ class Clutter::Actor {
     $width  is rw,
     $height is rw
   ) {
-    for $xoff, $yoff, $width, $height -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my num32 ($xo, $yo, $w, $h) = ($xoff, $yoff, $width, $height);
+    my num32 ($xo, $yo, $w, $h) = 0e0 xx 4;
+
     clutter_actor_get_clip($!ca, $xo, $yo, $w, $h);
     ($xoff, $yoff, $width, $height) = ($xo, $yo, $w, $h);
   }
@@ -1745,7 +1848,9 @@ class Clutter::Actor {
   }
 
   method get_content is also<get-content> {
-    Clutter::Roles::Content.role-new( clutter_actor_get_content($!ca) );
+    Clutter::Roles::Content.new_cluttercontent_obj(
+      clutter_actor_get_content($!ca)
+    );
   }
 
   method get_content_box (ClutterActorBox() $box) is also<get-content-box>
@@ -1754,11 +1859,11 @@ class Clutter::Actor {
   }
 
   method get_content_gravity is also<get-content-gravity> {
-    ClutterContentGravity( clutter_actor_get_content_gravity($!ca) );
+    ClutterContentGravityEnum( clutter_actor_get_content_gravity($!ca) );
   }
 
   method get_content_repeat is also<get-content-repeat> {
-    ClutterContentRepeat( clutter_actor_get_content_repeat($!ca) );
+    ClutterContentRepeatEnum( clutter_actor_get_content_repeat($!ca) );
   }
 
   method get_content_scaling_filters (
@@ -1770,14 +1875,19 @@ class Clutter::Actor {
     clutter_actor_get_content_scaling_filters($!ca, $min_filter, $mag_filter);
   }
 
-  method get_default_paint_volume
+  method get_default_paint_volume (:$raw = False)
     is also<
       get-default-paint-volume
       default_paint_volume
       default-paint-volume
     >
   {
-    Clutter::PaintVolume.new( clutter_actor_get_default_paint_volume($!ca) );
+    my $pv = clutter_actor_get_default_paint_volume($!ca);
+
+    $pv ??
+      ( $raw ?? $pv !! Clutter::PaintVolume.new($pv) )
+      !!
+      Nil;
   }
 
   method get_easing_delay is also<get-easing-delay> {
@@ -1789,17 +1899,22 @@ class Clutter::Actor {
   }
 
   method get_easing_mode is also<get-easing-mode> {
-    ClutterAnimationMode( clutter_actor_get_easing_mode($!ca) );
+    ClutterAnimationModeEnum( clutter_actor_get_easing_mode($!ca) );
   }
 
-  method get_first_child
+  method get_first_child (:$raw = False)
     is also<
       get-first-child
       first_child
       first-child
     >
   {
-    Clutter::Actor.new( clutter_actor_get_first_child($!ca) );
+    my $a = clutter_actor_get_first_child($!ca);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil;
   }
 
   method get_fixed_position_set is also<get-fixed-position-set> {
@@ -1812,26 +1927,35 @@ class Clutter::Actor {
       flags
     >
   {
-    ClutterActorFlags( clutter_actor_get_flags($!ca) );
+    ClutterActorFlagsEnum( clutter_actor_get_flags($!ca) );
   }
 
   method get_height is also<get-height> {
     clutter_actor_get_height($!ca);
   }
 
-  method get_last_child
+  method get_last_child (:$raw = False)
     is also<
       get-last-child
       last_child
       last-child
     >
   {
-    Clutter::Actor.new( clutter_actor_get_last_child($!ca) );
+    my $a = clutter_actor_get_last_child($!ca);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil;
   }
 
-  method get_layout_manager(:$raw) is also<get-layout-manager> {
+  method get_layout_manager(:$raw = False) is also<get-layout-manager> {
     my $lm = clutter_actor_get_layout_manager($!ca);
-    $raw ?? $lm !! Clutter::LayoutManager.new($lm);
+
+    $lm ??
+      ( $raw ?? $lm !! Clutter::LayoutManager.new($lm) )
+      !!
+      Nil;
   }
 
   method get_margin (ClutterMargin() $margin) is also<get-margin> {
@@ -1842,8 +1966,7 @@ class Clutter::Actor {
     clutter_actor_get_margin_bottom($!ca);
   }
 
-  method get_margin_left is also<get-margin-left>
-  {
+  method get_margin_left is also<get-margin-left> {
     clutter_actor_get_margin_left($!ca);
   }
 
@@ -1870,30 +1993,36 @@ class Clutter::Actor {
     clutter_actor_get_name($!ca);
   }
 
-  method get_next_sibling
+  method get_next_sibling (:$raw = False)
     is also<
       get-next-sibling
       next_sibling
       next-sibling
     >
   {
-    Clutter::Actor.new( clutter_actor_get_next_sibling($!ca) );
+    my $a = clutter_actor_get_next_sibling($!ca);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Actor.new($a) )
+      !!
+      Nil;
   }
 
   method get_offscreen_redirect is also<get-offscreen-redirect> {
-    ClutterOffscreenRedirect( clutter_actor_get_offscreen_redirect($!ca) );
+    ClutterOffscreenRedirectEnum( clutter_actor_get_offscreen_redirect($!ca) );
   }
 
   method get_opacity is also<get-opacity> {
     clutter_actor_get_opacity($!ca);
   }
 
-  method get_opacity_override is also<get-opacity-override>
-  {
+  method get_opacity_override is also<get-opacity-override> {
     clutter_actor_get_opacity_override($!ca);
   }
 
   method get_paint_box (ClutterActorBox() $box) is also<get-paint-box> {
+    return False unless $box;
+
     so clutter_actor_get_paint_box($!ca, $box);
   }
 
@@ -1917,39 +2046,52 @@ class Clutter::Actor {
     clutter_actor_get_paint_visibility($!ca);
   }
 
-  method get_paint_volume
+  method get_paint_volume (:$raw = False)
     is also<
       get-paint-volume
       paint_volume
       paint-volume
     >
   {
-    Clutter::PaintVolume.new( clutter_actor_get_paint_volume($!ca) );
+    my $pv = clutter_actor_get_paint_volume($!ca);
+
+    $pv ??
+      ( $raw ?? $pv !! Clutter::PaintVolume.new($pv) )
+      !!
+      Nil;
   }
 
-  method get_pango_context
+  method get_pango_context (:$raw = False)
     is also<
       get-pango-context
       pango_context
       pango-context
     >
   {
-    Pango::Context.new( clutter_actor_get_pango_context($!ca) );
+    my $pc = clutter_actor_get_pango_context($!ca);
+
+    $pc ??
+      ( $raw ?? $pc !! Pango::Context.new($pc) )
+      !!
+      Nil;
   }
 
-  method get_parent
+  method get_parent (:$raw = False)
     is also<
       get-parent
       parent
     >
   {
     my $p = clutter_actor_get_parent($!ca);
-    $p.defined ?? Clutter::Actor.new($p) !! Nil;
+
+    $p ??
+      ( $raw ?? $p !! Clutter::Actor.new($p) )
+      !!
+      Nil;
   }
 
   multi method get_pivot_point {
-    my ($px, $py) = 0 xx 2;
-    samewith($px, $py);
+    samewith($, $);
   }
   multi method get_pivot_point (
     $pivot_x is rw,
@@ -1957,12 +2099,8 @@ class Clutter::Actor {
   )
     is also<get-pivot-point>
   {
-    for $pivot_x, $pivot_y -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($px, $py) = ($pivot_x, $pivot_y);
+    my gfloat ($px, $py) = 0e0 xx 2;
+
     clutter_actor_get_pivot_point($!ca, $px, $py);
     ($pivot_x, $pivot_y) = ($px, $py);
   }
@@ -1976,75 +2114,95 @@ class Clutter::Actor {
   { * }
 
   multi method get_position {
-    my ($x, $y) = 0 xx 2;
-    samewith($x, $y);
+    samewith($, $);
   }
   multi method get_position (
     $x is rw,
     $y is rw
   ) {
-    for $x, $y -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible! value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
+    my gfloat ($xx, $yy) = 0e0 xx 2;
 
-    my gfloat ($xx, $yy) = ($x, $y);
     clutter_actor_get_position($!ca, $xx, $yy);
     ($x, $y) = ($xx, $yy);
   }
 
-  method get_preferred_height (
-    Num() $for_width,
-    Num() $min_height_p,
-    Num() $natural_height_p
-  )
+  proto method get_preferred_height (|)
     is also<get-preferred-height>
-  {
-    my gfloat ($fw, $mh, $nh) = ($for_width, $min_height_p, $natural_height_p);
+  { * }
+
+  multi method get_preferred_height (Num() $for_width) {
+    samewith($for_width, $, $);
+  }
+  multi method get_preferred_height (
+    Num() $for_width,
+    $min_height_p     is rw,
+    $natural_height_p is rw
+  ) {
+    my gfloat ($fw, $mh, $nh) = ($for_width, 0e0, 0e0);
+
     clutter_actor_get_preferred_height($!ca, $fw, $mh, $nh);
+    ($min_height_p, $natural_height_p) = ($mh, $nh);
   }
 
-  method get_preferred_size (
-    Num() $min_width_p,
-    Num() $min_height_p,
-    Num() $natural_width_p,
-    Num() $natural_height_p
-  )
+  proto method get_preferred_size (|)
     is also<get-preferred-size>
-  {
-    my gfloat ($mw, $mh, $nw, $nh) =
-      ($min_width_p, $min_height_p, $natural_width_p, $natural_height_p);
+  { * }
+
+  multi method get_preferred_size {
+    samewith($, $, $, $);
+  }
+  multi method get_preferred_size (
+    $min_width_p      is rw,
+    $min_height_p     is rw,
+    $natural_width_p  is rw,
+    $natural_height_p is rw
+  ) {
+    my gfloat ($mw, $mh, $nw, $nh) = 0e0 xx 4;
+
     clutter_actor_get_preferred_size($!ca, $mw, $mh, $nw, $nh);
+    ($min_width_p, $min_height_p, $natural_width_p, $natural_height_p) =
+      ($mw, $mh, $nw, $nh);
   }
 
-  method get_preferred_width (
-    Num() $for_height,
-    Num() $min_width_p,
-    Num() $natural_width_p
-  )
+  proto method get_preferred_width (|)
     is also<get-preferred-width>
-  {
-    my ($fh, $mw, $nw) = ($for_height, $min_width_p, $natural_width_p);
+  { * }
+
+  multi method get_preferred_width (Num() $for_height) {
+    samewith($for_height, $, $);
+  }
+  multi method get_preferred_width (
+    Num() $for_height,
+    $min_width_p     is rw,
+    $natural_width_p is rw
+  ) {
+    my ($fh, $mw, $nw) = ($fh, 0e0, 0e0);
+
     clutter_actor_get_preferred_width($!ca, $fh, $mw, $nw);
+    ($min_width_p, $natural_width_p) = ($mw, $nw);
   }
 
-  method get_previous_sibling
+  method get_previous_sibling (:$raw = False)
     is also<
       get-previous-sibling
       previous_sibling
       previous-sibling
     >
   {
-    clutter_actor_get_previous_sibling($!ca);
+    my $sa = clutter_actor_get_previous_sibling($!ca);
+
+    $sa ??
+      ( $raw ?? $sa !! Clutter::Actor.new($sa) )
+      !!
+      Nil;
   }
 
   method get_reactive is also<get-reactive> {
-    clutter_actor_get_reactive($!ca);
+    so clutter_actor_get_reactive($!ca);
   }
 
   method get_request_mode is also<get-request-mode> {
-    ClutterRequestMode( clutter_actor_get_request_mode($!ca) );
+    ClutterRequestModeEnum( clutter_actor_get_request_mode($!ca) );
   }
 
   method get_rotation_angle (
@@ -2052,26 +2210,24 @@ class Clutter::Actor {
   )
     is also<get-rotation-angle>
   {
-    my guint $a = resolve-uint($axis);
+    my guint $a = $axis;
+
     clutter_actor_get_rotation_angle($!ca, $axis);
   }
 
+  proto method get_scale (|)
+    is also<get-scale>
+  { * }
+
   multi method get_scale {
-    my ($sx, $sy) = 0 xx 2;
-    samewith($sx, $sy);
+    samewith($, $);
   }
   multi method get_scale (
     $scale_x is rw,
     $scale_y is rw
-  )
-    is also<get-scale>
-  {
-    for $scale_x, $scale_y -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gdouble ($sx, $sy) = ($scale_x, $scale_y);
+  ) {
+    my gdouble ($sx, $sy) = 0e0 xx 2;
+
     clutter_actor_get_scale($!ca, $sx, $sy);
     ($scale_x, $scale_y) = ($sx, $sy);
   }
@@ -2085,51 +2241,72 @@ class Clutter::Actor {
   { * }
 
   multi method get_size {
-    my ($w, $h) = 0e0 xx 2;
-    samewith($w, $h);
+    samewith($, $);
   }
   multi method get_size (
     $width  is rw,
     $height is rw
   ) {
-    for $width, $height -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($w, $h) = ($width, $height);
+    my gfloat ($w, $h) = 0e0 xx 2;
+
     clutter_actor_get_size($!ca, $w, $h);
     ($width, $height) = ($w, $h);
   }
 
-  method get_stage
+  method get_stage (:$raw = False)
     is also<
       get-stage
       stage
     >
   {
     my $s = clutter_actor_get_stage($!ca);
-    say "get_stage: { $s // 'UNDEFINED' }" if $DEBUG;
-    $s.defined ?? ::('Clutter::Stage').new($s) !! Nil;
+
+    $s ??
+      ( $raw ?? $s !! ::('Clutter::Stage').new($s) )
+      !!
+      Nil;
   }
 
   method get_text_direction is also<get-text-direction>
   {
-    ClutterTextDirection( clutter_actor_get_text_direction($!ca) );
+    ClutterTextDirectionEnum( clutter_actor_get_text_direction($!ca) );
   }
 
-  method get_transform (ClutterMatrix() $transform) is also<get-transform> {
+  proto method get_transform (|)
+    is also<get-transform>
+  { * }
+
+  multi method get_transform (:$raw = False) {
+    my $t = ClutterMatrix.new;
+
+    die 'Cannot allocate ClutterMatrix' unless $t;
+
+    samewith($t, :$raw);
+  }
+  multi method get_transform (ClutterMatrix() $transform, :$raw = False)  {
     clutter_actor_get_transform($!ca, $transform);
+
+    $transform ??
+      ( $raw ?? $transform !! Clutter::Matrix.new($transform) )
+      !!
+      Nil;
   }
 
   method get_transformed_paint_volume (
-    ClutterActor() $relative_to_ancestor
+    ClutterActor() $relative_to_ancestor,
+    :$raw = False
   )
     is also<get-transformed-paint-volume>
   {
-    Clutter::PaintVolume.new(
-      clutter_actor_get_transformed_paint_volume($!ca, $relative_to_ancestor)
+    my $pv = clutter_actor_get_transformed_paint_volume(
+      $!ca,
+      $relative_to_ancestor
     );
+
+    $pv ??
+      ( $raw ?? $pv !! Clutter::PaintVolume.new($pv) )
+      !!
+      Nil;
   }
 
   proto method get_transformed_position (|)
@@ -2137,19 +2314,14 @@ class Clutter::Actor {
   { * }
 
   multi method get_transformed_position {
-    my ($x, $y) = 0 xx 2;
-    samewith($x, $y);
+    samewith($, $);
   }
   multi method get_transformed_position (
     $x is rw,
     $y is rw
   ) {
-    for $x, $y -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($xx, $yy) = ($x, $y);
+    my gfloat ($xx, $yy) = 0e0 xx 2;
+
     clutter_actor_get_transformed_position($!ca, $xx, $yy);
     ($x, $y) = ($xx, $yy);
   }
@@ -2159,26 +2331,25 @@ class Clutter::Actor {
   { * }
 
   multi method get_transformed_size {
-    my ($w, $h) = 0 xx 2;
-    samewith($w, $h);
+    samewith($, $);
   }
   multi method get_transformed_size (
-    $width,
-    $height
+    $width  is rw,
+    $height is rw
   ) {
-    for $width, $height -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($w, $h) = ($width, $height);
+    my gfloat ($w, $h) = 0e0 xx 2;
+
     clutter_actor_get_transformed_size($!ca, $w, $h);
     ($width, $height) = ($w, $h);
   }
 
-  method get_transition (Str() $name) is also<get-transition> {
+  method get_transition (Str() $name, :$raw = False) is also<get-transition> {
     my $t = clutter_actor_get_transition($!ca, $name);
-    $t.defined ?? Clutter::Transition.new($t) !! Nil;
+
+    $t ??
+      ($raw ?? $t !! Clutter::Transition.new($t) )
+      !!
+      Nil;
   }
 
   proto method get_translation (|)
@@ -2186,26 +2357,22 @@ class Clutter::Actor {
   { * }
 
   multi method get_translation {
-    my ($x, $y, $z) = 0 xx 3;
-    samewith($x, $y, $z);
+    samewith($, $, $);
   }
   multi method get_translation (
     $translate_x is rw,
     $translate_y is rw,
     $translate_z is rw
   ) {
-    for $translate_x, $translate_y, $translate_z -> $_ is rw {
-      die "{ .VAR.name } must be a Num-compatible value!"
-        unless .^can('Num').elems;
-      $_ .= Num;
-    }
-    my gfloat ($tx, $ty, $tz) = ($translate_x, $translate_y, $translate_z);
+    my gfloat ($tx, $ty, $tz) = 0e0 xx 3;
+
     clutter_actor_get_translation($!ca, $tx, $ty, $tz);
     ($translate_x, $translate_y, $translate_z) = ($tx, $ty, $tz);
   }
 
   method get_type is also<get-type> {
     state ($n, $t);
+
     unstable_get_type( self.^name, &clutter_actor_get_type, $n, $t );
   }
 
@@ -2218,7 +2385,7 @@ class Clutter::Actor {
   }
 
   method get_x_align is also<get-x-align> {
-    ClutterActorAlign( clutter_actor_get_x_align($!ca) );
+    ClutterActorAlignEnum( clutter_actor_get_x_align($!ca) );
   }
 
   method get_x_expand is also<get-x-expand> {
@@ -2230,7 +2397,7 @@ class Clutter::Actor {
   }
 
   method get_y_align is also<get-y-align> {
-    ClutterActorAlign( clutter_actor_get_y_align($!ca) );
+    ClutterActorAlignEnum( clutter_actor_get_y_align($!ca) );
   }
 
   method get_y_expand is also<get-y-expand> {
@@ -2282,7 +2449,8 @@ class Clutter::Actor {
   method insert_child_at_index (ClutterActor() $child, Int() $index)
     is also<insert-child-at-index>
   {
-    my gint $i = resolve-int($index);
+    my gint $i = $index;
+
     clutter_actor_insert_child_at_index($!ca, $child, $i);
   }
 
@@ -2322,11 +2490,13 @@ class Clutter::Actor {
 
   method move_by (Num() $dx, Num() $dy) is also<move-by> {
     my gfloat ($ddx, $ddy) = ($dx, $dy);
+
     clutter_actor_move_by($!ca, $ddx, $ddy);
   }
 
   method needs_expand (Int() $orientation) is also<needs-expand> {
-    my guint $o = resolve-uint($orientation);
+    my guint $o = $orientation;
+
     clutter_actor_needs_expand($!ca, $o);
   }
 
@@ -2395,7 +2565,8 @@ class Clutter::Actor {
   )
     is also<set-allocation>
   {
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_actor_set_allocation($!ca, $box, $f);
   }
 
@@ -2417,7 +2588,7 @@ class Clutter::Actor {
   method set_child_at_index (ClutterActor() $child, Int() $index)
     is also<set-child-at-index>
   {
-    my gint $i = resolve-int($index);
+    my gint $i = $index;
     clutter_actor_set_child_at_index($!ca, $child, $i);
   }
 
@@ -2451,7 +2622,8 @@ class Clutter::Actor {
   method set_clip_to_allocation (Int() $clip_set)
     is also<set-clip-to-allocation>
   {
-    my gboolean $c = resolve-bool($clip_set);
+    my gboolean $c = $clip_set.so.Int;
+
     clutter_actor_set_clip_to_allocation($!ca, $clip_set);
   }
 
@@ -2464,7 +2636,8 @@ class Clutter::Actor {
   )
     is also<set-content-gravity>
   {
-    my guint $g = resolve-uint($gravity);
+    my guint $g = $gravity;
+
     clutter_actor_set_content_gravity($!ca, $g);
   }
 
@@ -2473,26 +2646,31 @@ class Clutter::Actor {
   )
     is also<set-content-repeat>
   {
-    my guint $r = resolve-uint($repeat);
+    my guint $r = $repeat;
+
     clutter_actor_set_content_repeat($!ca, $r);
   }
 
   method set_content_scaling_filters (
-    ClutterScalingFilter() $min_filter,
-    ClutterScalingFilter() $mag_filter
+    Int() $min_filter,
+    Int() $mag_filter
   )
     is also<set-content-scaling-filters>
   {
-    clutter_actor_set_content_scaling_filters($!ca, $min_filter, $mag_filter);
+    my ClutterScalingFilter ($mnf, $mgf) = ($min_filter, $mag_filter);
+
+    clutter_actor_set_content_scaling_filters($!ca, $mnf, $mgf);
   }
 
   method set_easing_delay (Int() $msecs) is also<set-easing-delay> {
-    my guint $ms = resolve-uint($msecs);
+    my guint $ms = $msecs;
+
     clutter_actor_set_easing_delay($!ca, $ms);
   }
 
   method set_easing_duration (Int() $msecs) is also<set-easing-duration> {
-    my guint $ms = resolve-uint($msecs);
+    my guint $ms = $msecs;
+
     clutter_actor_set_easing_duration($!ca, $ms);
   }
 
@@ -2501,14 +2679,16 @@ class Clutter::Actor {
   )
     is also<set-easing-mode>
   {
-    my guint $m = resolve-uint($mode);
+    my guint $m = $mode;
+
     clutter_actor_set_easing_mode($!ca, $m);
   }
 
   method set_fixed_position_set (Int() $is_set)
     is also<set-fixed-position-set>
   {
-    my gboolean $is = resolve-bool($is_set);
+    my gboolean $is = $is_set.so.Int;
+
     clutter_actor_set_fixed_position_set($!ca, $is);
   }
 
@@ -2517,12 +2697,14 @@ class Clutter::Actor {
   )
     is also<set-flags>
   {
-    my guint $f = resolve-uint($flags);
+    my guint $f = $flags;
+
     clutter_actor_set_flags($!ca, $f);
   }
 
   method set_height (Num() $height) is also<set-height> {
     my gfloat $h = $height;
+
     clutter_actor_set_height($!ca, $h);
   }
 
@@ -2537,22 +2719,26 @@ class Clutter::Actor {
   }
 
   method set_margin_bottom (Num() $margin) is also<set-margin-bottom> {
-    clutter_actor_set_margin_bottom($!ca, $margin);
     my gfloat $m = $margin;
+
+    clutter_actor_set_margin_bottom($!ca, $margin);
   }
 
   method set_margin_left (Num() $margin) is also<set-margin-left> {
     my gfloat $m = $margin;
+
     clutter_actor_set_margin_left($!ca, $margin);
   }
 
   method set_margin_right (Num() $margin) is also<set-margin-right> {
     my gfloat $m = $margin;
+
     clutter_actor_set_margin_right($!ca, $m);
   }
 
   method set_margin_top (Num() $margin) is also<set-margin-top> {
     my gfloat $m = $margin;
+
     clutter_actor_set_margin_top($!ca, $m);
   }
 
@@ -2565,17 +2751,20 @@ class Clutter::Actor {
   )
     is also<set-offscreen-redirect>
   {
-    my guint $r = resolve-int($redirect);
+    my guint $r = $redirect;
+
     clutter_actor_set_offscreen_redirect($!ca, $r);
   }
 
   method set_opacity (Int() $opacity) is also<set-opacity> {
-    my guint8 $o = resolve-uint8($opacity);
+    my guint8 $o = $opacity;
+
     clutter_actor_set_opacity($!ca, $opacity);
   }
 
   method set_opacity_override (Int() $opacity) is also<set-opacity-override> {
-    my gint $o = resolve-int($opacity);
+    my gint $o = $opacity;
+
     clutter_actor_set_opacity_override($!ca, $o);
   }
 
@@ -2583,21 +2772,32 @@ class Clutter::Actor {
     is also<set-pivot-point>
   {
     my gfloat ($px, $py) = ($pivot_x, $pivot_y);
+
     clutter_actor_set_pivot_point($!ca, $pivot_x, $pivot_y);
   }
 
   method set_pivot_point_z (Num() $pivot_z) is also<set-pivot-point-z> {
     my gfloat $pz = $pivot_z;
+
     clutter_actor_set_pivot_point_z($!ca, $pz);
   }
 
-  method set_position (Num() $x, Num() $y) is also<set-position> {
+  proto method set_position (|)
+    is also<set-position>
+  { * }
+
+  multi method set_position (ClutterPoint() $p) {
+    samewith($p.x, $p.y);
+  }
+  multi method set_position (Num() $x, Num() $y)  {
     my gfloat ($xx, $yy) = ($x, $y);
+
     clutter_actor_set_position($!ca, $xx, $yy);
   }
 
   method set_reactive (Int() $reactive) is also<set-reactive> {
-    my gboolean $r = resolve-bool($reactive);
+    my gboolean $r = $reactive.so.Int;
+
     clutter_actor_set_reactive($!ca, $r);
   }
 
@@ -2606,7 +2806,8 @@ class Clutter::Actor {
   )
     is also<set-request-mode>
   {
-    my guint $m = resolve-uint($mode);
+    my guint $m = $mode;
+
     clutter_actor_set_request_mode($!ca, $m);
   }
 
@@ -2616,23 +2817,27 @@ class Clutter::Actor {
   )
     is also<set-rotation-angle>
   {
-    my guint $a = resolve-uint($axis);
+    my guint $a = $axis;
     my gdouble $ang = $angle;
+
     clutter_actor_set_rotation_angle($!ca, $a, $ang);
   }
 
   method set_scale (Num() $scale_x, Num() $scale_y) is also<set-scale> {
-    my gdouble ($sx, $sy);
+    my gdouble ($sx, $sy) = ($scale_x, $scale_y);
+
     clutter_actor_set_scale($!ca, $sx, $sy);
   }
 
   method set_scale_z (Num() $scale_z) is also<set-scale-z> {
     my gdouble $sz = $scale_z;
+
     clutter_actor_set_scale_z($!ca, $sz);
   }
 
   method set_size (Num() $width, Num() $height) is also<set-size> {
     my gfloat ($w, $h) = ($width, $height);
+
     say "set_size {$w}x{$h}" if $DEBUG;
     clutter_actor_set_size($!ca, $w, $h);
   }
@@ -2642,7 +2847,8 @@ class Clutter::Actor {
   )
     is also<set-text-direction>
   {
-    my guint $td = resolve-uint($text_dir);
+    my guint $td = $text_dir;
+
     clutter_actor_set_text_direction($!ca, $td);
   }
 
@@ -2658,16 +2864,19 @@ class Clutter::Actor {
     is also<set-translation>
   {
     my gfloat ($tx, $ty, $tz) = ($translate_x, $translate_y, $translate_z);
+
     clutter_actor_set_translation($!ca, $tx, $ty, $tz);
   }
 
   method set_width (Num() $width) is also<set-width> {
     my gfloat $w = $width;
+
     clutter_actor_set_width($!ca, $w);
   }
 
   method set_x (Num() $x) is also<set-x> {
     my gfloat $xx = $x;
+
     clutter_actor_set_x($!ca, $xx);
   }
 
@@ -2676,17 +2885,20 @@ class Clutter::Actor {
   )
     is also<set-x-align>
   {
-    my guint $xa = resolve-uint($x_align);
+    my guint $xa = $x_align;
+
     clutter_actor_set_x_align($!ca, $xa);
   }
 
   method set_x_expand (Num() $expand) is also<set-x-expand> {
-    my gboolean $e = resolve-bool($expand);
+    my gboolean $e = $expand.so.Int;
+
     clutter_actor_set_x_expand($!ca, $e);
   }
 
   method set_y (Num() $y) is also<set-y> {
     my gfloat $yy = $y;
+
     clutter_actor_set_y($!ca, $yy);
   }
 
@@ -2695,17 +2907,20 @@ class Clutter::Actor {
   )
     is also<set-y-align>
   {
-    my guint $ya = resolve-uint($y_align);
+    my guint $ya = $y_align;
+
     clutter_actor_set_y_align($!ca, $ya);
   }
 
   method set_y_expand (Int() $expand) is also<set-y-expand> {
-    my gboolean $e = resolve-bool($expand);
+    my gboolean $e = $expand.so.Int;
+
     clutter_actor_set_y_expand($!ca, $e);
   }
 
   method set_z_position (Num() $z_position) is also<set-z-position> {
     my gfloat $zp = $z_position;
+
     clutter_actor_set_z_position($!ca, $zp);
   }
 
@@ -2722,8 +2937,7 @@ class Clutter::Actor {
   { * }
 
   multi method transform_stage_point (Num() $x, Num() $y) {
-    my ($yo, $xo) = (0, 0);
-    samewith($x, $y, $xo, $yo);
+    samewith($x, $y, $, $);
   }
   multi method transform_stage_point (
     Num() $x,
@@ -2731,11 +2945,8 @@ class Clutter::Actor {
     $x_out is rw,
     $y_out is rw
   ) {
-    die '$x_out must be a Num compatible value' unless $x_out.^can('Num').elems;
-    die '$y_out must be a Num compatible value' unless $y_out.^can('Num').elems;
-    $x_out .= Num;
-    $y_out .= Num;
-    my gfloat ($xx, $yy, $xo, $yo) = ($x, $y, $x_out, $y_out);
+    my gfloat ($xx, $yy, $xo, $yo) = ($x, $y, 0e0, 0e0);
+
     clutter_actor_transform_stage_point($!ca, $xx, $yy, $xo, $yo);
     ($x_out, $y_out) = ($xo, $yo);
   }
@@ -2749,19 +2960,22 @@ class Clutter::Actor {
   }
 
   method unset_flags (
-    Int() $flags # ClutterActorFlags $flags
-  ) is also<unset-flags> {
-    my guint $f = resolve-uint($flags);
+    Int() $flags
+  )
+    is also<unset-flags>
+  {
+    my ClutterActorFlags $f = $flags;
+
     clutter_actor_unset_flags($!ca, $f);
   }
 
   method add_action (ClutterAction() $action) is also<add-action> {
     clutter_actor_add_action($!ca, $action);
   }
-  
+
   method add_actions (*@actions) is also<add-actions> {
     for @actions {
-      unless $_ ~~ Clutter::Action || .^can('ClutterAction').elems {
+      unless $_ ~~ Clutter::Action || .^lookup('ClutterAction') {
         die 'actions value must only contain Clutter::Action compatible types!'
       }
       self.add_action($_);
@@ -2777,16 +2991,19 @@ class Clutter::Actor {
   {
     clutter_actor_add_action_with_name($!ca, $name, $action);
   }
-  
-  method add_actions_with_name (*@actions) 
+
+  method add_actions_with_name (*@actions)
     is also<
       add-actions-with-name
       add_actions_by_name
       add-actions-by-name
     >
   {
-    unless .[1] ~~ Clutter::Action || .[1].^can('ClutterAction').elems {
-      die "'constraints-with-name' value must only contain Clutter::Action compatible types"
+    unless .[1] ~~ Clutter::Action || .[1].^lookup('ClutterAction') {
+      die qq:to/DIE/;
+        'constraints-with-name' value must only contain Clutter::Action {''
+        }compatible types
+        DIE
     }
     say "Action: { .[0] }" if $DEBUG;
     self.add-action-with-name(|$_);
@@ -2798,15 +3015,21 @@ class Clutter::Actor {
 
   method get_action (Str() $name, :$raw = False) is also<get-action> {
     my $a = clutter_actor_get_action($!ca, $name);
-    return Nil unless $a.defined;
-    $raw ?? $a !! Clutter::Action.new($a);
+
+    $a ??
+      ( $raw ?? $a !! Clutter::Action.new($a) )
+      !!
+      Nil
   }
 
-  method get_actions (:$raw = False) is also<get-actions> {
-    my $l = GLib::GList.new( clutter_actor_get_actions($!ca) )
-      but GLib::Roles::ListData[ClutterAction];
-    $raw ??
-      $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
+  method get_actions (:$glist = False, :$raw = False) is also<get-actions> {
+    my $l = clutter_actor_get_actions($!ca);
+
+    return Nil unless $l;
+    return $l  if $glist;
+
+    $l = GLib::GList.new($l) but GLib::Roles::ListData[ClutterAction];
+    $raw ?? $l.Array !! $l.Array.map({ Clutter::Actor.new($_) });
   }
 
   method has_actions is also<has-action> {
@@ -2824,8 +3047,12 @@ class Clutter::Actor {
   # Constraints
 
   method add_constraints (*@constraints) is also<add-constraints> {
-    die '@constraints must contain only Clutter::Constraint compatible values'
-      unless @constraints.all ~~ (Clutter::Constraint, ClutterConstraint).any;
+    for @constraints {
+      die "\@constraints must contain only Clutter::Constraint compatible {''
+          }values"
+      unless $_ ~~ ClutterConstraint || .^lookup('ClutterConstraint')
+    }
+
     self.add_constraint($_) for @constraints;
   }
 
@@ -2847,8 +3074,8 @@ class Clutter::Actor {
   {
     clutter_actor_add_constraint_with_name($!ca, $name, $constraint);
   }
-  
-  method add_constraints_with_name (*@constraints) 
+
+  method add_constraints_with_name (*@constraints)
     is also<
       add-constraints-with-name
       add_constraints_by_name
@@ -2857,9 +3084,11 @@ class Clutter::Actor {
   {
     # Turn back into proper pairs
     for @constraints.rotor(2) {
-      unless .[1] ~~ Clutter::Constraint || .[1].^can('ClutterConstraint').elems {
-        die "'constraints-with-name' value must only contain Clutter::Constraint compatible types"
-      }
+      die "'constraints-with-name' value must only contain {''
+          }ClutterConstraint compatible types"
+      unless .[1] ~~ ClutterConstraint ||
+             .[1].^lookup('ClutterConstraint').elems;
+
       say "Constraint: { .[0] }" if $DEBUG;
       self.add-constraint-with-name(|$_);
     }
@@ -2869,16 +3098,25 @@ class Clutter::Actor {
     clutter_actor_clear_constraints($!ca);
   }
 
-  method get_constraint (Str() $name) is also<get-constraint> {
+  method get_constraint (Str() $name, :$raw = False) is also<get-constraint> {
     my $c = clutter_actor_get_constraint($!ca, $name);
-    $c ?? Clutter::Constraint.new($c) !! Nil;
+
+    $c ??
+      ( $raw ?? $c !! Clutter::Constraint.new($c) )
+      !!
+      Nil;
   }
 
-  method get_constraints (:$raw = False) is also<get-constraints> {
-    my $l = GLib::GList.new( clutter_actor_get_constraints($!ca) )
-      but GLib::Roles::ListData[ClutterConstraint];
-    $raw ??
-      $l.Array !! $l.Array.map({ Clutter::Constraint.new($_) });
+  method get_constraints (:$glist = False, :$raw = False)
+    is also<get-constraints>
+  {
+    my $l = clutter_actor_get_constraints($!ca);
+
+    return Nil unless $l;
+    return $l  if $glist;
+
+    $l = GLib::GList.new($l) but GLib::Roles::ListData[ClutterConstraint];
+    $raw ?? $l.Array !! $l.Array.map({ Clutter::Constraint.new($_) });
   }
 
   method has_constraints is also<has-constraints> {
@@ -2910,8 +3148,8 @@ class Clutter::Actor {
   {
     clutter_actor_add_effect_with_name($!ca, $name, $effect);
   }
-  
-  method add_effects_with_name(*@effects) 
+
+  method add_effects_with_name(*@effects)
     is also<
       add-effects-with-name
       add_effects_by_name
@@ -2920,9 +3158,11 @@ class Clutter::Actor {
   {
     # Turn back into a list of proper pairs.
     for @effects.rotor(2) {
-      unless .[1] ~~ Clutter::Effect || .[1].^can('ClutterEffect').elems {
-        die "'effects-with-name' value must only contain Clutter::Effects compatible types"
+      unless .[1] ~~ Clutter::Effect || .[1].^lookup('ClutterEffect').elems {
+        die "'effects-with-name' value must only contain ClutterEffects {''
+            }compatible types"
       }
+
       say "Effect: { .[0] }" if $DEBUG;
       self.add-effect-with-name(|$_);
     }
@@ -2934,19 +3174,21 @@ class Clutter::Actor {
 
   method get_effect (Str() $name, :$raw) is also<get-effect> {
     my $e = clutter_actor_get_effect($!ca, $name);
-    $e.defined ??
+
+    $e ??
       ( $raw ?? $e !! Clutter::Effect.new($e) )
       !!
       Nil
   }
 
-  method get_effects (:$raw) is also<get-effects> {
-    my $l = GLib::GList.new( clutter_actor_get_effects($!ca) )
-      but GLib::Roles::ListData[ClutterEffect];
-    $l.defined ??
-      ( $raw ?? $l.Array !! $l.Array.map({ Clutter::Effect.new($_) }) )
-      !!
-      Nil;
+  method get_effects (:$glist = False, :$raw = False) is also<get-effects> {
+    my $l = clutter_actor_get_effects($!ca);
+
+    return Nil unless $l;
+    return $l  if $glist;
+
+    $l = GLib::GList.new($l) but GLib::Roles::ListData[ClutterEffect];
+    $raw ?? $l.Array !! $l.Array.map({ Clutter::Effect.new($_) });
   }
 
   method has_effects is also<has-effects> {
@@ -2963,9 +3205,4 @@ class Clutter::Actor {
     clutter_actor_remove_effect_by_name($!ca, $name);
   }
 
-}
-
-INIT {
-  #say 'setting debug';
-  $DEBUG = %*ENV<P6_GTK_DEBUG>;
 }
