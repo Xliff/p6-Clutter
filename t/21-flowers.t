@@ -52,6 +52,8 @@ sub draw-flower ($c, $cr, $w, $h, $ps, $r) {
   $ctx.operator = CAIRO_OPERATOR_OVER;
   $ctx.translate($size / 2, $size / 2);
 
+  say $n-groups;
+
   my $last-idx = -1;
   for ^$n-groups {
     my $n-petals = 5.rand.floor + 4;
@@ -117,7 +119,7 @@ sub make-flower-actor {
   my $canvas = Clutter::Canvas.new;
 
   $canvas.set-size($size, $size);
-  $canvas.draw.tap(-> *@a --> gboolean {
+  $canvas.draw.tap(-> *@a {
     CATCH { default { .message.say } }
 
     draw-flower( |@a[0..3], $petal-size, @a[* - 1] );
