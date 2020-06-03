@@ -12,7 +12,7 @@ unit package Clutter::Raw::Structs;
 # Needs a LOT of rework. EVERY attribute needs to be re-written as a Proxy
 # to make these easier to use with a NON-native approach.
 
-class ClutterColor is repr('CStruct') is export does GLib::Roles::Pointers {
+class ClutterColor is repr<CStruct> is export does GLib::Roles::Pointers {
   has guint8 $!red  ;
   has guint8 $!green;
   has guint8 $!blue ;
@@ -70,7 +70,7 @@ class ClutterColor is repr('CStruct') is export does GLib::Roles::Pointers {
 
 }
 
-class ClutterAnyEvent is repr('CStruct') is export does GLib::Roles::Pointers {
+class ClutterAnyEvent is repr<CStruct> is export does GLib::Roles::Pointers {
   has guint             $.type  ;
   has guint32           $.time  ;
   has ClutterEventFlags $.flags ;
@@ -88,7 +88,7 @@ role ClutterEventMethods {
 
 # Why can't CStructs use delegation?
 
-class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterKeyEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint               $.modifier_state; # ClutterModifierType
@@ -98,7 +98,7 @@ class ClutterKeyEvent is repr('CStruct') is export does ClutterEventMethods does
   has ClutterInputDevice  $.device;
 }
 
-class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterButtonEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has gfloat              $.x;
@@ -110,7 +110,7 @@ class ClutterButtonEvent is repr('CStruct') is export does ClutterEventMethods d
   has ClutterInputDevice  $.device;
 }
 
-class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterCrossingEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has gfloat              $.x;
@@ -119,7 +119,7 @@ class ClutterCrossingEvent is repr('CStruct') is export does ClutterEventMethods
   has ClutterActor        $.related;
 }
 
-class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterMotionEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has gfloat              $.x;
@@ -129,7 +129,7 @@ class ClutterMotionEvent is repr('CStruct') is export does ClutterEventMethods d
   has ClutterInputDevice  $.device;
 }
 
-class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterScrollEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has gfloat              $.x;
@@ -142,14 +142,14 @@ class ClutterScrollEvent is repr('CStruct') is export does ClutterEventMethods d
   has guint               $.finish_flags;   # ClutterScrollFinishFlags finish_flags;
 }
 
-class ClutterStageStateEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterStageStateEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint $.changed_mask; # ClutterStageState changed_mask;
   has guint $.new_state;    # ClutterStageState new_state;
 }
 
-class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterTouchEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent      $.header;
 
   has gfloat               $.x;
@@ -160,7 +160,7 @@ class ClutterTouchEvent is repr('CStruct') is export does ClutterEventMethods do
   has ClutterInputDevice   $.device;
 }
 
-class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterTouchpadPinchEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint               $.phase; # ClutterTouchpadGesturePhase phase;
@@ -172,7 +172,7 @@ class ClutterTouchpadPinchEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat              $.scale;
 }
 
-class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMethods does GLib::Roles::Pointers {
+class ClutterTouchpadSwipeEvent is repr<CStruct> is export does ClutterEventMethods does GLib::Roles::Pointers {
   HAS ClutterAnyEvent     $.header;
 
   has guint               $.phase; # ClutterTouchpadGesturePhase phase;
@@ -183,7 +183,8 @@ class ClutterTouchpadSwipeEvent is repr('CStruct') is export does ClutterEventMe
   has gfloat              $.dy;
 }
 
-class ClutterEvent is repr('CUnion') is repr('CStruct') is export does GLib::Roles::Pointers {
+#| Skip Test
+class ClutterEvent is repr<CUnion> is repr<CStruct> is export does GLib::Roles::Pointers {
   has guint                     $.type;
   has ClutterAnyEvent           $.any;
   has ClutterButtonEvent        $.button;
@@ -203,40 +204,15 @@ our subset ClutterEvents is export where
   ClutterCrossingEvent      | ClutterTouchEvent  | ClutterTouchpadPinchEvent |
   ClutterTouchpadSwipeEvent ;
 
-class ClutterPerspective is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $!fovy;
-  has gfloat $!aspect;
-  has gfloat $!z_near;
-  has gfloat $!z_far;
-
-  method fovy is rw {
-    Proxy.new:
-      FETCH => sub ($)           { $!fovy },
-      STORE => -> $, Num() \f { $!fovy = f };
-  }
-
-  method aspect is rw {
-    Proxy.new:
-      FETCH => sub ($)           { $!aspect },
-      STORE => -> $, Num() \a { $!aspect = a };
-  }
-
-  method z_near is also<z-near> is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!z_near },
-        STORE => -> $, Num() \z { $!z_near = z };
-  }
-
-  method z_far is also<z-far> is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!z_far },
-        STORE => -> $, Num() \z { $!z_far = z };
-  }
-
+class ClutterPerspective is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gfloat $.fovy   is rw;
+  has gfloat $.aspect is rw;
+  has gfloat $.z_near is rw;
+  has gfloat $.z_far  is rw;
 }
 
 # Opaque. ONLY to be used for initialization.
-class ClutterActorIter is repr('CStruct') is export does GLib::Roles::Pointers {
+class ClutterActorIter is repr<CStruct> is export does GLib::Roles::Pointers {
   has gpointer $!dummy1;
   has gpointer $!dummy2;
   has gpointer $!dummy3;
@@ -244,172 +220,97 @@ class ClutterActorIter is repr('CStruct') is export does GLib::Roles::Pointers {
   has gpointer $!dummy5;
 }
 
-class ClutterPoint is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $!x;
-  has gfloat $!y;
+class ClutterPoint is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gfloat $.x;
+  has gfloat $.y;
 
   submethod BUILD (Num() :$!x, Num() :$!y) { }
 
   multi method new ($x, $y) {
     self.bless(:$x, :$y);
   }
-
-  method x is rw {
-    Proxy.new:
-        FETCH => sub ($)        { $!x },
-        STORE => -> $, Num() \x { $!x = x };
-  }
-
-  method y is rw {
-    Proxy.new:
-        FETCH => sub ($)        { $!y },
-        STORE => -> $, Num() \y { $!y = y };
-  }
-
 }
 
-class ClutterSize is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $!width;
-  has gfloat $!height;
+class ClutterSize is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gfloat $.width  is rw;
+  has gfloat $.height is rw;
 
   submethod BUILD (Num() :$!width, Num() :$!height) { }
 
   multi method new ($width, $height) {
     self.bless(:$width, :$height);
   }
-
-  method width is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!width },
-        STORE => -> $, Num() \w { $!width = w };
-  }
-
-  method height is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!height },
-        STORE => -> $, Num() \h { $!height = h };
-  }
 }
 
-class ClutterRect is repr('CStruct') is export does GLib::Roles::Pointers {
+class ClutterRect is repr<CStruct> is export does GLib::Roles::Pointers {
   HAS ClutterPoint $.origin;
   HAS ClutterSize $.size;
 }
 
-class ClutterVertex is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $!x;
-  has gfloat $!y;
-  has gfloat $!z;
+class ClutterVertex is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gfloat $.x is rw;
+  has gfloat $.y is rw;
+  has gfloat $.z is rw;
 
   submethod BUILD (Num() :$!x, Num() :$!y, Num() :$!z) { }
 
   multi method new ($x, $y, $z) {
     self.bless(:$x, :$y, :$z);
   }
-
-  method x is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!x },
-        STORE => -> $, Num() \x { $!x = x };
-  }
-
-  method y is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!y },
-        STORE => -> $, Num() \y { $!y = y };
-  }
 }
 
-class ClutterActorBox is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gfloat $!x1;
-  has gfloat $!y1;
-  has gfloat $!x2;
-  has gfloat $!y2;
+class ClutterActorBox is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gfloat $.x1 is rw;
+  has gfloat $.y1 is rw;
+  has gfloat $.x2 is rw;
+  has gfloat $.y2 is rw;
 
   submethod BUILD (Num() :$!x1, Num() :$!y1, Num() :$!x2, Num() :$!y2) { }
 
   multi method new ($x1, $y1, $x2, $y2) {
     self.bless(:$x1, :$y1, :$x2, :$y2);
   }
-
-  method x1 is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!x1 },
-        STORE => -> $, Num() \x { $!x1 = x };
-  }
-
-  method y1 is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!y1 },
-        STORE => -> $, Num() \y { $!y1 = y };
-  }
-
-  method x2 is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!x2 },
-        STORE => -> $, Num() \x { $!x2 = x };
-  }
-
-  method y2 is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!y2 },
-        STORE => -> $, Num() \y { $!y2 = y };
-  }
 }
 
-class ClutterKnot is repr('CStruct') is export does GLib::Roles::Pointers {
-  has gint $!x;
-  has gint $!y;
+class ClutterKnot is repr<CStruct> is export does GLib::Roles::Pointers {
+  has gint $.x is rw;
+  has gint $.y is rw;
 
   submethod BUILD (Int() :$!x, Int() :$!y) { }
 
   multi method new ($x, $y) {
     self.bless(:$x, :$y);
   }
-
-  method x is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!x },
-        STORE => -> $, Int() \x { $!x = x };
-  }
-
-  method y is rw {
-    Proxy.new:
-        FETCH => sub ($)           { $!y },
-        STORE => -> $, Int() \y { $!y = y };
-  }
 }
 
-class ClutterPathNode is repr('CStruct') is export does GLib::Roles::Pointers {
+class ClutterPathNode is repr<CStruct> is export does GLib::Roles::Pointers {
   has ClutterPathNodeType $!type;
-  has ClutterKnot         $!point1;
-  has ClutterKnot         $!point2;
-  has ClutterKnot         $!point3;
+  HAS ClutterKnot         @.points[3] is CArray;
 
   my constant CK := ClutterKnot;
 
   method type is rw {
     Proxy.new:
-        FETCH => sub ($)           { $!type },
+        FETCH => sub ($)        { $!type },
         STORE => -> $, Int() \t { $!type = t };
   }
 
   method point1 is rw {
     Proxy.new:
-        FETCH => sub ($)          { $!point1 },
-        STORE => -> $, CK() \k { self.^attributes[1].set_value(self, k) };
+        FETCH => sub ($)       { @!points[0] },
+        STORE => -> $, CK() \k { @!points[0] := k };
   }
 
   method point2 is rw {
     Proxy.new:
-        FETCH => sub ($)          { $!point2 },
-        STORE => -> $, CK() \k { self.^attributes[2].set_value(self, k) };
+        FETCH => sub ($)       { @!points[1] },
+        STORE => -> $, CK() \k { @!points[1] := k };
   }
 
   method point3 is rw {
     Proxy.new:
-        FETCH => sub ($)          { $!point3 },
-        STORE => -> $, CK() \k { self.^attributes[3].set_value(self, k) };
+        FETCH => sub ($)       { @!points[2] },
+        STORE => -> $, CK() \k { @!points[2] := k };
   }
 
 };
