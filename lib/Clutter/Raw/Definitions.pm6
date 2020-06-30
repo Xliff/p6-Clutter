@@ -11,7 +11,7 @@ use GLib::Roles::Pointers;
 unit package Clutter::Raw::Definitions;
 
 # Number of times a forced compile has been made.
-constant forced = 11;
+my constant forced = 14;
 
 constant clutter is export = 'clutter-1.0',v0;
 
