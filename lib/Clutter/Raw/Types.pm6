@@ -1,7 +1,5 @@
 use v6;
 
-use CompUnit::Util :re-export;
-
 use GLib::Raw::Exports;
 use GIO::Raw::Exports;
 use Pango::Raw::Exports;
@@ -14,13 +12,14 @@ need GLib::Raw::Definitions;
 need GLib::Raw::Enums;
 need GLib::Raw::Object;
 need GLib::Raw::Structs;
-need GLib::Raw::Struct_Subs;
 need GLib::Raw::Subs;
-need GIO::DBus::Raw::Types;
+need GLib::Raw::Struct_Subs;
 need GIO::Raw::Definitions;
 need GIO::Raw::Enums;
 need GIO::Raw::Structs;
 need GIO::Raw::Subs;
+need GIO::DBus::Raw::Types;
+need GIO::Raw::Exports;
 need Pango::Raw::Definitions;
 need Pango::Raw::Enums;
 need Pango::Raw::Structs;
@@ -37,10 +36,9 @@ need Clutter::Raw::Structs;
 need Clutter::Compat::Types;
 
 BEGIN {
-  re-export($_) for
-    |@glib-exports,
-    |@gio-exports,
-    |@cogl-exports,
-    |@pango-exports,
-    |@clutter-exports;
+  glib-re-export($_) for |@glib-exports,
+                         |@gio-exports,
+                         |@cogl-exports,
+                         |@pango-exports,
+                         |@clutter-exports;
 }
