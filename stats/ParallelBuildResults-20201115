@@ -1,0 +1,2946 @@
+ === COGL::Raw::Exports === 
+Stage start      :   0.000
+Stage parse      :   3.617
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.029
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+COGL::Raw::Exports compile time: 3.9122688
+ === COGL::Compat::Types === 
+Stage start      :   0.000
+Stage parse      :   3.953
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+COGL::Compat::Types compile time: 4.20446358
+ === GIO::Raw::Exports === 
+Stage start      :   0.000
+Stage parse      :   3.761
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.020
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+GIO::Raw::Exports compile time: 4.1755543
+ === Cairo === 
+Stage start      :   0.000
+Stage parse      :   3.970
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.040
+Stage mast       :   0.013
+Stage mbc        :   0.031
+Stage moar       :   0.000
+
+Cairo compile time: 4.318106
+ === COGL::Raw::Enums === 
+Stage start      :   0.000
+Stage parse      :   4.243
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.049
+Stage mbc        :   0.031
+Stage moar       :   0.000
+
+COGL::Raw::Enums compile time: 4.5733523
+ === COGL::Raw::Structs === 
+Stage start      :   0.000
+Stage parse      :   4.374
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+COGL::Raw::Structs compile time: 4.668785
+ === COGL::Raw::Definitions === 
+Stage start      :   0.000
+Stage parse      :   4.538
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+COGL::Raw::Definitions compile time: 4.844257
+ === GLib::Raw::Definitions === 
+Stage start      :   0.000
+Stage parse      :   4.184
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.012
+Stage mast       :   0.017
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Raw::Definitions compile time: 4.8137191
+ === GIO::Raw::Quarks === 
+Stage start      :   0.000
+Stage parse      :   4.652
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GIO::Raw::Quarks compile time: 4.9919701
+ === GIO::Raw::Enums === 
+Stage start      :   0.000
+Stage parse      :   4.652
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.008
+Stage mast       :   0.021
+Stage mbc        :   0.004
+Stage moar       :   0.000
+
+GIO::Raw::Enums compile time: 5.0955528
+ === GLib::Raw::Exports === 
+Stage start      :   0.000
+Stage parse      :   4.077
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+GLib::Raw::Exports compile time: 4.7595846
+ === GLib::GSList === 
+Stage start      :   0.000
+Stage parse      :   4.507
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::GSList compile time: 5.0063665
+ === GLib::Raw::Enums === 
+Stage start      :   0.000
+Stage parse      :   4.403
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.020
+Stage mast       :   0.038
+Stage mbc        :   0.017
+Stage moar       :   0.000
+
+GLib::Raw::Enums compile time: 4.9863349
+ === GIO::Raw::Structs === 
+Stage start      :   0.000
+Stage parse      :   4.874
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.005
+Stage moar       :   0.000
+
+GIO::Raw::Structs compile time: 5.2783055
+ === GIO::DBus::Raw::Types === 
+Stage start      :   0.000
+Stage parse      :   5.020
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.006
+Stage mbc        :   0.005
+Stage moar       :   0.000
+
+GIO::DBus::Raw::Types compile time: 5.38753003
+ === GIO::Raw::Subs === 
+Stage start      :   0.000
+Stage parse      :   4.911
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GIO::Raw::Subs compile time: 5.305965
+ === GIO::Raw::Definitions === 
+Stage start      :   0.000
+Stage parse      :   4.993
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.004
+Stage moar       :   0.000
+
+GIO::Raw::Definitions compile time: 5.377141
+ === GLib::Raw::Object === 
+Stage start      :   0.000
+Stage parse      :   4.679
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Raw::Object compile time: 5.21290845
+ === GLib::Object::ParamSpec === 
+Stage start      :   0.000
+Stage parse      :   5.082
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+GLib::Object::ParamSpec compile time: 5.6197201
+ === COGL::Context === 
+Stage start      :   0.000
+Stage parse      :   6.446
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.017
+Stage moar       :   0.000
+
+COGL::Context compile time: 6.7493185
+ === GLib::Raw::ReturnedValue === 
+Stage start      :   0.000
+Stage parse      :   3.824
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.009
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+GLib::Raw::ReturnedValue compile time: 4.349046
+ === GLib::Raw::Struct_Subs === 
+Stage start      :   0.000
+Stage parse      :   4.472
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Raw::Struct_Subs compile time: 5.0314592
+ === Method::Also === 
+Stage start      :   0.000
+Stage parse      :   3.755
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.021
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Method::Also compile time: 4.3858129
+ === GLib::Raw::Subs === 
+Stage start      :   0.000
+Stage parse      :   4.765
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.019
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Raw::Subs compile time: 5.28031136
+ === GLib::Raw::Structs === 
+Stage start      :   0.000
+Stage parse      :   4.848
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GLib::Raw::Structs compile time: 5.4422683
+ === GLib::Roles::Pointers === 
+Stage start      :   0.000
+Stage parse      :   4.715
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Roles::Pointers compile time: 5.2167316
+ === Pango::Raw::Exports === 
+Stage start      :   0.000
+Stage parse      :   3.894
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.007
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Pango::Raw::Exports compile time: 4.51532736
+ === GLib::Roles::ListData === 
+Stage start      :   0.000
+Stage parse      :   5.231
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GLib::Roles::ListData compile time: 5.94419456
+ === Pango::Raw::Definitions === 
+Stage start      :   0.000
+Stage parse      :   4.361
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Pango::Raw::Definitions compile time: 5.0692864
+ === GLib::Value === 
+Stage start      :   0.000
+Stage parse      :   5.027
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.011
+Stage moar       :   0.000
+
+GLib::Value compile time: 5.51427364
+ === GLib::Roles::Object === 
+Stage start      :   0.000
+Stage parse      :   5.502
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.004
+Stage moar       :   0.000
+
+GLib::Roles::Object compile time: 6.02938484
+ === GLib::Roles::StaticClass === 
+Stage start      :   0.000
+Stage parse      :   5.054
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+GLib::Roles::StaticClass compile time: 5.6756185
+ === Pango::Raw::Enums === 
+Stage start      :   0.000
+Stage parse      :   4.526
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Pango::Raw::Enums compile time: 5.21083841
+ === GLib::Roles::TypedBuffer === 
+Stage start      :   0.000
+Stage parse      :   5.108
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GLib::Roles::TypedBuffer compile time: 5.7096509
+ === GLib::Roles::Signals::Generic === 
+Stage start      :   0.000
+Stage parse      :   5.244
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+GLib::Roles::Signals::Generic compile time: 5.80189523
+ === Pango::FontDescription === 
+Stage start      :   0.000
+Stage parse      :   5.105
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Pango::FontDescription compile time: 5.65806592
+ === Pango::AttrList === 
+Stage start      :   0.000
+Stage parse      :   5.425
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+Pango::AttrList compile time: 5.96631502
+ === Pango::Raw::Structs === 
+Stage start      :   0.000
+Stage parse      :   4.316
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Pango::Raw::Structs compile time: 4.83016526
+ === Pango::Context === 
+Stage start      :   0.000
+Stage parse      :   5.617
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+Pango::Context compile time: 6.242181671
+ === Pango::Layout === 
+Stage start      :   0.000
+Stage parse      :   5.758
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+Pango::Layout compile time: 6.3522978
+ === Pango::Raw::Subs === 
+Stage start      :   0.000
+Stage parse      :   3.309
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Pango::Raw::Subs compile time: 4.0148221
+ === Pango::Raw::Types === 
+Stage start      :   0.000
+Stage parse      :   3.163
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.008
+Stage mast       :   0.009
+Stage mbc        :   0.005
+Stage moar       :   0.000
+
+Pango::Raw::Types compile time: 3.8778873
+ === Clutter::Raw::Definitions === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Definitions.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.004
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.068
+    Stage mbc        :   0.004
+Stage parse      :   4.457
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Definitions compile time: 4.9954429
+ === Clutter::Compat::Types === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Compat/Types.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.657
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.002
+    Stage mast       :   0.032
+    Stage mbc        :   0.001
+Stage parse      :   4.345
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Compat::Types compile time: 5.0341281
+ === Clutter::Raw::Enums === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Enums.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.185
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.295
+    Stage mbc        :   0.036
+Stage parse      :   5.865
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Enums compile time: 6.5346541
+ === Clutter::Raw::Exports === 
+Stage start      :   0.000
+Stage parse      :   1.362
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+
+Clutter::Raw::Exports compile time: 1.5615852
+ === Clutter::Raw::Exceptions === 
+Stage start      :   0.000
+Stage parse      :   1.373
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+
+Clutter::Raw::Exceptions compile time: 1.56192343
+ === Clutter::Raw::Structs === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Structs.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.754
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.091
+    Stage mast       :   0.127
+    Stage mbc        :   0.006
+Stage parse      :   3.613
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Structs compile time: 3.80900613
+ === Clutter::Raw::Types === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Types.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.479
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.001
+    Stage mast       :   0.036
+    Stage mbc        :   0.003
+Stage parse      :   4.184
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.007
+Stage mast       :   0.046
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+Clutter::Raw::Types compile time: 4.43391331
+ === Clutter::Raw::VariousTypes === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/VariousTypes.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.248
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.057
+    Stage mast       :   0.232
+    Stage mbc        :   0.308
+Stage parse      :  12.681
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::VariousTypes compile time: 12.8783138
+ === Clutter::Roles::Signals::DeviceManager === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.429
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.066
+    Stage mbc        :   0.014
+Stage parse      :   4.494
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::DeviceManager compile time: 4.7053714
+ === Clutter::Roles::Signals::Generic === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Generic.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.363
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.066
+    Stage mbc        :   0.017
+Stage parse      :   4.506
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Generic compile time: 4.74287674
+ === Clutter::Roles::Signals::Canvas === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.518
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.091
+    Stage mbc        :   0.017
+Stage parse      :   4.735
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Canvas compile time: 4.9452736
+ === Clutter::Rect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Rect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.721
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.038
+    Stage mast       :   0.117
+    Stage mbc        :   0.019
+Stage parse      :   5.041
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Rect compile time: 5.2564856
+ === Clutter::Roles::Signals::Container === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.704
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.250
+    Stage mbc        :   0.034
+Stage parse      :   5.184
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Container compile time: 5.4042605
+ === Clutter::Roles::Signals::DragAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.977
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.063
+    Stage mast       :   0.167
+    Stage mbc        :   0.043
+Stage parse      :   5.430
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::DragAction compile time: 5.65664893
+ === Clutter::Roles::Settings === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Settings.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.478
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.165
+    Stage mbc        :   0.081
+Stage parse      :   7.080
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Settings compile time: 7.28652046
+ === Clutter::Cairo === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Cairo.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.162
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.093
+    Stage mbc        :   0.019
+Stage parse      :   5.798
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Cairo compile time: 6.20302362
+ === Clutter::Vertex === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Vertex.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.873
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.091
+    Stage mbc        :   0.030
+Stage parse      :   5.878
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Vertex compile time: 6.29172769
+ === Clutter::Size === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Size.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.879
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.122
+    Stage mbc        :   0.016
+Stage parse      :   5.922
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Size compile time: 6.3545793
+ === Clutter::Roles::Signals::PanAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.984
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.130
+    Stage mbc        :   0.028
+Stage parse      :   6.029
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::PanAction compile time: 6.4003484
+ === Clutter::ActorBox === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorBox.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.368
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.044
+    Stage mast       :   0.096
+    Stage mbc        :   0.034
+Stage parse      :   6.511
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::ActorBox compile time: 6.87613194
+ === Clutter::Roles::Signals::Stage === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.006
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.056
+    Stage mbc        :   0.018
+Stage parse      :   7.001
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Stage compile time: 7.35662742
+ === Clutter::Roles::Signals::Text === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.364
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.030
+    Stage mast       :   0.066
+    Stage mbc        :   0.030
+Stage parse      :   7.220
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Text compile time: 7.6073915
+ === Clutter::ChildMeta === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ChildMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.327
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.011
+    Stage mast       :   0.079
+    Stage mbc        :   0.032
+Stage parse      :   7.331
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::ChildMeta compile time: 7.7380765
+ === Clutter::Constraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Constraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.976
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.010
+    Stage mast       :   0.071
+    Stage mbc        :   0.015
+Stage parse      :   7.316
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Constraint compile time: 7.739295
+ === Clutter::Point === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Point.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.293
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.125
+    Stage mast       :   0.251
+    Stage mbc        :   0.037
+Stage parse      :  11.153
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.005
+Stage mast       :   0.003
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Point compile time: 11.52899544
+ === Clutter::PaintVolume === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/PaintVolume.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.635
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.084
+    Stage mast       :   0.277
+    Stage mbc        :   0.054
+Stage parse      :  11.615
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+Clutter::PaintVolume compile time: 11.9372754
+ === Clutter::Raw::Boxed === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Boxed.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.844
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.046
+    Stage mast       :   0.121
+    Stage mbc        :   0.033
+Stage parse      :  11.536
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::Boxed compile time: 12.016329
+ === Clutter::LayoutMeta === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.776
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.074
+    Stage mast       :   0.261
+    Stage mbc        :   0.042
+Stage parse      :  12.894
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.006
+Stage moar       :   0.000
+
+Clutter::LayoutMeta compile time: 13.2678253
+ === Clutter::Raw::Animatable === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.924
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.065
+    Stage mast       :   0.139
+    Stage mbc        :   0.060
+Stage parse      :  13.000
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Animatable compile time: 13.43378595
+ === Clutter::Raw::ActorMeta === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.499
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.087
+    Stage mast       :   0.281
+    Stage mbc        :   0.103
+Stage parse      :  13.417
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.018
+Stage moar       :   0.000
+
+Clutter::Raw::ActorMeta compile time: 13.818511
+ === Clutter::Raw::ClickAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.968
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.192
+    Stage mbc        :   0.069
+Stage parse      :  13.489
+Stage syntaxcheck:   0.003
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::ClickAction compile time: 14.129683
+ === Clutter::Raw::DeviceManager === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.048
+    Stage mast       :   0.171
+    Stage mbc        :   0.065
+Stage parse      :  13.384
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Raw::DeviceManager compile time: 14.141996
+ === Clutter::Raw::BrightnessContrastEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.071
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.164
+    Stage mast       :   0.194
+    Stage mbc        :   0.080
+Stage parse      :  13.821
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.006
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+Clutter::Raw::BrightnessContrastEffect compile time: 14.355581
+ === Clutter::Raw::DeformEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.362
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.056
+    Stage mast       :   0.165
+    Stage mbc        :   0.236
+Stage parse      :  13.855
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.005
+Stage moar       :   0.000
+
+Clutter::Raw::DeformEffect compile time: 14.474011
+ === Clutter::Raw::Backend === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Backend.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.124
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.098
+    Stage mast       :   0.192
+    Stage mbc        :   0.118
+Stage parse      :  14.239
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.009
+Stage moar       :   0.000
+
+Clutter::Raw::Backend compile time: 14.63888253
+ === Clutter::Raw::Container === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.275
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.047
+    Stage mast       :   0.191
+    Stage mbc        :   0.106
+Stage parse      :  13.983
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Raw::Container compile time: 14.67080577
+ === Clutter::Raw::AlignConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.478
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.043
+    Stage mast       :   0.283
+    Stage mbc        :   0.113
+Stage parse      :  14.212
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+Clutter::Raw::AlignConstraint compile time: 14.6844774
+ === Clutter::Raw::BindConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.276
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.067
+    Stage mast       :   0.251
+    Stage mbc        :   0.096
+Stage parse      :  14.280
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.006
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Raw::BindConstraint compile time: 14.74799873
+ === Clutter::Raw::DragAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   9.572
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.100
+    Stage mast       :   0.320
+    Stage mbc        :   0.218
+Stage parse      :  15.594
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.007
+Stage moar       :   0.000
+
+Clutter::Raw::DragAction compile time: 16.2686799
+ === Clutter::Raw::BindingPool === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   9.906
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.102
+    Stage mast       :   0.225
+    Stage mbc        :   0.132
+Stage parse      :  16.122
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Raw::BindingPool compile time: 16.589113
+ === Clutter::Raw::BoxLayout === 
+Stage start      :   0.013
+
+    precomp lib/Clutter/Raw/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :  13.141
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.133
+    Stage mast       :   0.311
+    Stage mbc        :   0.230
+Stage parse      :  19.597
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.007
+Stage mbc        :   0.015
+Stage moar       :   0.000
+
+Clutter::Raw::BoxLayout compile time: 20.14836531
+ === Clutter::Raw::Color === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :  13.855
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.146
+    Stage mast       :   0.292
+    Stage mbc        :   0.316
+Stage parse      :  20.308
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.005
+Stage mast       :   0.003
+Stage mbc        :   0.016
+Stage moar       :   0.000
+
+Clutter::Raw::Color compile time: 21.00064633
+ === Clutter::Raw::Image === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.853
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.073
+    Stage mast       :   0.225
+    Stage mbc        :   0.108
+Stage parse      :  13.676
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::Image compile time: 14.2050328
+ === Clutter::Raw::OffscreenEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.347
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.073
+    Stage mast       :   0.167
+    Stage mbc        :   0.067
+Stage parse      :  12.769
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::OffscreenEffect compile time: 13.3523084
+ === Clutter::Raw::PathConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.473
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.064
+    Stage mast       :   0.155
+    Stage mbc        :   0.066
+Stage parse      :  13.214
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::PathConstraint compile time: 13.7804474
+ === Clutter::Raw::FlowLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.956
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.066
+    Stage mast       :   0.244
+    Stage mbc        :   0.203
+Stage parse      :  16.619
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.006
+Stage moar       :   0.000
+
+Clutter::Raw::FlowLayout compile time: 17.1646289
+ === Clutter::Raw::KeyframeTransition === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/KeyframeTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.656
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.043
+    Stage mast       :   0.242
+    Stage mbc        :   0.099
+Stage parse      :  14.417
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::KeyframeTransition compile time: 14.96268373
+ === Clutter::Raw::PageTurnEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.151
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.081
+    Stage mast       :   0.219
+    Stage mbc        :   0.134
+Stage parse      :  14.038
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::PageTurnEffect compile time: 14.6111072
+ === Clutter::Raw::Scriptable === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.887
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.037
+    Stage mast       :   0.232
+    Stage mbc        :   0.072
+Stage parse      :  12.878
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.008
+Stage moar       :   0.000
+
+Clutter::Raw::Scriptable compile time: 13.489099
+ === Clutter::Raw::GridLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GridLayout.pm6
+    Stage start      :   0.002
+    Stage parse      :  11.484
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.055
+    Stage mast       :   0.337
+    Stage mbc        :   0.241
+Stage parse      :  17.707
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::GridLayout compile time: 18.29550566
+ === Clutter::Raw::ScrollActor === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ScrollActor.pm6
+    Stage start      :   0.002
+    Stage parse      :   7.094
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.053
+    Stage mast       :   0.259
+    Stage mbc        :   0.081
+Stage parse      :  13.221
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::ScrollActor compile time: 13.8639883
+ === Clutter::Raw::Interval === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.220
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.083
+    Stage mast       :   0.283
+    Stage mbc        :   0.206
+Stage parse      :  16.292
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::Interval compile time: 16.79489062
+ === Clutter::Raw::LayoutManager === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.092
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.139
+    Stage mast       :   0.248
+    Stage mbc        :   0.149
+Stage parse      :  16.100
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::LayoutManager compile time: 16.73810579
+ === Clutter::Raw::GestureAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :  12.383
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.137
+    Stage mast       :   0.373
+    Stage mbc        :   0.256
+Stage parse      :  18.723
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::GestureAction compile time: 19.278933
+ === Clutter::Raw::PanAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.497
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.051
+    Stage mast       :   0.264
+    Stage mbc        :   0.152
+Stage parse      :  16.550
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.012
+Stage moar       :   0.000
+
+Clutter::Raw::PanAction compile time: 17.13685058
+ === Clutter::Raw::Event === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :  25.494
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.125
+    Stage mast       :   0.642
+    Stage mbc        :   0.725
+Stage parse      :  32.990
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.014
+Stage mbc        :   0.009
+Stage moar       :   0.000
+
+Clutter::Raw::Event compile time: 33.7980277
+ === Clutter::Raw::SnapConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.845
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.103
+    Stage mast       :   0.202
+    Stage mbc        :   0.119
+Stage parse      :  13.671
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::SnapConstraint compile time: 14.3401967
+ === Clutter::Raw::Path === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :  14.842
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.100
+    Stage mast       :   0.302
+    Stage mbc        :   0.316
+Stage parse      :  21.024
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::Path compile time: 21.599192
+ === Clutter::Raw::InputDevice === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :  15.779
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.091
+    Stage mast       :   0.340
+    Stage mbc        :   0.588
+Stage parse      :  22.294
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::InputDevice compile time: 22.9601543
+ === Clutter::Raw::Main === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :  15.997
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.060
+    Stage mast       :   0.415
+    Stage mbc        :   0.382
+Stage parse      :  22.325
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::Main compile time: 22.83458802
+ === Clutter::Roles::Animatable === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.330
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.100
+    Stage mast       :   0.127
+    Stage mbc        :   0.052
+Stage parse      :   9.716
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Animatable compile time: 10.32423387
+ === Clutter::Roles::Container === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.402
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.050
+    Stage mast       :   0.139
+    Stage mbc        :   0.021
+Stage parse      :   9.901
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Container compile time: 10.3945159
+ === Clutter::Raw::TransitionGroup === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TransitionGroup.pm6
+    Stage start      :   0.002
+    Stage parse      :   5.174
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.040
+    Stage mast       :   0.127
+    Stage mbc        :   0.060
+Stage parse      :  10.463
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::TransitionGroup compile time: 11.0764618
+ === Clutter::Roles::Scriptable === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.355
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.121
+    Stage mbc        :   0.045
+Stage parse      :   9.393
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Scriptable compile time: 9.9133118
+ === Clutter::Raw::TextBuffer === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.142
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.049
+    Stage mast       :   0.166
+    Stage mbc        :   0.112
+Stage parse      :  12.350
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Raw::TextBuffer compile time: 12.8256419
+ === Clutter::Roles::Signals::ClickAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.441
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.038
+    Stage mast       :   0.137
+    Stage mbc        :   0.020
+Stage parse      :   9.158
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::ClickAction compile time: 9.84334952
+ === Clutter::Raw::Transition === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.625
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.086
+    Stage mast       :   0.147
+    Stage mbc        :   0.066
+Stage parse      :  11.851
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Transition compile time: 12.421211
+ === Clutter::Roles::Content === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Content.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.043
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.047
+    Stage mast       :   0.134
+    Stage mbc        :   0.052
+Stage parse      :  10.374
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::Roles::Content compile time: 10.9468054
+ === Clutter::Roles::Signals::DropAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DropAction.pm6
+    Stage start      :   0.002
+    Stage parse      :   5.015
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.055
+    Stage mast       :   0.140
+    Stage mbc        :   0.031
+Stage parse      :   9.940
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::DropAction compile time: 10.5161263
+ === Clutter::Raw::Stage === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :  15.387
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.049
+    Stage mast       :   0.173
+    Stage mbc        :   0.164
+Stage parse      :  20.792
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Stage compile time: 21.2806935
+ === Clutter::Roles::Signals::Actor === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.483
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.132
+    Stage mbc        :   0.053
+Stage parse      :  11.396
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Roles::Signals::Actor compile time: 11.90323985
+ === Clutter::Raw::Timeline === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.430
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.141
+    Stage mbc        :   0.149
+Stage parse      :  15.602
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Timeline compile time: 16.2513544
+ === Clutter::Threads === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Threads.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.087
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.087
+    Stage mbc        :   0.009
+Stage parse      :   4.680
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Threads compile time: 5.061717008
+ === Clutter::TextBuffer === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.496
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.071
+    Stage mbc        :   0.017
+Stage parse      :   6.114
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::TextBuffer compile time: 6.4821303
+ === Clutter::Raw::Text === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :  15.623
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.044
+    Stage mast       :   0.200
+    Stage mbc        :   0.350
+Stage parse      :  21.014
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Raw::Text compile time: 21.5501085
+ === Clutter::Timeline === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.957
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.046
+    Stage mast       :   0.095
+    Stage mbc        :   0.011
+Stage parse      :   5.256
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Timeline compile time: 5.5016354
+ === Clutter::Transition === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.827
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.120
+    Stage mbc        :   0.013
+Stage parse      :   3.848
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Transition compile time: 4.064250203
+ === Clutter::Raw::Actor === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :  48.771
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.154
+    Stage mast       :   0.464
+    Stage mbc        :   1.189
+Stage parse      :  56.326
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.003
+Stage moar       :   0.000
+
+Clutter::Raw::Actor compile time: 56.7329187
+ === Clutter::BindConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.693
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.047
+    Stage mast       :   0.177
+    Stage mbc        :   0.019
+Stage parse      :   5.632
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::BindConstraint compile time: 5.879674
+ === Clutter::TransitionGroup === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/TransitionGroup.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.560
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.044
+    Stage mast       :   0.156
+    Stage mbc        :   0.026
+Stage parse      :   5.758
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::TransitionGroup compile time: 6.0084667
+ === Clutter::AlignConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.903
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.190
+    Stage mbc        :   0.023
+Stage parse      :   5.748
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::AlignConstraint compile time: 6.00943197
+ === Clutter::Color === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.084
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.080
+    Stage mast       :   0.158
+    Stage mbc        :   0.019
+Stage parse      :   6.267
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Color compile time: 6.5427308
+ === Clutter::BindingPool === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.886
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.061
+    Stage mbc        :   0.016
+Stage parse      :   6.731
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::BindingPool compile time: 7.02019086
+ === Clutter::ActorMeta === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.075
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.065
+    Stage mbc        :   0.014
+Stage parse      :   6.971
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::ActorMeta compile time: 7.20762476
+ === Clutter::Backend === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Backend.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.212
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.089
+    Stage mbc        :   0.014
+Stage parse      :   7.390
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Backend compile time: 7.65644982
+ === Clutter::Canvas === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.701
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.190
+    Stage mbc        :   0.042
+Stage parse      :   7.791
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Canvas compile time: 8.0787273
+ === Clutter::Interval === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.528
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.059
+    Stage mbc        :   0.010
+Stage parse      :   4.649
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Interval compile time: 4.8940697
+ === Clutter::Effect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Effect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.520
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.074
+    Stage mbc        :   0.014
+Stage parse      :   4.833
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Effect compile time: 5.0717177
+ === Clutter::GridLayoutMeta === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.658
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.056
+    Stage mbc        :   0.022
+Stage parse      :   5.009
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.010
+Stage moar       :   0.000
+
+Clutter::GridLayoutMeta compile time: 5.2518924
+ === Clutter::Image === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.118
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.087
+    Stage mbc        :   0.015
+Stage parse      :   5.333
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Image compile time: 5.60536386
+ === Clutter::Misc === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Misc.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.953
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.056
+    Stage mbc        :   0.011
+Stage parse      :   4.121
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Misc compile time: 4.3636603
+ === Clutter::Main === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.135
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.153
+    Stage mbc        :   0.008
+Stage parse      :   4.341
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Main compile time: 4.5591747
+ === Clutter::OffscreenEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.135
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.037
+    Stage mast       :   0.050
+    Stage mbc        :   0.014
+Stage parse      :   4.351
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::OffscreenEffect compile time: 4.6009657
+ === Clutter::LayoutManager === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.926
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.108
+    Stage mbc        :   0.010
+Stage parse      :   5.285
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::LayoutManager compile time: 5.51239207
+ === Clutter::PageTurnEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.812
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.094
+    Stage mbc        :   0.013
+Stage parse      :   3.930
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::PageTurnEffect compile time: 4.149844
+ === Clutter::Path === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.813
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.118
+    Stage mbc        :   0.014
+Stage parse      :   4.928
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Path compile time: 5.1642542
+ === Clutter::PathConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.917
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.106
+    Stage mbc        :   0.013
+Stage parse      :   4.000
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::PathConstraint compile time: 4.1977882
+ === Clutter::Action === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Action.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.030
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.058
+    Stage mbc        :   0.009
+Stage parse      :   4.017
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Action compile time: 4.22699589
+ === Clutter::PropertyTransition === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/PropertyTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.393
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.101
+    Stage mbc        :   0.018
+Stage parse      :   4.449
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::PropertyTransition compile time: 4.6570658
+ === Clutter::Actor === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.199
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.152
+    Stage mast       :   0.400
+    Stage mbc        :   0.094
+Stage parse      :   9.989
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Actor compile time: 10.1990751
+ === Clutter::BrightnessContrastEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.776
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.054
+    Stage mast       :   0.194
+    Stage mbc        :   0.025
+Stage parse      :   7.539
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::BrightnessContrastEffect compile time: 7.8226318
+ === Clutter::DesaturateEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/DesaturateEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.185
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.047
+    Stage mast       :   0.227
+    Stage mbc        :   0.046
+Stage parse      :   9.223
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::DesaturateEffect compile time: 9.540265302
+ === Clutter::GridLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.662
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.117
+    Stage mast       :   0.288
+    Stage mbc        :   0.033
+Stage parse      :   9.271
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::GridLayout compile time: 9.76443065
+ === Clutter::DropAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/DropAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.357
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.050
+    Stage mast       :   0.171
+    Stage mbc        :   0.080
+Stage parse      :   9.451
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::DropAction compile time: 9.8441606
+ === Clutter::FixedLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/FixedLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.927
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.137
+    Stage mbc        :   0.028
+Stage parse      :   9.472
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::FixedLayout compile time: 9.86283979
+ === Clutter::BoxLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.891
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.077
+    Stage mast       :   0.404
+    Stage mbc        :   0.040
+Stage parse      :   9.651
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::BoxLayout compile time: 9.90408584
+ === Clutter::BinLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BinLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.309
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.138
+    Stage mbc        :   0.030
+Stage parse      :   9.768
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::BinLayout compile time: 9.99681463
+ === Clutter::BlurEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/BlurEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.074
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.048
+    Stage mast       :   0.138
+    Stage mbc        :   0.039
+Stage parse      :   9.704
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::BlurEffect compile time: 9.9996579
+ === Clutter::GestureAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.756
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.084
+    Stage mast       :   0.280
+    Stage mbc        :   0.030
+Stage parse      :   9.567
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::GestureAction compile time: 10.05882559
+ === Clutter::ActorIter === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorIter.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.686
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.044
+    Stage mast       :   0.246
+    Stage mbc        :   0.020
+Stage parse      :  10.370
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::ActorIter compile time: 10.638088
+ === Clutter::DeformEffect === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.019
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.037
+    Stage mast       :   0.197
+    Stage mbc        :   0.013
+Stage parse      :  10.531
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+
+Clutter::DeformEffect compile time: 10.8678267
+ === Clutter::KeyframeTransition === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/KeyframeTransition.pm6
+    Stage start      :   0.002
+    Stage parse      :   6.058
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.048
+    Stage mast       :   0.326
+    Stage mbc        :   0.026
+Stage parse      :  10.649
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::KeyframeTransition compile time: 11.2309408
+ === Clutter::FlowLayout === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.315
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.080
+    Stage mast       :   0.235
+    Stage mbc        :   0.035
+Stage parse      :  10.856
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::FlowLayout compile time: 11.2909179
+ === Clutter::ClickAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.172
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.041
+    Stage mast       :   0.134
+    Stage mbc        :   0.029
+Stage parse      :  10.996
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::ClickAction compile time: 11.378669
+ === Clutter::DragAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.603
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.054
+    Stage mast       :   0.186
+    Stage mbc        :   0.022
+Stage parse      :  11.035
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::DragAction compile time: 11.434877
+ === Clutter::Clone === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Clone.pm6
+    Stage start      :   0.000
+    Stage parse      :   6.441
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.077
+    Stage mast       :   0.254
+    Stage mbc        :   0.047
+Stage parse      :  11.460
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Clone compile time: 11.745902
+ === Clutter::PanAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.567
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.128
+    Stage mbc        :   0.010
+Stage parse      :   5.491
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::PanAction compile time: 5.83857547
+ === Clutter::TapAction === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/TapAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.700
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.080
+    Stage mbc        :   0.015
+Stage parse      :   5.701
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::TapAction compile time: 6.1003719
+ === Clutter::ScrollActor === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/ScrollActor.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.938
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.040
+    Stage mast       :   0.186
+    Stage mbc        :   0.015
+Stage parse      :   6.196
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::ScrollActor compile time: 6.6477404
+ === Clutter::SnapConstraint === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.540
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.111
+    Stage mbc        :   0.010
+Stage parse      :   6.971
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::SnapConstraint compile time: 7.466569162
+ === Clutter::Stage === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.911
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.046
+    Stage mast       :   0.188
+    Stage mbc        :   0.012
+Stage parse      :   7.261
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Stage compile time: 7.6574669
+ === Clutter::Text === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.249
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.060
+    Stage mast       :   0.213
+    Stage mbc        :   0.022
+Stage parse      :   8.604
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Text compile time: 9.0006769
+ === Clutter::InputDevice === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.825
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.034
+    Stage mast       :   0.129
+    Stage mbc        :   0.008
+Stage parse      :   5.318
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::InputDevice compile time: 5.54514194
+ === Clutter::DeviceManager === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.686
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.072
+    Stage mbc        :   0.007
+Stage parse      :   5.071
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::DeviceManager compile time: 5.2778727
+ === Clutter::Event === 
+Stage start      :   0.000
+
+    precomp lib/Clutter/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.939
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.043
+    Stage mast       :   0.136
+    Stage mbc        :   0.040
+Stage parse      :   5.377
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+
+Clutter::Event compile time: 5.57619981
+
+Total compile time: 170.312914s
