@@ -20,7 +20,7 @@ use Clutter::Main;
 my $idle_resize_id;
 
 sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .message.concise.say } }
 
   my $now = DateTime.now;
   my $sec = $now.second * π / 30;
@@ -38,27 +38,29 @@ sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
   $ct.line_cap = CAIRO_LINE_CAP_ROUND;
   $ct.line_width = 0.1;
   Clutter::Cairo.set_source_color($ct, $CLUTTER_COLOR_Black);
-  say "B: {  $CLUTTER_COLOR_Black."$_"() }" for <red green blue alpha>;
+  say "B: {  $CLUTTER_COLOR_Black.gist }";
   $ct.translate(0.5, 0.5);
   $ct.arc(0, 0, 0.4, 0, π * 2);
   $ct.stroke;
 
   # Seconds
   my $color = Clutter::Color.new_from_color($CLUTTER_COLOR_White);
-  say "W: {  $color."$_"() }" for <red green blue alpha>;
+  say "W: {  $color.gist }";
   $color.alpha = 128;
   Clutter::Cairo.set_source_color($ct, $color);
   $ct.move_to(0, 0);
   $ct.arc($sec.sin * 0.4, -$sec.cos * 0.4, 0.05, 0, π * 2);
   $ct.fill;
+
   # Minute
-  $color = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkChameleon);
-  say "DC: { $color."$_"() }" for <red green blue alpha>;
-  $color.alpha = 196;
-  Clutter::Cairo.set_source_color($ct, $color);
-  $ct.move_to(0, 0);
-  $ct.line_to($min.sin * 0.4, -$min.cos * 0.4);
-  $ct.stroke;
+  # $color = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkChameleon);
+  # $color.alpha = 196;
+  # say "DC: { $color.gist }";
+  # Clutter::Cairo.set_source_color($ct, $color);
+  # $ct.move_to(0, 0);
+  # $ct.line_to($min.sin * 0.4, -$min.cos * 0.4);
+  # $ct.stroke;
+
   # # Hour
   $ct.move_to(0, 0);
   $ct.line_to($hrs.sin * 0.2, -$hrs.cos * 0.2);
@@ -114,11 +116,11 @@ sub MAIN {
   $canvas.draw.tap(-> *@a { draw_clock(|@a) });
 
   $canvas.invalidate;
-  Clutter::Threads.add_timeout(1000, -> *@a {
-    CATCH { default { .message.say } }
-    $canvas.invalidate;
-    1;
-  });
+  # Clutter::Threads.add_timeout(1000, -> *@a {
+  #   CATCH { default { .message.say; .backtrace.concise.say; } }
+  #   $canvas.invalidate;
+  #   1;
+  # });
 
   Clutter::Main.run;
 }
