@@ -95,7 +95,17 @@ class Clutter::Color {
   )
     is also<new-from-color>
   {
-    my $color = ClutterColor.new($c.red, $c.green, $c.blue, $c.alpha);
+    use nqp;
+
+    # cw: Must use nqp to hllize the value, since it might come from a
+    #     static color, and those need to be HLL-ized
+
+    my $color = ClutterColor.new(
+      nqp::hllize( nqp::decont($c.red)   ),
+      nqp::hllize( nqp::decont($c.green) ),
+      nqp::hllize( nqp::decont($c.blue)  ),
+      nqp::hllize( nqp::decont($c.alpha) )
+    );
 
     X::ClutterColor::Memory.new.throw unless $color;
 
@@ -357,8 +367,6 @@ DIE
   }
 
 }
-
-our %static-color is export;
 
 our $CLUTTER_COLOR_White           is export;
 our $CLUTTER_COLOR_Black           is export;
