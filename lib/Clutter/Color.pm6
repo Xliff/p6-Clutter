@@ -35,23 +35,23 @@ class Clutter::Color {
     Int() $blue,
     Int() $alpha
   ) {
-    my ($r, $g, $b, $a) = ($red, $green, $blue, $alpha);
-    my $color = clutter_color_new($r, $g, $b, $a);
+    my gint8 ($r, $g, $b, $a) = ($red, $green, $blue, $alpha);
+    my       $color           = clutter_color_new($r, $g, $b, $a);
 
     $color ?? self.bless(:$color) !! Nil;
   }
 
   method new_from_hls (
     Clutter::Color:U:
-    Num() $hue,
-    Num() $luminance,
-    Num() $saturation,
-    :$alpha is copy
+    Num()             $hue,
+    Num()             $luminance,
+    Num()             $saturation,
+                      :$alpha      is copy
   )
     is also<new-from-hls>
   {
-    my $color = self.alloc;
     my gfloat ($h, $l, $s) = ($hue, $luminance, $saturation);
+    my        $color       = self.alloc;
 
     X::ClutterColor::Memory.new.throw unless $color;
 
@@ -67,8 +67,8 @@ class Clutter::Color {
   method new_from_pixel (Clutter::Color:U: Int() $pixel)
     is also<new-from-pixel>
   {
-    my guint $p = $pixel;
-    my $color = self.alloc;
+    my guint $p     = $pixel;
+    my       $color = self.alloc;
 
     X::ClutterColor::Memory.new.throw unless $color;
 
@@ -91,16 +91,11 @@ class Clutter::Color {
 
   method new_from_color (
     Clutter::Color:U:
-    ClutterColor() $c
+    ClutterColor()    $c
   )
     is also<new-from-color>
   {
-    my $color = ClutterColor.new(
-      red   => $c.red,
-      green => $c.green,
-      blue  => $c.blue,
-      alpha => $c.alpha
-    );
+    my $color = ClutterColor.new($c.red, $c.green, $c.blue, $c.alpha);
 
     X::ClutterColor::Memory.new.throw unless $color;
 
@@ -129,14 +124,14 @@ DIE
 
   method init (
     Clutter::Color:U:
-    Int() $red,
-    Int() $green,
-    Int() $blue,
-    Int() $alpha
+    Int()             $red,
+    Int()             $green,
+    Int()             $blue,
+    Int()             $alpha
   ) {
-    my $c = self.alloc;
-    say 'color init';
     my guint8 ($r, $g, $b, $a) = ($red, $green, $blue, $alpha);
+    my        $c               = self.alloc;
+
     clutter_color_init($c, $r, $g, $b, $a);
     $c;
   }
@@ -151,9 +146,9 @@ DIE
   }
   multi method add (
     Clutter::Color:D:
-    ClutterColor() $b,
-    ClutterColor() $color,
-    :$raw = False
+    ClutterColor()    $b,
+    ClutterColor()    $color,
+                      :$raw   = False
   ) {
     return Nil unless $b && $color;
 
@@ -193,7 +188,11 @@ DIE
   multi method equal (ClutterColor() $v2) {
     Clutter::Color.equal($!cc, $v2);
   }
-  multi method equal (Clutter::Color:U: ClutterColor() $v1, ClutterColor() $v2) {
+  multi method equal (
+    Clutter::Color:U:
+    ClutterColor()    $v1,
+    ClutterColor()    $v2
+  ) {
     so clutter_color_equal($v1, $v2);
   }
 
@@ -222,9 +221,9 @@ DIE
   }
   multi method interpolate (
     Clutter::Color:U:
-    ClutterColor() $a,
-    ClutterColor() $b,
-    Num() $progress
+    ClutterColor()    $a,
+    ClutterColor()    $b,
+    Num()             $progress
   ) {
     return Nil unless $a && $b;
 
@@ -261,9 +260,9 @@ DIE
   }
   multi method shade (
     Clutter::Color:U:
-    ClutterColor() $c1,
-    Num() $factor,
-    $color
+    ClutterColor()    $c1,
+    Num()             $factor,
+                      $color
   ) {
     return Nil unless $c1;
 
@@ -279,8 +278,8 @@ DIE
 
   multi method subtract (
     Clutter::Color:U:
-    ClutterColor() $a,
-    ClutterColor() $b
+    ClutterColor()    $a,
+    ClutterColor()    $b
   ) {
     return Nil unless $a && $b;
 
@@ -304,10 +303,10 @@ DIE
   }
   multi method to_hls (
     Clutter::Color:U:
-    ClutterColor() $color,
-    $hue        is rw,
-    $luminance  is rw,
-    $saturation is rw
+    ClutterColor()    $color,
+                      $hue        is rw,
+                      $luminance  is rw,
+                      $saturation is rw
   ) {
     $color //= self.alloc;
 
@@ -337,14 +336,14 @@ DIE
 
   method param_spec_color (
     Clutter::Color:U:
-    Str() $nick,
-    Str() $blurb,
-    ClutterColor() $default_value,
-    Int() $flags # GParamFlags $flags
+    Str()             $nick,
+    Str()             $blurb,
+    ClutterColor()    $default_value,
+    Int()             $flags
   )
     is also<clutter-param-spec-color>
   {
-    my guint $f = $flags;
+    my GParamFlags $f = $flags;
 
     clutter_param_spec_color($nick, $blurb, $default_value, $f);
   }
