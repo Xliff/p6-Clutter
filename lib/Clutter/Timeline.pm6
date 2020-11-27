@@ -6,7 +6,6 @@ use Clutter::Raw::Types;
 use Clutter::Raw::Timeline;
 
 use GLib::Roles::Object;
-use GLib::Roles::Signals::Generic;
 
 my @attributes = <
   auto_reverse    auto-reverse
@@ -28,7 +27,6 @@ our subset ClutterTimelineAncestry is export of Mu
 
 class Clutter::Timeline {
   also does GLib::Roles::Object;
-  also does GLib::Roles::Signals::Generic;
 
   has ClutterTimeline $!ctime;
 
