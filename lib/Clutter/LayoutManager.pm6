@@ -10,7 +10,6 @@ use Clutter::LayoutMeta;
 use Clutter::GridLayoutMeta;
 
 use GLib::Roles::Object;
-use GLib::Roles::Signals::Generic;
 
 # Object
 
@@ -19,7 +18,6 @@ our subset ClutterLayoutManagerAncestry is export of Mu
 
 class Clutter::LayoutManager {
   also does GLib::Roles::Object;
-  also does GLib::Roles::Signals::Generic;
 
   has ClutterLayoutManager $!clm;
 
