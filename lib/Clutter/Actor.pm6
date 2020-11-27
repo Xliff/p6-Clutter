@@ -30,7 +30,6 @@ use Clutter::Roles::Animatable;
 use Clutter::Roles::Container;
 use Clutter::Roles::Content;
 use Clutter::Roles::Scriptable;
-use GLib::Roles::Signals::Generic;
 use Clutter::Roles::Signals::Actor;
 use Clutter::Roles::Signals::Generic;
 
@@ -163,7 +162,6 @@ our subset ClutterActorAncestry is export of Mu
 
 class Clutter::Actor {
   also does GLib::Roles::Object;
-  also does GLib::Roles::Signals::Generic;
   also does Clutter::Roles::Animatable;
   also does Clutter::Roles::Container;
   also does Clutter::Roles::Scriptable;
@@ -174,12 +172,12 @@ class Clutter::Actor {
 
   method bless(*%attrinit) {
     my $o = self.CREATE.BUILDALL(Empty, %attrinit);
-    $o.setType($o.^name);
+    #$o.setType($o.^name);
     $o;
   }
 
   submethod BUILD (:$actor) {
-    #self.ADD-PREFIX('Clutter::');
+    #self.ADD-PREFIX('Clutter::');a
     self.setActor($actor) if $actor;
   }
 
@@ -220,7 +218,7 @@ class Clutter::Actor {
     self.setScriptable($actor) unless $!cs;      # Clutter::Roles::Scriptable
   }
 
-  multi method new (ClutterActorAncestry $actor) {
+  multi method new (ClutterActorAncestry $actor, :$ref = True) {
     $actor ?? self.bless(:$actor) !! Nil;
   }
   multi method new {
@@ -391,12 +389,13 @@ class Clutter::Actor {
     die "'{ $name }' value must be a Clutter::Point-compatible object or a 2-element list'"
       unless [||](
         so %data{$name} ~~ (Clutter::Point, ClutterPoint).any,
-        %data{$name}.^lookup('elems')
+        %data{$name} ~~ Positional
       );
-    if %data{$name}.^lookup('elems') {
+    say "Data: { %data{$name}.gist } ({ %data{$name}.^name })" if $DEBUG;
+    if %data{$name} ~~ Positional {
       self."set-{$name}"( |%data{$name} );
     } else {
-      self.$name() = %data{$name};
+      self."$name"() = %data{$name};
     }
   }
 
