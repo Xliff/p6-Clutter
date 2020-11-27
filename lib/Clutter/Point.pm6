@@ -20,12 +20,12 @@ class Clutter::Point {
     is also<ClutterPoint>
   { $!cp }
 
-  multi method new (ClutterPoint $point) {
+  multi method new (ClutterPoint $point, :$ref = True) {
     $point ?? self.bless(:$point) !! Nil;
   }
   multi method new (Num() $x = 0, Num() $y = 0) is also<init> {
     my gfloat ($xx, $yy) = ($x, $y);
-    my $point = clutter_point_init(Clutter::Point.alloc, $xx, $yy);
+    my        $point     = clutter_point_init(Clutter::Point.alloc, $xx, $yy);
 
     $point ?? self.bless(:$point) !! Nil;
   }
@@ -38,7 +38,7 @@ class Clutter::Point {
     my $c = clutter_point_copy($!cp);
 
     $c ??
-      ( $raw ?? $c !! Clutter::Point.new($c) )
+      ( $raw ?? $c !! Clutter::Point.new($c, :!ref) )
       !!
       Nil;
   }
@@ -48,10 +48,10 @@ class Clutter::Point {
   }
   multi method distance (
     Clutter::Point:U:
-    ClutterPoint $a,
-    ClutterPoint $b,
-    Num() $x_distance,
-    Num() $y_distance
+    ClutterPoint() $a,
+    ClutterPoint() $b,
+    Num()          $x_distance,
+    Num()          $y_distance
   ) {
     my gfloat ($xd, $yd) = ($x_distance, $y_distance);
 
