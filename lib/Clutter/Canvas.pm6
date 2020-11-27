@@ -19,42 +19,39 @@ class Clutter::Canvas {
   also does Clutter::Roles::Content;
   also does Clutter::Roles::Signals::Canvas;
 
-  has ClutterCanvas $!cc;
+  has ClutterCanvas $!cc is implementor;
 
   submethod BUILD (:$canvas) {
-    given $canvas {
-      my $to-parent;
-      when ClutterCanvasAncestry {
-        $!cc = do {
-          when ClutterCanvas {
-            $to-parent = cast(GObject, $_);
-            $_;
-          }
-
-          when ClutterContent {
-            $!c-con = $_;
-            $to-parent = cast(GObject, $_);
-            cast(ClutterCanvas, $_);
-          }
-
-          default {
-            $to-parent = $_;
-            cast(ClutterCanvas, $_);
-          }
-        }
-        # Clutter::Roles::Content
-        $!c-con = cast(ClutterContent, $_) unless $!c-con;
-
-        self!setObject($to-parent);
-      }
-      when Clutter::Canvas {
-      }
-      default {
-      }
-    }
+    self.setClutterCanvas($canvas) if $canvas;
   }
 
-  multi method new (ClutterCanvasAncestry $canvas) {
+  method setClutterCanvas (ClutterCanvasAncestry $_) {
+    my $to-parent;
+
+    $!cc = do {
+      when ClutterCanvas {
+        $to-parent = cast(GObject, $_);
+        $_;
+      }
+
+      when ClutterContent {
+        $!c-con = $_;
+        $to-parent = cast(GObject, $_);
+        cast(ClutterCanvas, $_);
+      }
+
+      default {
+        $to-parent = $_;
+        cast(ClutterCanvas, $_);
+      }
+    }
+
+    # Clutter::Roles::Content
+    self!setObject($to-parent);
+    self.roleInit-ClutterContent;
+  }
+
+  multi method new (ClutterCanvasAncestry $canvas, :$ref = True) {
     $canvas ?? self.bless(:$canvas) !! Nil;
   }
   multi method new {
