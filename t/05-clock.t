@@ -20,7 +20,7 @@ use Clutter::Main;
 my $idle_resize_id;
 
 sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
-  CATCH { default { .message.say; .message.concise.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
 
   my $now = DateTime.now;
   my $sec = $now.second * π / 30;
@@ -53,13 +53,13 @@ sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
   $ct.fill;
 
   # Minute
-  # $color = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkChameleon);
-  # $color.alpha = 196;
-  # say "DC: { $color.gist }";
-  # Clutter::Cairo.set_source_color($ct, $color);
-  # $ct.move_to(0, 0);
-  # $ct.line_to($min.sin * 0.4, -$min.cos * 0.4);
-  # $ct.stroke;
+  $color = Clutter::Color.new_from_color($CLUTTER_COLOR_DarkChameleon);
+  $color.alpha = 196;
+  say "DC: { $color.gist }";
+  Clutter::Cairo.set_source_color($ct, $color);
+  $ct.move_to(0, 0);
+  $ct.line_to($min.sin * 0.4, -$min.cos * 0.4);
+  $ct.stroke;
 
   # # Hour
   $ct.move_to(0, 0);
@@ -113,14 +113,17 @@ sub MAIN {
 
   $actor.allocation-changed.tap(-> *@a { on_actor_resize(|@a) });
   $stage.destroy.tap({ Clutter::Main.quit });
-  $canvas.draw.tap(-> *@a { draw_clock(|@a) });
+  $canvas.draw.tap(-> *@a {
+    CATCH { default { .message.say; .backtrace.concise.say } }
+    draw_clock(|@a)
+  });
 
   $canvas.invalidate;
-  # Clutter::Threads.add_timeout(1000, -> *@a {
-  #   CATCH { default { .message.say; .backtrace.concise.say; } }
-  #   $canvas.invalidate;
-  #   1;
-  # });
+  Clutter::Threads.add_timeout(1000, -> *@a {
+    CATCH { default { .message.say; .backtrace.concise.say; } }
+    $canvas.invalidate;
+    1;
+  });
 
   Clutter::Main.run;
 }
