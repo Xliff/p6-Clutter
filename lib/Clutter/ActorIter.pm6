@@ -57,35 +57,42 @@ class Clutter::ActorIter {
   }
 
   multi method next (:$raw = False) {
-    my $a = CArray[Pointer[ClutterActor]].new;
-    $a[0] = Pointer[ClutterActor].new;
+    my $a = CArray[ClutterActor].new;
+    $a[0] = ClutterActor;
 
-    ( my $r = samewith($a) ) ??
-      ( $raw ?? $r !! Clutter::Actor.new($r) )
+    my $rv = samewith($a, :$raw);
+    $rv[0] ?? $rv[1] !! Nil;
+  }
+
+  multi method next (CArray[ClutterActor] $child, :$raw = False) {
+    my $rv = so clutter_actor_iter_next($!cai, $child);
+    my $c  = ppr($child);
+
+    $c = $c ??
+      ( $raw ?? $c !! Clutter::Actor.new($c, :!ref) )
       !!
       Nil;
-  }
-  multi method next (CArray[Pointer[ClutterActor]] $child) {
-    my $rv = so clutter_actor_iter_next($!cai, $child);
-    my $c = $child[0] ?? $child[0].deref !! Nil;
 
-    $rv ?? $c !! False;
+    ($rv, $c);
   }
 
   multi method prev (:$raw = False) {
-    my $a = CArray[Pointer[ClutterActor]].new;
-    $a[0] = Pointer[ClutterActor].new;
+    my $a = CArray[ClutterActor].new;
+    $a[0] = ClutterActor;
 
-    ( my $r = samewith($a) ) ??
-      ( $raw ?? $r !! Clutter::Actor.new($r) )
+    my $rv = samewith($a, :$raw);
+    $rv[0] ?? $rv[1] !! Nil;
+  }
+  multi method prev (CArray[ClutterActor] $child, :$raw = False) {
+    my $rv = so clutter_actor_iter_prev($!cai, $child);
+    my $c  = ppr($child);
+
+    $c = $c ??
+      ( $raw ?? $c !! Clutter::Actor.new($c, :!ref) )
       !!
       Nil;
-  }
-  multi method prev (CArray[Pointer[ClutterActor]] $child) {
-    my $rv = so clutter_actor_iter_prev($!cai, $child);
-    my $c = $child[0] ?? $child[0].deref !! Nil;
 
-    $rv ?? $c !! False;
+    ($rv, $c);
   }
 
   method remove {
