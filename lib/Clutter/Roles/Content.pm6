@@ -3,7 +3,6 @@ use v6.c;
 use Method::Also;
 use NativeCall;
 
-
 use Clutter::Raw::Types;
 
 use Clutter::Roles::Signals::Generic;
@@ -22,8 +21,9 @@ role Clutter::Roles::Content {
   { $!c-con }
 
   method roleInit-ClutterContent {
+    return if $!c-con;
+    
     my \i = findProperImplementor(self.^attributes);
-
     $!c-con = cast( ClutterContent, i.get_value(self) );
   }
 
@@ -61,6 +61,8 @@ role Clutter::Roles::Content {
   }
 
   method invalidate {
+    say "C-CON: $!c-con" if $DEBUG;
+
     clutter_content_invalidate($!c-con);
   }
 
