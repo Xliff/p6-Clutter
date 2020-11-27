@@ -740,7 +740,7 @@ sub clutter_actor_iter_is_valid (ClutterActorIter $iter)
 
 sub clutter_actor_iter_next (
   ClutterActorIter $iter,
-  CArray[Pointer[ClutterActor]] $child
+  CArray[ClutterActor] $child
 )
   returns uint32
   is native(clutter)
@@ -749,7 +749,7 @@ sub clutter_actor_iter_next (
 
 sub clutter_actor_iter_prev (
   ClutterActorIter $iter,
-  CArray[Pointer[ClutterActor]] $child
+  CArray[ClutterActor] $child
 )
   returns uint32
   is native(clutter)
