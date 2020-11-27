@@ -3,7 +3,6 @@ use v6.c;
 # Find the original implementation here:
 # https://gitlab.gnome.org/GNOME/clutter/blob/master/examples/box-layout.c
 
-
 use Pango::Raw::Types;
 use Clutter::Raw::Types;
 use Clutter::Raw::Keysyms;
@@ -38,13 +37,14 @@ my %align-name{Any} = (
 );
 
 sub button_release_cb ($r, $e, $d, $ret) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
 
   my  ($x-align,   $y-align,   $x-expand,   $y-expand) =
     ($r.x-align, $r.y-align, $r.x-expand, $r.y-expand);
 
   my $event = Clutter::Event.new($e);
-  given ClutterButtonPress( $event.button ) {
+
+  given ClutterButtonPressEnumvv( $event.button ) {
     when CLUTTER_BUTTON_PRIMARY {
       my $var := $event.has-shift-modifier ?? $y-align !! $x-align;
       $var = $var < 3 ?? $var + 1 !! 0;
@@ -55,8 +55,10 @@ sub button_release_cb ($r, $e, $d, $ret) {
       $var .= not;
     }
   }
+
   ($r.x-align, $r.y-align, $r.x-expand, $r.y-expand) =
     ($x-align,   $y-align,   $x-expand,   $y-expand);
+
   $ret.r = 1;
 }
 
@@ -69,7 +71,8 @@ sub changed_cb ($act, $ps, $t) {
     ($a.x-align, $a.y-align, $a.x-expand, $a.y-expand);
 
   $t.text = qq:to/TEXT/.chomp;
-{ $x-expand.Int },{ $y-expand.Int }\n{ %align-name{$x-align} }\n{ %align-name{$y-align} }
+{ $x-expand.Int },{ $y-expand.Int }\n{ %align-name{$x-align} }\n{
+  %align-name{$y-align} }
 TEXT
 
 }
@@ -112,9 +115,8 @@ sub key_release_cb ($stage, $e, $b) {
   given Clutter::Event.new($e).key_symbol {
     when CLUTTER_KEY_a {
       my $i = Clutter::ActorIter.new($b);
-      while (my $c = $i.next) {
-        my $d = $c.easing-duration;
-        $c.easing-duration = $d ?? 0 !! 250;
+      while ( my $c = $i.next ) {
+        $c.easing-duration = $c.easing-duration ?? 0 !! 250;
       }
     }
 
@@ -165,6 +167,7 @@ sub MAIN {
 
   $stage.destroy.tap({ Clutter::Main.quit });
   $stage.key-release-event.tap(-> *@a {
+    CATCH { default { .message.say; .backtrace.consise.say } }
     @a[* - 1].r = key_release_cb(|@a[0,1], $box)
   });
   $stage.show-actor;
