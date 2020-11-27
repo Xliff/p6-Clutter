@@ -5,6 +5,7 @@ use Method::Also;
 use Clutter::Raw::Types;
 use Clutter::Raw::Transition;
 
+use GLib::Value;
 use Clutter::Timeline;
 
 my @attributes = <
@@ -70,14 +71,17 @@ class Clutter::Transition is Clutter::Timeline {
 
       when 'from' {
         say "Tr from = { %data<from>.value }" if $DEBUG;
-        self.set-from-value( %data<from> );
+        my $v = %data<from>;
+        $v = gv_dbl($v) unless $v ~~ (GLib::Value, GValue).any;
+        self.set-from-value($v);
         %data<from>:delete;
-
       }
 
       when 'to' {
         say "Tr to = { %data<to>.value }" if $DEBUG;
-        self.set-to-value( %data<to> );
+        my $v = %data<to>;
+        $v = gv_dbl($v) unless $v ~~ (GLib::Value, GValue).any;
+        self.set-to-value($v);
         %data<to>:delete;
       }
     }
