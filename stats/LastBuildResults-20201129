@@ -1,0 +1,3700 @@
+Dependency Generation
+=====================
+real 0.96
+user 1.40
+sys 0.06
+ === COGL::Compat::Types ===
+Stage start      :   0.000
+Stage parse      :   1.429
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Context ===
+Stage start      :   0.000
+Stage parse      :   1.946
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === COGL::Raw::Definitions ===
+Stage start      :   0.000
+Stage parse      :   1.521
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Raw::Enums ===
+Stage start      :   0.000
+Stage parse      :   1.417
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Raw::Exports ===
+Stage start      :   0.000
+Stage parse      :   1.335
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === COGL::Raw::Structs ===
+Stage start      :   0.000
+Stage parse      :   1.567
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Cairo ===
+Stage start      :   0.000
+Stage parse      :   1.469
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::DBus::Raw::Types ===
+Stage start      :   0.000
+Stage parse      :   1.693
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GIO::Raw::Definitions ===
+Stage start      :   0.000
+Stage parse      :   1.597
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Enums ===
+Stage start      :   0.000
+Stage parse      :   1.494
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Exports ===
+Stage start      :   0.000
+Stage parse      :   1.347
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === GIO::Raw::Quarks ===
+Stage start      :   0.000
+Stage parse      :   1.605
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Structs ===
+Stage start      :   0.000
+Stage parse      :   1.646
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Subs ===
+Stage start      :   0.000
+Stage parse      :   1.644
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::GList ===
+Stage start      :   0.000
+Stage parse      :   1.615
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::GSList ===
+Stage start      :   0.000
+Stage parse      :   1.648
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Object::ParamSpec ===
+Stage start      :   0.000
+Stage parse      :   1.693
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Definitions ===
+Stage start      :   0.000
+Stage parse      :   1.483
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Enums ===
+Stage start      :   0.000
+Stage parse      :   1.544
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.007
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GLib::Raw::Exports ===
+Stage start      :   0.000
+Stage parse      :   1.389
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === GLib::Raw::Object ===
+Stage start      :   0.000
+Stage parse      :   1.506
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::ReturnedValue ===
+Stage start      :   0.000
+Stage parse      :   1.344
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === GLib::Raw::Struct_Subs ===
+Stage start      :   0.000
+Stage parse      :   1.481
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === GLib::Raw::Structs ===
+Stage start      :   0.000
+Stage parse      :   1.549
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Subs ===
+Stage start      :   0.000
+Stage parse      :   1.543
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::ListData ===
+Stage start      :   0.000
+Stage parse      :   1.589
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.014
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::Object ===
+Stage start      :   0.000
+Stage parse      :   1.752
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GLib::Roles::Pointers ===
+Stage start      :   0.000
+Stage parse      :   1.441
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::Signals::Generic ===
+Stage start      :   0.000
+Stage parse      :   1.709
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::StaticClass ===
+Stage start      :   0.000
+Stage parse      :   1.598
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::TypedBuffer ===
+Stage start      :   0.000
+Stage parse      :   1.542
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.043
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Value ===
+Stage start      :   0.000
+Stage parse      :   1.609
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Method::Also ===
+Stage start      :   0.000
+Stage parse      :   1.313
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === NativeCall ===
+Stage start      :   0.000
+Stage parse      :   1.432
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Pango::AttrList ===
+Stage start      :   0.000
+Stage parse      :   1.687
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Pango::Context ===
+Stage start      :   0.000
+Stage parse      :   1.976
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.014
+Stage moar       :   0.000
+ === Pango::FontDescription ===
+Stage start      :   0.000
+Stage parse      :   1.686
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Layout ===
+Stage start      :   0.000
+Stage parse      :   2.029
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Pango::Raw::Definitions ===
+Stage start      :   0.000
+Stage parse      :   1.446
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Enums ===
+Stage start      :   0.000
+Stage parse      :   1.544
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Exports ===
+Stage start      :   0.000
+Stage parse      :   1.370
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Pango::Raw::Structs ===
+Stage start      :   0.000
+Stage parse      :   1.631
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Subs ===
+Stage start      :   0.000
+Stage parse      :   1.620
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Types ===
+Stage start      :   0.000
+Stage parse      :   1.715
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.008
+Stage mbc        :   0.004
+Stage moar       :   0.000
+ === Clutter::Compat::Types ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Compat/Types.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.478
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.001
+    Stage mast       :   0.026
+    Stage mbc        :   0.001
+Stage parse      :   2.925
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Definitions ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Definitions.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.664
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.007
+    Stage mast       :   0.064
+    Stage mbc        :   0.003
+Stage parse      :   3.203
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Enums ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Enums.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.746
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.281
+    Stage mbc        :   0.026
+Stage parse      :   4.558
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.006
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::Animator ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Animator.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.774
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.008
+    Stage mast       :   0.076
+    Stage mbc        :   0.030
+Stage parse      :   4.406
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Structs ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Structs.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.860
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.169
+    Stage mbc        :   0.006
+Stage parse      :   3.550
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Exports ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Exports.pm6
+    Stage start      :   0.000
+    Stage parse      :   0.112
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.001
+    Stage mast       :   0.003
+    Stage mbc        :   0.002
+Stage parse      :   1.543
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Exceptions ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Exceptions.pm6
+    Stage start      :   0.000
+    Stage parse      :   0.083
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.001
+    Stage mast       :   0.007
+    Stage mbc        :   0.001
+Stage parse      :   1.468
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Types ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Types.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.524
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.001
+    Stage mast       :   0.037
+    Stage mbc        :   0.006
+Stage parse      :   4.126
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.009
+Stage mast       :   0.016
+Stage mbc        :   0.012
+Stage moar       :   0.000
+ === Clutter::Raw::VariousTypes ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/VariousTypes.pm6
+    Stage start      :   0.000
+    Stage parse      :  10.773
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.059
+    Stage mast       :   0.228
+    Stage mbc        :   0.317
+Stage parse      :  13.103
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Rect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Rect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.090
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.030
+    Stage mast       :   0.078
+    Stage mbc        :   0.013
+Adding alias in Clutter::Rect for ClutterRect...
+Stage parse      :   3.782
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Rect for clamp-to-pixel...
+Adding alias in Clutter::Rect for contains-point...
+Adding alias in Clutter::Rect for contains-rect...
+Adding alias in Clutter::Rect for get-center...
+Adding alias in Clutter::Rect for center...
+Adding alias in Clutter::Rect for get-height...
+Adding alias in Clutter::Rect for height...
+Adding alias in Clutter::Rect for get-type...
+Adding alias in Clutter::Rect for get-width...
+Adding alias in Clutter::Rect for width...
+Adding alias in Clutter::Rect for get-x...
+Adding alias in Clutter::Rect for x...
+Adding alias in Clutter::Rect for get-y...
+Adding alias in Clutter::Rect for y...
+Roles: ()
+ === Clutter::Roles::Settings ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Settings.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.951
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.077
+    Stage mbc        :   0.041
+Adding alias in Clutter::Roles::Settings for Settings...
+Stage parse      :   4.676
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Roles::Settings for ClutterSettings...
+Adding alias in Clutter::Roles::Settings for roleInit_ClutterContainer...
+Adding alias in Clutter::Roles::Settings for get-settings-default...
+Adding alias in Clutter::Roles::Settings for dnd_drag_threshold...
+Adding alias in Clutter::Roles::Settings for double_click_distance...
+Adding alias in Clutter::Roles::Settings for double_click_time...
+Adding alias in Clutter::Roles::Settings for font_antialias...
+Adding alias in Clutter::Roles::Settings for font_dpi...
+Adding alias in Clutter::Roles::Settings for font_hint_style...
+Adding alias in Clutter::Roles::Settings for font_hinting...
+Adding alias in Clutter::Roles::Settings for font_name...
+Adding alias in Clutter::Roles::Settings for font_subpixel_order...
+Adding alias in Clutter::Roles::Settings for fontconfig_timestamp...
+Adding alias in Clutter::Roles::Settings for long_press_duration...
+Adding alias in Clutter::Roles::Settings for password_hint_time...
+Adding alias in Clutter::Roles::Settings for unscaled_font_dpi...
+Adding alias in Clutter::Roles::Settings for window_scaling_factor...
+Adding alias in Clutter::Roles::Settings for cluttersettings-get-type...
+ === Clutter::Roles::Signals::Canvas ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.887
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.048
+    Stage mbc        :   0.011
+Stage parse      :   3.515
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Container ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.010
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.051
+    Stage mbc        :   0.019
+Stage parse      :   3.653
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DeviceManager ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.861
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.045
+    Stage mbc        :   0.011
+Stage parse      :   3.477
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DragAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.138
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.165
+    Stage mbc        :   0.020
+Stage parse      :   3.886
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Generic ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Generic.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.828
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.045
+    Stage mbc        :   0.011
+Stage parse      :   3.448
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::PanAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.893
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.053
+    Stage mbc        :   0.011
+Stage parse      :   3.478
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Stage ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.280
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.010
+    Stage mast       :   0.054
+    Stage mbc        :   0.015
+Stage parse      :   3.909
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Text ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.528
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.055
+    Stage mbc        :   0.021
+Stage parse      :   4.191
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Size ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Size.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.747
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.085
+    Stage mbc        :   0.008
+Adding alias in Clutter::Size for ClutterSize...
+Stage parse      :   3.420
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Size for get-type...
+Roles: ()
+ === Clutter::Vertex ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Vertex.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.748
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.066
+    Stage mbc        :   0.010
+Adding alias in Clutter::Vertex for get-type...
+Stage parse      :   3.387
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Roles: ()
+ === Clutter::ActorBox ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorBox.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.121
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.096
+    Stage mbc        :   0.014
+Adding alias in Clutter::ActorBox for clamp-to-pixel...
+Stage parse      :   3.808
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ActorBox for get-area...
+Adding alias in Clutter::ActorBox for area...
+Adding alias in Clutter::ActorBox for get-height...
+Adding alias in Clutter::ActorBox for height...
+Adding alias in Clutter::ActorBox for get-origin...
+Adding alias in Clutter::ActorBox for get-size...
+Adding alias in Clutter::ActorBox for get-type...
+Adding alias in Clutter::ActorBox for get-width...
+Adding alias in Clutter::ActorBox for width...
+Adding alias in Clutter::ActorBox for get-x...
+Adding alias in Clutter::ActorBox for x...
+Adding alias in Clutter::ActorBox for get-y...
+Adding alias in Clutter::ActorBox for y...
+Adding alias in Clutter::ActorBox for init-rect...
+Adding alias in Clutter::ActorBox for set-origin...
+Adding alias in Clutter::ActorBox for set-size...
+Roles: ()
+ === Clutter::Cairo ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Cairo.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.944
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.050
+    Stage mbc        :   0.011
+Stage parse      :   3.571
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ChildMeta ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ChildMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.780
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.054
+    Stage mbc        :   0.111
+Adding alias in Clutter::ChildMeta for ChildMeta...
+Stage parse      :   4.573
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ChildMeta for get-actor...
+Adding alias in Clutter::ChildMeta for actor...
+Adding alias in Clutter::ChildMeta for get-container...
+Adding alias in Clutter::ChildMeta for container...
+Adding alias in Clutter::ChildMeta for get-type...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::Constraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Constraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.496
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.008
+    Stage mast       :   0.058
+    Stage mbc        :   0.012
+Adding alias in Clutter::Constraint for ClutterConstraint...
+Stage parse      :   4.218
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Constraint for get-type...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::LayoutMeta ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.042
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.052
+    Stage mbc        :   0.012
+Adding alias in Clutter::LayoutMeta for LayoutMeta...
+Stage parse      :   3.749
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::LayoutMeta for ClutterLayoutMeta...
+Adding alias in Clutter::LayoutMeta for get-manager...
+Adding alias in Clutter::LayoutMeta for get-type...
+Roles: ()
+ === Clutter::PaintVolume ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/PaintVolume.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.667
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.062
+    Stage mbc        :   0.011
+Adding alias in Clutter::PaintVolume for ClutterPaintVolume...
+Stage parse      :   3.325
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::PaintVolume for get-depth...
+Adding alias in Clutter::PaintVolume for get-height...
+Adding alias in Clutter::PaintVolume for get-origin...
+Adding alias in Clutter::PaintVolume for get-type...
+Adding alias in Clutter::PaintVolume for get-width...
+Adding alias in Clutter::PaintVolume for set-depth...
+Adding alias in Clutter::PaintVolume for set-from-allocation...
+Adding alias in Clutter::PaintVolume for set-height...
+Adding alias in Clutter::PaintVolume for set-origin...
+Adding alias in Clutter::PaintVolume for set-width...
+Adding alias in Clutter::PaintVolume for union-box...
+Roles: ()
+ === Clutter::Point ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Point.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.716
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.047
+    Stage mbc        :   0.011
+Adding alias in Clutter::Point for ClutterPoint...
+Stage parse      :   3.356
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Point for init...
+Adding alias in Clutter::Point for get-type...
+Roles: ()
+ === Clutter::Raw::Actor ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :  20.907
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.113
+    Stage mast       :   0.437
+    Stage mbc        :   0.686
+Stage parse      :  24.022
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::ActorMeta ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.142
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.011
+    Stage mast       :   0.051
+    Stage mbc        :   0.022
+Stage parse      :   3.718
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::AlignConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.446
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.053
+    Stage mbc        :   0.028
+Stage parse      :   4.098
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Animatable ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.073
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.053
+    Stage mbc        :   0.019
+Stage parse      :   3.689
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Backend ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Backend.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.407
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.058
+    Stage mbc        :   0.027
+Stage parse      :   4.054
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BindConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.430
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.056
+    Stage mbc        :   0.028
+Stage parse      :   4.072
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BindingPool ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.779
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.085
+    Stage mbc        :   0.038
+Stage parse      :   4.509
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BoxLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.806
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.081
+    Stage mbc        :   0.070
+Stage parse      :   5.547
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Boxed ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Boxed.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.817
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.045
+    Stage mbc        :   0.012
+Stage parse      :   3.440
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::BrightnessContrastEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.385
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.050
+    Stage mbc        :   0.027
+Stage parse      :   4.041
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::ClickAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.273
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.051
+    Stage mbc        :   0.022
+Stage parse      :   3.929
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Color ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.964
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.087
+    Stage mbc        :   0.081
+Stage parse      :   5.759
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Container ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.509
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.053
+    Stage mbc        :   0.039
+Stage parse      :   4.201
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::DeformEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.168
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.047
+    Stage mbc        :   0.022
+Stage parse      :   3.795
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::DeviceManager ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.114
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.010
+    Stage mast       :   0.052
+    Stage mbc        :   0.021
+Stage parse      :   3.718
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::DragAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.758
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.069
+    Stage mbc        :   0.039
+Stage parse      :   4.404
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Event ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.403
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.038
+    Stage mast       :   0.177
+    Stage mbc        :   0.196
+Stage parse      :   9.434
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::FlowLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.159
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.068
+    Stage mbc        :   0.051
+Stage parse      :   4.863
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::GestureAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.405
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.077
+    Stage mbc        :   0.057
+Stage parse      :   5.137
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::GridLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GridLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.353
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.072
+    Stage mbc        :   0.058
+Stage parse      :   5.109
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Image ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.455
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.036
+    Stage mast       :   0.053
+    Stage mbc        :   0.026
+Stage parse      :   4.143
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::InputDevice ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.600
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.093
+    Stage mbc        :   0.093
+Stage parse      :   6.440
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Interval ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.948
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.068
+    Stage mbc        :   0.046
+Stage parse      :   4.663
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::KeyframeTransition ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/KeyframeTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.608
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.059
+    Stage mbc        :   0.031
+Stage parse      :   4.270
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::LayoutManager ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.008
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.070
+    Stage mbc        :   0.046
+Stage parse      :   4.707
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Main ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.847
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.115
+    Stage mbc        :   0.119
+Stage parse      :   6.740
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::OffscreenEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.350
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.051
+    Stage mbc        :   0.022
+Stage parse      :   3.993
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::PageTurnEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.478
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.058
+    Stage mbc        :   0.028
+Stage parse      :   4.157
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::PanAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.109
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.068
+    Stage mbc        :   0.047
+Stage parse      :   4.813
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Path ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :   4.209
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.030
+    Stage mast       :   0.091
+    Stage mbc        :   0.085
+Stage parse      :   6.009
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::PathConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.220
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.052
+    Stage mbc        :   0.022
+Stage parse      :   3.836
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Scriptable ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.134
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.047
+    Stage mbc        :   0.019
+Stage parse      :   3.752
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::ScrollActor ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ScrollActor.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.138
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.051
+    Stage mbc        :   0.022
+Stage parse      :   3.760
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::SnapConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.407
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.052
+    Stage mbc        :   0.027
+Stage parse      :   4.060
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Stage ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.074
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.031
+    Stage mast       :   0.104
+    Stage mbc        :   0.115
+Stage parse      :   6.917
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Text ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   8.547
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.038
+    Stage mast       :   0.168
+    Stage mbc        :   0.287
+Stage parse      :  10.751
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::TextBuffer ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.859
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.058
+    Stage mbc        :   0.042
+Stage parse      :   4.522
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Timeline ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.047
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.030
+    Stage mast       :   0.113
+    Stage mbc        :   0.113
+Stage parse      :   6.873
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Transition ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.515
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.044
+    Stage mast       :   0.054
+    Stage mbc        :   0.030
+Stage parse      :   4.219
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::TransitionGroup ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TransitionGroup.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.026
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.044
+    Stage mbc        :   0.041
+Stage parse      :   3.642
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Animatable ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.755
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.038
+    Stage mast       :   0.034
+    Stage mbc        :   0.016
+Adding alias in Clutter::Roles::Animatable for Animatable...
+Stage parse      :   3.363
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Roles::Animatable for ClutterAnimatable...
+Adding alias in Clutter::Roles::Animatable for find-property...
+Adding alias in Clutter::Roles::Animatable for get-initial-state...
+Adding alias in Clutter::Roles::Animatable for animatable-get-type...
+Adding alias in Clutter::Roles::Animatable for interpolate-value...
+Adding alias in Clutter::Roles::Animatable for set-final-state...
+ === Clutter::Roles::Container ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.856
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.045
+    Stage mbc        :   0.008
+Adding alias in Clutter::Roles::Container for Container...
+Stage parse      :   3.492
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.009
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Roles::Container for actor_added...
+Adding alias in Clutter::Roles::Container for actor_removed...
+Adding alias in Clutter::Roles::Container for child_notify...
+Adding alias in Clutter::Roles::Container for child-get-property...
+Adding alias in Clutter::Roles::Container for emit-child-notify...
+Adding alias in Clutter::Roles::Container for child-set-property...
+Adding alias in Clutter::Roles::Container for find-child-by-name...
+Adding alias in Clutter::Roles::Container for get-child-meta...
+Adding alias in Clutter::Roles::Container for container-get-type...
+ === Clutter::Roles::Content ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Content.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.067
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.057
+    Stage mbc        :   0.015
+Adding alias in Clutter::Roles::Content for ClutterContent...
+Stage parse      :   3.677
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Roles::Content for new-content-object...
+Adding alias in Clutter::Roles::Content for get-preferred-size...
+Adding alias in Clutter::Roles::Content for content-get-type...
+ === Clutter::Roles::Scriptable ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.795
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.064
+    Stage mbc        :   0.014
+Adding alias in Clutter::Roles::Scriptable for Scriptable...
+Stage parse      :   3.445
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Roles::Scriptable for ClutterScriptable...
+Adding alias in Clutter::Roles::Scriptable for clutterscriptable-get-type...
+Adding alias in Clutter::Roles::Scriptable for scriptable_get_type...
+Adding alias in Clutter::Roles::Scriptable for scriptable-get-type...
+Adding alias in Clutter::Roles::Scriptable for parse-custom-node...
+Adding alias in Clutter::Roles::Scriptable for set-custom-property...
+ === Clutter::Roles::Signals::Actor ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.934
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.081
+    Stage mbc        :   0.034
+Stage parse      :   4.627
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::ClickAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.942
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.052
+    Stage mbc        :   0.010
+Stage parse      :   3.566
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DropAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DropAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.112
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.053
+    Stage mbc        :   0.015
+Stage parse      :   3.812
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::TextBuffer ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.068
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.061
+    Stage mbc        :   0.017
+Adding alias in Clutter::TextBuffer for ClutterTextBuffer...
+Stage parse      :   4.975
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::TextBuffer for new-with-text...
+Adding alias in Clutter::TextBuffer for max-length...
+Adding alias in Clutter::TextBuffer for delete-text...
+Adding alias in Clutter::TextBuffer for emit-deleted-text...
+Adding alias in Clutter::TextBuffer for emit-inserted-text...
+Adding alias in Clutter::TextBuffer for get-bytes...
+Adding alias in Clutter::TextBuffer for bytes...
+Adding alias in Clutter::TextBuffer for get-length...
+Adding alias in Clutter::TextBuffer for length...
+Adding alias in Clutter::TextBuffer for get-text...
+Adding alias in Clutter::TextBuffer for text...
+Adding alias in Clutter::TextBuffer for get-type...
+Adding alias in Clutter::TextBuffer for insert-text...
+Adding alias in Clutter::TextBuffer for set-text...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::Threads ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Threads.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.133
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.077
+    Stage mbc        :   0.007
+Adding alias in Clutter::Threads for add-idle...
+Stage parse      :   4.171
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Threads for add-idle-full...
+Adding alias in Clutter::Threads for add-repaint-func...
+Adding alias in Clutter::Threads for add-repaint-func-full...
+Adding alias in Clutter::Threads for add-timeout...
+Adding alias in Clutter::Threads for add-timeout-full...
+Adding alias in Clutter::Threads for remove-repaint-func...
+Roles: ((StaticClass))
+R: GLib::Roles::StaticClass
+ === Clutter::Timeline ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.757
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.083
+    Stage mbc        :   0.025
+Adding alias in Clutter::Timeline for ClutterTimeline...
+Stage parse      :   4.600
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Timeline for auto-reverse...
+Adding alias in Clutter::Timeline for progress-mode...
+Adding alias in Clutter::Timeline for repeat-count...
+Adding alias in Clutter::Timeline for marker_reached...
+Adding alias in Clutter::Timeline for new_frame...
+Adding alias in Clutter::Timeline for add-marker...
+Adding alias in Clutter::Timeline for add-marker-at-time...
+Adding alias in Clutter::Timeline for advance-to-marker...
+Adding alias in Clutter::Timeline for get-cubic-bezier-progress...
+Adding alias in Clutter::Timeline for get-current-repeat...
+Adding alias in Clutter::Timeline for get-delta...
+Adding alias in Clutter::Timeline for get-duration-hint...
+Adding alias in Clutter::Timeline for get-elapsed-time...
+Adding alias in Clutter::Timeline for get-progress...
+Adding alias in Clutter::Timeline for get-step-progress...
+Adding alias in Clutter::Timeline for get-type...
+Adding alias in Clutter::Timeline for has-marker...
+Adding alias in Clutter::Timeline for is-playing...
+Adding alias in Clutter::Timeline for list-markers...
+Adding alias in Clutter::Timeline for remove-marker...
+Adding alias in Clutter::Timeline for set-cubic-bezier-progress...
+Adding alias in Clutter::Timeline for set-progress-func...
+Adding alias in Clutter::Timeline for set-step-progress...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::Transition ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.359
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.059
+    Stage mbc        :   0.017
+Adding alias in Clutter::Transition for ClutterTransition...
+Stage parse      :   4.128
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Transition for remove-on-complete...
+Adding alias in Clutter::Transition for get-type...
+Adding alias in Clutter::Transition for set-from-value...
+Adding alias in Clutter::Transition for set-to-value...
+Roles: ()
+ === Clutter::TransitionGroup ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/TransitionGroup.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.106
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.080
+    Stage mbc        :   0.014
+Adding alias in Clutter::TransitionGroup for ClutterTransitionGroup...
+Stage parse      :   4.115
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::TransitionGroup for add-transition...
+Adding alias in Clutter::TransitionGroup for get-type...
+Adding alias in Clutter::TransitionGroup for remove-all...
+Adding alias in Clutter::TransitionGroup for remove-transition...
+Roles: ()
+ === Clutter::ActorMeta ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.601
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.083
+    Stage mbc        :   0.016
+Adding alias in Clutter::ActorMeta for ClutterActorMeta...
+Stage parse      :   6.081
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ActorMeta for get-actor...
+Adding alias in Clutter::ActorMeta for actor...
+Adding alias in Clutter::ActorMeta for get-type...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::AlignConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.937
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.076
+    Stage mbc        :   0.012
+Adding alias in Clutter::AlignConstraint for ClutterAlignConstraint...
+Stage parse      :   3.847
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::AlignConstraint for align-axis...
+Adding alias in Clutter::AlignConstraint for get-type...
+Roles: ()
+ === Clutter::Animator ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Animator.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.630
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.099
+    Stage mbc        :   0.008
+Stage parse      :   4.528
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Backend ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Backend.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.029
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.066
+    Stage mbc        :   0.013
+Adding alias in Clutter::ClutterBackend for ClutterBackend...
+Stage parse      :   4.866
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.006
+Stage mbc        :   0.001
+Stage moar       :   0.000
+Adding alias in Clutter::ClutterBackend for get-default...
+Adding alias in Clutter::ClutterBackend for font_changed...
+Adding alias in Clutter::ClutterBackend for resolution_changed...
+Adding alias in Clutter::ClutterBackend for settings_changed...
+Adding alias in Clutter::ClutterBackend for font-options...
+Adding alias in Clutter::ClutterBackend for set-windowing-backend...
+Adding alias in Clutter::ClutterBackend for get-cogl-context...
+Adding alias in Clutter::ClutterBackend for cogl_context...
+Adding alias in Clutter::ClutterBackend for cogl-context...
+Adding alias in Clutter::ClutterBackend for get-resolution...
+Adding alias in Clutter::ClutterBackend for resolution...
+Adding alias in Clutter::ClutterBackend for get-type...
+Roles: ((Settings))
+R: Clutter::Roles::Settings
+ === Clutter::BindConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.828
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.064
+    Stage mbc        :   0.011
+Adding alias in Clutter::BindConstraint for ClutterBindConstraint...
+Stage parse      :   3.574
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::BindConstraint for get-coordinate...
+Adding alias in Clutter::BindConstraint for get-offset...
+Adding alias in Clutter::BindConstraint for get-source...
+Adding alias in Clutter::BindConstraint for get-type...
+Adding alias in Clutter::BindConstraint for set-coordinate...
+Adding alias in Clutter::BindConstraint for set-offset...
+Adding alias in Clutter::BindConstraint for set-source...
+Roles: ()
+ === Clutter::BindingPool ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.561
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.051
+    Stage mbc        :   0.009
+Stage parse      :   4.410
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Canvas ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.300
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.098
+    Stage mbc        :   0.029
+Adding alias in Clutter::Canvas for scale-factor...
+Stage parse      :   5.507
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Canvas for get-type...
+Adding alias in Clutter::Canvas for set-size...
+Roles: ((Object) (Content) (Canvas))
+R: GLib::Roles::Object
+R: Clutter::Roles::Content
+R: Clutter::Roles::Signals::Canvas
+ === Clutter::Color ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.152
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.043
+    Stage mast       :   0.127
+    Stage mbc        :   0.022
+Adding alias in Clutter::Color for ClutterColor...
+Stage parse      :   4.035
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+Adding alias in Clutter::Color for new-from-hls...
+Adding alias in Clutter::Color for new-from-pixel...
+Adding alias in Clutter::Color for new-from-string...
+Adding alias in Clutter::Color for new-from-color...
+Adding alias in Clutter::Color for get-static...
+Adding alias in Clutter::Color for get-type...
+Adding alias in Clutter::Color for to-hls...
+Adding alias in Clutter::Color for to-pixel...
+Adding alias in Clutter::Color for to-string...
+Adding alias in Clutter::Color for clutter-param-color-get-type...
+Adding alias in Clutter::Color for clutter-param-spec-color...
+Adding alias in Clutter::Color for get-from-value...
+Adding alias in Clutter::Color for set-to-value...
+Roles: ()
+ === Clutter::Effect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Effect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.075
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.056
+    Stage mbc        :   0.012
+Adding alias in Clutter::Effect for ClutterEffect...
+Stage parse      :   3.848
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+Adding alias in Clutter::Effect for queue-repaint...
+Adding alias in Clutter::Effect for get-type...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::GridLayoutMeta ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.534
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.054
+    Stage mbc        :   0.009
+Adding alias in Clutter::GridLayoutMeta for get-manager...
+Stage parse      :   4.258
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Roles: ()
+ === Clutter::Image ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.661
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.076
+    Stage mbc        :   0.009
+Adding alias in Clutter::Image for ClutterImage...
+Stage parse      :   4.415
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Image for error-quark...
+Adding alias in Clutter::Image for get-texture...
+Adding alias in Clutter::Image for get-type...
+Adding alias in Clutter::Image for set-area...
+Adding alias in Clutter::Image for set-bytes...
+Adding alias in Clutter::Image for set-data...
+Roles: ((Object) (Content))
+R: GLib::Roles::Object
+R: Clutter::Roles::Content
+ === Clutter::Interval ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.149
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.044
+    Stage mbc        :   0.008
+Adding alias in Clutter::Interval for ClutterInterval...
+Stage parse      :   3.816
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Interval for new-with-values...
+Adding alias in Clutter::Interval for compute-value...
+Adding alias in Clutter::Interval for get-final-value...
+Adding alias in Clutter::Interval for get-initial-value...
+Adding alias in Clutter::Interval for get-type...
+Adding alias in Clutter::Interval for get-value-type...
+Adding alias in Clutter::Interval for is-valid...
+Adding alias in Clutter::Interval for peek-final-value...
+Adding alias in Clutter::Interval for peek-initial-value...
+Adding alias in Clutter::Interval for set-final-value...
+Adding alias in Clutter::Interval for set-initial-value...
+Roles: ()
+ === Clutter::LayoutManager ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.537
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.069
+    Stage mbc        :   0.009
+Adding alias in Clutter::LayoutManager for ClutterLayoutManager...
+Stage parse      :   4.334
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::LayoutManager for child-get-property...
+Adding alias in Clutter::LayoutManager for child-set-property...
+Adding alias in Clutter::LayoutManager for find-child-property...
+Adding alias in Clutter::LayoutManager for get-child-meta...
+Adding alias in Clutter::LayoutManager for get-preferred-height...
+Adding alias in Clutter::LayoutManager for get-preferred-width...
+Adding alias in Clutter::LayoutManager for get-type...
+Adding alias in Clutter::LayoutManager for emit-layout-changed...
+Adding alias in Clutter::LayoutManager for list-child-properties...
+Adding alias in Clutter::LayoutManager for set-container...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::Main ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.849
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.069
+    Stage mbc        :   0.007
+Adding alias in Clutter::Main for base-init...
+Stage parse      :   3.616
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Main for check-version...
+Adding alias in Clutter::Main for check-windowing-backend...
+Adding alias in Clutter::Main for disable-accessibility...
+Adding alias in Clutter::Main for do-event...
+Adding alias in Clutter::Main for get-accessibility-enabled...
+Adding alias in Clutter::Main for get-default-frame-rate...
+Adding alias in Clutter::Main for get-default-text-direction...
+Adding alias in Clutter::Main for get-font-map...
+Adding alias in Clutter::Main for get-keyboard-grab...
+Adding alias in Clutter::Main for get-option-group...
+Adding alias in Clutter::Main for get-option-group-without-init...
+Adding alias in Clutter::Main for get-pointer-grab...
+Adding alias in Clutter::Main for grab-keyboard...
+Adding alias in Clutter::Main for grab-pointer...
+Adding alias in Clutter::Main for init-error-quark...
+Adding alias in Clutter::Main for init-with-args...
+Adding alias in Clutter::Main for ungrab-keyboard...
+Adding alias in Clutter::Main for ungrab-pointer...
+Roles: ((StaticClass))
+R: GLib::Roles::StaticClass
+ === Clutter::Misc ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Misc.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.631
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.073
+    Stage mbc        :   0.010
+Stage parse      :   3.264
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::OffscreenEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.841
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.046
+    Stage mbc        :   0.010
+Adding alias in Clutter::OffscreenEffect for ClutterOffscreenEffect...
+Stage parse      :   3.501
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::OffscreenEffect for create-texture...
+Adding alias in Clutter::OffscreenEffect for get-target...
+Adding alias in Clutter::OffscreenEffect for target...
+Adding alias in Clutter::OffscreenEffect for get-target-rect...
+Adding alias in Clutter::OffscreenEffect for get-texture...
+Adding alias in Clutter::OffscreenEffect for get-type...
+Adding alias in Clutter::OffscreenEffect for paint-target...
+Roles: ()
+ === Clutter::PageTurnEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.753
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.106
+    Stage mbc        :   0.011
+Adding alias in Clutter::PageTurnEffect for ClutterPageTurnEffect...
+Stage parse      :   3.526
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::PageTurnEffect for get-type...
+Roles: ()
+ === Clutter::Path ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.678
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.079
+    Stage mbc        :   0.015
+Adding alias in Clutter::Path for ClutterPath...
+Stage parse      :   4.402
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Path for new-with-description...
+Adding alias in Clutter::Path for add-cairo-path...
+Adding alias in Clutter::Path for add-close...
+Adding alias in Clutter::Path for add-curve-to...
+Adding alias in Clutter::Path for add-line-to...
+Adding alias in Clutter::Path for add-move-to...
+Adding alias in Clutter::Path for add-node...
+Adding alias in Clutter::Path for add-rel-curve-to...
+Adding alias in Clutter::Path for add-rel-line-to...
+Adding alias in Clutter::Path for add-rel-move-to...
+Adding alias in Clutter::Path for add-string...
+Adding alias in Clutter::Path for get-length...
+Adding alias in Clutter::Path for get-n-nodes...
+Adding alias in Clutter::Path for elems...
+Adding alias in Clutter::Path for get-node...
+Adding alias in Clutter::Path for get-nodes...
+Adding alias in Clutter::Path for get-position...
+Adding alias in Clutter::Path for get-type...
+Adding alias in Clutter::Path for insert-node...
+Adding alias in Clutter::Path for remove-node...
+Adding alias in Clutter::Path for replace-node...
+Adding alias in Clutter::Path for to-cairo-path...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::PathConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.826
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.059
+    Stage mbc        :   0.008
+Adding alias in Clutter::PathConstraint for ClutterPathConstraint...
+Stage parse      :   3.520
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Roles: ()
+ === Clutter::PropertyTransition ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/PropertyTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.206
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.082
+    Stage mbc        :   0.016
+Adding alias in Clutter::PropertyTransition for ClutterPropertyTransition...
+Stage parse      :   3.917
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::PropertyTransition for get-type...
+Roles: ()
+ === Clutter::Action ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Action.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.022
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.058
+    Stage mbc        :   0.010
+Adding alias in Clutter::Action for ClutterAction...
+Stage parse      :   3.752
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Action for get-type...
+Roles: ()
+ === Clutter::Actor ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.352
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.165
+    Stage mast       :   0.431
+    Stage mbc        :   0.097
+Adding alias in Clutter::Actor for Actor...
+Adding alias in Clutter::Actor for ClutterActor...
+Adding alias in Clutter::Actor for allocation_changed...
+Adding alias in Clutter::Actor for button_press_event...
+Adding alias in Clutter::Actor for button_release_event...
+Adding alias in Clutter::Actor for captured_event...
+Adding alias in Clutter::Actor for enter_event...
+Adding alias in Clutter::Actor for key_focus_in...
+Adding alias in Clutter::Actor for key_focus_out...
+Adding alias in Clutter::Actor for key_press_event...
+Adding alias in Clutter::Actor for key_release_event...
+Adding alias in Clutter::Actor for leave_event...
+Adding alias in Clutter::Actor for motion_event...
+Adding alias in Clutter::Actor for parent_set...
+Adding alias in Clutter::Actor for queue_relayout...
+Adding alias in Clutter::Actor for scroll_event...
+Adding alias in Clutter::Actor for touch_event...
+Adding alias in Clutter::Actor for transition_stopped...
+Adding alias in Clutter::Actor for transitions_completed...
+Adding alias in Clutter::Actor for opacity_override...
+Adding alias in Clutter::Actor for pivot_point_z...
+Adding alias in Clutter::Actor for request-mode...
+Adding alias in Clutter::Actor for scale-z...
+Adding alias in Clutter::Actor for text-direction...
+Adding alias in Clutter::Actor for x_align...
+Adding alias in Clutter::Actor for x_expand...
+Adding alias in Clutter::Actor for y_align...
+Adding alias in Clutter::Actor for y_expand...
+Adding alias in Clutter::Actor for z_position...
+Adding alias in Clutter::Actor for anchor_gravity...
+Adding alias in Clutter::Actor for anchor_x...
+Adding alias in Clutter::Actor for anchor_y...
+Adding alias in Clutter::Actor for background_color...
+Adding alias in Clutter::Actor for background_color_set...
+Adding alias in Clutter::Actor for child_transform...
+Adding alias in Clutter::Actor for child_transform_set...
+Adding alias in Clutter::Actor for clip_rect...
+Adding alias in Clutter::Actor for clip_to_allocation...
+Adding alias in Clutter::Actor for content_box...
+Adding alias in Clutter::Actor for content_gravity...
+Adding alias in Clutter::Actor for content_repeat...
+Adding alias in Clutter::Actor for easing-delay...
+Adding alias in Clutter::Actor for easing_duration...
+Adding alias in Clutter::Actor for easing_mode...
+Adding alias in Clutter::Actor for fixed_position_set...
+Adding alias in Clutter::Actor for fixed_x...
+Adding alias in Clutter::Actor for fixed_y...
+Adding alias in Clutter::Actor for layout_manager...
+Adding alias in Clutter::Actor for magification_filter...
+Adding alias in Clutter::Actor for margin_bottom...
+Adding alias in Clutter::Actor for margin_left...
+Adding alias in Clutter::Actor for margin_right...
+Adding alias in Clutter::Actor for margin_top...
+Adding alias in Clutter::Actor for min_height...
+Adding alias in Clutter::Actor for min_height_set...
+Adding alias in Clutter::Actor for min_width...
+Adding alias in Clutter::Actor for min_width_set...
+Adding alias in Clutter::Actor for minification_filter...
+Adding alias in Clutter::Actor for natural_height...
+Adding alias in Clutter::Actor for natural_height_set...
+Adding alias in Clutter::Actor for natural_width...
+Adding alias in Clutter::Actor for natural_width_set...
+Adding alias in Clutter::Actor for offscreen_redirect...
+Adding alias in Clutter::Actor for pivot_point...
+Adding alias in Clutter::Actor for rotation_angle_x...
+Adding alias in Clutter::Actor for rotation_angle_y...
+Adding alias in Clutter::Actor for rotation_angle_z...
+Adding alias in Clutter::Actor for rotation_center_x...
+Adding alias in Clutter::Actor for rotation_center_y...
+Adding alias in Clutter::Actor for rotation_center_z...
+Adding alias in Clutter::Actor for rotation_center_z_gravity...
+Adding alias in Clutter::Actor for scale_center_x...
+Adding alias in Clutter::Actor for scale_center_y...
+Adding alias in Clutter::Actor for scale_gravity...
+Adding alias in Clutter::Actor for scale_x...
+Adding alias in Clutter::Actor for scale_y...
+Adding alias in Clutter::Actor for show_on_set_parent...
+Adding alias in Clutter::Actor for transform_set...
+Adding alias in Clutter::Actor for translation_x...
+Adding alias in Clutter::Actor for translation_y...
+Adding alias in Clutter::Actor for translation_z...
+Adding alias in Clutter::Actor for add-child...
+Adding alias in Clutter::Actor for add-transition...
+Adding alias in Clutter::Actor for allocate-align-fill...
+Adding alias in Clutter::Actor for allocate-available-size...
+Adding alias in Clutter::Actor for allocate-preferred-size...
+Adding alias in Clutter::Actor for apply-relative-transform-to-point...
+Adding alias in Clutter::Actor for apply-transform-to-point...
+Adding alias in Clutter::Actor for bind-model...
+Adding alias in Clutter::Actor for continue-paint...
+Adding alias in Clutter::Actor for create-pango-context...
+Adding alias in Clutter::Actor for create-pango-layout...
+Adding alias in Clutter::Actor for destroy-actor...
+Adding alias in Clutter::Actor for destroy-all-children...
+Adding alias in Clutter::Actor for get-accessible...
+Adding alias in Clutter::Actor for get-allocation-box...
+Adding alias in Clutter::Actor for get-background-color...
+Adding alias in Clutter::Actor for get-child-at-index...
+Adding alias in Clutter::Actor for get-child-transform...
+Adding alias in Clutter::Actor for get-children...
+Adding alias in Clutter::Actor for children...
+Adding alias in Clutter::Actor for get-clip...
+Adding alias in Clutter::Actor for get-clip-to-allocation...
+Adding alias in Clutter::Actor for get-content...
+Adding alias in Clutter::Actor for get-content-box...
+Adding alias in Clutter::Actor for get-content-gravity...
+Adding alias in Clutter::Actor for get-content-repeat...
+Adding alias in Clutter::Actor for get-content-scaling-filters...
+Adding alias in Clutter::Actor for get-default-paint-volume...
+Adding alias in Clutter::Actor for default_paint_volume...
+Adding alias in Clutter::Actor for default-paint-volume...
+Adding alias in Clutter::Actor for get-easing-delay...
+Adding alias in Clutter::Actor for get-easing-duration...
+Adding alias in Clutter::Actor for get-easing-mode...
+Adding alias in Clutter::Actor for get-first-child...
+Adding alias in Clutter::Actor for first_child...
+Adding alias in Clutter::Actor for first-child...
+Adding alias in Clutter::Actor for get-fixed-position-set...
+Adding alias in Clutter::Actor for get-flags...
+Adding alias in Clutter::Actor for flags...
+Adding alias in Clutter::Actor for get-height...
+Adding alias in Clutter::Actor for get-last-child...
+Adding alias in Clutter::Actor for last_child...
+Adding alias in Clutter::Actor for last-child...
+Adding alias in Clutter::Actor for get-layout-manager...
+Adding alias in Clutter::Actor for get-margin...
+Adding alias in Clutter::Actor for get-margin-bottom...
+Adding alias in Clutter::Actor for get-margin-left...
+Adding alias in Clutter::Actor for get-margin-right...
+Adding alias in Clutter::Actor for get-margin-top...
+Adding alias in Clutter::Actor for get-n-children...
+Adding alias in Clutter::Actor for n_children...
+Adding alias in Clutter::Actor for n-children...
+Adding alias in Clutter::Actor for elems...
+Adding alias in Clutter::Actor for get-name...
+Adding alias in Clutter::Actor for get-next-sibling...
+Adding alias in Clutter::Actor for next_sibling...
+Adding alias in Clutter::Actor for next-sibling...
+Adding alias in Clutter::Actor for get-offscreen-redirect...
+Adding alias in Clutter::Actor for get-opacity...
+Adding alias in Clutter::Actor for get-opacity-override...
+Adding alias in Clutter::Actor for get-paint-box...
+Adding alias in Clutter::Actor for get-paint-opacity...
+Adding alias in Clutter::Actor for paint_opacity...
+Adding alias in Clutter::Actor for paint-opacity...
+Adding alias in Clutter::Actor for get-paint-visibility...
+Adding alias in Clutter::Actor for paint_visibility...
+Adding alias in Clutter::Actor for paint-visibility...
+Adding alias in Clutter::Actor for get-paint-volume...
+Adding alias in Clutter::Actor for paint_volume...
+Adding alias in Clutter::Actor for paint-volume...
+Adding alias in Clutter::Actor for get-pango-context...
+Adding alias in Clutter::Actor for pango_context...
+Adding alias in Clutter::Actor for pango-context...
+Adding alias in Clutter::Actor for get-parent...
+Adding alias in Clutter::Actor for parent...
+Adding alias in Clutter::Actor for get-pivot-point...
+Adding alias in Clutter::Actor for get-pivot-point-z...
+Adding alias in Clutter::Actor for get-position...
+Adding alias in Clutter::Actor for get-preferred-height...
+Adding alias in Clutter::Actor for get-preferred-size...
+Adding alias in Clutter::Actor for get-preferred-width...
+Adding alias in Clutter::Actor for get-previous-sibling...
+Adding alias in Clutter::Actor for previous_sibling...
+Adding alias in Clutter::Actor for previous-sibling...
+Adding alias in Clutter::Actor for get-reactive...
+Adding alias in Clutter::Actor for get-request-mode...
+Adding alias in Clutter::Actor for get-rotation-angle...
+Adding alias in Clutter::Actor for get-scale...
+Adding alias in Clutter::Actor for get-scale-z...
+Adding alias in Clutter::Actor for get-size...
+Adding alias in Clutter::Actor for get-stage...
+Adding alias in Clutter::Actor for stage...
+Adding alias in Clutter::Actor for get-text-direction...
+Adding alias in Clutter::Actor for get-transform...
+Adding alias in Clutter::Actor for get-transformed-paint-volume...
+Adding alias in Clutter::Actor for get-transformed-position...
+Adding alias in Clutter::Actor for get-transformed-size...
+Adding alias in Clutter::Actor for get-transition...
+Adding alias in Clutter::Actor for get-translation...
+Adding alias in Clutter::Actor for get-type...
+Adding alias in Clutter::Actor for get-width...
+Adding alias in Clutter::Actor for get-x...
+Adding alias in Clutter::Actor for get-x-align...
+Adding alias in Clutter::Actor for get-x-expand...
+Adding alias in Clutter::Actor for get-y...
+Adding alias in Clutter::Actor for get-y-align...
+Adding alias in Clutter::Actor for get-y-expand...
+Adding alias in Clutter::Actor for get-z-position...
+Adding alias in Clutter::Actor for grab-key-focus...
+Adding alias in Clutter::Actor for has-allocation...
+Adding alias in Clutter::Actor for has-clip...
+Adding alias in Clutter::Actor for has-key-focus...
+Adding alias in Clutter::Actor for has-mapped-clones...
+Adding alias in Clutter::Actor for has-overlaps...
+Adding alias in Clutter::Actor for has-pointer...
+Adding alias in Clutter::Actor for hide-actor...
+Adding alias in Clutter::Actor for insert-child-above...
+Adding alias in Clutter::Actor for insert-child-at-index...
+Adding alias in Clutter::Actor for insert-child-below...
+Adding alias in Clutter::Actor for is-in-clone-paint...
+Adding alias in Clutter::Actor for is-mapped...
+Adding alias in Clutter::Actor for is-realized...
+Adding alias in Clutter::Actor for is-rotated...
+Adding alias in Clutter::Actor for is-scaled...
+Adding alias in Clutter::Actor for is-visible...
+Adding alias in Clutter::Actor for move-by...
+Adding alias in Clutter::Actor for needs-expand...
+Adding alias in Clutter::Actor for paint-actor...
+Adding alias in Clutter::Actor for queue-redraw-actor...
+Adding alias in Clutter::Actor for queue-redraw-with-clip...
+Adding alias in Clutter::Actor for queue-relayout-actor...
+Adding alias in Clutter::Actor for remove-all-children...
+Adding alias in Clutter::Actor for remove-all-transitions...
+Adding alias in Clutter::Actor for remove-child...
+Adding alias in Clutter::Actor for remove-clip...
+Adding alias in Clutter::Actor for remove-transition...
+Adding alias in Clutter::Actor for replace-child...
+Adding alias in Clutter::Actor for restore-easing-state...
+Adding alias in Clutter::Actor for save-easing-state...
+Adding alias in Clutter::Actor for set-allocation...
+Adding alias in Clutter::Actor for set-background-color...
+Adding alias in Clutter::Actor for set-child-above-sibling...
+Adding alias in Clutter::Actor for set-child-at-index...
+Adding alias in Clutter::Actor for set-child-below-sibling...
+Adding alias in Clutter::Actor for set-child-transform...
+Adding alias in Clutter::Actor for set-clip...
+Adding alias in Clutter::Actor for set-clip-to-allocation...
+Adding alias in Clutter::Actor for set-content...
+Adding alias in Clutter::Actor for set-content-gravity...
+Adding alias in Clutter::Actor for set-content-repeat...
+Adding alias in Clutter::Actor for set-content-scaling-filters...
+Adding alias in Clutter::Actor for set-easing-delay...
+Adding alias in Clutter::Actor for set-easing-duration...
+Adding alias in Clutter::Actor for set-easing-mode...
+Adding alias in Clutter::Actor for set-fixed-position-set...
+Adding alias in Clutter::Actor for set-flags...
+Adding alias in Clutter::Actor for set-height...
+Adding alias in Clutter::Actor for set-layout-manager...
+Adding alias in Clutter::Actor for set-margin...
+Adding alias in Clutter::Actor for set-margin-bottom...
+Adding alias in Clutter::Actor for set-margin-left...
+Adding alias in Clutter::Actor for set-margin-right...
+Adding alias in Clutter::Actor for set-margin-top...
+Adding alias in Clutter::Actor for set-name...
+Adding alias in Clutter::Actor for set-offscreen-redirect...
+Adding alias in Clutter::Actor for set-opacity...
+Adding alias in Clutter::Actor for set-opacity-override...
+Adding alias in Clutter::Actor for set-pivot-point...
+Adding alias in Clutter::Actor for set-pivot-point-z...
+Adding alias in Clutter::Actor for set-position...
+Adding alias in Clutter::Actor for set-reactive...
+Adding alias in Clutter::Actor for set-request-mode...
+Adding alias in Clutter::Actor for set-rotation-angle...
+Adding alias in Clutter::Actor for set-scale...
+Adding alias in Clutter::Actor for set-scale-z...
+Adding alias in Clutter::Actor for set-size...
+Adding alias in Clutter::Actor for set-text-direction...
+Adding alias in Clutter::Actor for set-transform...
+Adding alias in Clutter::Actor for set-translation...
+Adding alias in Clutter::Actor for set-width...
+Adding alias in Clutter::Actor for set-x...
+Adding alias in Clutter::Actor for set-x-align...
+Adding alias in Clutter::Actor for set-x-expand...
+Adding alias in Clutter::Actor for set-y...
+Adding alias in Clutter::Actor for set-y-align...
+Adding alias in Clutter::Actor for set-y-expand...
+Adding alias in Clutter::Actor for set-z-position...
+Adding alias in Clutter::Actor for should-pick-paint...
+Adding alias in Clutter::Actor for show-actor...
+Adding alias in Clutter::Actor for transform-stage-point...
+Adding alias in Clutter::Actor for unrealize-actor...
+Adding alias in Clutter::Actor for unset-flags...
+Adding alias in Clutter::Actor for add-action...
+Adding alias in Clutter::Actor for add-actions...
+Adding alias in Clutter::Actor for add-action-with-name...
+Adding alias in Clutter::Actor for add_action_by_name...
+Adding alias in Clutter::Actor for add-action-by-name...
+Adding alias in Clutter::Actor for add-actions-with-name...
+Adding alias in Clutter::Actor for add_actions_by_name...
+Adding alias in Clutter::Actor for add-actions-by-name...
+Adding alias in Clutter::Actor for clear-action...
+Adding alias in Clutter::Actor for get-action...
+Adding alias in Clutter::Actor for get-actions...
+Adding alias in Clutter::Actor for has-action...
+Adding alias in Clutter::Actor for remove-action...
+Adding alias in Clutter::Actor for remove-action-by-name...
+Adding alias in Clutter::Actor for add-constraints...
+Adding alias in Clutter::Actor for add-constraint...
+Adding alias in Clutter::Actor for add-constraint-with-name...
+Adding alias in Clutter::Actor for add_constraint_by_name...
+Adding alias in Clutter::Actor for add-constraint-by-name...
+Adding alias in Clutter::Actor for add-constraints-with-name...
+Adding alias in Clutter::Actor for add_constraints_by_name...
+Adding alias in Clutter::Actor for add-constraints-by-name...
+Adding alias in Clutter::Actor for clear-constraints...
+Adding alias in Clutter::Actor for get-constraint...
+Adding alias in Clutter::Actor for get-constraints...
+Adding alias in Clutter::Actor for has-constraints...
+Adding alias in Clutter::Actor for remove-constraint...
+Adding alias in Clutter::Actor for remove-constraint-by-name...
+Adding alias in Clutter::Actor for add-effect...
+Adding alias in Clutter::Actor for add-effect-with-name...
+Adding alias in Clutter::Actor for add_effect_by_name...
+Adding alias in Clutter::Actor for add-effect-by-name...
+Stage parse      :  10.046
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Actor for add-effects-with-name...
+Adding alias in Clutter::Actor for add_effects_by_name...
+Adding alias in Clutter::Actor for add-effects-by-name...
+Adding alias in Clutter::Actor for clear-effects...
+Adding alias in Clutter::Actor for get-effect...
+Adding alias in Clutter::Actor for get-effects...
+Adding alias in Clutter::Actor for has-effects...
+Adding alias in Clutter::Actor for remove-effect...
+Adding alias in Clutter::Actor for remove-effect-by-name...
+Roles: ((Object) (Animatable) (Container) (Scriptable) (Actor) (Generic))
+R: GLib::Roles::Object
+R: Clutter::Roles::Animatable
+R: Clutter::Roles::Container
+R: Clutter::Roles::Scriptable
+R: Clutter::Roles::Signals::Actor
+R: Clutter::Roles::Signals::Generic
+ === Clutter::ActorIter ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorIter.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.266
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.111
+    Stage mbc        :   0.006
+Adding alias in Clutter::ActorIter for ClutterActorIter...
+Stage parse      :   4.429
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ActorIter for is-valid...
+Roles: ()
+ === Clutter::BinLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BinLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.092
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.049
+    Stage mbc        :   0.011
+Adding alias in Clutter::BinLayout for ClutterBinLayout...
+Stage parse      :   3.820
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::BinLayout for get-type...
+Roles: ()
+ === Clutter::BlurEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BlurEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.997
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.057
+    Stage mbc        :   0.011
+Stage parse      :   3.698
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BoxLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.860
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.036
+    Stage mast       :   0.118
+    Stage mbc        :   0.012
+Adding alias in Clutter::BoxLayout for ClutterBoxLayout...
+Stage parse      :   3.667
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::BoxLayout for easing-duration...
+Adding alias in Clutter::BoxLayout for easing-mode...
+Adding alias in Clutter::BoxLayout for pack-start...
+Adding alias in Clutter::BoxLayout for use-animations...
+Adding alias in Clutter::BoxLayout for get-alignment...
+Adding alias in Clutter::BoxLayout for get-expand...
+Adding alias in Clutter::BoxLayout for get-type...
+Adding alias in Clutter::BoxLayout for set-alignment...
+Adding alias in Clutter::BoxLayout for set-expand...
+Adding alias in Clutter::BoxLayout for set-fill...
+Roles: ()
+ === Clutter::BrightnessContrastEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.758
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.067
+    Stage mbc        :   0.011
+Adding alias in Clutter::BrightnessContrastEffect for get-brightness...
+Stage parse      :   3.490
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::BrightnessContrastEffect for get-contrast...
+Adding alias in Clutter::BrightnessContrastEffect for get-type...
+Adding alias in Clutter::BrightnessContrastEffect for set-brightness...
+Adding alias in Clutter::BrightnessContrastEffect for set-brightness-full...
+Adding alias in Clutter::BrightnessContrastEffect for set-contrast...
+Adding alias in Clutter::BrightnessContrastEffect for set-contrast-full...
+Roles: ()
+ === Clutter::ClickAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.398
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.012
+    Stage mast       :   0.052
+    Stage mbc        :   0.010
+Adding alias in Clutter::ClickAction for ClutterClickAction...
+Stage parse      :   4.264
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ClickAction for long_press_duration...
+Adding alias in Clutter::ClickAction for long_press_threshold...
+Adding alias in Clutter::ClickAction for long_press...
+Adding alias in Clutter::ClickAction for get-button...
+Adding alias in Clutter::ClickAction for button...
+Adding alias in Clutter::ClickAction for get-coords...
+Adding alias in Clutter::ClickAction for coords...
+Adding alias in Clutter::ClickAction for get-state...
+Adding alias in Clutter::ClickAction for state...
+Adding alias in Clutter::ClickAction for get-type...
+Roles: ((ClickAction))
+R: Clutter::Roles::Signals::ClickAction
+ === Clutter::Clone ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Clone.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.492
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.074
+    Stage mbc        :   0.017
+Stage parse      :   4.580
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DeformEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.265
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.084
+    Stage mbc        :   0.008
+Adding alias in Clutter::DeformEffect for ClutterDeformEffect...
+Stage parse      :   4.032
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::DeformEffect for back-material...
+Adding alias in Clutter::DeformEffect for x_tiles...
+Adding alias in Clutter::DeformEffect for y_tiles...
+Adding alias in Clutter::DeformEffect for get-n-tiles...
+Adding alias in Clutter::DeformEffect for get-type...
+Adding alias in Clutter::DeformEffect for set-n-tiles...
+Roles: ()
+ === Clutter::DesaturateEffect ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/DesaturateEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.308
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.083
+    Stage mbc        :   0.018
+Adding alias in Clutter::DesaturateEffect for get-type...
+Stage parse      :   4.091
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Roles: ()
+ === Clutter::DragAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.228
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.130
+    Stage mbc        :   0.007
+Adding alias in Clutter::DragAction for ClutterDragAction...
+Stage parse      :   4.433
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::DragAction for drag-axis...
+Adding alias in Clutter::DragAction for drag-handle...
+Adding alias in Clutter::DragAction for get-drag-area...
+Adding alias in Clutter::DragAction for get-drag-threshold...
+Adding alias in Clutter::DragAction for get-motion-coords...
+Adding alias in Clutter::DragAction for get-press-coords...
+Adding alias in Clutter::DragAction for get-type...
+Adding alias in Clutter::DragAction for set-drag-area...
+Adding alias in Clutter::DragAction for set-drag-threshold...
+Roles: ((DragAction))
+R: Clutter::Roles::Signals::DragAction
+ === Clutter::DropAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/DropAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.024
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.055
+    Stage mbc        :   0.011
+Adding alias in Clutter::DropAction for ClutterDropAction...
+Stage parse      :   3.730
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::DropAction for can_drop...
+Adding alias in Clutter::DropAction for drop_cancel...
+Adding alias in Clutter::DropAction for over_in...
+Adding alias in Clutter::DropAction for over_out...
+Adding alias in Clutter::DropAction for get-type...
+Roles: ((DropAction))
+R: Clutter::Roles::Signals::DropAction
+ === Clutter::FixedLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/FixedLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.984
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.013
+    Stage mast       :   0.058
+    Stage mbc        :   0.010
+Adding alias in Clutter::FixedLayout for get-type...
+Stage parse      :   3.639
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Roles: ()
+ === Clutter::FlowLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.424
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.115
+    Stage mbc        :   0.011
+Adding alias in Clutter::FlowLayout for ClutterFlowLayout...
+Stage parse      :   4.243
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::FlowLayout for column-spacing...
+Adding alias in Clutter::FlowLayout for row-spacing...
+Adding alias in Clutter::FlowLayout for snap-to-grid...
+Adding alias in Clutter::FlowLayout for max_column_width...
+Adding alias in Clutter::FlowLayout for max_row_height...
+Adding alias in Clutter::FlowLayout for min_column_width...
+Adding alias in Clutter::FlowLayout for min_row_height...
+Adding alias in Clutter::FlowLayout for get-column-width...
+Adding alias in Clutter::FlowLayout for column_width...
+Adding alias in Clutter::FlowLayout for column-width...
+Adding alias in Clutter::FlowLayout for get-row-height...
+Adding alias in Clutter::FlowLayout for row_height...
+Adding alias in Clutter::FlowLayout for row-height...
+Adding alias in Clutter::FlowLayout for get-type...
+Adding alias in Clutter::FlowLayout for set-column-width...
+Adding alias in Clutter::FlowLayout for set-row-height...
+Roles: ()
+ === Clutter::GestureAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.116
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.086
+    Stage mbc        :   0.012
+Adding alias in Clutter::GestureAction for ClutterGestureAction...
+Stage parse      :   3.982
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::GestureAction for n-touch-points...
+Adding alias in Clutter::GestureAction for threshold-trigger-edge...
+Adding alias in Clutter::GestureAction for get-device...
+Adding alias in Clutter::GestureAction for get-last-event...
+Adding alias in Clutter::GestureAction for get-motion-coords...
+Adding alias in Clutter::GestureAction for get-motion-delta...
+Adding alias in Clutter::GestureAction for get-n-current-points...
+Adding alias in Clutter::GestureAction for get-press-coords...
+Adding alias in Clutter::GestureAction for get-release-coords...
+Adding alias in Clutter::GestureAction for get-sequence...
+Adding alias in Clutter::GestureAction for get-threshold-trigger-distance...
+Adding alias in Clutter::GestureAction for get-type...
+Adding alias in Clutter::GestureAction for get-velocity...
+Adding alias in Clutter::GestureAction for set-threshold-trigger-distance...
+Roles: ()
+ === Clutter::GridLayout ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.791
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.027
+    Stage mast       :   0.083
+    Stage mbc        :   0.038
+Adding alias in Clutter::GridLayout for ClutterGridLayout...
+Stage parse      :   3.558
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::GridLayout for column-homogeneous...
+Adding alias in Clutter::GridLayout for column-spacing...
+Adding alias in Clutter::GridLayout for row-homogeneous...
+Adding alias in Clutter::GridLayout for row-spacing...
+Adding alias in Clutter::GridLayout for attach-next-to...
+Adding alias in Clutter::GridLayout for get-child-meta...
+Adding alias in Clutter::GridLayout for get-child-at...
+Adding alias in Clutter::GridLayout for get-type...
+Adding alias in Clutter::GridLayout for insert-column...
+Adding alias in Clutter::GridLayout for insert-next-to...
+Adding alias in Clutter::GridLayout for insert-row...
+Roles: ()
+ === Clutter::KeyframeTransition ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/KeyframeTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.328
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.112
+    Stage mbc        :   0.009
+Adding alias in Clutter::KeyframeTransition for get-key-frame...
+Stage parse      :   4.088
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::KeyframeTransition for get-n-key-frames...
+Adding alias in Clutter::KeyframeTransition for elems...
+Adding alias in Clutter::KeyframeTransition for get-type...
+Adding alias in Clutter::KeyframeTransition for set-key-frame...
+Adding alias in Clutter::KeyframeTransition for set-key-frames...
+Adding alias in Clutter::KeyframeTransition for set-modes...
+Adding alias in Clutter::KeyframeTransition for set-values...
+Roles: ()
+ === Clutter::PanAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.870
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.095
+    Stage mbc        :   0.007
+Adding alias in Clutter::PanAction for ClutterPanAction...
+Stage parse      :   3.638
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::PanAction for acceleration-factor...
+Adding alias in Clutter::PanAction for pan-axis...
+Adding alias in Clutter::PanAction for pan_stopped...
+Adding alias in Clutter::PanAction for get-constrained-motion-delta...
+Adding alias in Clutter::PanAction for get-interpolated-coords...
+Adding alias in Clutter::PanAction for get-interpolated-delta...
+Adding alias in Clutter::PanAction for get-motion-coords...
+Adding alias in Clutter::PanAction for get-motion-delta...
+Adding alias in Clutter::PanAction for get-type...
+Roles: ((PanAction))
+R: Clutter::Roles::Signals::PanAction
+ === Clutter::ScrollActor ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/ScrollActor.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.071
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.091
+    Stage mbc        :   0.008
+Adding alias in Clutter::ScrollActor for ClutterScrollActor...
+Stage parse      :   4.152
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::ScrollActor for scroll-mode...
+Adding alias in Clutter::ScrollActor for get-type...
+Adding alias in Clutter::ScrollActor for scroll-to-point...
+Adding alias in Clutter::ScrollActor for scroll-to-rect...
+Roles: ()
+ === Clutter::SnapConstraint ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.526
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.086
+    Stage mbc        :   0.007
+Adding alias in Clutter::SnapConstraint for ClutterSnapConstraint...
+Stage parse      :   4.571
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::SnapConstraint for get-edges...
+Adding alias in Clutter::SnapConstraint for get-type...
+Adding alias in Clutter::SnapConstraint for set-edges...
+Roles: ()
+ === Clutter::Stage ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.792
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.034
+    Stage mast       :   0.173
+    Stage mbc        :   0.009
+Adding alias in Clutter::Stage for ClutterStage...
+Stage parse      :   4.962
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Stage for accept_focus...
+Adding alias in Clutter::Stage for cursor_visible...
+Adding alias in Clutter::Stage for fullscreen_set...
+Adding alias in Clutter::Stage for key_focus...
+Adding alias in Clutter::Stage for no_clear_hint...
+Adding alias in Clutter::Stage for use_alpha...
+Adding alias in Clutter::Stage for use_fog...
+Adding alias in Clutter::Stage for user_resizable...
+Adding alias in Clutter::Stage for after_paint...
+Adding alias in Clutter::Stage for delete_event...
+Adding alias in Clutter::Stage for ensure-current...
+Adding alias in Clutter::Stage for ensure-redraw...
+Adding alias in Clutter::Stage for ensure-viewport...
+Adding alias in Clutter::Stage for get-actor-at-pos...
+Adding alias in Clutter::Stage for get-minimum-size...
+Adding alias in Clutter::Stage for get-perspective...
+Adding alias in Clutter::Stage for get-redraw-clip-bounds...
+Adding alias in Clutter::Stage for get-type...
+Adding alias in Clutter::Stage for hide-cursor...
+Adding alias in Clutter::Stage for read-pixels...
+Adding alias in Clutter::Stage for set-minimum-size...
+Adding alias in Clutter::Stage for set-perspective...
+Adding alias in Clutter::Stage for set-sync-delay...
+Adding alias in Clutter::Stage for show-cursor...
+Adding alias in Clutter::Stage for skip-sync-delay...
+Roles: ((Stage))
+R: Clutter::Roles::Signals::Stage
+ === Clutter::TapAction ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/TapAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.236
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.051
+    Stage mbc        :   0.011
+Stage parse      :   3.983
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Text ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.791
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.056
+    Stage mast       :   0.180
+    Stage mbc        :   0.017
+Adding alias in Clutter::Text for ClutterText...
+Stage parse      :   6.055
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Text for new-with-color...
+Adding alias in Clutter::Text for new-full...
+Adding alias in Clutter::Text for new-with-buffer...
+Adding alias in Clutter::Text for new-with-text...
+Adding alias in Clutter::Text for cursor-position...
+Adding alias in Clutter::Text for cursor-size...
+Adding alias in Clutter::Text for cursor-visible...
+Adding alias in Clutter::Text for font-description...
+Adding alias in Clutter::Text for font-name...
+Adding alias in Clutter::Text for line-alignment...
+Adding alias in Clutter::Text for line-wrap...
+Adding alias in Clutter::Text for line-wrap-mode...
+Adding alias in Clutter::Text for max-length...
+Adding alias in Clutter::Text for password-char...
+Adding alias in Clutter::Text for selection-bound...
+Adding alias in Clutter::Text for single-line-mode...
+Adding alias in Clutter::Text for use-markup...
+Adding alias in Clutter::Text for cursor_color...
+Adding alias in Clutter::Text for cursor_color_set...
+Adding alias in Clutter::Text for selected_text_color_set...
+Adding alias in Clutter::Text for selection_color...
+Adding alias in Clutter::Text for selection_color_set...
+Adding alias in Clutter::Text for cursor_changed...
+Adding alias in Clutter::Text for cursor_event...
+Adding alias in Clutter::Text for delete_text_signal...
+Adding alias in Clutter::Text for insert_text_signal...
+Adding alias in Clutter::Text for text_changed...
+Adding alias in Clutter::Text for coords-to-position...
+Adding alias in Clutter::Text for delete-chars...
+Adding alias in Clutter::Text for delete-selection...
+Adding alias in Clutter::Text for delete-text...
+Adding alias in Clutter::Text for get-chars...
+Adding alias in Clutter::Text for get-color...
+Adding alias in Clutter::Text for get-cursor-color...
+Adding alias in Clutter::Text for get-cursor-rect...
+Adding alias in Clutter::Text for get-layout...
+Adding alias in Clutter::Text for layout...
+Adding alias in Clutter::Text for get-layout-offsets...
+Adding alias in Clutter::Text for get-selected-text-color...
+Adding alias in Clutter::Text for get-selection...
+Adding alias in Clutter::Text for get-selection-color...
+Adding alias in Clutter::Text for get-type...
+Adding alias in Clutter::Text for insert-text...
+Adding alias in Clutter::Text for insert-unichar...
+Adding alias in Clutter::Text for position-to-coords...
+Adding alias in Clutter::Text for set-color...
+Adding alias in Clutter::Text for set-cursor-color...
+Adding alias in Clutter::Text for set-markup...
+Adding alias in Clutter::Text for set-preedit-string...
+Adding alias in Clutter::Text for set-selected-text-color...
+Adding alias in Clutter::Text for set-selection...
+Adding alias in Clutter::Text for set-selection-color...
+Roles: ((Text))
+R: Clutter::Roles::Signals::Text
+ === Clutter::InputDevice ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.825
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.033
+    Stage mast       :   0.142
+    Stage mbc        :   0.008
+Adding alias in Clutter::InputDevice for ClutterInputDevice...
+Stage parse      :   4.982
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::InputDevice for device_manager...
+Adding alias in Clutter::InputDevice for device_mode...
+Adding alias in Clutter::InputDevice for device_type...
+Adding alias in Clutter::InputDevice for has_cursor...
+Adding alias in Clutter::InputDevice for n_axes...
+Adding alias in Clutter::InputDevice for product_id...
+Adding alias in Clutter::InputDevice for vendor_id...
+Adding alias in Clutter::InputDevice for get-associated-device...
+Adding alias in Clutter::InputDevice for get-axis...
+Adding alias in Clutter::InputDevice for get-axis-value...
+Adding alias in Clutter::InputDevice for get-coords...
+Adding alias in Clutter::InputDevice for get-device-id...
+Adding alias in Clutter::InputDevice for get-device-mode...
+Adding alias in Clutter::InputDevice for get-device-name...
+Adding alias in Clutter::InputDevice for get-device-type...
+Adding alias in Clutter::InputDevice for get-grabbed-actor...
+Adding alias in Clutter::InputDevice for get-has-cursor...
+Adding alias in Clutter::InputDevice for get-key...
+Adding alias in Clutter::InputDevice for get-modifier-state...
+Adding alias in Clutter::InputDevice for get-n-axes...
+Adding alias in Clutter::InputDevice for get-n-keys...
+Adding alias in Clutter::InputDevice for get-pointer-actor...
+Adding alias in Clutter::InputDevice for get-pointer-stage...
+Adding alias in Clutter::InputDevice for get-product-id...
+Adding alias in Clutter::InputDevice for get-slave-devices...
+Adding alias in Clutter::InputDevice for get-type...
+Adding alias in Clutter::InputDevice for get-vendor-id...
+Adding alias in Clutter::InputDevice for keycode-to-evdev...
+Adding alias in Clutter::InputDevice for sequence-get-grabbed-actor...
+Adding alias in Clutter::InputDevice for sequence-grab...
+Adding alias in Clutter::InputDevice for sequence-ungrab...
+Adding alias in Clutter::InputDevice for set-key...
+Adding alias in Clutter::InputDevice for update-from-event...
+Roles: ((Object))
+R: GLib::Roles::Object
+ === Clutter::DeviceManager ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.639
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.065
+    Stage mbc        :   0.007
+Adding alias in Clutter::DeviceManager for get-default...
+Stage parse      :   4.748
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::DeviceManager for ClutterDeviceManager...
+Adding alias in Clutter::DeviceManager for device_added...
+Adding alias in Clutter::DeviceManager for device_removed...
+Adding alias in Clutter::DeviceManager for get-core-device...
+Adding alias in Clutter::DeviceManager for get-device...
+Adding alias in Clutter::DeviceManager for get-type...
+Adding alias in Clutter::DeviceManager for list-devices...
+Adding alias in Clutter::DeviceManager for peek-devices...
+Roles: ((Object) (DeviceManager))
+R: GLib::Roles::Object
+R: Clutter::Roles::Signals::DeviceManager
+ === Clutter::Event ===
+Stage start      :   0.000
+
+    precomp lib/Clutter/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.887
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.048
+    Stage mast       :   0.126
+    Stage mbc        :   0.043
+Adding alias in Clutter::Event for ClutterEvent...
+Stage parse      :   5.143
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+Adding alias in Clutter::Event for key-code...
+Adding alias in Clutter::Event for key-symbol...
+Adding alias in Clutter::Event for key-unicode...
+Adding alias in Clutter::Event for scroll-direction...
+Adding alias in Clutter::Event for source-device...
+Adding alias in Clutter::Event for add-filter...
+Adding alias in Clutter::Event for get-pending...
+Adding alias in Clutter::Event for get_pending...
+Adding alias in Clutter::Event for get-current-event...
+Adding alias in Clutter::Event for get_current...
+Adding alias in Clutter::Event for get-current...
+Adding alias in Clutter::Event for current...
+Adding alias in Clutter::Event for get-current-event-time...
+Adding alias in Clutter::Event for current_event_time...
+Adding alias in Clutter::Event for current-event-time...
+Adding alias in Clutter::Event for get-angle...
+Adding alias in Clutter::Event for get-axes...
+Adding alias in Clutter::Event for axes...
+Adding alias in Clutter::Event for get-click-count...
+Adding alias in Clutter::Event for click_count...
+Adding alias in Clutter::Event for click-count...
+Adding alias in Clutter::Event for get-coords...
+Adding alias in Clutter::Event for coords...
+Adding alias in Clutter::Event for get-device-id...
+Adding alias in Clutter::Event for device_id...
+Adding alias in Clutter::Event for device-id...
+Adding alias in Clutter::Event for get-device-type...
+Adding alias in Clutter::Event for device_type...
+Adding alias in Clutter::Event for device-type...
+Adding alias in Clutter::Event for get-distance...
+Adding alias in Clutter::Event for get-event-sequence...
+Adding alias in Clutter::Event for event_sequence...
+Adding alias in Clutter::Event for event-sequence...
+Adding alias in Clutter::Event for get-gesture-motion-delta...
+Adding alias in Clutter::Event for get-gesture-phase...
+Adding alias in Clutter::Event for gesture_phase...
+Adding alias in Clutter::Event for gesture-phase...
+Adding alias in Clutter::Event for get-gesture-pinch-angle-delta...
+Adding alias in Clutter::Event for get-gesture-pinch-scale...
+Adding alias in Clutter::Event for get-gesture-swipe-finger-count...
+Adding alias in Clutter::Event for get-position...
+Adding alias in Clutter::Event for get-scroll-delta...
+Adding alias in Clutter::Event for scroll_delta...
+Adding alias in Clutter::Event for scroll-delta...
+Adding alias in Clutter::Event for get-state-full...
+Adding alias in Clutter::Event for get-type...
+Adding alias in Clutter::Event for has-control-modifier...
+Adding alias in Clutter::Event for has-shift-modifier...
+Adding alias in Clutter::Event for is-pointer-emulated...
+Adding alias in Clutter::Event for remove-filter...
+Adding alias in Clutter::Event for sequence-get-type...
+Adding alias in Clutter::Event for set-coords...
+Adding alias in Clutter::Event for set-scroll-delta...
+Adding alias in Clutter::Event for get-event-type...
+Adding alias in Clutter::Event for event_type...
+Adding alias in Clutter::Event for event-type...
+Roles: ()
+
+real 674.76
+user 786.56
+sys 47.31
