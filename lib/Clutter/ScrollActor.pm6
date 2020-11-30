@@ -13,36 +13,30 @@ our subset ClutterScrollActorAncestry is export of Mu
 class Clutter::ScrollActor is Clutter::Actor {
   has ClutterScrollActor $!csa;
 
-  method bless(*%attrinit) {
-    my $o = self.CREATE.BUILDALL(Empty, %attrinit);
-    $o.setType($o.^name);
-    $o;
-  }
+  # method bless(*%attrinit) {
+  #   my $o = self.CREATE.BUILDALL(Empty, %attrinit);
+  #   $o.setType($o.^name);
+  #   $o;
+  # }
 
   submethod BUILD (:$scroll) {
-    given $scroll {
-      when ClutterScrollActorAncestry {
-        my $to-parent;
-        $!csa = do {
-          when ClutterScrollActor {
-            $to-parent = cast(ClutterActor, $_);
-            $_;
-          }
+    self.setClutterScrollActor($scroll) if $scroll;
+  }
 
-          default {
-            $to-parent = $_;
-            cast(ClutterScrollActor, $_);
-          }
-        }
-        self.setActor($to-parent);
-      }
-
-      when Clutter::ScrollActor {
+  method setClutterScrollActor (ClutterScrollActorAncestry $_) {
+    my $to-parent;
+    $!csa = do {
+      when ClutterScrollActor {
+        $to-parent = cast(ClutterActor, $_);
+        $_;
       }
 
       default {
+        $to-parent = $_;
+        cast(ClutterScrollActor, $_);
       }
     }
+    self.setActor($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterScrollActor
