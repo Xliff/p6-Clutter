@@ -20,7 +20,7 @@ constant HANDLE_SIZE = 128;
 my %globals;
 
 sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
   my $h = $act.drag-handle;
   say "Drag ended at: { $ex.fmt('%.0f')}, { $ey.fmt('%0.f') }";
 
@@ -54,12 +54,11 @@ sub on-drag-end ($act, $a, $ex, $ey, $m, $ud) {
 }
 
 sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
   my $actor = Clutter::Actor.new($a);
   my ($x, $y) = $actor.get-position;
 
-  my $h = Clutter::Actor.new;
-  $h.setup(
+  my $h = Clutter::Actor.new.setup(
     background-color => $CLUTTER_COLOR_SkyBlue,
     size             => 128 xx 2,
     position         => ($ex - $x, $ey - $y),
@@ -74,7 +73,7 @@ sub on-drag-begin ($act, $a, $ex, $ey, $m, $ud) {
 }
 
 sub add-drag-object($t) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
   if not %globals<drag>.defined {
     my $action = Clutter::DragAction.new;
     $action.drag-begin.tap(-> *@a { on-drag-begin(|@a) });
@@ -123,7 +122,7 @@ sub add-drag-object($t) {
 }
 
 sub on-target-over ($act, $a, $io) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
 
   my $actor = Clutter::Actor.new($a);
   my $fo = $io ?? 128 !! 64;
@@ -134,7 +133,7 @@ sub on-target-over ($act, $a, $io) {
 }
 
 sub on-target-drop($act, $a, $ex, $ey, $ud) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
   my $actor = Clutter::Actor.new($a);
   my ($ax, $ay) = $actor.transform-stage-point($ex, $ey);
   say "Dropped at { $ax.fmt('%0.f') }, { $ay.fmt('%0.f') } (screen: {
