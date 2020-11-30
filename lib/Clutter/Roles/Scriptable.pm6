@@ -18,6 +18,8 @@ role Clutter::Roles::Scriptable {
   { $!cs }
 
   method roleInit-ClutterScriptable {
+    return if $!cs;
+    
     my \i = findProperImplementor(self.^attributes);
 
     $!cs = cast( ClutterScriptable, i.get_value(self) );
@@ -27,7 +29,7 @@ role Clutter::Roles::Scriptable {
     #self.IS-PROTECTED;
     $scriptable = cast(ClutterScriptable, $scriptable)
       unless $scriptable ~~ ClutterScriptable;
-      
+
     $!cs = $scriptable;
   }
 
