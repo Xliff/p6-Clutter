@@ -59,7 +59,7 @@ class Clutter::Timeline {
   multi method new (ClutterTimelineAncestry $timeline) {
     $timeline ?? self.bless(:$timeline) !! Nil;
   }
-  multi method new (Int() $msecs) {
+  multi method new (Int $msecs) {
     my guint $ms = $msecs;
     my $timeline = clutter_timeline_new($ms);
 
