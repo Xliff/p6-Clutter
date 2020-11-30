@@ -24,9 +24,14 @@ class ClutterColor is repr<CStruct> is export does GLib::Roles::Pointers {
     self.bless(:$red, :$green, :$blue, :$alpha);
   }
 
+  use nqp;
+
+  # cw: Must use nqp to hllize the value, since it might come from a
+  #     static color, and those need to be HLL-ized
+
   method red is rw {
     Proxy.new:
-      FETCH => sub ($) { $!red },
+      FETCH => sub ($) { nqp::hllize( nqp::decont($!red) ) },
       STORE => -> $, Int() $r {
         warn 'Red value clipped to 255' if $r > 255;
         warn 'Red value clipped to 0'   if $r < 0;
@@ -37,7 +42,7 @@ class ClutterColor is repr<CStruct> is export does GLib::Roles::Pointers {
 
   method green is rw {
     Proxy.new:
-      FETCH => sub ($) { $!green },
+      FETCH => sub ($) { nqp::hllize( nqp::decont($!green) ) },
       STORE => -> $, Int() $g {
         warn 'Green value clipped to 255' if $g > 255;
         warn 'Green value clipped to 0'   if $g < 0;
@@ -48,7 +53,7 @@ class ClutterColor is repr<CStruct> is export does GLib::Roles::Pointers {
 
   method blue is rw {
     Proxy.new:
-      FETCH => sub ($) { $!blue },
+      FETCH => sub ($) { nqp::hllize( nqp::decont($!blue) ) },
       STORE => -> $, Int() $b {
         warn 'Blue value clipped to 255' if $b > 255;
         warn 'Blue value clipped to 0'   if $b < 0;
@@ -59,13 +64,17 @@ class ClutterColor is repr<CStruct> is export does GLib::Roles::Pointers {
 
   method alpha is rw {
     Proxy.new:
-      FETCH => sub ($) { $!alpha },
+      FETCH => sub ($) { nqp::hllize( nqp::decont($!alpha) ) },
       STORE => -> $, Int() $a {
         warn 'Alpha value clipped to 255' if $a > 255;
         warn 'Alpha value clipped to 0'   if $a < 0;
         $!alpha = $a > 255 ?? 255
                            !! ($a < 0 ?? 0 !! $a)
       };
+  }
+
+  method gist {
+    "{ self.^name }.new({ $!red }, { $!green }, { $!blue }, { $!alpha })";
   }
 
 }
@@ -221,8 +230,8 @@ class ClutterActorIter is repr<CStruct> is export does GLib::Roles::Pointers {
 }
 
 class ClutterPoint is repr<CStruct> is export does GLib::Roles::Pointers {
-  has gfloat $.x;
-  has gfloat $.y;
+  has gfloat $.x is rw;
+  has gfloat $.y is rw;
 
   submethod BUILD (Num() :$!x, Num() :$!y) { }
 
