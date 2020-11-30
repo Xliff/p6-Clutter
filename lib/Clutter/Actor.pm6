@@ -116,6 +116,42 @@ my @attributes = <
   z-position                 z_position
 >;
 
+# cw: An experimental replacement for this now exists in %properties.
+our %animatables = (
+  anchor-x         => G_TYPE_FLOAT,
+  anchor-y         => G_TYPE_FLOAT,
+  depth            => G_TYPE_FLOAT,
+  fixed-x          => G_TYPE_FLOAT,
+  fixed-y          => G_TYPE_FLOAT,
+  height           => G_TYPE_FLOAT,
+  margin-bottom    => G_TYPE_FLOAT,
+  margin-top       => G_TYPE_FLOAT,
+  margin-left      => G_TYPE_FLOAT,
+  margin-right     => G_TYPE_FLOAT,
+  min-height       => G_TYPE_FLOAT,
+  min-width        => G_TYPE_FLOAT,
+  natural-height   => G_TYPE_FLOAT,
+  natural-width    => G_TYPE_FLOAT,
+  opacity          => G_TYPE_UINT,
+  pivot-point-z    => G_TYPE_FLOAT,
+  rotation-angle-x => G_TYPE_DOUBLE,
+  rotation-angle-y => G_TYPE_DOUBLE,
+  rotation-angle-z => G_TYPE_DOUBLE,
+  scale-center-x   => G_TYPE_FLOAT,
+  scale-center-y   => G_TYPE_FLOAT,
+  scale-x          => G_TYPE_DOUBLE,
+  scale-y          => G_TYPE_DOUBLE,
+  scale-z          => G_TYPE_DOUBLE,
+  tramslation-x    => G_TYPE_FLOAT,
+  tramslation-y    => G_TYPE_FLOAT,
+  tramslation-z    => G_TYPE_FLOAT,
+  'x'              => G_TYPE_FLOAT,
+  y                => G_TYPE_FLOAT,
+  z-position       => G_TYPE_FLOAT,
+
+  background-color => 'ClutterColor'
+);
+
 # Please note that for .setup, 'size' is consdered a SET method. To set using a
 # Clutter::Size or equivalent, use the key 'cluttersize' or directly via the
 # .size  attribute
@@ -159,6 +195,8 @@ my @add_methods = <
 our subset ClutterActorAncestry is export of Mu
   where ClutterAnimatable | ClutterContainer | ClutterScriptable |
         ClutterActor      | GObject;
+
+my %properties;
 
 class Clutter::Actor {
   also does GLib::Roles::Object;
@@ -216,6 +254,10 @@ class Clutter::Actor {
     self.setAnimatable($actor) unless $!c-anim;  # Clutter::Roles::Animatable
     self.setContainer($actor)  unless $!c;       # Clutter::Roles::Container
     self.setScriptable($actor) unless $!cs;      # Clutter::Roles::Scriptable
+  }
+
+  method listProperties (Clutter::Actor:U: ) {
+    %properties.Map;
   }
 
   multi method new (ClutterActorAncestry $actor, :$ref = True) {
@@ -386,16 +428,55 @@ class Clutter::Actor {
   method !setAmbiguousPoint (%data, $name is copy) {
     say "A { $name }" if $DEBUG;
     $name .= subst('_', '-', :g);
+
+    # cw: Seq isn't considered positional, so check that, first!
+    my $arg = %data{$name};
+    $arg = $arg.Array if $arg ~~ Seq;
     die "'{ $name }' value must be a Clutter::Point-compatible object or a 2-element list'"
       unless [||](
-        so %data{$name} ~~ (Clutter::Point, ClutterPoint).any,
-        %data{$name} ~~ Positional
+        so $arg ~~ (Clutter::Point, ClutterPoint).any,
+        $arg ~~ Positional && $arg.elems == 2
       );
-    say "Data: { %data{$name}.gist } ({ %data{$name}.^name })" if $DEBUG;
-    if %data{$name} ~~ Positional {
-      self."set-{$name}"( |%data{$name} );
+    say "Data: { $arg.gist } ({ $arg.^name })" if $DEBUG;
+    if $arg ~~ Positional {
+      self."set-{$name}"( |$arg );
     } else {
-      self."$name"() = %data{$name};
+      self."$name"() = $arg;
+    }
+  }
+
+  method getAnimatable (Str() $name) {
+    if %animatables{$name}:exists {
+      %animatables{$name}
+    } else {
+      # Parent
+      die "Animatable value {$name} does not exist";
+      # Child
+      #self.Clutter::Actor::getAnimatable($name);
+    }
+  }
+
+  # Think about descendants and how not to duplicate code.
+  method getAnimatableValue ($name, $value) {
+    my $gv = do given self.getAnimatable($name) {
+      when 'ClutterColor' {
+        my $v; GLib::Value.new(Clutter::Color.get-type);
+        # cw: Or is it .boxed?
+        $v.pointer = $value;
+        $v;
+      }
+
+      when GTypeEnum {
+        my $v = GLib::Value.new($_);
+        $v.valueFromGType($_) = $value;
+        $v;
+      }
+
+      default {
+        die "Cannot get a GValue for attribute '{ $name }' name from '{
+             $value.^name }'";
+
+      }
     }
   }
 
@@ -2172,8 +2253,8 @@ class Clutter::Actor {
   }
   multi method get_preferred_width (
     Num() $for_height,
-    $min_width_p     is rw,
-    $natural_width_p is rw
+    $min_width_p       is rw,
+    $natural_width_p   is rw
   ) {
     my ($fh, $mw, $nw) = ($fh, 0e0, 0e0);
 
@@ -3204,4 +3285,15 @@ class Clutter::Actor {
     clutter_actor_remove_effect_by_name($!ca, $name);
   }
 
+}
+
+
+use GLib::Object::Type;
+use GLib::Class::Object;
+BEGIN {
+  my $t = GLib::Object::Type.new(Clutter::Actor.get-type);
+  my $c = cast(GObjectClass, $t.class_ref);
+  my $co = GLib::Class::Object.new($c);
+  %properties{.name} = [.valueTypeName, .getTypeName] for $co.list-properties;
+  ($t, $c, $co) = Nil xx 3;
 }
