@@ -70,6 +70,8 @@ sub on-button-press ($actor, $e, $rect, $r) {
 }
 
 sub draw-bouncer ($c, $cr, $w, $h, $ud, $r) {
+  CATCH { default { .message.say; .backtrace.concise.say } }
+  
   my $ct = Cairo::Context.new($cr);
   $ct.operator = CAIRO_OPERATOR_CLEAR;
   $ct.paint;
@@ -98,13 +100,13 @@ sub draw-bouncer ($c, $cr, $w, $h, $ud, $r) {
 }
 
 sub make-bouncer ($w, $h) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
 
   my $canvas = Clutter::Canvas.new;
   $canvas.set-size($w, $h);
   $canvas.draw.tap(-> *@a { draw-bouncer(|@a) });
 
-  my $rv = Clutter::Actor.new.setup(
+  my $a = Clutter::Actor.new.setup(
     name        => 'bouncer',
     size        => ($w, $h),
     pivot-point => 0.5 xx 2,
@@ -113,7 +115,7 @@ sub make-bouncer ($w, $h) {
     content     => $canvas
   );
   $canvas.invalidate;
-  $rv;
+  $a;
 }
 
 sub MAIN (
@@ -122,7 +124,7 @@ sub MAIN (
   exit(1) unless Clutter::Main.init == CLUTTER_INIT_SUCCESS;
 
   %globals<main-stage> = Clutter::Stage.new.setup(
-    title => 'Easing Modes',
+    title            => 'Easing Modes',
     background-color => $CLUTTER_COLOR_LightSkyBlue
   );
   %globals<main-stage>.destroy.tap({ Clutter::Main.quit });
