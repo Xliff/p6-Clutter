@@ -93,8 +93,7 @@ class Clutter::KeyframeTransition is Clutter::PropertyTransition {
     $key   is rw,
     $mode  is rw,
     $value is rw
-  )
-  {
+  ) {
     my guint $i = 0;
     my ClutterAnimationMode $m = 0;
     my gdouble $k = 0e0;
