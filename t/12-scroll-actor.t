@@ -39,7 +39,7 @@ sub set-data (ObjectOrPointer $i is copy, $k, $v) {
 my @options = 'Option ' «~» (1..11);
 
 sub select-item-at-index ($s, $i is copy) {
-  CATCH { default { .message.say } }
+  CATCH { default { .message.say; .backtrace.concise.say } }
 
   my $menu = $s.first-child;
   my $old-selected = get-data($s, 'selected-item');
@@ -114,6 +114,8 @@ sub create-scroll-actor ($stage) {
 }
 
 sub on-key-press ($s, $e, $u, $r) {
+  CATCH { default { .message.say; .backtrace.concise.say } }
+
   given Clutter::Event.new($e).key-symbol {
     when CLUTTER_KEY_Up   { select-prev-item($s) }
     when CLUTTER_KEY_Down { select-next-item($s) }
