@@ -5,6 +5,8 @@ use Clutter::Raw::Animator;
 
 use GLib::GList;
 use GLib::Value;
+use Clutter::Actor;
+use Clutter::Timeline;
 
 use GLib::Roles::ListData;
 use GLib::Roles::Object;
@@ -189,15 +191,18 @@ class Clutter::Animator {
     Str()     $property_name,
     Num()     $progress
   ) {
-    my gdouble $p = progress;
+    my gdouble $p = $progress;
 
     clutter_animator_remove_key($!anim, $object, $property_name, $p);
   }
 
-  method set (@keys) {
+  method set (*@keys) {
     die '@keys must be divisible by 5!' unless +@keys %% 5;
 
-    self.set_key( |$_ ) for @keys.rotor(5);
+    for @keys.rotor(5) {
+      say .gist;
+      self.set_key( |$_ );
+    }
   }
 
   method set_duration (Int() $duration) {
@@ -207,16 +212,31 @@ class Clutter::Animator {
   }
 
   method set_key (
-    GObject() $object,
+              $object         is copy,
     Str()     $property_name,
     Int()     $mode,
     Num()     $progress,
-    GValue()  $value
+              $value          is copy
   ) {
     my guint   $m = $mode;
-    my gdouble $p = $progress
+    my gdouble $p = $progress;
 
-    clutter_animator_set_key($!anim, $object, $property_name, $m, $p, $value);
+    die "Cannot use set_key on a non-Clutter::Actor, without a {
+         '' }GValue-compatible value!"
+      unless $object ~~ Clutter::Actor            ||
+             $value  ~~ (GLib::Value, GValue).any;
+
+    # cw: Must resolve value type based on property name!
+    my $v = do if $value ~~ (GLib::Value, GValue).any {
+      $value;
+    } else {
+      $object.?getAnimatableValue($property_name, $value);
+    }
+    die "No animatable value found for '{ $property_name }'" unless $v;
+    $v      .= GValue  if $v.^lookup('GValue');
+    $object .= GObject if $object.^lookup('GObject');
+
+    clutter_animator_set_key($!anim, $object, $property_name, $m, $p, $v);
     self;
   }
 
@@ -240,11 +260,10 @@ class Clutter::Animator {
 
    submethod BUILD ( :animator-key(:$!ak) ) { }
 
-   method new (ClutterAnimatorKey $animator-key) {
+   multi method new (ClutterAnimatorKey $animator-key) {
      $animator-key ?? self.bless(:$animator-key) !! Nil;
    }
-
-   method new {
+   multi method new {
      my $animator-key = ClutterAnimatorKey.new;
 
      $animator-key ?? self.bless(:$animator-key) !! Nil;
@@ -271,8 +290,12 @@ class Clutter::Animator {
      clutter_animator_key_get_property_name($!ak);
    }
 
-   method get_property_type {
-     clutter_animator_key_get_property_type($!ak);
+   method get_property_type (:$enums = True) {
+     my $v = clutter_animator_key_get_property_type($!ak);
+     if $enums {
+       return GTypeEnum($v) if $v = GTypeEnum.enums.values.any;
+     }
+     $v;
    }
 
    method get_type {
