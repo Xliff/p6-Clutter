@@ -16,6 +16,7 @@ need GLib::Raw::Subs;
 need GLib::Raw::Struct_Subs;
 need GIO::Raw::Definitions;
 need GIO::Raw::Enums;
+need GIO::Raw::Quarks;
 need GIO::Raw::Structs;
 need GIO::Raw::Subs;
 need GIO::DBus::Raw::Types;
