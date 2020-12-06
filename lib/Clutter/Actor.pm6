@@ -1284,7 +1284,7 @@ class Clutter::Actor {
   # Type: ClutterOffscreenRedirect
   method offscreen-redirect is rw is also<offscreen_redirect> {
     Proxy.new:
-      FETCH => sub ($)             { self.get-offscreen-redirect },
+      FETCH => sub ($)          { self.get-offscreen-redirect },
       STORE => -> $, Num() \val { self.set-offscreen-redirect(val) };
   }
 
@@ -1694,7 +1694,7 @@ class Clutter::Actor {
   )
     is also<allocate-align-fill>
   {
-    my gdouble ($xa, $ya) = ($x_align, $y_align);
+    my gdouble ($xa, $ya)  = ($x_align, $y_align);
     my gboolean ($xf, $yf) = ($x_fill, $y_fill).map( *.so.Int);
     my guint $f = $flags;
 
