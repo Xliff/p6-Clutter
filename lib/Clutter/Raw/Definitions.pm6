@@ -11,7 +11,7 @@ use GLib::Roles::Pointers;
 unit package Clutter::Raw::Definitions;
 
 # Number of times a forced compile has been made.
-my constant forced = 29;
+my constant forced = 66;
 
 constant clutter is export = 'clutter-1.0',v0;
 
@@ -27,6 +27,8 @@ class ClutterActorMeta                is repr<CPointer> does GLib::Roles::Pointe
 class ClutterAlignConstraint          is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterAlpha                    is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterAnimatable               is repr<CPointer> does GLib::Roles::Pointers is export { }
+class ClutterAnimator                 is repr<CPointer> does GLib::Roles::Pointers is export { }
+class ClutterAnimatorKey              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBackend                  is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBinLayout                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class ClutterBindConstraint           is repr<CPointer> does GLib::Roles::Pointers is export { }
