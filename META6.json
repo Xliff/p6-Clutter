@@ -1,15 +1,15 @@
 {
     "depends": [
-	    "p6-GtkPlus"
+	    "p6-GtkPlus",
+	    "p6-JSON-GLib"
     ],
     "description": "Perl6 library bindings for GNOME's Clutter library",
     "version": "r0.0.1",
     "meta-version": "0",
     "source-url": "https://github.com/Xliff/p6-Clutter",
     "provides": {
-      "Clutter::Compat::Types"                 :  "lib/Clutter/Compat/Types.pm6"                 ,
-      "Clutter::Raw::Keysyms"                  :  "lib/Clutter/Raw/Keysyms.pm6"                  ,
       "Clutter::Raw::Definitions"              :  "lib/Clutter/Raw/Definitions.pm6"              ,
+      "Clutter::Raw::Keysyms"                  :  "lib/Clutter/Raw/Keysyms.pm6"                  ,
       "Clutter::Raw::Enums"                    :  "lib/Clutter/Raw/Enums.pm6"                    ,
       "Clutter::Raw::Animator"                 :  "lib/Clutter/Raw/Animator.pm6"                 ,
       "Clutter::Raw::Structs"                  :  "lib/Clutter/Raw/Structs.pm6"                  ,
@@ -90,7 +90,6 @@
       "Clutter::TransitionGroup"               :  "lib/Clutter/TransitionGroup.pm6"              ,
       "Clutter::ActorMeta"                     :  "lib/Clutter/ActorMeta.pm6"                    ,
       "Clutter::AlignConstraint"               :  "lib/Clutter/AlignConstraint.pm6"              ,
-      "Clutter::Animator"                      :  "lib/Clutter/Animator.pm6"                     ,
       "Clutter::Backend"                       :  "lib/Clutter/Backend.pm6"                      ,
       "Clutter::BindConstraint"                :  "lib/Clutter/BindConstraint.pm6"               ,
       "Clutter::BindingPool"                   :  "lib/Clutter/BindingPool.pm6"                  ,
@@ -111,6 +110,7 @@
       "Clutter::Action"                        :  "lib/Clutter/Action.pm6"                       ,
       "Clutter::Actor"                         :  "lib/Clutter/Actor.pm6"                        ,
       "Clutter::ActorIter"                     :  "lib/Clutter/ActorIter.pm6"                    ,
+      "Clutter::Animator"                      :  "lib/Clutter/Animator.pm6"                     ,
       "Clutter::BinLayout"                     :  "lib/Clutter/BinLayout.pm6"                    ,
       "Clutter::BlurEffect"                    :  "lib/Clutter/BlurEffect.pm6"                   ,
       "Clutter::BoxLayout"                     :  "lib/Clutter/BoxLayout.pm6"                    ,
