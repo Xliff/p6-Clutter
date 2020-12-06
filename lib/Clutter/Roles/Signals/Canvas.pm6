@@ -2,10 +2,7 @@ use v6.c;
 
 use NativeCall;
 
-use Clutter::Compat::Types;
-
 use GLib::Raw::ReturnedValue;
-
 
 use Clutter::Raw::Types;
 

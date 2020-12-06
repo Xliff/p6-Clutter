@@ -2,9 +2,7 @@ use v6.c;
 
 use NativeCall;
 
-
 use Clutter::Raw::Types;
-use Clutter::Compat::Types;
 
 unit package Clutter::Raw::Scriptable;
 

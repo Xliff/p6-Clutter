@@ -2,8 +2,6 @@ use v6.c;
 
 use NativeCall;
 
-
-use Clutter::Compat::Types;
 use Clutter::Raw::Types;
 
 unit package Clutter::Raw::DeformEffect;

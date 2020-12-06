@@ -4,7 +4,6 @@ use NativeCall;
 
 use Cairo;
 
-use Clutter::Compat::Types;
 use Clutter::Raw::Types;
 
 use GLib::Roles::StaticClass;

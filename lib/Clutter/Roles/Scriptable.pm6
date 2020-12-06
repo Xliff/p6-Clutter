@@ -3,8 +3,6 @@ use v6.c;
 use Method::Also;
 
 use Clutter::Raw::Types;
-use Clutter::Compat::Types;
-
 use Clutter::Raw::Scriptable;
 
 role Clutter::Roles::Scriptable {
@@ -19,7 +17,7 @@ role Clutter::Roles::Scriptable {
 
   method roleInit-ClutterScriptable {
     return if $!cs;
-    
+
     my \i = findProperImplementor(self.^attributes);
 
     $!cs = cast( ClutterScriptable, i.get_value(self) );
