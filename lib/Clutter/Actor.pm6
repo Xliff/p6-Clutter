@@ -215,8 +215,8 @@ class Clutter::Actor {
   }
 
   submethod BUILD (:$actor) {
-    #self.ADD-PREFIX('Clutter::');a
-    self.setActor($actor) if $actor;
+    #self.ADD-PREFIX('Clutter::');
+    self.setClutterActor($actor) if $actor;
   }
 
   method Clutter::Raw::Definitions::ClutterActor
@@ -226,7 +226,7 @@ class Clutter::Actor {
     >
   { $!ca }
 
-  method setActor (ClutterActorAncestry $actor) {
+  method setClutterActor (ClutterActorAncestry $actor) {
     #self.IS-PROTECTED;
     my $to-parent;
     $!ca = do given $actor {

@@ -36,7 +36,7 @@ class Clutter::ScrollActor is Clutter::Actor {
         cast(ClutterScrollActor, $_);
       }
     }
-    self.setActor($to-parent);
+    self.setClutterActor($to-parent);
   }
 
   method Clutter::Raw::Definitions::ClutterScrollActor

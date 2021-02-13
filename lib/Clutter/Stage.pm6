@@ -64,7 +64,7 @@ class Clutter::Stage is Clutter::Actor {
           }
 
         };
-        self.setActor($to-parent);
+        self.setClutterActor($to-parent);
       }
 
       when Clutter::Stage {

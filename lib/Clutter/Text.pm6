@@ -102,7 +102,7 @@ class Clutter::Text is Clutter::Actor {
             cast(ClutterText, $_);
           }
         }
-        self.setActor($to-parent);
+        self.setClutterActor($to-parent);
       }
 
       when Clutter::Text {

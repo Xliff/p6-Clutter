@@ -34,7 +34,7 @@ class Clutter::Clone is Clutter::Actor {
             cast(ClutterClone, $_);
           }
         }
-        self.setActor($to-parent);
+        self.setClutterActor($to-parent);
       }
 
       when Clutter::Clone {
