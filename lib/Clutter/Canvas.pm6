@@ -14,6 +14,15 @@ use Clutter::Roles::Content;
 our subset ClutterCanvasAncestry is export of Mu
   where ClutterContent | ClutterCanvas | GObject;
 
+my @set-methods = 'size'.Array;
+
+my @attributes = <
+  scale-factor      scale_factor
+  height
+  scale-factor-set  scale_factor_set
+  width
+>;
+
 class Clutter::Canvas {
   also does GLib::Roles::Object;
   also does Clutter::Roles::Content;
@@ -52,12 +61,38 @@ class Clutter::Canvas {
   }
 
   multi method new (ClutterCanvasAncestry $canvas, :$ref = True) {
-    $canvas ?? self.bless(:$canvas) !! Nil;
+    return Nil unless $canvas;
+
+    my $o = self.bless( :$canvas );
+    $o.ref if $ref;
+    $o;
   }
   multi method new {
     my $canvas = clutter_canvas_new();
 
     $canvas ?? self.bless(:$canvas) !! Nil;
+  }
+
+  method setup(*%data) {
+    for %data.keys -> $_ is copy {
+      when @attributes.any  {
+        say "CCA: {$_}" if $DEBUG;
+        self."$_"() = %data{$_}
+      }
+
+      when @set-methods.any {
+        my $proper-name = S:g /'-'/_/;
+        say "CCSM: {$_}" if $DEBUG;
+        self."set_{ $proper-name }"( |%data{$_} )
+      }
+
+      default { die "Unknown attribute '{ $_ }'" }
+    }
+    # Role attribute and set methods should be respected, somehow. Think
+    # about a proper mechanism to do that. Bonus points for maintaining
+    # abstraction!
+
+    self;
   }
 
   # Is originally:
