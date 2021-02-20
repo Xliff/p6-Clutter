@@ -80,7 +80,8 @@ class Clutter::Main {
   method init {
     my $argc = CArray[gint];
     my $argv = CArray[Str];
-    clutter_init($argc, $argv);
+
+    ClutterInitErrorEnum( clutter_init($argc, $argv) );
   }
 
   method init_error_quark is also<init-error-quark> {
