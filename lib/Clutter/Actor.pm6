@@ -2316,6 +2316,9 @@ class Clutter::Actor {
     clutter_actor_get_scale_z($!ca);
   }
 
+
+  # cw: Rationalize this with .size, which returns a ClutterSize.
+  #     May need a new name to resolve the confusion!
   proto method get_size (|)
     is also<get-size>
   { * }
