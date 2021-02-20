@@ -22,7 +22,7 @@ role Clutter::Roles::Content {
 
   method roleInit-ClutterContent {
     return if $!c-con;
-    
+
     my \i = findProperImplementor(self.^attributes);
     $!c-con = cast( ClutterContent, i.get_value(self) );
   }
@@ -41,12 +41,19 @@ role Clutter::Roles::Content {
     self.connect-actor($!c-con, 'detached');
   }
 
-  method get_preferred_size (Num() $width, Num() $height)
+  proto method get_preferred_size (|)
+  { * }
+
+  multi method get_preferred_size {
+    samewith($, $);
+  }
+  multi method get_preferred_size ($width is rw, $height is rw)
     is also<get-preferred-size>
   {
-    my gfloat ($w, $h) = ($width, $height);
+    my gfloat ($w, $h) = 0e0 xx 2;
 
-    clutter_content_get_preferred_size($!c-con, $width, $height);
+    clutter_content_get_preferred_size($!c-con, $w, $h);
+    ($width, $height) = ($w, $h);
   }
 
   method content_get_type is also<content-get-type> {
@@ -70,8 +77,8 @@ role Clutter::Roles::Content {
 
 sub clutter_content_get_preferred_size (
   ClutterContent $content,
-  gfloat $width,
-  gfloat $height
+  gfloat         $width   is rw,
+  gfloat         $height  is rw
 )
   returns uint32
   is native(clutter)
