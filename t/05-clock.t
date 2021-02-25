@@ -19,7 +19,7 @@ use Clutter::Main;
 
 my $idle_resize_id;
 
-sub draw_clock ($c, $cr, $w, $h, $ud, $r --> gboolean) {
+sub draw_clock ($c, $cr, $w, $h, $ud, $r) {
   CATCH { default { .message.say; .backtrace.concise.say } }
 
   my $now = DateTime.now;
