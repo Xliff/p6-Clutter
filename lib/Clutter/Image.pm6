@@ -116,22 +116,29 @@ class Clutter::Image {
     $rv;
   }
 
-  method set_data (
-    Pointer $data,
-    Int() $pixel_format,
-    Int() $width,
-    Int() $height,
-    Int() $row_stride,
-    CArray[Pointer[GError]] $error = gerror()
+  # cw: Conflicts with GObject.set_sata! [which is not part of GObject spec]
+  multi method set_image_data (
+    Pointer                 $data,
+    Int()                   $pixel_format,
+    Int()                   $width,
+    Int()                   $height,
+    Int()                   $row_stride,
+    CArray[Pointer[GError]] $error         = gerror()
   )
-    is also<set-data>
+    is also<set-image-data>
   {
     my guint ($w, $h, $r) = $width, $height, $row_stride;
     my CoglPixelFormat $pf = $pixel_format;
 
     clear_error;
     my $rv = so clutter_image_set_data(
-      $!ci, $data, $pf, $w, $h, $r, $error
+      $!ci,
+      $data,
+      $pf,
+      $w,
+      $h,
+      $r,
+      $error
     );
     set_error($error);
     $rv
