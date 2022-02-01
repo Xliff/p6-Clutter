@@ -44,7 +44,7 @@ sub clutter_backend_get_font_options (ClutterBackend $backend)
 { * }
 
 sub clutter_backend_set_font_options (
-  ClutterBackend $backend,
+  ClutterBackend       $backend,
   cairo_font_options_t $options
 )
   is native(clutter)
