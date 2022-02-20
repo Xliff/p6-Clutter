@@ -1,7 +1,10 @@
 {
     "depends": [
-	    "p6-GtkPlus",
-	    "p6-JSON-GLib"
+	    "p6-GLib",
+	    "p6-ATK",
+	    "p6-JSON-GLib",
+            "p6-GIO",
+            "p6-Pango"
     ],
     "description": "Perl6 library bindings for GNOME's Clutter library",
     "version": "r0.0.1",

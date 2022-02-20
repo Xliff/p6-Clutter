@@ -9,8 +9,8 @@ unit package Clutter::Raw::Timeline;
 
 sub clutter_timeline_add_marker (
   ClutterTimeline $timeline,
-  Str $marker_name,
-  gdouble $progress
+  Str             $marker_name,
+  gdouble         $progress
 )
   is native(clutter)
   is export
@@ -18,8 +18,8 @@ sub clutter_timeline_add_marker (
 
 sub clutter_timeline_add_marker_at_time (
   ClutterTimeline $timeline,
-  Str $marker_name,
-  guint $msecs
+  Str             $marker_name,
+  guint           $msecs
 )
   is native(clutter)
   is export
@@ -32,7 +32,7 @@ sub clutter_timeline_advance (ClutterTimeline $timeline, guint $msecs)
 
 sub clutter_timeline_advance_to_marker (
   ClutterTimeline $timeline,
-  Str $marker_name
+  Str             $marker_name
 )
   is native(clutter)
   is export
@@ -40,8 +40,8 @@ sub clutter_timeline_advance_to_marker (
 
 sub clutter_timeline_get_cubic_bezier_progress (
   ClutterTimeline $timeline,
-  ClutterPoint $c_1,
-  ClutterPoint $c_2
+  ClutterPoint    $c_1,
+  ClutterPoint    $c_2
 )
   returns uint32
   is native(clutter)
@@ -80,8 +80,8 @@ sub clutter_timeline_get_progress (ClutterTimeline $timeline)
 
 sub clutter_timeline_get_step_progress (
   ClutterTimeline $timeline,
-  gint $n_steps,
-  guint $step_mode # ClutterStepMode $step_mode
+  guint           $n_steps,
+  guint           $step_mode # ClutterStepMode $step_mode
 )
   returns uint32
   is native(clutter)
@@ -108,8 +108,8 @@ sub clutter_timeline_is_playing (ClutterTimeline $timeline)
 
 sub clutter_timeline_list_markers (
   ClutterTimeline $timeline,
-  gint $msecs,
-  gsize $n_markers
+  guint           $msecs,
+  gsize           $n_markers
 )
   returns CArray[Str]
   is native(clutter)
@@ -142,8 +142,8 @@ sub clutter_timeline_rewind (ClutterTimeline $timeline)
 
 sub clutter_timeline_set_cubic_bezier_progress (
   ClutterTimeline $timeline,
-  ClutterPoint $c_1,
-  ClutterPoint $c_2
+  ClutterPoint    $c_1,
+  ClutterPoint    $c_2
 )
   is native(clutter)
   is export
@@ -151,9 +151,9 @@ sub clutter_timeline_set_cubic_bezier_progress (
 
 sub clutter_timeline_set_progress_func (
   ClutterTimeline $timeline,
-  &func (Pointer, gdouble, gdouble, Pointer --> gboolean), 
-  gpointer $data,
-  GDestroyNotify $notify
+                  &func (Pointer, gdouble, gdouble, Pointer --> gboolean),
+  gpointer        $data,
+  GDestroyNotify  $notify
 )
   is native(clutter)
   is export
@@ -161,8 +161,8 @@ sub clutter_timeline_set_progress_func (
 
 sub clutter_timeline_set_step_progress (
   ClutterTimeline $timeline,
-  gint $n_steps,
-  guint $step_mode # ClutterStepMode $step_mode
+  guint           $n_steps,
+  guint           $step_mode # ClutterStepMode $step_mode
 )
   is native(clutter)
   is export
@@ -234,7 +234,7 @@ sub clutter_timeline_set_delay (ClutterTimeline $timeline, guint $msecs)
 
 sub clutter_timeline_set_direction (
   ClutterTimeline $timeline,
-  guint $direction # ClutterTimelineDirection $direction
+  guint           $direction # ClutterTimelineDirection $direction
 )
   is native(clutter)
   is export
@@ -247,7 +247,7 @@ sub clutter_timeline_set_duration (ClutterTimeline $timeline, guint $msecs)
 
 sub clutter_timeline_set_progress_mode (
   ClutterTimeline $timeline,
-  guint $mode # ClutterAnimationMode $mode
+  guint           $mode # ClutterAnimationMode $mode
 )
   is native(clutter)
   is export
