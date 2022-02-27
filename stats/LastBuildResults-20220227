@@ -1,0 +1,3398 @@
+Dependency Generation
+=====================
+real 1.47
+user 1.82
+sys 0.05
+ === ATK::Raw::Definitions === (1/180)
+Stage start      :   0.000
+Stage parse      :   1.164
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === ATK::Raw::Enums === (2/180)
+Stage start      :   0.000
+Stage parse      :   1.012
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === ATK::Raw::Exports === (3/180)
+Stage start      :   0.000
+Stage parse      :   0.814
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === ATK::Raw::Structs === (4/180)
+Stage start      :   0.000
+Stage parse      :   1.178
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Compat::Types === (5/180)
+Stage start      :   0.000
+Stage parse      :   0.970
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Context === (6/180)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/Context.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/Display.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                Stage start      :   0.000
+                Stage parse      :   1.535
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+            Stage start      :   0.000
+            Stage parse      :   1.535
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.535
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.535
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.535
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+[31m===[0mSORRY![31m===[0m Error while compiling -e
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/Display.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.535
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.535
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.535
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.535
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.535
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+Stage start      :   0.000
+Stage parse      :   1.535
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+
+at -e:1
+ === COGL::Raw::Definitions === (7/180)
+Stage start      :   0.000
+Stage parse      :   1.124
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Raw::Enums === (8/180)
+Stage start      :   0.000
+Stage parse      :   0.994
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === COGL::Raw::Exports === (9/180)
+Stage start      :   0.000
+Stage parse      :   0.827
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === COGL::Raw::Structs === (10/180)
+Stage start      :   0.000
+Stage parse      :   1.181
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Cairo === (11/180)
+Stage start      :   0.000
+Stage parse      :   0.988
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::DBus::Raw::Types === (12/180)
+Stage start      :   0.000
+Stage parse      :   1.222
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GIO::Raw::Definitions === (13/180)
+Stage start      :   0.000
+Stage parse      :   1.000
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Enums === (14/180)
+Stage start      :   0.000
+Stage parse      :   1.076
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GIO::Raw::Exports === (15/180)
+Stage start      :   0.000
+Stage parse      :   0.867
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Quarks === (16/180)
+Stage start      :   0.000
+Stage parse      :   1.167
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Structs === (17/180)
+Stage start      :   0.000
+Stage parse      :   1.122
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GIO::Raw::Subs === (18/180)
+Stage start      :   0.000
+Stage parse      :   1.141
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Class::Object === (19/180)
+Stage start      :   0.000
+Stage parse      :   1.261
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GLib::GList === (20/180)
+Stage start      :   0.000
+Stage parse      :   1.164
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::GSList === (21/180)
+Stage start      :   0.000
+Stage parse      :   1.159
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Object::ParamSpec === (22/180)
+Stage start      :   0.000
+Stage parse      :   1.240
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Object::Type === (23/180)
+Stage start      :   0.000
+Stage parse      :   1.146
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Definitions === (24/180)
+Stage start      :   0.000
+Stage parse      :   0.984
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Enums === (25/180)
+Stage start      :   0.000
+Stage parse      :   1.049
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.005
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === GLib::Raw::Exceptions === (26/180)
+Stage start      :   0.000
+Stage parse      :   0.851
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Exports === (27/180)
+Stage start      :   0.000
+Stage parse      :   0.892
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === GLib::Raw::Object === (28/180)
+Stage start      :   0.000
+Stage parse      :   1.059
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::ReturnedValue === (29/180)
+Stage start      :   0.000
+Stage parse      :   0.853
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Struct_Subs === (30/180)
+Stage start      :   0.000
+Stage parse      :   0.997
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Structs === (31/180)
+Stage start      :   0.000
+Stage parse      :   1.137
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Raw::Subs === (32/180)
+Stage start      :   0.000
+Stage parse      :   1.124
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::ListData === (33/180)
+Stage start      :   0.000
+Stage parse      :   1.147
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::Object === (34/180)
+Stage start      :   0.000
+Stage parse      :   1.326
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === GLib::Roles::Pointers === (35/180)
+Stage start      :   0.000
+Stage parse      :   0.976
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::Signals::Generic === (36/180)
+Stage start      :   0.000
+Stage parse      :   1.167
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::StaticClass === (37/180)
+Stage start      :   0.000
+Stage parse      :   1.135
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Roles::TypedBuffer === (38/180)
+Stage start      :   0.000
+Stage parse      :   1.100
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === GLib::Value === (39/180)
+Stage start      :   0.000
+Stage parse      :   1.161
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === JSON::GLib::Raw::Definitions === (40/180)
+Stage start      :   0.000
+Stage parse      :   0.979
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === JSON::GLib::Raw::Exports === (41/180)
+Stage start      :   0.000
+Stage parse      :   0.830
+Stage syntaxcheck:   0.000
+Stage ast        :   0.001
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Method::Also === (42/180)
+Stage start      :   0.000
+Stage parse      :   0.838
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === NativeCall === (43/180)
+Stage start      :   0.000
+Stage parse      :   0.903
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::AttrList === (44/180)
+Stage start      :   0.000
+Stage parse      :   1.238
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Context === (45/180)
+Stage start      :   0.000
+Stage parse      :   1.420
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.003
+Stage moar       :   0.000
+ === Pango::FontDescription === (46/180)
+Stage start      :   0.000
+Stage parse      :   1.225
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Pango::Layout === (47/180)
+Stage start      :   0.000
+Stage parse      :   1.469
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Pango::Raw::Definitions === (48/180)
+Stage start      :   0.000
+Stage parse      :   1.016
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Enums === (49/180)
+Stage start      :   0.000
+Stage parse      :   0.997
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.002
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Exports === (50/180)
+Stage start      :   0.000
+Stage parse      :   0.841
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Structs === (51/180)
+Stage start      :   0.000
+Stage parse      :   1.196
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Subs === (52/180)
+Stage start      :   0.000
+Stage parse      :   1.179
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.000
+Stage mast       :   0.001
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Pango::Raw::Types === (53/180)
+Stage start      :   0.000
+Stage parse      :   1.262
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.004
+Stage mast       :   0.003
+Stage mbc        :   0.005
+Stage moar       :   0.000
+ === nqp === (54/180)
+Stage start      :   0.000
+Stage parse      :   0.071
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Definitions === (55/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Definitions.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.203
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.009
+    Stage mast       :   0.019
+    Stage mbc        :   0.003
+Stage parse      :   2.157
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Enums === (56/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Enums.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.740
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.053
+    Stage mbc        :   0.033
+Stage parse      :   2.817
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.005
+Stage mast       :   0.010
+Stage mbc        :   0.004
+Stage moar       :   0.000
+ === Clutter::Raw::Animator === (57/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Animator.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.599
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.011
+    Stage mast       :   0.023
+    Stage mbc        :   0.019
+Stage parse      :   2.650
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.007
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Structs === (58/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Structs.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.370
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.043
+    Stage mast       :   0.069
+    Stage mbc        :   0.005
+Stage parse      :   2.403
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Exports === (59/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Exports.pm6
+    Stage start      :   0.000
+    Stage parse      :   0.114
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.002
+    Stage mast       :   0.003
+    Stage mbc        :   0.001
+Stage parse      :   1.063
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Exceptions === (60/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Exceptions.pm6
+    Stage start      :   0.000
+    Stage parse      :   0.088
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.009
+    Stage mast       :   0.008
+    Stage mbc        :   0.001
+Stage parse      :   0.989
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.005
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Types === (61/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Types.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.970
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.002
+    Stage mast       :   0.018
+    Stage mbc        :   0.004
+Stage parse      :   3.049
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.011
+Stage mast       :   0.016
+Stage mbc        :   0.012
+Stage moar       :   0.000
+ === Clutter::Raw::VariousTypes === (62/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/VariousTypes.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.805
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.076
+    Stage mbc        :   0.204
+Stage parse      :   5.215
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Rect === (63/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Rect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.449
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.029
+    Stage mast       :   0.043
+    Stage mbc        :   0.015
+Stage parse      :   2.590
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Settings === (64/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Settings.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.044
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.045
+    Stage mbc        :   0.016
+Stage parse      :   3.187
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Canvas === (65/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.335
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.033
+    Stage mbc        :   0.011
+Stage parse      :   2.490
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Container === (66/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.381
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.028
+    Stage mbc        :   0.016
+Stage parse      :   2.461
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DeviceManager === (67/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.322
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.020
+    Stage mbc        :   0.011
+Stage parse      :   2.391
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DragAction === (68/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.491
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.031
+    Stage mbc        :   0.021
+Stage parse      :   2.625
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Generic === (69/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Generic.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.319
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.022
+    Stage mbc        :   0.011
+Stage parse      :   2.408
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::PanAction === (70/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.432
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.027
+    Stage mbc        :   0.011
+Stage parse      :   2.517
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Stage === (71/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.656
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.027
+    Stage mbc        :   0.011
+Stage parse      :   2.722
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Text === (72/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.723
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.032
+    Stage mbc        :   0.015
+Stage parse      :   2.849
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Size === (73/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Size.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.319
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.038
+    Stage mbc        :   0.009
+Stage parse      :   2.434
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Vertex === (74/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Vertex.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.239
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.027
+    Stage mbc        :   0.010
+Stage parse      :   2.370
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ActorBox === (75/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorBox.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.570
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.055
+    Stage mbc        :   0.018
+Stage parse      :   2.752
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Cairo === (76/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Cairo.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.298
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.025
+    Stage mbc        :   0.009
+Stage parse      :   2.404
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ChildMeta === (77/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ChildMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.899
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.026
+    Stage mbc        :   0.016
+Stage parse      :   3.034
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Constraint === (78/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Constraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.779
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.022
+    Stage mbc        :   0.010
+Stage parse      :   2.920
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::LayoutMeta === (79/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.426
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.026
+    Stage mbc        :   0.011
+Stage parse      :   2.561
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::PaintVolume === (80/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/PaintVolume.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.197
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.047
+    Stage mbc        :   0.008
+Stage parse      :   2.310
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Point === (81/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Point.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.291
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.027
+    Stage mbc        :   0.012
+Stage parse      :   2.388
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Actor === (82/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   7.084
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.081
+    Stage mast       :   0.126
+    Stage mbc        :   0.429
+Stage parse      :   8.929
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.003
+Stage mast       :   0.004
+Stage mbc        :   0.002
+Stage moar       :   0.000
+ === Clutter::Raw::ActorMeta === (83/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.365
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.016
+    Stage mbc        :   0.015
+Stage parse      :   2.465
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::AlignConstraint === (84/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.389
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.025
+    Stage mbc        :   0.020
+Stage parse      :   2.524
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Animatable === (85/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.320
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.019
+    Stage mbc        :   0.015
+Stage parse      :   2.380
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Backend === (86/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Backend.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.461
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.026
+    Stage mbc        :   0.020
+Stage parse      :   2.569
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::BindConstraint === (87/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.440
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.024
+    Stage mbc        :   0.021
+Stage parse      :   2.567
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BindingPool === (88/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.571
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.033
+    Stage mbc        :   0.029
+Stage parse      :   2.745
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BoxLayout === (89/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.825
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.031
+    Stage mbc        :   0.052
+Stage parse      :   3.016
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Boxed === (90/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Boxed.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.277
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.016
+    Stage mbc        :   0.009
+Stage parse      :   2.389
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::BrightnessContrastEffect === (91/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.491
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.026
+    Stage mbc        :   0.022
+Stage parse      :   2.641
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::ClickAction === (92/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.379
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.017
+    Stage mbc        :   0.024
+Stage parse      :   2.465
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Color === (93/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.906
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.031
+    Stage mbc        :   0.055
+Stage parse      :   3.066
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Container === (94/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.509
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.024
+    Stage mbc        :   0.021
+Stage parse      :   2.647
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::DeformEffect === (95/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.380
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.032
+    Stage mbc        :   0.017
+Stage parse      :   2.504
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::DeviceManager === (96/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.370
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.017
+    Stage mbc        :   0.017
+Stage parse      :   2.490
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::DragAction === (97/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.553
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.031
+    Stage mbc        :   0.027
+Stage parse      :   2.677
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Event === (98/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.905
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.052
+    Stage mbc        :   0.135
+Stage parse      :   4.246
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::FlowLayout === (99/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.680
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.026
+    Stage mbc        :   0.044
+Stage parse      :   2.825
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::GestureAction === (100/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.694
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.026
+    Stage mbc        :   0.041
+Stage parse      :   2.870
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::GridLayout === (101/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/GridLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.692
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.028
+    Stage mbc        :   0.041
+Stage parse      :   2.829
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Image === (102/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.477
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.017
+    Stage mbc        :   0.020
+Stage parse      :   2.572
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::InputDevice === (103/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.032
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.032
+    Stage mbc        :   0.066
+Stage parse      :   3.216
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Interval === (104/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.609
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.026
+    Stage mbc        :   0.031
+Stage parse      :   2.756
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::KeyframeTransition === (105/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/KeyframeTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.468
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.027
+    Stage mbc        :   0.023
+Stage parse      :   2.609
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::LayoutManager === (106/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.602
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.025
+    Stage mbc        :   0.033
+Stage parse      :   2.721
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Main === (107/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.455
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.047
+    Stage mbc        :   0.061
+Stage parse      :   3.716
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::OffscreenEffect === (108/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.351
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.017
+    Stage mbc        :   0.033
+Stage parse      :   2.488
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::PageTurnEffect === (109/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.428
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.014
+    Stage mast       :   0.033
+    Stage mbc        :   0.021
+Stage parse      :   2.541
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::PanAction === (110/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.607
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.017
+    Stage mast       :   0.024
+    Stage mbc        :   0.036
+Stage parse      :   2.711
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Path === (111/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.112
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.033
+    Stage mbc        :   0.061
+Stage parse      :   3.288
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::PathConstraint === (112/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.381
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.018
+    Stage mbc        :   0.017
+Stage parse      :   2.469
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Scriptable === (113/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.321
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.031
+    Stage mbc        :   0.013
+Stage parse      :   2.422
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::ScrollActor === (114/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/ScrollActor.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.337
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.017
+    Stage mbc        :   0.017
+Stage parse      :   2.419
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::SnapConstraint === (115/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.441
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.026
+    Stage mbc        :   0.021
+Stage parse      :   2.534
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Stage === (116/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.361
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.035
+    Stage mbc        :   0.078
+Stage parse      :   3.534
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Raw::Text === (117/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   3.542
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.089
+    Stage mbc        :   0.136
+Stage parse      :   4.923
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::TextBuffer === (118/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.558
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.022
+    Stage mbc        :   0.031
+Stage parse      :   2.678
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Timeline === (119/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.247
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.036
+    Stage mbc        :   0.081
+Stage parse      :   3.448
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.008
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::Transition === (120/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.448
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.024
+    Stage mbc        :   0.023
+Stage parse      :   2.557
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Raw::TransitionGroup === (121/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Raw/TransitionGroup.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.362
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.016
+    Stage mbc        :   0.013
+Stage parse      :   2.485
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.004
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Animatable === (122/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Animatable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.314
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.022
+    Stage mbc        :   0.006
+Stage parse      :   2.390
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Container === (123/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Container.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.402
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.032
+    Stage mbc        :   0.011
+Stage parse      :   2.546
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Content === (124/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Content.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.455
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.026
+    Stage mbc        :   0.013
+Stage parse      :   2.603
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Scriptable === (125/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Scriptable.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.294
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.026
+    Stage mast       :   0.022
+    Stage mbc        :   0.008
+Stage parse      :   2.385
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::Actor === (126/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.945
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.033
+    Stage mbc        :   0.023
+Stage parse      :   3.095
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::ClickAction === (127/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.381
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.030
+    Stage mbc        :   0.011
+Stage parse      :   2.474
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Roles::Signals::DropAction === (128/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Roles/Signals/DropAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.535
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.030
+    Stage mbc        :   0.013
+Stage parse      :   2.636
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::TextBuffer === (129/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/TextBuffer.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.931
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.031
+    Stage mbc        :   0.028
+Stage parse      :   3.137
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Threads === (130/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Threads.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.251
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.053
+    Stage mbc        :   0.006
+Stage parse      :   2.371
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Timeline === (131/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Timeline.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.909
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.040
+    Stage mast       :   0.106
+    Stage mbc        :   0.011
+Stage parse      :   3.140
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Transition === (132/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Transition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.748
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.029
+    Stage mast       :   0.053
+    Stage mbc        :   0.009
+Stage parse      :   2.939
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::TransitionGroup === (133/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/TransitionGroup.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.293
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.032
+    Stage mbc        :   0.010
+Stage parse      :   2.442
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ActorMeta === (134/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.850
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.026
+    Stage mbc        :   0.009
+Stage parse      :   2.964
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::AlignConstraint === (135/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/AlignConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.343
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.028
+    Stage mast       :   0.035
+    Stage mbc        :   0.010
+Stage parse      :   2.567
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Backend === (136/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Backend.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/Context.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/Display.pm6
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+                Stage start      :   0.000
+                
+                    precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                    Stage start      :   0.000
+                    Stage parse      :   1.539
+                    Stage syntaxcheck:   0.000
+                    Stage ast        :   0.000
+                    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+                [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+                Stage start      :   0.000
+                Stage parse      :   1.539
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+                
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                Stage start      :   0.000
+                Stage parse      :   1.539
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                Stage start      :   0.000
+                Stage parse      :   1.539
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-Clutter/lib/Clutter/Backend.pm6 (Clutter::Backend)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/Display.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                Stage start      :   0.000
+                Stage parse      :   1.539
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+    
+    at /home/cbwood/Projects/p6-Clutter/lib/Clutter/Backend.pm6 (Clutter::Backend):10
+[31m===[0mSORRY![31m===[0m Error while compiling -e
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/Context.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/Display.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+            Stage start      :   0.000
+            
+                precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+                Stage start      :   0.000
+                Stage parse      :   1.539
+                Stage syntaxcheck:   0.000
+                Stage ast        :   0.000
+                Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+                Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+                at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+                ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+            
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-Clutter/lib/Clutter/Backend.pm6 (Clutter::Backend)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/Display.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+        Stage start      :   0.000
+        
+            precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+            Stage start      :   0.000
+            Stage parse      :   1.539
+            Stage syntaxcheck:   0.000
+            Stage ast        :   0.000
+            Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+            Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+            at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+            ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+        
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/OnscreenTemplate.pm6
+    Stage start      :   0.000
+    
+        precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+        Stage start      :   0.000
+        Stage parse      :   1.539
+        Stage syntaxcheck:   0.000
+        Stage ast        :   0.000
+        Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+        Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+        at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+        ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+    Stage start      :   0.000
+    Stage parse      :   1.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+    
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display)
+Stage start      :   0.000
+
+    precomp ../p6-COGL/lib/COGL/SwapChain.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.539
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+    Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+    at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+    ------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+[31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate)
+Stage start      :   0.000
+Stage parse      :   1.539
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   : [31m===[0mSORRY![31m===[0m Error while compiling /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain)
+Calling cogl_swap_chain_set_has_alpha(COGL::Raw::Definitions::CoglSwapChain, uint) will never work with declared signature (COGL::Raw::Definitions::CoglSwapChain $swap_chain, int32 $has_alpha)
+at /home/cbwood/Projects/p6-COGL/lib/COGL/SwapChain.pm6 (COGL::SwapChain):51
+------> [32m    [33m⏏[31mcogl_swap_chain_set_has_alpha($!csc, $a)[0m
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/OnscreenTemplate.pm6 (COGL::OnscreenTemplate):8
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/Display.pm6 (COGL::Display):9
+
+at /home/cbwood/Projects/p6-COGL/lib/COGL/Context.pm6 (COGL::Context):9
+
+at /home/cbwood/Projects/p6-Clutter/lib/Clutter/Backend.pm6 (Clutter::Backend):10
+
+at -e:1
+ === Clutter::BindConstraint === (137/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.329
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.023
+    Stage mast       :   0.039
+    Stage mbc        :   0.010
+Stage parse      :   2.522
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BindingPool === (138/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BindingPool.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.816
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.039
+    Stage mbc        :   0.007
+Stage parse      :   2.980
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Canvas === (139/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Canvas.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.073
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.029
+    Stage mast       :   0.052
+    Stage mbc        :   0.016
+Stage parse      :   3.243
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Color === (140/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Color.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.371
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.056
+    Stage mast       :   0.075
+    Stage mbc        :   0.009
+Stage parse      :   2.542
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.001
+Stage moar       :   0.000
+ === Clutter::Effect === (141/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Effect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.380
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.026
+    Stage mbc        :   0.008
+Stage parse      :   2.495
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::GridLayoutMeta === (142/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayoutMeta.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.626
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.040
+    Stage mbc        :   0.009
+Stage parse      :   2.789
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Image === (143/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Image.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.937
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.039
+    Stage mbc        :   0.012
+Stage parse      :   3.111
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Interval === (144/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Interval.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.651
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.029
+    Stage mbc        :   0.009
+Stage parse      :   2.759
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::LayoutManager === (145/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/LayoutManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.837
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.039
+    Stage mast       :   0.047
+    Stage mbc        :   0.009
+Stage parse      :   3.034
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Main === (146/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Main.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.307
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.055
+    Stage mbc        :   0.006
+Stage parse      :   2.432
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Misc === (147/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Misc.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.186
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.015
+    Stage mast       :   0.025
+    Stage mbc        :   0.010
+Stage parse      :   2.302
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::OffscreenEffect === (148/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/OffscreenEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.340
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.025
+    Stage mbc        :   0.010
+Stage parse      :   2.511
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::PageTurnEffect === (149/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/PageTurnEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.290
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.052
+    Stage mbc        :   0.008
+Stage parse      :   2.464
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Path === (150/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Path.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.017
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.062
+    Stage mbc        :   0.009
+Stage parse      :   3.228
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::PathConstraint === (151/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/PathConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.361
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.048
+    Stage mbc        :   0.010
+Stage parse      :   2.546
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::PropertyTransition === (152/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/PropertyTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.518
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.035
+    Stage mbc        :   0.013
+Stage parse      :   2.687
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Action === (153/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Action.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.366
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.030
+    Stage mbc        :   0.009
+Stage parse      :   2.499
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Actor === (154/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Actor.pm6
+    Stage start      :   0.000
+    Stage parse      :   5.564
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.188
+    Stage mast       :   0.291
+    Stage mbc        :   0.088
+Stage parse      :   7.428
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ActorIter === (155/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ActorIter.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.651
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.054
+    Stage mbc        :   0.007
+Stage parse      :   3.052
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Animator === (156/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Animator.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.094
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.036
+    Stage mast       :   0.064
+    Stage mbc        :   0.004
+Stage parse      :   3.514
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BinLayout === (157/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BinLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.440
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.018
+    Stage mast       :   0.029
+    Stage mbc        :   0.009
+Stage parse      :   2.603
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BlurEffect === (158/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BlurEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.407
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.016
+    Stage mast       :   0.026
+    Stage mbc        :   0.009
+Stage parse      :   2.538
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BoxLayout === (159/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BoxLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.391
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.035
+    Stage mast       :   0.071
+    Stage mbc        :   0.010
+Stage parse      :   2.620
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::BrightnessContrastEffect === (160/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/BrightnessContrastEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.303
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.049
+    Stage mbc        :   0.009
+Stage parse      :   2.479
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ClickAction === (161/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ClickAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.820
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.032
+    Stage mbc        :   0.010
+Stage parse      :   2.967
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Clone === (162/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Clone.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.687
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.037
+    Stage mbc        :   0.013
+Stage parse      :   3.058
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DeformEffect === (163/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeformEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.730
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.022
+    Stage mast       :   0.037
+    Stage mbc        :   0.009
+Stage parse      :   2.913
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DesaturateEffect === (164/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/DesaturateEffect.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.493
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.024
+    Stage mast       :   0.031
+    Stage mbc        :   0.011
+Stage parse      :   2.681
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DragAction === (165/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/DragAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.636
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.029
+    Stage mast       :   0.063
+    Stage mbc        :   0.006
+Stage parse      :   3.004
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DropAction === (166/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/DropAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.483
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.029
+    Stage mbc        :   0.009
+Stage parse      :   2.663
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::FixedLayout === (167/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/FixedLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.413
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.019
+    Stage mast       :   0.027
+    Stage mbc        :   0.009
+Stage parse      :   2.575
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::FlowLayout === (168/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/FlowLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.837
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.033
+    Stage mast       :   0.066
+    Stage mbc        :   0.010
+Stage parse      :   3.029
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.002
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::GestureAction === (169/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/GestureAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.375
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.034
+    Stage mast       :   0.083
+    Stage mbc        :   0.009
+Stage parse      :   2.596
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::GridLayout === (170/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/GridLayout.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.334
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.032
+    Stage mast       :   0.059
+    Stage mbc        :   0.010
+Stage parse      :   2.567
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::KeyframeTransition === (171/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/KeyframeTransition.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.776
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.048
+    Stage mast       :   0.059
+    Stage mbc        :   0.008
+Stage parse      :   2.997
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::PanAction === (172/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/PanAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.396
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.034
+    Stage mast       :   0.062
+    Stage mbc        :   0.006
+Stage parse      :   2.594
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.008
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::ScrollActor === (173/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/ScrollActor.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.576
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.047
+    Stage mbc        :   0.007
+Stage parse      :   2.968
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::SnapConstraint === (174/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/SnapConstraint.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.909
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.025
+    Stage mast       :   0.049
+    Stage mbc        :   0.006
+Stage parse      :   3.282
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Stage === (175/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Stage.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.147
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.075
+    Stage mbc        :   0.007
+Stage parse      :   3.553
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::TapAction === (176/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/TapAction.pm6
+    Stage start      :   0.000
+    Stage parse      :   1.436
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.021
+    Stage mast       :   0.029
+    Stage mbc        :   0.007
+Stage parse      :   2.601
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Text === (177/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Text.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.851
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.062
+    Stage mast       :   0.134
+    Stage mbc        :   0.010
+Stage parse      :   4.394
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::InputDevice === (178/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/InputDevice.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.241
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.042
+    Stage mast       :   0.067
+    Stage mbc        :   0.007
+Stage parse      :   3.675
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::DeviceManager === (179/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/DeviceManager.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.015
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.020
+    Stage mast       :   0.045
+    Stage mbc        :   0.006
+Stage parse      :   3.425
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+ === Clutter::Event === (180/180)
+Stage start      :   0.000
+
+    precomp lib/Clutter/Event.pm6
+    Stage start      :   0.000
+    Stage parse      :   2.055
+    Stage syntaxcheck:   0.000
+    Stage ast        :   0.000
+    Stage optimize   :   0.052
+    Stage mast       :   0.075
+    Stage mbc        :   0.026
+Stage parse      :   3.537
+Stage syntaxcheck:   0.000
+Stage ast        :   0.000
+Stage optimize   :   0.001
+Stage mast       :   0.003
+Stage mbc        :   0.000
+Stage moar       :   0.000
+
+real 456.68
+user 527.11
+sys 37.09
